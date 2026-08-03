@@ -1,0 +1,191 @@
+
+
+/* ── Participación de Mercado ──────────────────────────── */
+.part-hero{
+  position:relative;border-radius:12px;overflow:hidden;margin-bottom:18px;
+  background:linear-gradient(90deg,#061430 0%,#0c2454 55%,#061430 100%);
+  border:1px solid rgba(62,198,172,.15);
+  padding:18px 26px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap
+}
+
+
+.part-hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(62,198,172,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(62,198,172,.045) 1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;z-index:0
+}
+
+
+.part-hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 100% at 12% 50%,rgba(62,198,172,.14) 0%,transparent 70%);
+  pointer-events:none;z-index:0
+}
+
+
+.part-hero-left{position:relative;z-index:1;min-width:220px}
+
+
+.part-hero-eye{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:#3EC6AC;margin-bottom:4px}
+
+
+.part-hero-ttl{font-size:clamp(18px,1.8vw,26px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:3px}
+
+
+.part-hero-sub{font-size:12px;color:rgba(255,255,255,.6);font-weight:500}
+
+
+.part-hero-kpis{position:relative;z-index:1;display:flex;gap:22px;flex-wrap:wrap}
+
+@media(max-width:900px) {
+.part-hero{padding:16px 18px}
+.part-hero-kpis{width:100%;gap:16px}
+}
+
+
+
+.part-tabs{display:flex;gap:4px;padding:5px;margin-bottom:14px;background:linear-gradient(180deg,#fff,#f8fafd);border:1px solid var(--border);border-radius:14px;box-shadow:var(--sh);overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+
+.part-tab{flex:1;padding:10px 16px;border-radius:10px;border:none;background:transparent;
+  font-size:12.5px;font-weight:700;letter-spacing:.2px;color:var(--ts);cursor:pointer;user-select:none;white-space:nowrap;text-align:center;transition:color .18s ease,background .18s ease,box-shadow .2s ease,transform .15s ease;touch-action:manipulation}
+
+
+.part-tab:not(.active):hover{color:var(--brand-d);background:rgba(62,198,172,.07)}
+
+
+.part-tab.active{background:var(--navy);color:#fff;box-shadow:0 6px 16px rgba(10,10,30,.24)}
+
+
+.part-tab:active{transform:scale(.98)}
+
+
+
+.part-ptabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+
+
+
+/* Leyenda horizontal scrollable con highlight (Evolución + Todos los sectores) */
+.part-h-legend{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;padding:12px 2px 2px;-webkit-overflow-scrolling:touch}
+
+
+
+.part-pane{display:none}
+
+
+.part-pane.active{display:block;animation:fadeUp .3s ease}
+
+
+
+.part-split{display:flex;gap:16px;align-items:stretch;flex-wrap:wrap;margin-bottom:16px}
+
+
+.part-split>.part-chart-card{flex:1 1 420px;min-width:320px}
+
+
+.part-split>.part-rank-card{flex:0 1 380px;min-width:320px}
+
+
+.card.part-chart-card,.card.part-rank-card{border-radius:14px;border-top:2.5px solid rgba(62,198,172,.5);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+
+
+.card.part-chart-card:hover,.card.part-rank-card:hover{transform:translateY(-3px);box-shadow:var(--sh2);border-top-color:var(--brand)}
+
+
+.part-card-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+
+
+.part-card-sub{font-size:11px;color:var(--ts);margin-top:2px;margin-bottom:10px}
+
+@media(max-width:900px) {
+.part-split{flex-direction:column}
+.part-split>.part-chart-card,.part-split>.part-rank-card{flex:1 1 auto;min-width:0}
+}
+
+@media(max-width:600px) {
+.part-tabs,.part-seg{flex-wrap:nowrap;overflow-x:auto}
+.part-tab,.part-seg-btn{flex:0 0 auto}
+}
+
+
+
+.part-mkt-card{background:#fff;border:1px solid var(--border);border-top:2.5px solid rgba(62,198,172,.5);
+  border-radius:16px;padding:18px;box-shadow:var(--sh)}
+
+
+.part-mkt-legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+
+@media(prefers-reduced-motion:no-preference) {
+
+  #partPane-evol.active .part-chart-card{animation:fadeUp .45s ease both}
+
+  #partPane-evol.active .part-rank-card{animation:fadeUp .45s .06s ease both}
+
+  #partPane-evol.active .part-mkt-card{animation:fadeUp .5s .12s ease both}
+}
+
+
+
+/* ── Módulo de inteligencia de mercado (Por refrigerante / Por sector económico) ── */
+.pms-header{margin-bottom:14px}
+
+
+.pms-eye{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--brand-d)}
+
+
+.pms-title{font-size:clamp(17px,1.6vw,23px);font-weight:900;color:var(--navy);line-height:1.22;margin-top:4px}
+
+
+.pms-sub{font-size:12px;color:var(--ts);font-weight:500;margin-top:3px}
+
+
+
+.pms-grid{display:flex;gap:16px;align-items:stretch;flex-wrap:wrap;margin-bottom:16px}
+
+
+.pms-chart-card{flex:3 1 560px;min-width:320px;background:#fff;border:1px solid var(--border);border-top:2.5px solid rgba(62,198,172,.5);border-radius:16px;
+  box-shadow:0 8px 32px rgba(10,10,30,.10);padding:20px;transition:box-shadow .22s ease,transform .22s ease,border-color .22s ease}
+
+
+.pms-chart-card:hover{box-shadow:0 16px 44px rgba(10,10,30,.16);transform:translateY(-3px);border-top-color:var(--brand)}
+
+
+.pms-side-card{flex:1 1 300px;min-width:270px;background:#fff;border:1px solid var(--border);border-top:2.5px solid rgba(62,198,172,.28);border-radius:16px;
+  box-shadow:0 8px 32px rgba(10,10,30,.10);padding:20px;display:flex;flex-direction:column;transition:box-shadow .22s ease,transform .22s ease,border-color .22s ease}
+
+
+.pms-side-card:hover{box-shadow:0 16px 44px rgba(10,10,30,.16);transform:translateY(-3px);border-top-color:var(--brand)}
+
+@media(max-width:1300px) {
+.pms-chart-card{flex:65 1 460px}
+.pms-side-card{flex:35 1 260px}
+}
+
+@media(max-width:900px) {
+.pms-grid{flex-direction:column}
+.pms-chart-card,.pms-side-card{flex:1 1 auto;min-width:0}
+}
+
+
+
+.pms-chart-wrap{height:clamp(320px,30vw,440px)}
+
+
+
+.pms-legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+
+@media(prefers-reduced-motion:no-preference) {
+
+  #partPane-refr.active .pms-header{animation:fadeUp .45s ease both}
+
+  #partPane-refr.active .pms-chart-card{animation:fadeUp .5s .05s ease both}
+
+  #partPane-refr.active .pms-side-card{animation:fadeUp .5s .1s ease both}
+
+  #partPane-sector.active .pms-header{animation:fadeUp .45s ease both}
+
+  #partPane-sector.active .pms-chart-card{animation:fadeUp .5s .05s ease both}
+
+  #partPane-sector.active .pms-side-card{animation:fadeUp .5s .1s ease both}
+}

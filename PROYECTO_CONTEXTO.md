@@ -19,9 +19,17 @@ Proceso de trabajo = iterativo y validado paso a paso. El usuario valida cada se
 
 `C:\Users\vrodriguez\Desktop\Directorio J\`
 
-| Archivo | Uso |
+**Estructura reorganizada por vistas (agosto 2026)** — el dashboard dejó de ser un único HTML de 9000 líneas / 2.4 MB. Ahora:
+
+| Ruta | Uso |
 |---|---|
-| `Dashboard Comercial FrioPacking.html` | **App principal — el entregable final en construcción** |
+| `index.html` | **App principal — shell**: head, topbar, tabs, las 9 secciones HTML |
+| `css/base.css` | Tokens, reset, layout compartido, componentes reutilizados por 2+ vistas |
+| `css/{portada,resumen,ventas,pipeline,moventas,clientes,participacion,objetivos,organigrama}.css` | Estilos exclusivos de cada vista |
+| `js/shared.js` | Navegación (tabs), modal genérico, formatters ($MM/$K), logo |
+| `js/{portada,ventas,pipeline,moventas,clientes,participacion,objetivos,organigrama}.js` | Datos + lógica de cada vista (resumen no tiene JS propio) |
+| `img/portada-bg.jpg`, `img/logo-white.png`, `img/team/*.jpg` | Imágenes extraídas de los base64 embebidos (antes inflaban el HTML) |
+| `Dashboard Comercial FrioPacking-.html` | Versión monolítica original — conservada, ya no se edita (ver git log para el histórico) |
 | `Directorio Mayo 2026 VF.html` | Versión Frioteam (referencia de estilo, 18 MB) |
 | `Directorio 2 - Cierre a Mayo 2026.pptx` | PPT oficial Mayo 2026 — fuente autoritativa de datos |
 | `Oportunidades y ventas mayo.xlsx` | Datos pipeline + oportunidades |
@@ -88,7 +96,7 @@ Proceso de trabajo = iterativo y validado paso a paso. El usuario valida cada se
 ## Diseño y stack técnico
 
 ### Stack
-- **HTML/CSS/JS puro** — archivo único, sin frameworks, sin build tools
+- **HTML/CSS/JS puro** — sin frameworks, sin build tools, sin bundler. Multi-archivo (ver arriba), servido con `http-server` (`.claude/launch.json`, puerto 8181). Los `<link>`/`<script src>` son referencias normales de navegador, no hay paso de compilación.
 - Fuentes: `Noway` (titulares) + `Inter` (texto)
 - Logo: PNG real en `.claude/FRIOPACKING WHITE (1).png` (versión white para header oscuro)
 
@@ -171,7 +179,7 @@ Sombras: 0 2px 12px rgba(10,10,30,.08) / 0 8px 32px rgba(10,10,30,.14)
 
 ## Cómo retomar el trabajo
 
-1. Abrir `Dashboard Comercial FrioPacking.html` — es el entregable en construcción.
+1. Servir la carpeta (`npx http-server . -p 8181`, ya configurado en `.claude/launch.json`) y abrir `index.html` — es el entregable en construcción. Para editar una vista, tocar solo su `css/<vista>.css` / `js/<vista>.js`; `index.html` es el shell y rara vez cambia.
 2. Abrir `Directorio Mayo 2026 VF.html` para ver el estilo de referencia.
-3. Continuar por donde se dejó: **módulo Clientes** es el siguiente pendiente.
+3. Módulo Clientes ya está construido (concentración de cartera, top 20, Agro/No Agro). Confirmar con el usuario si queda algún pendiente de esa lista.
 4. Validar con el usuario sección por sección antes de avanzar a la siguiente.

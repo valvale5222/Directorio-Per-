@@ -1,0 +1,104 @@
+
+
+/* ──── PIPELINE PREMIUM REDESIGN ──────────────────────────── */
+.pipe-hero{position:relative;border-radius:14px;overflow:hidden;margin-bottom:20px;background:linear-gradient(90deg,#061430 0%,#0c2454 55%,#061430 100%);border:1px solid rgba(62,198,172,.15)}
+
+
+.pipe-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(62,198,172,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(62,198,172,.055) 1px,transparent 1px);background-size:52px 52px;z-index:0;pointer-events:none}
+
+
+.pipe-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 30% 50%,rgba(62,198,172,.1) 0%,transparent 70%);z-index:0;pointer-events:none}
+
+
+.pipe-hero-inner{position:relative;z-index:1;display:flex;align-items:center;gap:28px;padding:clamp(20px,1.8vw,30px) clamp(22px,2.2vw,38px);flex-wrap:wrap}
+
+
+.pipe-hero-left{flex:1;min-width:200px}
+
+
+.pipe-hero-eye{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--brand);margin-bottom:8px}
+
+
+.pipe-hero-title{font-size:clamp(18px,1.8vw,26px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:6px}
+
+
+.pipe-hero-sub{font-size:12px;color:rgba(255,255,255,.5);font-weight:400}
+
+
+.pipe-hero-right{display:flex;gap:0;border-left:1px solid rgba(255,255,255,.08);padding-left:28px;flex-wrap:wrap}
+
+
+.funnel-v2{display:flex;flex-direction:column;gap:6px}
+
+
+.pipe-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+
+
+.pipe-tab{padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:11px;font-weight:600;cursor:pointer;transition:.15s;background:#fff;color:var(--ts);white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+
+
+.pipe-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+
+
+.pipe-tab:not(.active):hover{border-color:var(--brand);color:var(--brand-d)}
+
+
+.pipe-tab.active .pt-count{background:rgba(255,255,255,.18);color:#fff}
+
+
+/* Vistas internas (mini-tabs) del módulo Pipeline */
+.pipe-view{display:none;animation:fadeUp .35s ease}
+
+
+.pipe-view.active{display:block}
+
+
+/* Panel de filtros — Probabilidad / Estado */
+.pf-panel{background:var(--card);border:1px solid var(--border);border-radius:12px;
+  box-shadow:var(--sh);padding:14px 18px;margin-bottom:20px;display:flex;flex-direction:column;gap:12px}
+
+
+.pf-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+
+.pf-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;
+  color:var(--ts);flex-shrink:0;min-width:82px}
+
+
+.pf-chips{display:flex;gap:6px;flex-wrap:wrap}
+
+
+.pf-sep-h{height:1px;background:var(--border)}
+
+@media(max-width:900px) {
+.pipe-hero-right{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px;width:100%}
+}
+
+@media(max-width:600px) {
+.pf-lbl{min-width:100%}
+}
+
+
+
+/* Cinco cards de estado/etapa — Forecast */
+.pf-stage-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:20px}
+
+@media(max-width:1100px) {
+.pf-stage-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:700px) {
+.pf-stage-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:500px) {
+.pf-stage-grid{grid-template-columns:1fr}
+}
+
+
+.pipe-fs-grid{grid-template-columns:1.7fr 1fr}
+
+@media(max-width:900px) {
+
+  .pipe-fs-grid{grid-template-columns:1fr 1fr}
+}

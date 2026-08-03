@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Comercial · FrioPacking</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/portada.css">
+  <link rel="stylesheet" href="css/resumen.css">
+  <link rel="stylesheet" href="css/ventas.css">
+  <link rel="stylesheet" href="css/pipeline.css">
+  <link rel="stylesheet" href="css/moventas.css">
+  <link rel="stylesheet" href="css/clientes.css">
+  <link rel="stylesheet" href="css/participacion.css">
+  <link rel="stylesheet" href="css/objetivos.css">
+  <link rel="stylesheet" href="css/organigrama.css">
+</head>
+<body>
+<div class="app">
+
+<header>
+  <div class="hdr-top">
+    <img class="hdr-logo" id="hdrLogo" alt="FrioPacking">
+    <div class="hdr-titles">
+      <span class="t1">Informe Ejecutivo</span>
+      <span class="t2">Desempeño actual, pipeline de oportunidades y objetivos estratégicos</span>
+    </div>
+  </div>
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-s="portada">🏠 Portada</div>
+    <div class="tab" data-s="resumen">📋 Resumen</div>
+    <div class="tab" data-s="ventas">💰 Ventas</div>
+    <div class="tab" data-s="pipeline">🎯 Pipeline</div>
+    <div class="tab" data-s="objetivos">🏆 Objetivos</div>
+    <div class="tab" data-s="moventas">⚙️ Mano de Obra</div>
+    <div class="tab" data-s="participacion">📊 Participación</div>
+    <div class="tab" data-s="clientes">👥 Clientes</div>
+    <div class="tab" data-s="organigrama">🏢 Organigrama</div>
+  </div>
+</header>
+
+<!-- ============ PORTADA ============ -->
+<section class="section active" id="portada">
+  <div class="cover">
+    <div class="cover-bgimg" id="coverImg" style="background-image:url('img/portada-bg.jpg')"></div>
+    <div class="cover-overlay"></div>
+    <button class="changeimg" onclick="document.getElementById('imgInput').click()">
+      <svg class="svgic"><use href="#i-image"/></svg> Cambiar imagen
+    </button>
+    <input type="file" id="imgInput" accept="image/*" style="display:none">
+    <div class="cover-inner">
+      <div class="cover-eyebrow">FrioPacking · Gerencia Comercial</div>
+      <div class="cover-title">DIRECTORIO – GERENCIA COMERCIAL</div>
+      <div class="cover-period">Enero – Junio 2026</div>
+      <div class="cover-cards">
+        <div class="ccard" onclick="go('ventas')">
+          <div class="cc-lbl">💰 Ventas acum. 2026</div>
+          <div class="cc-val">$28.26<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">MM</span></div>
+          <div class="cc-sub">94.20% de meta $30MM · +48.55% vs 2025</div>
+          <div class="cc-go">Ver ventas <svg class="svgic"><use href="#i-arr"/></svg></div>
+        </div>
+        <div class="ccard" onclick="go('clientes')">
+          <div class="cc-lbl">👥 Clientes activos</div>
+          <div class="cc-val">73</div>
+          <div class="cc-sub">13 clientes nuevos · Periodo 2026</div>
+          <div class="cc-go">Ver cartera <svg class="svgic"><use href="#i-arr"/></svg></div>
+        </div>
+        <div class="ccard" onclick="go('pipeline')">
+          <div class="cc-lbl">🎯 Win Rate</div>
+          <div class="cc-val">68% <span style="font-size:clamp(13px,1.2vw,17px);font-weight:600;opacity:.7">PR 2026</span></div>
+          <div class="cc-sub"><span id="coverPipeCount">&mdash;</span> <span >oportunidades activas</span></div>
+          <div class="cc-go">Ver pipeline <svg class="svgic"><use href="#i-arr"/></svg></div>
+        </div>
+        <div class="ccard obj-card" onclick="go('objetivos','o2026')">
+          <div class="cc-lbl">🏆 Objetivos estratégicos</div>
+          <div class="cc-val">2<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">/5 cumplido</span></div>
+          <div class="cc-sub">3 en seguimiento · Revisión Ene–Jun 2026</div>
+          <div class="cc-go">Ver detalle <svg class="svgic"><use href="#i-arr"/></svg></div>
+          <canvas id="coverRing" width="64" height="64" style="display:none"></canvas>
+        </div>
+      </div>
+      <div class="cover-brand">
+        <img id="coverBrandLogo" class="cb-logo-fp" alt="FrioPacking">
+        <span class="cb-sep">Una empresa perteneciente al</span>
+        <img id="coverBrandLogo2" class="cb-logo-fp" alt="FrioPackingGroup" src="GRUPO FRIOPACKING WHITE.png">
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESUMEN (AGENDA) ============ -->
+<section class="section" id="resumen">
+  <div class="cli-hero">
+    <div class="cli-hero-left">
+      <span class="cli-hero-icon">📋</span>
+      <div>
+        <div class="cli-hero-eye">Directorio Ejecutivo &middot; Resumen</div>
+        <div class="cli-hero-ttl">Agenda de Revisi&oacute;n</div>
+      </div>
+    </div>
+    <div class="cli-hero-right"></div>
+  </div>
+  <div class="agenda">
+
+    <div class="ag-card" onclick="go('ventas','y2026')">
+      <div class="ag-num">01</div>
+      <span class="ag-icon">💰</span>
+      <div class="ag-cat">Estado real · 2026</div>
+      <div class="ag-metric">$28.26MM</div>
+      <div class="ag-title">Ventas Actuales</div>
+      <div class="ag-ctx">Estado real de ventas a junio 2026, detalle operativo y lectura comercial del periodo.</div>
+      <div class="ag-cta">Abrir Ventas 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
+    </div>
+
+    <div class="ag-card" onclick="go('ventas','evol')">
+      <div class="ag-num">02</div>
+      <span class="ag-icon">📈</span>
+      <div class="ag-cat">Márgen Acumulado · 2026</div>
+      <div class="ag-metric">15.32%</div>
+      <div class="ag-title">Ventas &amp; Márgenes</div>
+      <div class="ag-ctx">Evolución acumulada de ventas y márgenes a junio, comparando 2026 vs 2025 y 2024.</div>
+      <div class="ag-cta">Abrir Evolución <svg class="svgic"><use href="#i-arr"/></svg></div>
+    </div>
+
+    <div class="ag-card" onclick="go('objetivos','o2026')">
+      <div class="ag-num">03</div>
+      <span class="ag-icon">🏆</span>
+      <div class="ag-cat">Status · KPIs</div>
+      <div class="ag-metric">2 / 5</div>
+      <div class="ag-title">Objetivos / KPIs</div>
+      <div class="ag-ctx">Cumplimiento a junio y avance de objetivos estratégicos 2026.</div>
+      <div class="ag-cta">Abrir Objetivos 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
+    </div>
+
+    <div class="ag-card" onclick="go('moventas')">
+      <div class="ag-num">04</div>
+      <span class="ag-icon">⚙️</span>
+      <div class="ag-cat">Mano de obra &middot; Productividad 2026</div>
+      <div class="ag-metric">1.84%</div>
+      <div class="ag-title">Costo del area comercial / venta</div>
+      <div class="ag-ctx">Costo del area de arquitectura: 50%</div>
+      <div class="ag-cta">Abrir Mano de Obra <svg class="svgic"><use href="#i-arr"/></svg></div>
+    </div>
+
+    <div class="ag-card" onclick="go('objetivos','plan')">
+      <div class="ag-num">05</div>
+      <span class="ag-icon">🎯</span>
+      <div class="ag-cat">Plan de Acción</div>
+      <div class="ag-metric">3 SMART</div>
+      <div class="ag-title">Objetivos Jul-Sep</div>
+      <div class="ag-ctx">Mejoramiento continuo e iniciativas comerciales para julio-septiembre.</div>
+      <div class="ag-cta">Abrir Plan de Acción <svg class="svgic"><use href="#i-arr"/></svg></div>
+    </div>
+
+    <div class="ag-card" onclick="go('participacion')">
+      <div class="ag-num">06</div>
+      <span class="ag-icon">📊</span>
+      <div class="ag-cat">Analisis de Mercado · 2026</div>
+      <div class="ag-metric">44.98%</div>
+      <div class="ag-title">Tamaño del mercado de la refrigeracion</div>
+      <div class="ag-ctx">Friopacking lidera el periodo 2025–2026, ocupa la posición #1 y supera por +24.92 pp a Energy Project Group.</div>
+      <div class="ag-cta">Abrir Participación <svg class="svgic"><use href="#i-arr"/></svg></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ VENTAS ============ -->
+<section class="section" id="ventas">
+
+  <!-- HERO VENTAS -->
+  <div class="vt-hero">
+    <div class="vt-hero-inner">
+      <div class="vt-hero-left">
+        <div class="vt-hero-ttl">Evoluci&oacute;n de ventas</div>
+        <div class="vt-hl">KPI Principal &middot; Meta Anual 2026</div>
+        <div class="vt-hv">$28.26<span class="vt-hv-unit">MM</span></div>
+      </div>
+      <div class="vt-hero-right">
+        <div class="vt-hkpi">
+          <div class="vt-hkl">Avance de meta</div>
+          <div class="vt-hkv" style="color:#7dd3fc">94.2%</div>
+          <div class="vt-hks" style="color:#4ade80">&#8593; +48.55% vs 2025</div>
+        </div>
+        <div class="vt-hkpi">
+          <div class="vt-hkl">Proyectos adjudicados</div>
+          <div class="vt-hkv">41</div>
+          <div class="vt-hks" style="color:#4ade80">&#8593; +13.89% vs 2025</div>
+        </div>
+        <!-- Win Rate PR 2026 (económico): Importe PR adjudicado 2026 ($26,963,097 — ver tipoAgg.PR en la dona "Por Tipo de Venta") /
+             (adjudicado + perdido). Perdido PR 2026: 11 oportunidades, $12,687,570.87 (fuente: Excel "PIPELINE 01.07", pestaña PIPELINE, Estado=Perdido;
+             incluye Pura Fruits · Ampliación de planta de Arándanos · $850,000, agregado en la actualización de julio 2026).
+             26963097 / (26963097 + 12687570.87) = 68.00% -->
+        <div class="vt-hkpi">
+          <div class="vt-hkl">Win Rate PR 2026</div>
+          <div class="vt-hkv">68.00%</div>
+          <div class="vt-hks" style="color:rgba(255,255,255,.5)">11 perdidos &middot; $12.69MM</div>
+        </div>
+        <div class="vt-hkpi">
+          <div class="vt-hkl">Margen ponderado</div>
+          <div class="vt-hkv" id="vtHeroMargenVal" style="color:#EF9F27">15.32%</div>
+          <div class="vt-hks" id="vtHeroMargenSub" style="color:#f87171">&#8595; Meta 18% &middot; &minus;2.68 pp</div>
+        </div>
+      </div>
+    </div>
+    <div class="vt-hero-prog-wrap">
+      <div class="vt-hero-prog-track">
+        <div class="vt-hero-prog-fill" id="vtHeroFill" style="width:0%"></div>
+      </div>
+      <div class="vt-hero-prog-lbl">
+        <span>$0</span>
+        <span class="vt-hero-prog-mid">Vendido: $28.26MM &middot; Brecha: $1.74MM</span>
+        <span>Meta: $30MM</span>
+      </div>
+    </div>
+    <div class="vt-hero-msg">
+      Ventas Ene&ndash;Jun 2026 crecen <strong style="color:#fff">+48.55%</strong> vs Ene&ndash;Jun 2025
+    </div>
+  </div>
+
+  <!-- Tabs internos de Ventas -->
+  <div class="vt-tabs" id="vtTabs">
+    <div class="vt-tab-btn active" data-vtview="y2026"><span class="vt-tab-ico">&#129534;</span>Ventas 2026</div>
+    <div class="vt-tab-btn" data-vtview="evol"><span class="vt-tab-ico">&#128200;</span>Evoluci&oacute;n de Ventas</div>
+    <div class="vt-tab-btn" data-vtview="analisis"><span class="vt-tab-ico">&#128269;</span>An&aacute;lisis de Ventas</div>
+  </div>
+
+  <!-- TAB 1 · VENTAS 2026 — Top 20 clientes 2026 + 2 donas -->
+  <div class="vt-view active" data-vtview="y2026">
+  <div class="vt-top10-grid">
+    <!-- Bloque izquierdo: Top 20 tabla (paginada de 10 en 10) -->
+    <!-- IDs "top10*" se conservan por compatibilidad con el resto del script; el texto visible dice Top 20 -->
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:16px 18px 12px;border-bottom:1px solid var(--border)">
+        <div class="vt-card-ttl">Top 20 Clientes &middot; 2026</div>
+        <div class="vt-card-sub">Por importe facturado Ene&ndash;Jun 2026</div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="top10-tbl" id="top10Tbl">
+          <thead>
+            <tr>
+              <th style="width:28px">#</th>
+              <th>Cliente</th>
+              <th class="r">Importe 2026</th>
+              <th class="r">Margen %</th>
+              <th>Zona</th>
+            </tr>
+          </thead>
+          <tbody id="top10Body"></tbody>
+        </table>
+      </div>
+      <div class="vt26-pager" style="padding:8px 14px;border-top:1px solid var(--border);margin-top:0">
+        <button id="top10Prev" disabled>&#8592; 1&ndash;10</button>
+        <span class="pgi" id="top10PageInfo"></span>
+        <button id="top10Next">11&ndash;20 &#8594;</button>
+      </div>
+      <div style="padding:8px 14px;font-size:10px;color:var(--ts);border-top:1px solid var(--border);display:flex;gap:14px;flex-wrap:wrap">
+        <span><span style="color:#16a34a;font-weight:700">■</span> &ge;18% Saludable</span>
+        <span><span style="color:#d97706;font-weight:700">■</span> 12–18% Alerta</span>
+        <span><span style="color:#dc2626;font-weight:700">■</span> &lt;12% Cr&iacute;tico</span>
+      </div>
+    </div>
+    <!-- Dona 1: Participación Top 20 clientes -->
+    <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+      <div style="padding:13px 15px 9px;border-bottom:1px solid var(--border);flex-shrink:0">
+        <div class="vt-card-ttl">Participaci&oacute;n Top 20</div>
+        <div class="vt-card-sub">vs resto &middot; Ene&ndash;Jun 2026</div>
+      </div>
+      <div class="vt-dona-outer">
+        <div class="vt-dona-box">
+          <canvas id="chTop10Dona"></canvas>
+        </div>
+      </div>
+      <div id="chTop10Leg" class="vt-pie-leg"></div>
+      <div class="vt-tipo-total" id="vtTop10Total"></div>
+    </div>
+    <!-- Dona 2: Por Tipo de Venta 2026 -->
+    <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+      <div style="padding:12px 14px 8px;border-bottom:1px solid var(--border);flex-shrink:0">
+        <div class="vt-card-ttl">Por Tipo de Venta</div>
+        <div class="vt-card-sub">Participaci&oacute;n por importe facturado &mdash; Ene&ndash;Jun 2026</div>
+      </div>
+      <!-- Dona — protagonismo equivalente a "Participación Top 20", ligeramente mayor vía modificador propio -->
+      <div class="vt-dona-outer">
+        <div class="vt-dona-box vt-dona-box--tipo">
+          <canvas id="chTipoVenta"></canvas>
+        </div>
+      </div>
+      <!-- Encabezado de columnas — fijo y separado del cuerpo, no sticky -->
+      <div class="vt-tipo-cols">
+        <span class="vt-tipo-col-tipo">Tipo</span>
+        <span class="vt-tipo-col-imp">Importe</span>
+        <span class="vt-tipo-col-pct">%&nbsp;Imp.</span>
+        <span class="vt-tipo-col-cant">Cant.</span>
+      </div>
+      <!-- Cuerpo scrolleable — 1 categoría visible por vez (también funciona como leyenda clicable) -->
+      <div class="vt-tipo-scroll" id="chTipoLeg"></div>
+      <!-- Fila de total — fija, fuera del scroll -->
+      <div class="vt-tipo-totalrow" id="vtTipoTotalRow"></div>
+      <div class="vt-tipo-total" id="vtTipoTotal"></div>
+    </div>
+  </div>
+  </div>
+  <!-- /TAB 1 · VENTAS 2026 (continúa más abajo con Detalle de Ventas 2026) -->
+
+  <!-- TAB 2 · EVOLUCIÓN DE VENTAS — filtro de segmento + charts históricos 2021–2026 -->
+  <div class="vt-view" data-vtview="evol">
+  <!-- Filter bar — toggle multi-select -->
+  <div class="vt-fbar">
+    <span class="vt-fbar-lbl">Segmento</span>
+    <div class="vt-fbase">
+      <span class="vt-fbase-dot"></span>
+      Fr&iacute;o &mdash; Base del negocio
+    </div>
+    <div class="vt-fbar-sep"></div>
+    <div class="vt-tog" id="vtTogSrv" onclick="vtToggle('srv',this)">
+      <span class="vt-sw"></span>
+      Venta de Servicios (VS + VSI)
+    </div>
+    <div class="vt-tog" id="vtTogOocc" onclick="vtToggle('oocc',this)">
+      <span class="vt-sw"></span>
+      OO.CC y EE.MM
+    </div>
+    <div id="vtOoccNote" style="display:none" class="vt-oocc-note">Venta y margen ajustados sin OO.CC y EE.MM</div>
+  </div>
+
+  <!-- Charts grid — 2x2: fila 1 ventas (línea + evolución anual), fila 2 margen (línea + margen anual) -->
+  <div id="vtChartsGrid" class="grid2">
+    <div class="card vt-chart-card" onclick="openVtVentas()">
+      <div class="vt-card-head">
+        <div>
+          <div class="vt-card-ttl">Ventas acumuladas &middot; 2021&ndash;2026</div>
+          <div class="vt-card-sub">US$ MM &mdash; evoluci&oacute;n acumulada mensual por a&ntilde;o</div>
+        </div>
+        <span class="vt-expand">&#8599; Ampliar</span>
+      </div>
+      <div class="vt-legend" id="vtLeg1"></div>
+      <div class="chart-wrap" style="height:clamp(220px,18vw,300px)"><canvas id="chVentasAcum" data-vt-fmt="mm"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="vt-card-ttl" style="margin-bottom:2px">Evoluci&oacute;n de ventas acumuladas &middot; 2021&ndash;2026</div>
+      <div class="vt-card-sub" style="margin-bottom:14px">Cierre anual por a&ntilde;o &middot; 2026 YTD Ene&ndash;Jun</div>
+      <div class="chart-wrap" style="height:clamp(220px,18vw,300px)"><canvas id="chVentasAnualBar" data-vt-fmt="mm"></canvas></div>
+    </div>
+    <div class="card vt-chart-card" onclick="openVtMargen()">
+      <div class="vt-card-head">
+        <div>
+          <div class="vt-card-ttl">Margen ponderado acumulado &middot; 2021&ndash;2026</div>
+          <div class="vt-card-sub">% &mdash; margen ponderado acumulado por a&ntilde;o</div>
+        </div>
+        <span class="vt-expand">&#8599; Ampliar</span>
+      </div>
+      <div class="vt-legend" id="vtLeg2"></div>
+      <div class="chart-wrap" style="height:clamp(220px,18vw,300px)"><canvas id="chMargenAcum" data-vt-fmt="pct"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="vt-card-head" style="margin-bottom:8px">
+        <div>
+          <div class="vt-card-ttl">M&aacute;rgenes acumulados por a&ntilde;o &middot; 2021&ndash;2026</div>
+          <div class="vt-card-sub">Margen ponderado de cierre anual &middot; 2026 YTD Ene&ndash;Jun</div>
+        </div>
+        <span style="font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:20px;background:#fef3c7;color:#d97706;white-space:nowrap;border:1px solid rgba(217,119,6,.25);margin-top:2px">&#9472; Meta 18%</span>
+      </div>
+      <div class="chart-wrap" style="height:clamp(220px,18vw,300px)"><canvas id="chMargenAnualProgress"></canvas></div>
+    </div>
+  </div>
+
+  <!-- OO.CC nodata note -->
+  <div id="vtNoData" style="display:none">
+    <div class="vt-nodata">
+      <div class="vt-nodata-ico">&#9432;</div>
+      <div>
+        <div class="vt-nodata-ttl">Sin datos hist&oacute;ricos OO.CC</div>
+        <div class="vt-nodata-txt">El segmento OO.CC y EE.MM no cuenta con registros en el per&iacute;odo 2021&ndash;2026. Los gr&aacute;ficos reflejan el total disponible.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- /TAB 2 · EVOLUCIÓN DE VENTAS -->
+
+  <!-- TAB 3 · ANÁLISIS DE VENTAS — estacionalidad + análisis detallado -->
+  <div class="vt-view" data-vtview="analisis">
+  <!-- SECCIÓN 2: ANÁLISIS DE ESTACIONALIDAD -->
+  <div class="sec-head" style="margin-top:0">
+    <h1>An&aacute;lisis de Estacionalidad</h1>
+    <span class="sub">Patrones recurrentes de demanda a lo largo del a&ntilde;o &middot; 2021&ndash;2026</span>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <div class="vt-card-head" style="margin-bottom:12px">
+      <div>
+        <div class="vt-card-ttl">Mapa de Calor &middot; Estacionalidad 2021&ndash;2026</div>
+        <div class="vt-card-sub">Importe mensual facturado por a&ntilde;o &middot; US$ MM &middot; zona seleccionada</div>
+      </div>
+      <div class="zone-filter">
+        <button class="zone-btn active" data-z="total" onclick="hmapSetZone(this)">Todas</button>
+        <button class="zone-btn" data-z="norte" onclick="hmapSetZone(this)">Norte</button>
+        <button class="zone-btn" data-z="centro" onclick="hmapSetZone(this)">Centro</button>
+        <button class="zone-btn" data-z="sur" onclick="hmapSetZone(this)">Sur</button>
+      </div>
+    </div>
+    <div id="hmapGrid" style="padding-bottom:4px"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-top:12px;font-size:10px;color:#94a3b8;justify-content:flex-end">
+      <span>Menor</span>
+      <div style="display:flex;height:8px;border-radius:4px;overflow:hidden;width:120px;box-shadow:0 1px 4px rgba(10,10,30,.1)" id="hmapScaleBar"></div>
+      <span>Mayor</span>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:0">
+    <div class="card">
+      <div class="vt-card-ttl" style="margin-bottom:2px">Estacionalidad promedio</div>
+      <div class="vt-card-sub" style="margin-bottom:14px">Distribuci&oacute;n t&iacute;pica del a&ntilde;o (2021&ndash;2026)</div>
+      <div class="chart-wrap" style="height:clamp(260px,22vw,390px)"><canvas id="chSeasAvg"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="vt-card-ttl" style="margin-bottom:2px">Concentraci&oacute;n por trimestre</div>
+      <div class="vt-card-sub" style="margin-bottom:14px">Peso de cada trimestre &middot; promedio hist&oacute;rico 2021&ndash;2026</div>
+      <div class="chart-wrap" style="height:clamp(260px,22vw,390px)"><canvas id="chSeasQ"></canvas></div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: ANÁLISIS DETALLADO 2021–2026 -->
+  <div class="sec-head" style="margin-top:28px">
+    <h1>An&aacute;lisis Detallado 2021&ndash;2026</h1>
+    <span class="sub">Composici&oacute;n comercial y rentabilidad del negocio</span>
+  </div>
+
+  <div class="grid2" style="margin-bottom:0">
+    <div class="card card-analyt" onclick="openAD3Ref()">
+      <div class="vt-card-head" style="margin-bottom:8px">
+        <div>
+          <div class="vt-card-ttl">An&aacute;lisis por Refrigerante</div>
+          <div class="vt-card-sub">Fre&oacute;n &middot; Otros &mdash; participaci&oacute;n en ventas &middot; 2021&ndash;2026</div>
+        </div>
+        <span class="vt-expand">&#8599; Ampliar</span>
+      </div>
+      <div class="chart-wrap" style="height:clamp(260px,21vw,360px)"><canvas id="chRef"></canvas></div>
+    </div>
+    <div class="card card-analyt" onclick="openAD3Tcv()">
+      <div class="vt-card-head" style="margin-bottom:8px">
+        <div>
+          <div class="vt-card-ttl">An&aacute;lisis por Tipo de Venta</div>
+          <div class="vt-card-sub">Participaci&oacute;n % por importe facturado &middot; 2021&ndash;2026</div>
+        </div>
+        <span class="vt-expand">&#8599; Ampliar</span>
+      </div>
+      <div class="chart-wrap" style="height:clamp(260px,21vw,360px)"><canvas id="chTcv"></canvas></div>
+    </div>
+  </div>
+  </div>
+  <!-- /TAB 3 · ANÁLISIS DE VENTAS -->
+
+  <!-- TAB 1 · VENTAS 2026 (continuación) — SECCIÓN 4: DETALLE DE VENTAS 2026 -->
+  <div class="vt-view active" data-vtview="y2026">
+  <div class="sec-head" style="margin-top:28px">
+    <h1>Detalle de Ventas 2026</h1>
+    <span class="sub">Registros individuales Enero &ndash; Junio 2026</span>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:18px">
+    <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div>
+        <div class="vt-card-ttl">Operaciones comerciales 2026</div>
+        <div class="vt-card-sub" id="vt26Info">83 operaciones &middot; Total: $28.26MM &middot; 15 por p&aacute;gina</div>
+      </div>
+      <input class="vt26-search" id="vt26Search" placeholder="Buscar por cliente…" style="max-width:260px;border-radius:8px;margin:0;padding:7px 12px">
+    </div>
+    <div class="vt26-wrap">
+      <table class="vt26-tbl" id="vt26Tbl">
+        <thead>
+          <tr>
+            <th data-col="0">Mes <span class="sic">↕</span></th>
+            <th data-col="1">Cliente <span class="sic">↕</span></th>
+            <th data-col="2">Zona <span class="sic">↕</span></th>
+            <th data-col="3" class="r">Importe <span class="sic">↕</span></th>
+            <th data-col="4" class="r">Margen % <span class="sic">↕</span></th>
+          </tr>
+        </thead>
+        <tbody id="vt26Body"></tbody>
+      </table>
+    </div>
+    <div class="vt26-pager" style="padding:8px 14px">
+      <button id="vt26Prev" disabled>&#8592; Anterior</button>
+      <span class="pgi" id="vt26PagInfo"></span>
+      <button id="vt26Next">Siguiente &#8594;</button>
+    </div>
+  </div>
+  </div>
+  <!-- /TAB 1 · VENTAS 2026 -->
+
+</section>
+
+<!-- ============ PIPELINE ============ -->
+<section class="section" id="pipeline">
+
+  <!-- Hero Header (fijo — no reacciona a filtros ni a la etapa seleccionada) -->
+  <div class="pipe-hero">
+    <div class="pipe-hero-inner">
+      <div class="pipe-hero-left">
+        <div class="pipe-hero-eye">Pipeline Comercial &middot; 2026</div>
+        <h2 class="pipe-hero-title">Pipeline de Oportunidades</h2>
+        <div class="pipe-hero-sub">Embudo comercial, forecast mensual y detalle de clientes por etapa</div>
+      </div>
+      <div class="pipe-hero-right" id="pipeHeroKpis" style="align-items:center"></div>
+    </div>
+  </div>
+
+  <!-- Mini-tabs internos -->
+  <div class="pipe-tabs" id="pipeViewTabs">
+    <div class="pipe-tab active" data-view="resumen">&#128202; Resumen Embudo</div>
+    <div class="pipe-tab" data-view="forecast">&#128200; Forecast</div>
+    <div class="pipe-tab" data-view="clientes">&#128193; Clientes por Etapa</div>
+  </div>
+
+  <!-- ===== VISTA 1 &middot; RESUMEN EMBUDO ===== -->
+  <div class="pipe-view active" id="pipeViewResumen">
+    <div class="kpis k4" id="pipeKpiFixed" style="margin-bottom:20px"></div>
+    <div class="grid2 pipe-fs-grid">
+      <div class="card">
+        <div class="card-h" style="font-size:14px;font-weight:700;margin-bottom:2px">Embudo de Oportunidades</div>
+        <div style="font-size:11px;color:var(--ts);margin-bottom:14px">Estado actual &middot; cantidad e importe total</div>
+        <div class="funnel-v2" id="funnelV2"></div>
+      </div>
+      <div class="card" id="pipeStageDetailCard">
+        <div id="pipeStageDetail"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VISTA 2 &middot; FORECAST ===== -->
+  <div class="pipe-view" id="pipeViewForecast">
+    <div class="pf-panel">
+      <div class="pf-row">
+        <span class="pf-lbl">Probabilidad</span>
+        <div class="pf-chips" id="pfProb"></div>
+      </div>
+      <div class="pf-sep-h"></div>
+      <div class="pf-row">
+        <span class="pf-lbl">Estado</span>
+        <div class="pf-chips" id="pfEstado"></div>
+      </div>
+      <div class="pf-sep-h"></div>
+      <div class="pf-row">
+        <span class="pf-lbl">Mes de cierre</span>
+        <select id="pfMes" style="padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--tm);background:#fff;cursor:pointer;outline:none"></select>
+      </div>
+    </div>
+
+    <div class="kpis k4" id="pipeKpiForecast" style="margin-bottom:20px"></div>
+
+    <div class="grid2 pipe-fs-grid">
+      <div class="card">
+        <div class="vt-card-ttl">Forecast mensual por etapa</div>
+        <div class="vt-card-sub" style="margin-bottom:14px">Importe de oportunidades seg&uacute;n mes estimado de cierre</div>
+        <div class="chart-wrap" style="height:clamp(260px,22vw,360px)"><canvas id="chPipeSeas"></canvas></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:14px 16px 10px">
+          <div class="vt-card-ttl">Resumen mensual</div>
+          <div class="vt-card-sub" id="pipeForecastTblInfo"></div>
+        </div>
+        <div class="vt26-wrap" style="max-height:360px;border-radius:0;border-left:none;border-right:none;border-bottom:none;flex:1">
+          <table class="vt26-tbl" style="font-size:11px">
+            <thead>
+              <tr>
+                <th>Mes</th>
+                <th class="r">Oport.</th>
+                <th class="r">Importe</th>
+                <th>Etapa dominante</th>
+                <th class="r">Prob.</th>
+              </tr>
+            </thead>
+            <tbody id="pipeForecastTblBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-stage-grid" id="pfStageGrid"></div>
+  </div>
+
+  <!-- ===== VISTA 3 &middot; CLIENTES POR ETAPA ===== -->
+  <div class="pipe-view" id="pipeViewClientes">
+    <div class="pf-panel" style="flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px">
+      <input class="vt26-search" id="pipeClienteSearch" placeholder="Buscar por cliente o proyecto…" style="max-width:280px;border-radius:10px;margin:0;padding:9px 14px;flex-shrink:0">
+      <span class="pf-lbl" style="min-width:auto">Mes</span>
+      <select id="pipeClienteMes" style="padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--tm);background:#fff;cursor:pointer;outline:none"></select>
+      <div class="pipe-tabs" id="pipeClienteTabs" style="margin-bottom:0;flex:1"></div>
+    </div>
+    <div id="pipeEtapaGroups"></div>
+  </div>
+
+</section>
+
+<!-- ============ MANO DE OBRA ============ -->
+<section class="section" id="moventas">
+
+  <div class="mo3-hero">
+    <div class="mo3-hero-in">
+      <div class="mo3-hero-eye">Productividad Operativa</div>
+      <div class="mo3-hero-ttl">Mano de Obra y generaci&oacute;n de margen</div>
+      <div class="mo3-hero-sub">Evoluci&oacute;n de ventas, margen comercial y costo de mano de obra &middot; 2024&ndash;Junio 2026</div>
+    </div>
+  </div>
+
+  <div class="mo3-frame">
+    <div class="mo3-frame-bg" id="moFrameBg"></div>
+    <div class="mo3-frame-overlay"></div>
+    <div class="mo3-frame-in">
+
+      <div class="mo3-tabs" id="moTabs">
+        <div class="mo3-tab-btn active" data-motab="com">Comercial</div>
+        <div class="mo3-tab-btn" data-motab="arq">Arquitectura</div>
+      </div>
+
+      <div class="mo3-panels">
+      <div class="mo3-view active" data-motab="com">
+    <div class="mo2-card mo2-com">
+      <div class="mo2-card-hd"><span class="mo2-card-name">Comercial</span></div>
+      <div class="mo2-table">
+        <div class="mo2-row mo2-row-head">
+          <div class="mo2-lbl">Indicador</div>
+          <div class="mo2-col">2024<span>Ene&ndash;Dic</span></div>
+          <div class="mo2-col">2025<span>Ene&ndash;Dic</span></div>
+          <div class="mo2-col mo2-col-hl">2026<span>Ene&ndash;Jun</span></div>
+          <div class="mo2-col mo2-col-hl">2026<span>Jul&ndash;Dic</span></div>
+          <div class="mo2-col mo2-col-hl"><span>INCREMENTO %</span></div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Venta</div>
+          <div class="mo2-cell">$15.45MM</div>
+          <div class="mo2-cell">$34.96MM</div>
+          <div class="mo2-cell mo2-col-hl">$28.26MM</div>
+          <div class="mo2-cell mo2-col-hl">$36.26MM</div>
+          <div class="mo2-cell mo2-col-hl">3.71%</div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Margen Bruto</div>
+          <div class="mo2-cell">15.30%</div>
+          <div class="mo2-cell">15.87%</div>
+          <div class="mo2-cell">15.27%</div>
+          <div class="mo2-cell">15.60%</div>
+          <div class="mo2-cell"></div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Dolares</div>
+          <div class="mo2-cell">$2,363,110</div>
+          <div class="mo2-cell">$5,548,519</div>
+          <div class="mo2-cell">$4,315,402</div>
+          <div class="mo2-cell">$5,656,663</div>
+          <div class="mo2-cell">1.95%</div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Colaboradores</div>
+          <div class="mo2-cell">7</div>
+          <div class="mo2-cell">9</div>
+          <div class="mo2-cell">12</div>
+          <div class="mo2-cell">11</div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">% Costo del area comercial</div>
+          <div class="mo2-cell">$528,886</div>
+          <div class="mo2-cell">$668,987</div>
+          <div class="mo2-cell">$333,893</div>
+          <div class="mo2-cell">$667,785</div>
+        </div>
+        <div class="mo2-row mo2-row-main">
+          <div class="mo2-lbl">Costo / Venta %</div>
+          <div class="mo2-cell">3.42%</div>
+          <div class="mo2-cell">1.91%</div>
+          <div class="mo2-cell mo2-col-hl">1.18%</div>
+          <div class="mo2-cell mo2-col-hl">1.84%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mo3-view" data-motab="arq">
+    <div class="mo2-card mo2-arq">
+      <div class="mo2-card-hd"><span class="mo2-card-name">Arquitectura</span></div>
+      <div class="mo2-table">
+        <div class="mo2-row mo2-row-head">
+          <div class="mo2-lbl">Indicador</div>
+          <div class="mo2-col">2024<span>Ene&ndash;Dic</span></div>
+          <div class="mo2-col">2025<span>Ene&ndash;Dic</span></div>
+          <div class="mo2-col mo2-col-hl">2026<span>Ene&ndash;Jun</span></div>
+          <div class="mo2-col mo2-col-hl">2026<span>Jul&ndash;Dic</span></div>
+          <div class="mo2-col mo2-col-hl"><span>INCREMENTO %</span></div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Venta</div>
+          <div class="mo2-cell">$0.00</div>
+          <div class="mo2-cell">$306.70KK</div>
+          <div class="mo2-cell mo2-col-hl">$95.33K</div>
+          <div class="mo2-cell mo2-col-hl">$346.11KK</div>
+          <div class="mo2-cell mo2-col-hl">12.85%</div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Margen Bruto %</div>
+          <div class="mo2-cell">0.00%</div>
+          <div class="mo2-cell">30.00%</div>
+          <div class="mo2-cell">30.00%</div>
+          <div class="mo2-cell">30.00%</div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Dolares</div>
+          <div class="mo2-cell">$0.00</div>
+          <div class="mo2-cell">$92,009</div>
+          <div class="mo2-cell">$28,598</div>
+          <div class="mo2-cell">$103,833</div>
+          <div class="mo2-cell">12.85%</div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Colaboradores</div>
+          <div class="mo2-cell">2</div>
+          <div class="mo2-cell">3</div>
+          <div class="mo2-cell">4</div>
+          <div class="mo2-cell">5</div>
+        </div>
+        <div class="mo2-row">
+          <div class="mo2-lbl">Costo del area arquitectura</div>
+          <div class="mo2-cell">$76,804</div>
+          <div class="mo2-cell">$123,660</div>
+          <div class="mo2-cell">$87,865</div>
+          <div class="mo2-cell">$205,627</div>
+          <div class="mo2-cell">166%</div>
+        </div>
+        <div class="mo2-row mo2-row-main">
+          <div class="mo2-lbl">Costo / Venta %</div>
+          <div class="mo2-cell">0</div>
+          <div class="mo2-cell">74%</div>
+          <div class="mo2-cell mo2-col-hl">33%</div>
+          <div class="mo2-cell mo2-col-hl">50%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ============ CLIENTES ============ -->
+<section class="section" id="clientes">
+  <div class="cli-hero">
+    <div class="cli-hero-left">
+      <span class="cli-hero-icon">👥</span>
+      <div>
+        <div class="cli-hero-eye">Directorio Ejecutivo &middot; Clientes</div>
+        <div class="cli-hero-ttl">Inteligencia de Clientes</div>
+      </div>
+    </div>
+    <div class="cli-hero-right">Cartera hist&oacute;rica 2014&ndash;2026 &middot; Per&iacute;odo activo 2025&ndash;2026</div>
+  </div>
+
+  <!-- KPI Cards v3 Premium -->
+  <div class="kpis k4" style="margin-bottom:20px" id="cliKpiGrid">
+    <!-- KPI 1: Clientes activos -->
+    <div class="kpi-v3" onclick="openCliModal('activos')" style="--accent:#3EC6AC">
+      <div class="kv3-icon" style="font-size:20px">👥</div>
+      <div class="kv3-lbl">Clientes activos 2025&ndash;2026</div>
+      <div class="kv3-val" style="color:#0F6E56">73</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:28.6%;background:#3EC6AC"></div></div>
+      <div class="kv3-ctx">28.63% de la cartera hist&oacute;rica &middot; 255 clientes totales</div>
+      <div class="kv3-delta" style="color:#0F6E56">&#8599; Ver top 20 por facturaci&oacute;n</div>
+    </div>
+
+    <!-- KPI 2: Clientes nuevos -->
+    <div class="kpi-v3" onclick="openCliModal('nuevos')" style="--accent:#16a34a">
+      <div class="kv3-icon" style="font-size:20px">✨</div>
+      <div class="kv3-lbl">Clientes nuevos 2025&ndash;2026</div>
+      <div class="kv3-val" style="color:#16a34a">34</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:46.6%;background:#16a34a"></div></div>
+      <div class="kv3-ctx">46.58% de activos son nuevos &middot; 13.33% hist&oacute;rico</div>
+      <div class="kv3-delta" style="color:#16a34a">&#8599; Ver top 20 nuevos</div>
+    </div>
+
+    <!-- KPI 3: Cartera histórica -->
+    <div class="kpi-v3" style="cursor:default">
+      <div class="kv3-icon" style="font-size:20px">🗂️</div>
+      <div class="kv3-lbl">Cartera hist&oacute;rica total</div>
+      <div class="kv3-val" style="color:#185FA5">255</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:100%;background:#185FA5"></div></div>
+      <div class="kv3-ctx">Clientes &uacute;nicos 2014&ndash;2026</div>
+      <div class="kv3-delta" style="color:var(--ts)">182 inactivos &middot; 73 activos 25&ndash;26</div>
+    </div>
+
+    <!-- KPI 4: Valor generado YTD — comparativo correcto -->
+    <div class="kpi-v3" style="cursor:default">
+      <div class="kv3-icon" style="font-size:20px">💰</div>
+      <div class="kv3-lbl">Valor generado 2025&ndash;2026 YTD</div>
+      <div class="kv3-val" style="color:#d97706">$63.20MM</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:100%;background:#d97706"></div></div>
+      <!-- Nota: Valor calculado como SUM(Ene 2025–Jun 2026). Comparativo contra SUM(Ene 2023–Jun 2024) -->
+      <div class="kv3-ctx">Acumulado Ene 2025 &ndash; Jun 2026 (18 meses)</div>
+      <div class="kv3-delta" style="color:#16a34a">&#8593; +107.50% vs per&iacute;odo Ene 2023 &ndash; Jun 2024</div>
+    </div>
+  </div>
+
+  <!-- Treemap -->
+  <div class="card" style="margin-bottom:18px">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+      <div>
+        <div class="card-h" style="font-size:14px;font-weight:700">Top 20 Clientes por Facturaci&oacute;n</div>
+        <div style="font-size:11px;color:var(--ts);margin-top:2px">&Aacute;rea proporcional al monto facturado &middot; color por segmento</div>
+      </div>
+      <div class="tm-toggle" id="tmToggle" style="margin-left:auto">
+        <div class="tm-btn active" data-tm="hist">Hist&oacute;rico 2014&ndash;2026</div>
+        <div class="tm-btn" data-tm="curr">Per&iacute;odo 2025&ndash;2026</div>
+      </div>
+    </div>
+    <div class="treemap-wrap" id="treemapWrap"></div>
+    <div class="tm-legend">
+      <span><i class="tm-dot" style="background:#0a0a1e"></i>Retenido</span>
+      <span><i class="tm-dot" style="background:#3aabef"></i>Reactivado</span>
+      <span><i class="tm-dot" style="background:#16a34a"></i>Nuevo</span>
+      <span><i class="tm-dot" style="background:#94a3b8"></i>Sin actividad reciente</span>
+    </div>
+  </div>
+
+  <!-- Categorías por Monto Facturado (~42%) + Evolución Agro/No Agro (~58%) -->
+  <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;flex-wrap:wrap">
+
+    <!-- Categorías por Monto Facturado — REFERENCIA: no forzar su tamaño -->
+    <div class="card cat-board" id="cliCatCard" style="flex:42 1 320px;min-width:300px;height:auto">
+      <div class="cat-board-head">
+        <div class="card-h" style="margin-bottom:0">Categor&iacute;as por Monto Facturado</div>
+        <div class="cat-toggle" id="catToggle" style="margin-left:auto">
+          <div class="tm-btn active" data-ct="hist">Hist&oacute;rico</div>
+          <div class="tm-btn" data-ct="curr">2025&ndash;2026</div>
+        </div>
+      </div>
+      <div class="cat-summary" id="catSummary"></div>
+      <div class="cat-tier-list" id="catGrid"></div>
+      <div class="insight cat-note" id="catInsight"></div>
+    </div>
+
+    <!-- Evolución Agro / No Agro — se adapta a la altura de Categorías vía JS (_syncCliCardHeights) -->
+    <div class="card vt-chart-card" id="cliAgroCard" style="flex:58 1 380px;min-width:320px;display:flex;flex-direction:column" onclick="openAgroModal()">
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+        <div>
+          <div class="card-h" style="margin-bottom:0">Evoluci&oacute;n Agro / No Agro</div>
+          <div style="font-size:11px;color:var(--ts);margin-top:2px">Clientes &uacute;nicos e importe facturado por a&ntilde;o &middot; 2021&ndash;2026</div>
+        </div>
+        <span class="vt-expand" style="margin-left:auto">&#8599; Ampliar</span>
+      </div>
+      <div id="agroLegend" style="display:flex;gap:14px;font-size:11px;color:var(--ts);align-items:center;margin-bottom:8px"></div>
+      <div class="chart-wrap" style="flex:1;min-height:220px"><canvas id="chAgroNoAgro"></canvas></div>
+      <div class="insight" id="agroInsight" style="margin-top:9px"></div>
+    </div>
+  </div>
+
+  <!-- Segmentación de la Cartera: ancho completo — REFERENCIA: no forzar su tamaño -->
+  <div class="card" id="cliSegCard" style="margin-bottom:18px">
+    <div class="card-h" style="margin-bottom:12px">Segmentaci&oacute;n de la Cartera</div>
+    <div style="overflow-x:auto">
+      <table class="seg-tbl">
+        <thead><tr id="segHead">
+          <th data-col="0">Segmento <span class="sic">↕</span></th>
+          <th class="r" data-col="1">N <span class="sic">↕</span></th>
+          <th class="r" data-col="2">% Cartera <span class="sic">↕</span></th>
+          <th class="r" data-col="3">Valor Hist. <span class="sic">↕</span></th>
+          <th class="r" data-col="4">Ventas 25&ndash;26 <span class="sic">↕</span></th>
+          <th class="r" data-col="5">% 25&ndash;26 <span class="sic">↕</span></th>
+        </tr></thead>
+        <tbody id="segBody"></tbody>
+      </table>
+    </div>
+    <div class="insight" style="margin-top:12px">Segmentos <strong>Nuevo + Reactivado</strong> generan el <strong>61.20%</strong> de las ventas 2025&ndash;2026 con solo 44 clientes.</div>
+  </div>
+
+  <!-- Ticket promedio por cliente (histórico + 2025-26 + 2026 YTD) + evolución 2021-2026 -->
+  <div class="sec-head" style="margin-top:10px">
+    <h1>Ticket Promedio por Cliente</h1>
+    <span class="sub">Comparativo hist&oacute;rico vs per&iacute;odo activo vs a&ntilde;o en curso &middot; 2014&ndash;2026</span>
+  </div>
+  <div class="cli-evol-wrap" id="cliTicketEvolCard">
+    <div class="card-h" style="margin-bottom:2px">Evoluci&oacute;n del Ticket Promedio</div>
+    <div style="font-size:11px;color:var(--ts);margin-bottom:14px">Ventas del a&ntilde;o &divide; clientes &uacute;nicos con facturaci&oacute;n &middot; 2021&ndash;2026 (2026 = YTD Ene&ndash;Jun)</div>
+    <div class="chart-wrap" style="height:clamp(240px,20vw,360px)"><canvas id="chTicketEvol"></canvas></div>
+    <div class="insight" style="margin-top:14px" id="ticketEvolInsight"></div>
+  </div>
+
+  <!-- Evolución de clientes activos y captación de nuevos -->
+  <div class="sec-head" style="margin-top:10px">
+    <h1>Evoluci&oacute;n de Clientes Atendidos y Captaci&oacute;n de Nuevos</h1>
+    <span class="sub">Clientes que facturaron por a&ntilde;o vs nuevos ingresos &middot; 2021&ndash;2026</span>
+  </div>
+  <div class="cli-evol-wrap" style="margin-bottom:18px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+      <div>
+        <div class="card-h" style="font-size:14px;font-weight:700">Clientes atendidos vs Clientes nuevos por a&ntilde;o</div>
+        <div style="font-size:11px;color:var(--ts);margin-top:2px">Activo = factur&oacute; en el a&ntilde;o &gt; 0. Nuevo = primera factura hist&oacute;rica en ese a&ntilde;o</div>
+      </div>
+      <div id="cliEvolLegend" style="display:flex;gap:14px;font-size:11px;color:var(--ts);align-items:center;flex-wrap:wrap"></div>
+    </div>
+    <div class="chart-wrap" style="height:clamp(240px,20vw,360px)"><canvas id="chCliEvol"></canvas></div>
+    <div class="insight" style="margin-top:14px" id="cliEvolInsight"></div>
+  </div>
+
+  <!-- Concentración de cartera — Pareto 2025-2026 YTD + tabla lateral -->
+  <div class="sec-head" style="margin-top:10px">
+    <h1>Concentraci&oacute;n de Cartera</h1>
+    <span class="sub">Pareto de ventas 2025&ndash;2026 YTD &middot; Clientes ordenados de mayor a menor</span>
+  </div>
+  <div class="pareto-wrap card" style="margin-bottom:18px;padding:20px 22px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+      <div>
+        <div class="card-h" style="font-size:14px;font-weight:700">Pareto de ventas &middot; 2025&ndash;2026 YTD</div>
+        <div style="font-size:11px;color:var(--ts);margin-top:2px">Barras: ventas por cliente &middot; L&iacute;nea: % acumulado del total</div>
+      </div>
+      <div id="paretoLegend" style="display:flex;gap:14px;font-size:11px;color:var(--ts);align-items:center"></div>
+    </div>
+    <div style="display:flex;gap:18px;align-items:stretch;flex-wrap:wrap">
+      <div style="flex:70 1 420px;min-width:300px">
+        <div class="chart-wrap" style="height:clamp(280px,24vw,420px)"><canvas id="chPareto"></canvas></div>
+      </div>
+      <div style="flex:30 1 220px;min-width:220px;display:flex;flex-direction:column">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ts);margin-bottom:8px">Detalle &middot; Top 20 clientes</div>
+        <div style="overflow-y:auto;max-height:clamp(280px,24vw,420px);border:1px solid var(--border);border-radius:8px">
+          <table class="mtbl" style="font-size:11px">
+            <thead><tr id="paretoHead">
+              <th data-col="0">#<span class="sic">↕</span></th>
+              <th data-col="1">Cliente <span class="sic">↕</span></th>
+              <th class="r" data-col="2">Ventas <span class="sic">↕</span></th>
+              <th class="r" data-col="3">% acum. <span class="sic">↕</span></th>
+            </tr></thead>
+            <tbody id="paretoTblBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px" id="paretoInsight"></div>
+  </div>
+
+</section>
+
+<!-- ============ PARTICIPACIÓN ============ -->
+<section class="section" id="participacion">
+  <div class="part-hero" id="partHero">
+    <div class="part-hero-left">
+      <div class="part-hero-eye">Directorio Ejecutivo &middot; Participación</div>
+      <div class="part-hero-ttl">Participación de mercado</div>
+      <div class="part-hero-sub">Posición competitiva por empresa, refrigerante y sector</div>
+    </div>
+    <div class="part-hero-kpis" id="partHeroKpis"></div>
+  </div>
+
+  <div class="part-tabs" id="partTabs">
+    <button class="part-tab active" data-ptab="evol" onclick="partSwitchTab('evol',this)">Evolución competitiva</button>
+    <button class="part-tab" data-ptab="refr" onclick="partSwitchTab('refr',this)">Por refrigerante</button>
+    <button class="part-tab" data-ptab="sector" onclick="partSwitchTab('sector',this)">Por sector económico</button>
+  </div>
+
+  <div class="part-ptabs" id="partPeriodTabs"></div>
+
+  <!-- ===== TAB: Evolución competitiva ===== -->
+  <div class="part-pane active" id="partPane-evol">
+    <div class="part-split">
+      <div class="card part-chart-card">
+        <div class="part-card-head">
+          <div>
+            <div class="card-h">Evolución de participación de mercado</div>
+            <div class="part-card-sub">2021&ndash;2026 &middot; Participación estimada por periodo</div>
+          </div>
+          <div class="tm-toggle" id="partEvolToggle" style="margin-left:auto">
+            <div class="tm-btn active" data-ev="lider">Friopacking vs líder</div>
+            <div class="tm-btn" data-ev="top5">Top 5</div>
+            <div class="tm-btn" data-ev="todos">Todos los competidores</div>
+          </div>
+        </div>
+        <div class="chart-wrap" style="height:clamp(340px,32vw,480px)"><canvas id="chPartEvol"></canvas></div>
+        <div class="part-h-legend" id="partEvolLegend"></div>
+        <div class="insight" id="partEvolMicro"></div>
+      </div>
+      <div class="card part-rank-card">
+        <div class="card-h">Ranking del periodo</div>
+        <div class="part-card-sub" id="partEvolRankSub"></div>
+        <div id="partEvolRankList"></div>
+      </div>
+    </div>
+
+    <div class="part-mkt-card">
+      <div class="part-card-head">
+        <div>
+          <div class="card-h">Evolución del mercado de refrigeración</div>
+          <div class="part-card-sub">Facturación total del mercado por periodo y tendencia histórica</div>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:clamp(260px,22vw,360px)"><canvas id="chPartMarket"></canvas></div>
+      <div class="part-mkt-legend" id="partMarketLegend"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: Por refrigerante ===== -->
+  <div class="part-pane" id="partPane-refr">
+    <div class="pms-header">
+      <div class="pms-eye">Análisis de composición</div>
+      <div class="pms-title">Evolución del mercado por refrigerante</div>
+      <div class="pms-sub">Participación consolidada por período &middot; 2021&ndash;2026</div>
+    </div>
+    <div class="pms-grid">
+      <div class="pms-chart-card">
+        <div class="part-card-head">
+          <div>
+            <div class="card-h">Evolución de la participación por refrigerante</div>
+            <div class="part-card-sub">Composici&oacute;n porcentual del mercado por refrigerante &middot; cada periodo suma 100%</div>
+          </div>
+        </div>
+        <div class="chart-wrap pms-chart-wrap"><canvas id="chPartRefrStack"></canvas></div>
+        <div class="pms-legend" id="pmsRefrLegend"></div>
+      </div>
+      <div class="pms-side-card" id="pmsRefrSide"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: Por sector económico ===== -->
+  <div class="part-pane" id="partPane-sector">
+    <div class="pms-header">
+      <div class="pms-eye">Análisis de composición</div>
+      <div class="pms-title">Evolución de la participación por sector económico</div>
+      <div class="pms-sub">Participación consolidada por período &middot; 2021&ndash;2026</div>
+    </div>
+    <div class="pms-grid">
+      <div class="pms-chart-card">
+        <div class="part-card-head">
+          <div>
+            <div class="card-h">Evolución de la participación por sector económico</div>
+            <div class="part-card-sub">Barras apiladas al 100% &middot; bloque consolidado del Excel</div>
+          </div>
+        </div>
+        <div class="chart-wrap pms-chart-wrap"><canvas id="chPartSectorStack"></canvas></div>
+        <div class="pms-legend" id="pmsSectorLegend"></div>
+      </div>
+      <div class="pms-side-card" id="pmsSectorSide"></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ OBJETIVOS ============ -->
+<section class="section" id="objetivos">
+  <div class="obj-hero">
+    <div class="obj-hero-in">
+      <div class="obj-hero-eye">Plan Comercial &middot; Directorio</div>
+      <div class="obj-hero-title">Plan de Acci&oacute;n Julio &ndash; Septiembre 2026</div>
+    </div>
+  </div>
+
+  <div class="obj-tabs">
+    <div class="obj-tab active" data-otab="o2026" onclick="objTab('o2026',this)">Objetivos 2026</div>
+    <div class="obj-tab" data-otab="plan" onclick="objTab('plan',this)">Plan de Acci&oacute;n Julio &ndash; Septiembre</div>
+  </div>
+
+  <div class="obj-pane" id="objPane-plan">
+    <div class="pa-hero">
+      <div class="pa-hero-in">
+        <div class="pa-hero-left">
+          <div class="pa-hero-eye">Plan Comercial · Directorio</div>
+          <div class="pa-hero-title">Mejoramiento continuo e incremento de ventas</div>
+        </div>
+        <div class="pa-hero-kpis">
+          <div class="pa-hkpi"><span class="pa-hkpi-v">3</span><span class="pa-hkpi-l">Objetivos SMART</span></div>
+          <div class="pa-hkpi"><span class="pa-hkpi-v">3</span><span class="pa-hkpi-l">Planes de acción</span></div>
+          <div class="pa-hkpi"><span class="pa-hkpi-v">30 SEP</span><span class="pa-hkpi-l">Fecha límite · 2026</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pa-section-lbl">Objetivos SMART</div>
+    <div class="pa-smart-grid">
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <span class="pa-sc-num">01</span>
+          <span class="pa-sc-ico"><svg class="svgic"><use href="#i-pa-sync"/></svg></span>
+          <span class="pa-pc-title">Flujo unificado Arquitectura–Presupuestos</span>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Unificar el flujo de información entre Arquitectura y Presupuestos mediante un repositorio estructurado y una planilla maestra vinculada, asegurando que el 100% de los proyectos nuevos ingresados desde el 15 de julio opere bajo el flujo unificado.</div>
+          <div class="pa-chips">
+            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">% de proyectos nuevos operando en el flujo unificado</span></div>
+            <div class="pa-chip-row">
+              <div class="pa-chip"><span class="pa-chip-l">Responsables</span><span class="pa-chip-v">Jesús Chávez + Valeria Rodríguez</span></div>
+              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Fecha límite</span><span class="pa-chip-v">30 septiembre 2026</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <span class="pa-sc-num">02</span>
+          <span class="pa-sc-ico"><svg class="svgic"><use href="#i-pa-layers"/></svg></span>
+          <span class="pa-pc-title">Estandarización de presupuestos</span>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Estandarizar la arquitectura de presupuestos mediante una estructura única de partidas, códigos y plantilla base, aplicando la nueva plantilla al 100% de las cotizaciones emitidas desde el 1 de agosto.</div>
+          <div class="pa-chips">
+            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">% de presupuestos con plantilla estandarizada</span></div>
+            <div class="pa-chip-row">
+              <div class="pa-chip"><span class="pa-chip-l">Responsable</span><span class="pa-chip-v">Jesús Chávez</span></div>
+              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Fecha límite</span><span class="pa-chip-v">30 septiembre 2026</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <span class="pa-sc-num">03</span>
+          <span class="pa-sc-ico"><svg class="svgic"><use href="#i-pa-book"/></svg></span>
+          <span class="pa-pc-title">Lecciones aprendidas de Obra</span>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Ejecutar cuatro sesiones formales de lecciones aprendidas de Obra para mejorar Presupuestos, realizando dos sesiones por mes, cada una con acta y actualización de la biblioteca de lecciones aprendidas.</div>
+          <div class="pa-chips">
+            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">Sesiones ejecutadas y actas publicadas</span></div>
+            <div class="pa-chip-row">
+              <div class="pa-chip"><span class="pa-chip-l">Responsable</span><span class="pa-chip-v">Sebastián Flores</span></div>
+              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Fecha límite</span><span class="pa-chip-v">30 septiembre 2026</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pa-section-lbl">Planes de acción</div>
+    <div class="pa-smart-grid">
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <span class="pa-sc-num">01</span>
+          <span class="pa-sc-ico"><svg class="svgic"><use href="#i-pa-book"/></svg></span>
+          <div class="pa-pc-title">Reactivación de clientes desactivados</div>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+       
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Identificar y priorizar clientes sin compras en los últimos 24 meses, revisar su historial comercial y ejecutar llamadas, correos y reuniones con una propuesta de reactivación.</div>
+          <div class="pa-pc-metrics">
+            <div class="pa-pm"><span class="pa-pm-v">182</span><span class="pa-pm-l">Inactivos</span></div>
+            <div class="pa-pm"><span class="pa-pm-v">20</span><span class="pa-pm-l">Recontactar</span></div>
+            <div class="pa-pm"><span class="pa-pm-v">2</span><span class="pa-pm-l">Vender</span></div>
+          </div>
+
+          <div class="pa-pc-resp"><b>Responsables:</b> Equipo comercial por zona, Planner Comercial + Supervisión de la Gerencia Comercial.</div>
+        </div>
+       
+      </div>
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <div class="pa-sc-num">02</div>
+          <span class="pa-sc-ico"><svg class="svgic"><use href="#i-pa-book"/></svg></span>
+          <div class="pa-pc-title">Prospección y diversificación sectorial</div>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Ejecutar prospección y visitas comerciales en operadores logísticos, industria general, pesca, lácteos y cárnicos mediante propuestas diferenciadas por sector.</div>
+          <div class="pa-pc-metrics">
+            <div class="pa-pm"><span class="pa-pm-v">54</span><span class="pa-pm-l">Visitas</span></div>
+            <div class="pa-pm"><span class="pa-pm-v">13</span><span class="pa-pm-l">Cotizaciones</span></div>
+            <div class="pa-pm"><span class="pa-pm-v">US$6.50MM</span><span class="pa-pm-l">Cotizados</span></div>
+          </div>
+          <div class="pa-pc-resp"><b>Responsables:</b> Equipo comercial por zona, Planner Comercial + Supervisión de la Gerencia Comercial.</div>
+        </div>
+      </div>
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <div class="pa-sc-num">03</div>
+          <span class="pa-sc-ico"><svg class="svgic"><use href="#i-pa-book"/></svg></span>
+          <div class="pa-pc-title">Gestión y seguimiento del funnel comercial</div>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Registrar y actualizar agendas, contactos, visitas, cotizaciones, probabilidades y próximas acciones; consolidar el seguimiento semanal y emitir el reporte de avance comercial.</div>
+          <div class="pa-pc-metrics">
+            <div class="pa-pm"><span class="pa-pm-v">100%</span><span class="pa-pm-l">Actualizado</span></div>
+            <div class="pa-pm"><span class="pa-pm-v">Semanal</span><span class="pa-pm-l">Agenda</span></div>
+            <div class="pa-pm"><span class="pa-pm-v">Semanal</span><span class="pa-pm-l">Reporte</span></div>
+          </div>
+          <div class="pa-pc-resp"><b>Responsables:</b> Equipo comercial por zona, Planner Comercial + Supervisión de la Gerencia Comercial.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-pane active" id="objPane-o2026">
+    <div class="obj5-grid" id="obj5Grid"></div>
+  </div>
+</section>
+
+<!-- ============ ORGANIGRAMA ============ -->
+<section class="section" id="organigrama">
+
+  <!-- Tab bar interno -->
+  <div class="org-tabs-wrap">
+    <div class="org-tabs">
+      <button class="org-tab active" onclick="switchOrgTab(this,'vista-general')">Vista General</button>
+      <button class="org-tab" onclick="switchOrgTab(this,'arquitectura')">Arquitectura</button>
+      <button class="org-tab" onclick="switchOrgTab(this,'ejecutivos')">Ejecutivos</button>
+      <button class="org-tab" onclick="switchOrgTab(this,'soporte-comercial')">Soporte Comercial</button>
+    </div>
+    <span class="org-meta">11 colaboradores · Gerencia Comercial · 2026</span>
+  </div>
+
+  <!-- Leyenda de color -->
+  <div class="org-legend-new">
+    <span><i class="org-ldot" style="background:var(--navy)"></i>Gerencia</span>
+    <span><i class="org-ldot" style="background:var(--brand-d)"></i>Planner</span>
+    <span><i class="org-ldot" style="background:var(--brand)"></i>Ejecutivos Comerciales</span>
+    <span><i class="org-ldot" style="background:#1a86cc"></i>Arquitectura de Proyectos</span>
+  </div>
+
+  <!-- ─── PANEL: VISTA GENERAL ──────────────────────────── -->
+  <div class="org-panel active" id="ot-vista-general">
+    <div style="display:flex;flex-direction:column;align-items:center">
+
+      <!-- L1: Hero Card — Gerente Comercial (pulsante) -->
+      <div class="org-hero-anchor">
+      <div class="org-hero-card" onclick="openPersonModal('misael')">
+        <div class="org-hero-photo-wrap">
+          <img class="org-hero-photo" src="img/team/misael.jpg" alt="Misael Estrada"
+               onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--navy)>ME</div>'">
+        </div>
+        <div class="org-hero-info">
+          <div class="org-hero-tag">Gerente Comercial</div>
+          <div class="org-hero-name">José Misael<br>Estrada Jiménez</div>
+          <div class="org-hero-role">📍 Miraflores</div>
+          <div class="org-hero-footer">
+            <span class="org-hero-colabs">👥 10 colaboradores</span>
+            <span class="org-hero-badge">Ver perfil →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff de Gerencia General: soporte transversal, no reporta a ella el resto del equipo.
+           Mismo layout de 4 filas que el hero de Gerencia (foto + tag/nombre/rol/footer)
+           para igualar su alto exacto; skin verde de planner, ancho reducido. -->
+      <div class="org-staff-branch" aria-hidden="true"></div>
+      <div class="org-staff-slot">
+        <div class="org-hero-card org-hero-planner" onclick="openPersonModal('valeria')">
+          <div class="org-hero-photo-wrap">
+            <img class="org-hero-photo" src="img/team/valeria.jpg" alt="Valeria Rodríguez"
+                onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--brand-d)>VA</div>'">
+         </div>
+          <div class="org-hero-info">
+            <div class="org-hero-tag">Planner Comercial</div>
+            <div class="org-hero-name">Valeria Rodríguez</div>
+            <div class="org-hero-role">📍 Miraflores</div>
+            <div class="org-hero-footer">
+              <span class="org-hero-colabs">🤝 Soporte Comercial</span>
+              <span class="org-hero-badge">Ver perfil <span class="org-staff-arrow">→</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+            <!-- Conector L1 → L3 -->
+      <div class="ov-connector">
+        <div class="ov-connector-line"></div>
+        <div class="ov-connector-dot"></div>
+      </div>
+
+      <!-- Section label EQUIPO COMERCIAL -->
+      <div class="org-section-label">Equipo Comercial</div>
+
+      <!-- L3: 5 reportes directos
+           NOTA: padding-top:0 en org-l3-row hace que la barra ::before (top:0)
+           y los drops org-vup (primer hijo de org-li) coincidan en y=0 → conectados -->
+      <div class="org-l3-outer">
+        <div class="org-l3-inner">
+          <div class="org-l3-row">
+
+            <!-- ── 1. Chávez — Jefe de Arquitectura ── -->
+            <div class="org-li">
+              <div class="org-vup"></div>
+              <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('chavez')">
+                <div class="org-pc-body">
+                  <div class="org-pc-photo-wrap">
+                    <img class="org-pc-photo" src="img/team/chavez.jpg" alt="Jesús Chávez"
+                         onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>JC</div>'">
+                  </div>
+                  <div class="org-pc-area">Arquitectura</div>
+                  <div class="org-pc-name">Jesús Marcio Chávez Girao</div>
+                  <div class="org-pc-role">Jefe de Arquitectura</div>
+                  <div class="org-pc-sede">📍 Miraflores</div>
+                  <div class="org-pc-footer">Ver perfil →</div>
+                </div>
+              </div>
+              <button class="org-expand-btn" id="btn-chavez" onclick="orgToggle2('l4-chavez','btn-chavez',5)">
+                <span>▾</span> Ver equipo (5)
+              </button>
+              <div id="l4-chavez" class="org-l4-wrap" style="display:none">
+                <div class="ov-connector" style="margin:10px 0 0">
+                  <div class="ov-connector-line" style="height:20px;background:linear-gradient(to bottom,#1a86cc,rgba(26,134,204,.2))"></div>
+                  <div class="ov-connector-dot" style="background:#1a86cc"></div>
+                </div>
+                <div class="org-l4-row org-l4-arq">
+                  <div class="org-li">
+                    <div class="org-vup-sm" style="background:linear-gradient(to bottom,#1a86cc,rgba(26,134,204,.2))"></div>
+                    <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('piero')">
+                      <div class="org-pc-body">
+                        <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/piero.jpg" alt="Piero Añanca" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>PA</div>'"></div>
+                        <div class="org-pc-area">Arquitectura</div>
+                        <div class="org-pc-name">Piero Giuseppe Añanca Portillo</div>
+                        <div class="org-pc-role">Arquitecto de Proyectos</div>
+                        <div class="org-pc-sede">📍 Miraflores</div>
+                        <div class="org-pc-footer">Ver perfil →</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="org-li">
+                    <div class="org-vup-sm" style="background:linear-gradient(to bottom,#1a86cc,rgba(26,134,204,.2))"></div>
+                    <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('diego')">
+                      <div class="org-pc-body">
+                        <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/diego.jpg" alt="Diego Morales" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>DM</div>'"></div>
+                        <div class="org-pc-area">Arquitectura</div>
+                        <div class="org-pc-name">Diego Sebastián Morales Alarcón</div>
+                        <div class="org-pc-role">Arquitecto de Proyectos</div>
+                        <div class="org-pc-sede">📍 Miraflores</div>
+                        <div class="org-pc-footer">Ver perfil →</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="org-li">
+                    <div class="org-vup-sm" style="background:linear-gradient(to bottom,#1a86cc,rgba(26,134,204,.2))"></div>
+                    <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('tiffany')">
+                      <div class="org-pc-body">
+                        <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/tiffany.jpg" alt="Tiffany Ollero" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>TO</div>'"></div>
+                        <div class="org-pc-area">Arquitectura</div>
+                        <div class="org-pc-name">Tiffany Nicole Ollero de la Cruz</div>
+                        <div class="org-pc-role">Arquitecta de Proyectos</div>
+                        <div class="org-pc-sede">📍 Miraflores</div>
+                        <div class="org-pc-footer">Ver perfil →</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="org-li">
+                    <div class="org-vup-sm" style="background:linear-gradient(to bottom,#1a86cc,rgba(26,134,204,.2))"></div>
+                    <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('sebastian')">
+                      <div class="org-pc-body">
+                        <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/sebastian.jpg" alt="Sebastián Flores" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>SF</div>'"></div>
+                        <div class="org-pc-area">Arquitectura</div>
+                        <div class="org-pc-name">Sebastián Alexander Flores Orosco</div>
+                        <div class="org-pc-role">Analista de Presupuestos</div>
+                        <div class="org-pc-sede">📍 Miraflores</div>
+                        <div class="org-pc-footer">Ver perfil →</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="org-li">
+                    <div class="org-vup-sm" style="background:linear-gradient(to bottom,#1a86cc,rgba(26,134,204,.2))"></div>
+                    <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('practicante')">
+                      <div class="org-pc-body">
+                        <div class="org-pc-photo-wrap" style="background:#e7ebf2;display:flex;align-items:center;justify-content:center">
+                          <svg width="52%" height="52%" viewBox="0 0 24 24" fill="none" stroke="#9aa7bd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>
+                        </div>
+                        <div class="org-pc-area">Arquitectura</div>
+                        <div class="org-pc-name">Nuevo colaborador</div>
+                        <div class="org-pc-role">Auxiliar de Arquitectura</div>
+                        <div class="org-pc-sede">📍 Miraflores</div>
+                        <div class="org-pc-footer">Ver perfil →</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── 2. Víctor Ramírez — Ejecutivo Zona Norte ── -->
+            <div class="org-li">
+              <div class="org-vup"></div>
+              <div class="org-person-card" data-d="ejecutivo" onclick="openPersonModal('victor')">
+                <div class="org-pc-body">
+                  <div class="org-pc-photo-wrap">
+                    <img class="org-pc-photo" src="img/team/victor.jpg" alt="Víctor Ramírez"
+                         onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--brand)>VR</div>'">
+                  </div>
+                  <div class="org-pc-area">Comercial</div>
+                  <div class="org-pc-name">Víctor Ramírez Dilas</div>
+                  <div class="org-pc-role">Ejecutivo Comercial</div>
+                  <div class="org-pc-sede">Zona Norte · 📍 Piura</div>
+                  <div class="org-pc-footer">Ver perfil →</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── 3. Hugo Escobar — Ejecutivo Zona Centro ── -->
+            <div class="org-li">
+              <div class="org-vup"></div>
+              <div class="org-person-card" data-d="ejecutivo" onclick="openPersonModal('hugo')">
+                <div class="org-pc-body">
+                  <div class="org-pc-photo-wrap">
+                    <img class="org-pc-photo" src="img/team/hugo.jpg" alt="Hugo Escobar"
+                         onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--brand)>HE</div>'">
+                  </div>
+                  <div class="org-pc-area">Comercial</div>
+                  <div class="org-pc-name">Hugo Alexander Escobar Pacheco</div>
+                  <div class="org-pc-role">Ejecutivo Comercial</div>
+                  <div class="org-pc-sede">Zona Centro · 📍 Miraflores</div>
+                  <div class="org-pc-footer">Ver perfil →</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── 4. Jhon Rojas — Ejecutivo Zona Sur ── -->
+            <div class="org-li">
+              <div class="org-vup"></div>
+              <div class="org-person-card" data-d="ejecutivo" onclick="openPersonModal('jhon')">
+                <div class="org-pc-body">
+                  <div class="org-pc-photo-wrap">
+                    <img class="org-pc-photo" src="img/team/jhon.jpg" alt="Jhon Rojas"
+                         onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--brand)>JR</div>'">
+                  </div>
+                  <div class="org-pc-area">Comercial</div>
+                  <div class="org-pc-name">Jhon Jacinto Rojas Quispe</div>
+                  <div class="org-pc-role">Ejecutivo Comercial</div>
+                  <div class="org-pc-sede">Zona Sur · 📍 Ica</div>
+                  <div class="org-pc-footer">Ver perfil →</div>
+                </div>
+              </div>
+            </div>
+</div><!-- end org-l3-row -->
+        </div><!-- end org-l3-inner -->
+      </div><!-- end org-l3-outer -->
+
+    </div><!-- end column flex -->
+  </div><!-- end panel vista-general -->
+
+  <!-- ─── PANEL: ARQUITECTURA ──────────────────────────── -->
+  <div class="org-panel" id="ot-arquitectura">
+    <div class="org-dept-wrap">
+      <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('chavez')">
+        <div class="org-pc-body">
+          <div class="org-pc-photo-wrap">
+            <img class="org-pc-photo" src="img/team/chavez.jpg" alt="Jesús Chávez"
+                 onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>JC</div>'">
+          </div>
+          <div class="org-pc-area">Arquitectura</div>
+          <div class="org-pc-name">Jesús Marcio Chávez Girao</div>
+          <div class="org-pc-role">Jefe de Arquitectura</div>
+          <div class="org-pc-sede">📍 Miraflores</div>
+          <div class="org-pc-footer">Ver perfil →</div>
+        </div>
+      </div>
+      <div class="ov-connector" style="margin:4px 0">
+        <div class="ov-connector-line" style="height:28px;background:linear-gradient(to bottom,#1a86cc,rgba(26,134,204,.2))"></div>
+        <div class="ov-connector-dot" style="background:#1a86cc"></div>
+      </div>
+      <div class="org-section-label" style="max-width:680px;margin:0 auto 12px">Equipo de Arquitectura</div>
+      <div class="org-dept-grid">
+        <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('piero')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/piero.jpg" alt="Piero Añanca" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>PA</div>'"></div>
+            <div class="org-pc-area">Arquitectura</div>
+            <div class="org-pc-name">Piero Giuseppe Añanca Portillo</div>
+            <div class="org-pc-role">Arquitecto de Proyectos</div>
+            <div class="org-pc-sede">📍 Miraflores</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+        <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('diego')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/diego.jpg" alt="Diego Morales" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>DM</div>'"></div>
+            <div class="org-pc-area">Arquitectura</div>
+            <div class="org-pc-name">Diego Sebastián Morales Alarcón</div>
+            <div class="org-pc-role">Arquitecto de Proyectos</div>
+            <div class="org-pc-sede">📍 Miraflores</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+        <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('tiffany')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/tiffany.jpg" alt="Tiffany Ollero" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>TO</div>'"></div>
+            <div class="org-pc-area">Arquitectura</div>
+            <div class="org-pc-name">Tiffany Nicole Ollero de la Cruz</div>
+            <div class="org-pc-role">Arquitecta de Proyectos</div>
+            <div class="org-pc-sede">📍 Miraflores</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+        <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('sebastian')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/sebastian.jpg" alt="Sebastián Flores" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:#1a86cc>SF</div>'"></div>
+            <div class="org-pc-area">Arquitectura</div>
+            <div class="org-pc-name">Sebastián Alexander Flores Orosco</div>
+            <div class="org-pc-role">Analista de Presupuestos</div>
+            <div class="org-pc-sede">📍 Miraflores</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+        <div class="org-person-card" data-d="arquitectura" onclick="openPersonModal('practicante')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap" style="background:#e7ebf2;display:flex;align-items:center;justify-content:center">
+              <svg width="52%" height="52%" viewBox="0 0 24 24" fill="none" stroke="#9aa7bd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>
+            </div>
+            <div class="org-pc-area">Arquitectura</div>
+            <div class="org-pc-name">Nuevo colaborador</div>
+            <div class="org-pc-role">Auxiliar de Arquitectura</div>
+            <div class="org-pc-sede">📍 Miraflores</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PANEL: EJECUTIVOS ──────────────────────────── -->
+  <div class="org-panel" id="ot-ejecutivos">
+    <div class="org-dept-wrap">
+      <div class="org-section-label" style="max-width:760px;margin:8px auto 20px">Ejecutivos Comerciales · Cobertura Zonal</div>
+      <div class="org-dept-grid" style="gap:20px">
+        <div class="org-person-card" data-d="ejecutivo" onclick="openPersonModal('victor')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/victor.jpg" alt="Víctor Ramírez" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--brand)>VR</div>'"></div>
+            <div class="org-pc-area">Comercial</div>
+            <div class="org-pc-name">Víctor Ramírez Dilas</div>
+            <div class="org-pc-role">Ejecutivo Comercial</div>
+            <div class="org-pc-sede">Zona Norte · 📍 Piura</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+        <div class="org-person-card" data-d="ejecutivo" onclick="openPersonModal('hugo')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/hugo.jpg" alt="Hugo Escobar" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--brand)>HE</div>'"></div>
+            <div class="org-pc-area">Comercial</div>
+            <div class="org-pc-name">Hugo Alexander Escobar Pacheco</div>
+            <div class="org-pc-role">Ejecutivo Comercial</div>
+            <div class="org-pc-sede">Zona Centro · 📍 Miraflores</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+        <div class="org-person-card" data-d="ejecutivo" onclick="openPersonModal('jhon')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap"><img class="org-pc-photo" src="img/team/jhon.jpg" alt="Jhon Rojas" onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--brand)>JR</div>'"></div>
+            <div class="org-pc-area">Comercial</div>
+            <div class="org-pc-name">Jhon Jacinto Rojas Quispe</div>
+            <div class="org-pc-role">Ejecutivo Comercial</div>
+            <div class="org-pc-sede">Zona Sur · 📍 Ica</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PANEL: SOPORTE COMERCIAL ──────────────────────────── -->
+  <div class="org-panel" id="ot-soporte-comercial">
+    <div class="org-dept-wrap">
+      <div class="org-section-label" style="max-width:680px;margin:8px auto 20px">Soporte Comercial · Planeamiento y Seguimiento</div>
+      <div class="org-dept-grid">
+        <div class="org-person-card" data-d="planner" onclick="openPersonModal('valeria')">
+          <div class="org-pc-body">
+            <div class="org-pc-photo-wrap">
+               <img class="org-pc-photo" src="img/team/valeria.jpg" alt="Valeria Rodríguez"
+                   onerror="this.parentNode.innerHTML='<div class=org-pc-av style=background:var(--brand-d)>VA</div>'">
+            </div>
+            <div class="org-pc-area">Soporte Comercial</div>
+            <div class="org-pc-name">Valeria del Carmen Rodríguez Allca</div>
+            <div class="org-pc-role">Planner Comercial</div>
+            <div class="org-pc-sede">📍 Miraflores</div>
+            <div class="org-pc-footer">Ver perfil →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ORG PERSON MODAL -->
+<div class="org-modal-overlay" id="orgModalOverlay" onclick="if(event.target===this)closeOrgModal()">
+  <div class="org-modal-box"><div id="orgModalContent"></div></div>
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-h">
+      <div class="modal-h-info">
+        <span class="mt" id="modalTitle"></span>
+        <span class="msub" id="modalSubtitle"></span>
+      </div>
+      <span class="mc" onclick="closeModal()">&times;</span>
+    </div>
+    <div class="modal-b" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- SVG ICONS -->
+<svg style="display:none">
+  <symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 0-2 2h-3"/></symbol>
+  <symbol id="i-click" viewBox="0 0 24 24"><path d="M9 9l5 12 1.8-5.2L21 14 9 9z"/><path d="M7.2 2.2 8 5.1M5.1 8 2.2 7.2M14 4.1 12 6M6 12l-1.9 2"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M18 17V9M13 17V5M8 17v-3"/></symbol>
+  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.4"/><circle cx="17" cy="17" r="2.4"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4m0 1h13l-3.2 4L18 13H5"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M4 18h16M4 18 3 8l5 4 4-6 4 6 5-4-1 10"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+  <symbol id="i-pa-sync" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></symbol>
+  <symbol id="i-pa-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></symbol>
+  <symbol id="i-pa-book" viewBox="0 0 24 24"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13Z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5v-13Z"/></symbol>
+</svg>
+
+
+<!-- ====== OBJ5 DETAIL VIEWS ====== -->
+
+<!-- OBJ 01 — Venta Comercial -->
+<div class="od" id="od-1">
+  <div class="od-tb">
+    <button class="od-back" onclick="odClose()" style="color:#185fa5;border-color:#185fa5">&#8592; Volver</button>
+    <span class="od-tb-title">Objetivo 01 &mdash; Venta Comercial</span>
+    <span class="od-tb-chip" style="background:#dbeef9;color:#0e4a7a">En ritmo &middot; 94.20%</span>
+  </div>
+  <div class="od-body">
+    <div class="od-hero" style="background:linear-gradient(135deg,#071430 0%,#0d2a56 60%,#071430 100%)">
+      <div class="od-kpi"><span class="od-kl">Acumulado Ene&ndash;Jun 2026</span><span class="od-kv">$28.26M</span><span class="od-ks">Vendido 2026</span></div>
+      <div class="od-kpi"><span class="od-kl">Meta anual</span><span class="od-kv">$30.00M</span><span class="od-ks">Objetivo 2026</span></div>
+      <div class="od-kpi"><span class="od-kl">Crecimiento vs 2025</span><span class="od-kv">+47.08%</span><span class="od-ks">Mismo per&iacute;odo</span></div>
+      <div class="od-kpi"><span class="od-kl">Margen comercial 2026</span><span class="od-kv">15.32%</span><span class="od-ks">Promedio ponderado</span></div>
+    </div>
+    <div class="od-pane active" id="od1-a">
+      <table class="sc">
+        <thead><tr><th>Mes</th><th class="r">Venta 2026</th><th class="r">Margen 2026</th><th class="r">Venta 2025</th><th class="r">Variaci&oacute;n</th></tr></thead>
+        <tbody>
+          <tr><td>Enero</td><td class="r">$4.36M</td><td class="r">15.10%</td><td class="r">$200K</td><td class="r"><span class="sb-ok">+$4.16M</span></td></tr>
+          <tr><td>Febrero</td><td class="r">$3.58M</td><td class="r">16.60%</td><td class="r">$1.10M</td><td class="r"><span class="sb-ok">+$2.48M</span></td></tr>
+          <tr><td>Marzo</td><td class="r">$480K</td><td class="r">18.10%</td><td class="r">$6.59M</td><td class="r"><span class="sb-crit">-$6.11M</span></td></tr>
+          <tr><td>Abril</td><td class="r">$4.27M</td><td class="r">18.30%</td><td class="r">$4.49M</td><td class="r"><span class="sb-warn">-$220K</span></td></tr>
+          <tr><td>Mayo</td><td class="r">$13.04M</td><td class="r">14.00%</td><td class="r">$2.23M</td><td class="r"><span class="sb-ok">+$10.81M</span></td></tr>
+          <tr><td>Junio</td><td class="r">$2.53M</td><td class="r">15.10%</td><td class="r">$4.27M</td><td class="r"><span class="sb-warn">-$1.74M</span></td></tr>
+          <tr style="background:#f7fafc;border-top:2px solid #3aabef"><td><strong>TOTAL Ene&ndash;Jun</strong></td><td class="r"><strong>$28.26M</strong></td><td class="r"><strong>15.32%</strong></td><td class="r"><strong>$18.88M</strong></td><td class="r"><strong><span class="sb-ok">+$9.38M</span></strong></td></tr>
+        </tbody>
+      </table>
+      <div class="od-note">Acumulado enero&ndash;junio: <strong>$28.26M</strong> &mdash; Pendiente para meta anual: <strong>$1.74M</strong> (Julio&ndash;Diciembre 2026).</div>
+    </div>
+  </div>
+</div>
+
+<!-- OBJ 02 — Proyectos CO2 -->
+<div class="od" id="od-2">
+  <div class="od-tb">
+    <button class="od-back" onclick="odClose()" style="color:#10b981;border-color:#10b981">&#8592; Volver</button>
+    <span class="od-tb-title">Objetivo 02 &mdash; Proyectos con Refrigerante CO&#8322;</span>
+    <span class="od-tb-chip" style="background:#fee2e2;color:#dc2626">En riesgo &middot; 0.00%</span>
+  </div>
+  <div class="od-body">
+    <div class="od-hero" style="background:linear-gradient(135deg,#052b1a 0%,#0a4d30 60%,#052b1a 100%)">
+      <div class="od-kpi"><span class="od-kl">Proyectos CO&#8322; vendidos</span><span class="od-kv">0 / 2</span><span class="od-ks">Avance 2026</span></div>
+      <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">0.00%</span><span class="od-ks">Meta: 2 proyectos</span></div>
+      <div class="od-kpi"><span class="od-kl">Importe pipeline CO&#8322;</span><span class="od-kv">$3,753,306</span><span class="od-ks">4 oportunidades activas</span></div>
+    </div>
+    <div class="od-pane active" id="od2-a">
+
+      <div class="od-card">
+        <h4>Pipeline activo CO&#8322; &mdash; Oportunidades en seguimiento</h4>
+        <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
+          <thead><tr><th>Cliente</th><th>Requerimiento</th><th class="r">Importe ($)</th><th class="r">Prob.</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Emergent Cold</strong></td><td>1 T&uacute;nel est&aacute;tico CO&#8322;</td><td class="r">$1,048,822</td><td class="r">20.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></tr>
+            <tr><td><strong>Axion Log</strong></td><td>CD Trujillo CO&#8322;</td><td class="r">$1,004,484</td><td class="r">5.00%</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>Vita Foods</strong></td><td>C&aacute;maras de CO&#8322;</td><td class="r">$900,000</td><td class="r">80.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
+            <tr><td><strong>Frutos de Oro</strong></td><td>C&aacute;maras de CO&#8322;</td><td class="r">$800,000</td><td class="r">60.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #10b981"><td><strong>TOTAL</strong></td><td><strong>4 oportunidades</strong></td><td class="r"><strong>$3,753,306</strong></td><td class="r"><strong>&mdash;</strong></td><td class="r"></td></tr>
+          </tbody>
+        </table>
+        <div class="od-note" style="margin-top:10px">Las 4 oportunidades requieren cierre antes de fin de a&ntilde;o. Acelerar decisiones comerciales para cumplir la meta de 2 proyectos CO&#8322;.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OBJ 04 — Clientes Nuevos No Agro -->
+<div class="od" id="od-3">
+  <div class="od-tb">
+    <button class="od-back" onclick="odClose()" style="color:#0891b2;border-color:#0891b2">&#8592; Volver</button>
+    <span class="od-tb-title">Objetivo 04 &mdash; Clientes Nuevos Fuera del Sector Agro</span>
+    <span class="od-tb-chip" style="background:#e0f7fa;color:#164e63">En seguimiento &middot; 50.00%</span>
+  </div>
+  <div class="od-body">
+    <div class="od-hero" style="background:linear-gradient(135deg,#0a2428 0%,#0c3d52 60%,#0a2428 100%)">
+      <div class="od-kpi"><span class="od-kl">Clientes nuevos logrados</span><span class="od-kv">2 / 4</span><span class="od-ks">Fuera del sector agro</span></div>
+      <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">50.00%</span><span class="od-ks">Meta: 4 clientes</span></div>
+      <div class="od-kpi"><span class="od-kl">Pendiente</span><span class="od-kv">2 clientes</span><span class="od-ks">Para cumplir meta</span></div>
+      <div class="od-kpi"><span class="od-kl">Pipeline no agro activo</span><span class="od-kv">13 oport.</span><span class="od-ks">Valor estimado $17.74M</span></div>
+    </div>
+    <div class="od-pane active" id="od3-a">
+      <div class="od-card" style="margin-bottom:14px">
+        <h4>Clientes nuevos fuera del agro &mdash; Vendidos 2026</h4>
+        <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
+          <thead><tr><th>Cliente</th><th>Requerimiento</th><th class="r">Importe ($)</th><th class="r">Margen</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Arca Continental Lindley S.A.</strong></td><td>Suministro e instalaci&oacute;n de serpent&iacute;n</td><td class="r">$203,678</td><td class="r">21.00%</td></tr>
+            <tr><td><strong>Delice S.A.C.</strong></td><td>Suministro e instalaci&oacute;n racks</td><td class="r">$25,500</td><td class="r">23.00%</td></tr>
+            <tr><td><strong>Delice S.A.C.</strong></td><td>Rampas encuentros y bomba de condensado</td><td class="r">$17,083</td><td class="r">13.00%</td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #0891b2"><td><strong>TOTAL</strong></td><td><strong>2 clientes &middot; 3 proyectos</strong></td><td class="r"><strong>$246,262</strong></td><td class="r"><strong>20.65%</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="od-note" style="margin-top:10px">2 clientes &uacute;nicos fuera del sector agro con status &ldquo;Vendido&rdquo; en 2026 &mdash; 3 proyectos en total. Meta: 4 clientes. Pendiente: 2 clientes adicionales.</div>
+      </div>
+      <div class="od-card">
+        <h4>Pipeline no agro &mdash; Oportunidades en seguimiento</h4>
+        <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
+          <thead><tr><th>Cliente</th><th>Proyecto</th><th class="r">Importe ($)</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Axion Log</strong></td><td>CD Trujillo</td><td class="r">$1,004,484</td><td><span class="sb-crit">Postpuesto</span></td></tr>
+            <tr><td><strong>Delice</strong></td><td>Planta procesadora de l&aacute;cteos y derivados (sistema de fr&iacute;o)</td><td class="r">$1,572,932</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr><td><strong>Pronex (Prod. Naturales)</strong></td><td>C&aacute;mara + esclusa recepci&oacute;n/despacho</td><td class="r">$620,036</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>T&uacute;nel congelado</td><td class="r">$1,084,509</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Gloria</strong></td><td>Planta de congelado multiprop&oacute;sito</td><td class="r">$4,000,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Rinti SA</strong></td><td>Planta empacadora de comida para perros</td><td class="r">$469,189</td><td><span class="sb-crit">Postpuesto</span></td></tr>
+            <tr><td><strong>Zedina</strong></td><td>&Aacute;reas de inyecci&oacute;n y proporcionado de carnes</td><td class="r">$75,928</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Hijuelas</strong></td><td>Laboratorio de crecimiento de Ar&aacute;ndanos</td><td class="r">$6,805,759</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr><td><strong>NGR &ndash; Nutra</strong></td><td>Expediente e implementaci&oacute;n de c&aacute;maras de fr&iacute;o</td><td class="r">$450,000</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>Perupez</strong></td><td>Ampliaci&oacute;n de planta pesquera</td><td class="r">$1,000,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Talma</strong></td><td>C&aacute;maras &mdash; Almac&eacute;n de fr&iacute;o</td><td class="r">$500,000</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>Cementos Pacasmayo</strong></td><td>Instalaci&oacute;n 2 Chillers Ecuador</td><td class="r">$128,993</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>Europan &mdash; San Antonio</strong></td><td>Antec&aacute;mara</td><td class="r">$30,600</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #0891b2"><td><strong>TOTAL ACTIVO</strong></td><td><strong>13 oportunidades</strong></td><td class="r"><strong>$17,742,429</strong></td><td></td></tr>
+            <tr><td><strong>San Fernando</strong></td><td>Implementaci&oacute;n del sistema de refrigeraci&oacute;n &mdash; PPPC Huaral</td><td class="r">$2,923,053</td><td><span class="sb-crit">Perdido</span></td></tr>
+            <tr><td><strong>Agropecuarios del Sur</strong></td><td>Planta de embutidos</td><td class="r">$421,756</td><td><span class="sb-crit">Perdido</span></td></tr>
+          </tbody>
+        </table>
+        <div class="od-note" style="margin-top:10px">Pipeline no agro activo: $17.74M en 13 oportunidades (excluye 2 oportunidades marcadas como &ldquo;Perdido&rdquo;, mostradas al pie de la tabla como referencia). Cerrar 2 clientes m&aacute;s como &ldquo;Vendido&rdquo; completa la meta anual.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OBJ 03 — Valor Sin Frío -->
+<div class="od" id="od-4">
+  <div class="od-tb">
+    <button class="od-back" onclick="odClose()" style="color:#0d9488;border-color:#0d9488">&#8592; Volver</button>
+    <span class="od-tb-title">Objetivo 03 &mdash; Incrementar Valor Sin Fr&iacute;o (OOCC + EEMM)</span>
+    <span class="od-tb-chip" style="background:#dcfce7;color:#16a34a">Meta superada &middot; 193.80%</span>
+  </div>
+  <div class="od-body">
+    <div class="od-hero" style="background:linear-gradient(135deg,#031f1b 0%,#0a4a40 60%,#031f1b 100%)">
+      <div class="od-kpi"><span class="od-kl">Total sin fr&iacute;o vendido</span><span class="od-kv">$5,426,217</span><span class="od-ks">OOCC + EEMM</span></div>
+      <div class="od-kpi"><span class="od-kl">Meta anual</span><span class="od-kv">$2,800,000</span><span class="od-ks">Objetivo 2026</span></div>
+      <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">193.80%</span><span class="od-ks">Objetivo cumplido</span></div>
+      <div class="od-kpi"><span class="od-kl">Proyectos con sin fr&iacute;o</span><span class="od-kv">8</span><span class="od-ks">OOCC y/o EEMM</span></div>
+    </div>
+    <div class="od-pane active" id="od4-a">
+      <div class="od-g2" style="margin-bottom:14px">
+        <div class="od-card">
+          <h4>OOCC &mdash; Obras Civiles y de Construcci&oacute;n</h4>
+          <div style="font-size:32px;font-weight:900;color:#0d9488;margin-bottom:4px">$2,691,054</div>
+          <div style="font-size:12px;color:var(--ts)">96.10% de la meta total</div>
+          <div class="od-note" style="margin-top:8px">Obras civiles incluidas en proyectos vendidos.</div>
+        </div>
+        <div class="od-card">
+          <h4>EEMM &mdash; Equipamiento Electromec&aacute;nico</h4>
+          <div style="font-size:32px;font-weight:900;color:#0d9488;margin-bottom:4px">$2,735,162</div>
+          <div style="font-size:12px;color:var(--ts)">97.70% de la meta total</div>
+          <div class="od-note" style="margin-top:8px">Maquinaria y estructuras incluidas en proyectos vendidos.</div>
+        </div>
+      </div>
+      <div class="od-card">
+        <h4>Proyectos vendidos con componente sin fr&iacute;o</h4>
+        <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
+          <thead><tr><th>Cliente</th><th>Proyecto</th><th class="r">OOCC ($)</th><th class="r">EEMM ($)</th><th class="r">Total sin fr&iacute;o ($)</th><th class="r">Margen</th></tr></thead>
+          <tbody>
+            <tr><td>Agroberries Per&uacute;</td><td>Nueva planta ar&aacute;ndanos + EEMM</td><td class="r">$2,270,743</td><td class="r">$2,475,725</td><td class="r"><strong>$4,746,468</strong></td><td class="r">18.00%</td></tr>
+            <tr><td>Qali Fruits S.A.C.</td><td>Ampliaci&oacute;n packing</td><td class="r">$105,148</td><td class="r">$84,519</td><td class="r"><strong>$189,667</strong></td><td class="r">18.00%</td></tr>
+            <tr><td>Agroberries Per&uacute;</td><td>Construcci&oacute;n acopio ar&aacute;ndanos</td><td class="r">$115,434</td><td class="r">$50,836</td><td class="r"><strong>$166,270</strong></td><td class="r">15.00%</td></tr>
+            <tr><td>Procesadora Torre Blanca</td><td>Ampliaci&oacute;n de planta</td><td class="r">$99,840</td><td class="r">$26,235</td><td class="r"><strong>$126,075</strong></td><td class="r">19.00%</td></tr>
+            <tr><td>Berry Harvest S.A.</td><td>Reforzamiento estructural puertas</td><td class="r">$0</td><td class="r">$97,847</td><td class="r"><strong>$97,847</strong></td><td class="r">15.00%</td></tr>
+            <tr><td>Agroberries Per&uacute;</td><td>Construcci&oacute;n acopio</td><td class="r">$50,865</td><td class="r">$0</td><td class="r"><strong>$50,865</strong></td><td class="r">15.00%</td></tr>
+            <tr><td>Agroberries Per&uacute;</td><td>Anteproyecto planta empacadora</td><td class="r">$38,315</td><td class="r">$0</td><td class="r"><strong>$38,315</strong></td><td class="r">15.00%</td></tr>
+            <tr><td>Reiter Peruvian Berry</td><td>Ampliaci&oacute;n planta</td><td class="r">$10,710</td><td class="r">$0</td><td class="r"><strong>$10,710</strong></td><td class="r">14.00%</td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #0d9488"><td colspan="4" style="font-weight:700">TOTAL</td><td class="r" style="font-weight:900;color:#0d9488">$5,426,217</td><td class="r" style="font-weight:700">193.80%</td></tr>
+          </tbody>
+        </table>
+        <div class="od-note" style="margin-top:10px">8 proyectos vendidos con componente sin fr&iacute;o. Pipeline sin fr&iacute;o adicional disponible: $647,109.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OBJ 05 — Cross Selling – Frioteam -->
+<div class="od" id="od-5">
+  <div class="od-tb">
+    <button class="od-back" onclick="odClose()" style="color:#3d4a6a;border-color:#3d4a6a">&#8592; Volver</button>
+    <span class="od-tb-title">Objetivo 05 &mdash; Cross Selling &ndash; Frioteam</span>
+    <span class="od-tb-chip" style="background:#e7eaf2;color:#20283f">En atenci&oacute;n &middot; 50.56%</span>
+  </div>
+  <div class="od-body">
+    <div class="od-hero" style="background:linear-gradient(135deg,#0a0e18 0%,#1c2440 60%,#0a0e18 100%);display:block">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+        <div class="od-kpi"><span class="od-kl">Total vendido 2026</span><span class="od-kv">$330,083</span><span class="od-ks">4 servicios realizados</span></div>
+        <div class="od-kpi"><span class="od-kl">Meta anual</span><span class="od-kv">$250,000</span><span class="od-ks">Objetivo 2026</span></div>
+        <div class="od-kpi"><span class="od-kl">Pendiente</span><span class="od-kv">$0</span><span class="od-ks">Jul&ndash;Dic 2026</span></div>
+        <div class="od-kpi"><span class="od-kl">Servicios vendidos</span><span class="od-kv">4</span><span class="od-ks">Ene&ndash;Jun 2026</span></div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.9px;font-weight:600">Avance vs meta anual 2026</span>
+          <span style="font-size:clamp(14px,1.1vw,18px);font-weight:900;color:#a9b6dd">132.03%</span>
+        </div>
+        <div style="height:8px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden">
+          <div class="od-hero-prog-fill" style="height:100%;border-radius:6px;background:linear-gradient(90deg,#20283f,#8a9bc7);width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)" data-w="132.03%"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.4);margin-top:5px">
+          <span>$0</span>
+          <span style="color:rgba(255,255,255,.55)">Vendido: $330,083</span>
+          <span>Meta: $250,000</span>
+        </div>
+      </div>
+    </div>
+    <div class="od-pane active" id="od5-a">
+      <!-- Detalle completo + Pipeline lado a lado -->
+      <div class="od-g2" style="margin-bottom:16px">
+        <div class="od-card">
+          <h4 style="margin-bottom:14px">Detalle completo &mdash; 4 servicios vendidos 2026</h4>
+          <div style="overflow-x:auto">
+          <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
+            <thead><tr><th>Cliente</th><th>Requerimiento</th><th class="r">Importe ($)</th><th class="r">Margen</th><th>Mes</th><th>Sector</th><th>Refrigerante</th><th>Zona</th></tr></thead>
+            <tbody>
+              <tr><td>Emergent Cold Peru S.A.C.</td><td>Modificaci&oacute;n de control de t&uacute;neles de congelado (opci&oacute;n 2)</td><td class="r">$87,009</td><td class="r">22.00%</td><td>Junio</td><td>Industrial</td><td>Fre&oacute;n</td><td>Centro</td></tr>
+              <tr><td>Oregon Foods S.A.C.</td><td>Mantenimiento de rack de compresores y UC</td><td class="r">$24,240</td><td class="r">25.00%</td><td>Junio</td><td>C&aacute;rnico</td><td>Fre&oacute;n</td><td>Centro</td></tr>
+              <tr><td>Zedina Alimentos S.A.C.</td><td>Mantenimiento anual de equipos de fr&iacute;o</td><td class="r">$15,156</td><td class="r">27.00%</td><td>Junio</td><td>C&aacute;rnico</td><td>Fre&oacute;n</td><td>Centro</td></tr>
+              <tr><td>Arca Continental Lindley S.A</td><td>Suministro e instalación de serpentín</td><td class="r">$203,678</td><td class="r">21.30%</td><td>Marzo</td><td>Industrial</td><td>Amoniaco</td><td>Norte</td></tr>
+              <tr style="background:#f7fafc;border-top:2px solid #3d4a6a"><td colspan="2" style="font-weight:700">TOTAL &mdash; 4 servicios</td><td class="r" style="font-weight:900;color:#3d4a6a">$330,083</td><td class="r" style="font-weight:700">22.02%</td><td colspan="4"></td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="od-card">
+          <h4 style="margin-bottom:14px">Pipeline de servicios pendientes</h4>
+          <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
+            <thead><tr><th>Cliente</th><th>Requerimiento</th><th class="r">Importe ($)</th></tr></thead>
+            <tbody>
+              <tr><td>Farmacias Peruanas S.A.C.</td><td>Servicio de mantenimiento anual</td><td class="r">$60,000</td></tr>
+              <tr><td>Delice S.A.C.</td><td>Servicio de mantenimiento anual</td><td class="r">$22,000</td></tr>
+              <tr style="background:#f7fafc;border-top:2px solid #3d4a6a"><td><strong>TOTAL</strong></td><td><strong>2 oportunidades</strong></td><td class="r"><strong>$82,000</strong></td></tr>
+            </tbody>
+          </table>
+          <div class="od-note" style="margin-top:10px">Pipeline estimado: $82,000. Aporta valor a la meta ya superada: <strong>$123,595</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src="js/shared.js" defer></script>
+  <script src="js/portada.js" defer></script>
+  <script src="js/ventas.js" defer></script>
+  <script src="js/pipeline.js" defer></script>
+  <script src="js/moventas.js" defer></script>
+  <script src="js/clientes.js" defer></script>
+  <script src="js/participacion.js" defer></script>
+  <script src="js/objetivos.js" defer></script>
+  <script src="js/organigrama.js" defer></script>
+</body>
+</html>
