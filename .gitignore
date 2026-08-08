@@ -1,0 +1,7 @@
+# Archivos temporales de Microsoft Office (se crean al tener el archivo abierto)
+~$*.xlsx
+~$*.xls
+~$*.docx
+~$*.doc
+~$*.pptx
+~$*.ppt

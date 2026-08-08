@@ -111,3 +111,59 @@ var _vtSharedOpts = {
   }
 };
 
+/* ── Destello sutil compartido — un solo barrido diagonal de luz cuando un gráfico
+   (línea o barra) termina de cargar o de actualizarse. Reutilizable en cualquier Chart.js
+   de Ventas/Pipeline: se agrega vía `plugins:[window._sheenPlugin]` en la config del chart
+   y se dispara desde `animation.onComplete: function(a){ window._triggerSheen(a.chart); }` ── */
+var _reduceMotionGlobal = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+window._sheenPlugin = {
+  id: 'sheenOnLoad',
+  afterDatasetsDraw: function(chart) {
+    var s = chart.$sheen;
+    if (!s) return;
+    var area = chart.chartArea;
+    var w = area.right - area.left, h = area.bottom - area.top;
+    var band = 100;
+    var x = area.left - band + s.progress * (w + band * 2);
+    var ctx = chart.ctx;
+    var grad = ctx.createLinearGradient(x, 0, x + band, 0);
+    grad.addColorStop(0, 'rgba(255,255,255,0)');
+    grad.addColorStop(0.5, 'rgba(255,255,255,.28)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(area.left, area.top, w, h);
+    ctx.clip();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = grad;
+    ctx.fillRect(x, area.top, band, h);
+    ctx.restore();
+  }
+};
+/* Relleno en gradiente vertical reutilizable para barras Chart.js (en vez de color plano) */
+window._vtGrad = function(top, bottom) {
+  return function(ctx) {
+    var area = ctx.chart.chartArea;
+    if (!area) return top;
+    var g = ctx.chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+    g.addColorStop(0, top); g.addColorStop(1, bottom);
+    return g;
+  };
+};
+window._triggerSheen = function(chart) {
+  if (_reduceMotionGlobal || !chart || chart.$sheenRunning) return;
+  chart.$sheenRunning = true;
+  chart.$sheen = {progress: 0};
+  var start = null, DUR = 700;
+  function step(ts) {
+    if (!chart.ctx) { chart.$sheenRunning = false; return; }
+    if (!start) start = ts;
+    var p = Math.min(1, (ts - start) / DUR);
+    chart.$sheen.progress = p;
+    chart.draw();
+    if (p < 1) requestAnimationFrame(step);
+    else { chart.$sheen = null; chart.$sheenRunning = false; }
+  }
+  requestAnimationFrame(step);
+};
+

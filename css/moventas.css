@@ -1,215 +1,259 @@
 
 
-/* Mano de Obra — Hero ejecutivo + tabs internos (Comercial / Arquitectura) */
-.mo3-hero{
-  position:relative;border-radius:12px;overflow:hidden;margin-bottom:16px;
+/* Mano de Obra — panel ejecutivo único (sin contenedores anidados) */
+.mo4-panel{
+  position:relative;overflow:hidden;border-radius:12px;
   background:linear-gradient(90deg,#061430 0%,#0c2454 55%,#061430 100%);
   border:1px solid rgba(62,198,172,.15);
-  padding:16px 24px
+  padding:clamp(20px,2.4vw,32px) clamp(20px,2.6vw,36px);
 }
 
 
-.mo3-hero::before{
-  content:'';position:absolute;inset:0;
+.mo4-bg{
+  position:absolute;inset:0;z-index:0;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  opacity:.05;filter:saturate(.85)
+}
+
+
+.mo4-grid{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(62,198,172,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(62,198,172,.045) 1px,transparent 1px);
-  background-size:52px 52px;pointer-events:none;z-index:0
+  background-size:52px 52px
 }
 
 
-.mo3-hero::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 100% at 12% 50%,rgba(62,198,172,.14) 0%,transparent 70%);
-  pointer-events:none;z-index:0
+.mo4-glow{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 70% at 8% 8%,rgba(62,198,172,.13) 0%,transparent 68%)
 }
 
 
-.mo3-hero-in{position:relative;z-index:1}
+.mo4-in{position:relative;z-index:1}
 
 
-.mo3-hero-eye{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:#3EC6AC;margin-bottom:4px}
+
+/* ── Header: eyebrow + título + sub (izq) / tabs (der) ─────── */
+.mo4-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;margin-bottom:clamp(22px,2.6vw,30px)
+}
 
 
-.mo3-hero-ttl{font-size:clamp(16px,1.6vw,22px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:3px}
+.mo4-head-text{min-width:0}
 
 
-.mo3-hero-sub{font-size:12px;color:rgba(255,255,255,.62);font-weight:500}
+.mo4-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:#3EC6AC;margin-bottom:7px}
 
-@media(max-width:700px) {
-.mo3-hero{padding:14px 18px}
+
+.mo4-title{font-size:clamp(20px,2vw,28px);font-weight:800;color:#fff;line-height:1.18;letter-spacing:-.2px;margin-bottom:6px}
+
+
+.mo4-sub{font-size:13px;color:rgba(255,255,255,.55);font-weight:500;line-height:1.5}
+
+
+.mo3-tabs{
+  display:flex;gap:4px;padding:4px;flex:none;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:11px
+}
+
+
+.mo3-tab-btn{
+  padding:8.5px 18px;border-radius:8px;font-size:12.5px;font-weight:700;letter-spacing:.2px;
+  color:rgba(255,255,255,.55);cursor:pointer;user-select:none;white-space:nowrap;text-align:center;
+  transition:color .18s ease,background .18s ease,transform .15s ease
+}
+
+
+.mo3-tab-btn:not(.active):hover{color:rgba(255,255,255,.85)}
+
+
+.mo3-tab-btn.active{background:#3EC6AC;color:#06261f;box-shadow:0 4px 14px rgba(62,198,172,.3)}
+
+
+.mo3-tab-btn:active{transform:scale(.97)}
+
+@media(max-width:640px) {
+.mo4-head{gap:14px}
+.mo3-tabs{width:100%}
+.mo3-tab-btn{flex:1}
 }
 
 
 
-.mo3-tabs{display:flex;gap:4px;padding:5px;margin-bottom:21px;background:linear-gradient(180deg,#fff,#f8fafd);
-  border:1px solid var(--border);border-radius:14px;box-shadow:var(--sh)}
-
-
-.mo3-tab-btn{flex:1;display:flex;align-items:center;justify-content:center;
-  padding:11.5px 17px;border-radius:10px;font-size:13.5px;font-weight:700;letter-spacing:.2px;
-  color:var(--ts);cursor:pointer;user-select:none;white-space:nowrap;text-align:center;
-  transition:color .18s ease,background .18s ease,box-shadow .2s ease,transform .15s ease}
-
-
-.mo3-tab-btn:not(.active):hover{color:var(--brand-d);background:rgba(62,198,172,.07)}
-
-
-.mo3-tab-btn.active{background:var(--navy);color:#fff;box-shadow:0 6px 16px rgba(10,10,30,.24)}
-
-
-.mo3-tab-btn:active{transform:scale(.98)}
-
-@media(max-width:600px) {
-.mo3-tab-btn{padding:10px 8px;font-size:12px}
-}
-
-
-
-.mo3-panels{max-width:90%;margin:0 auto}
-
-
+/* ── Tabs internos (contenido que alterna Comercial/Arquitectura) ── */
 .mo3-view{display:none}
 
 
 .mo3-view.active{display:block;animation:fadeUp .35s ease}
 
-@media(max-width:900px) {
-.mo3-panels{max-width:none}
+@media(prefers-reduced-motion:reduce) {
+.mo3-view.active{animation:none}
 }
 
 
 
-/* Contenedor visual — encierra tabs + card activa sobre fondo Virú sutil */
-.mo3-frame{
-  position:relative;border-radius:18px;overflow:hidden;
-  border:1px solid var(--border);
-  box-shadow:0 8px 32px rgba(10,10,30,.14);
-  background:#0a1730;
-  padding:clamp(19px,2.3vw,31px) clamp(14.5px,2.1vw,27px) clamp(27px,3.1vw,39px);
-  min-height:0;
-  box-sizing: border-box;
+/* ── Fila de KPIs — plana, separadores finos, sin cards ─────── */
+.mo4-kpirow{display:flex;align-items:stretch}
+
+
+.mo4-kpi{flex:1;padding:0 clamp(16px,2vw,28px);position:relative}
+
+
+.mo4-kpi:first-child{padding-left:0}
+
+
+.mo4-kpi:last-child{padding-right:0}
+
+
+.mo4-kpi:not(:last-child)::after{
+  content:'';position:absolute;top:4px;bottom:4px;right:0;width:1px;
+  background:rgba(255,255,255,.1)
 }
 
 
-.mo3-frame-bg{
-  position:absolute;inset:0;z-index:0;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  opacity:.2;filter:saturate(.92)
+.mo4-kpi-lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:rgba(255,255,255,.42);margin-bottom:11px}
+
+
+.mo4-kpi-val{
+  font-size:clamp(24px,2.6vw,34px);font-weight:800;color:#fff;line-height:1;
+  font-variant-numeric:tabular-nums;margin-bottom:8px;transition:color .2s ease
 }
 
 
-.mo3-frame-overlay{
-  position:absolute;inset:0;z-index:1;
-  background:
-    radial-gradient(ellipse 65% 55% at 88% 6%,rgba(62,198,172,.10) 0%,transparent 65%),
-    linear-gradient(165deg,rgba(6,14,32,.84) 0%,rgba(10,26,60,.80) 45%,rgba(6,14,32,.90) 100%)
-}
+.mo4-kpi:hover .mo4-kpi-val{color:var(--mo4-a,#3EC6AC)}
 
 
-.mo3-frame-in{position:relative;z-index:2}
+.mo4-kpi-ctx{font-size:12px;color:rgba(255,255,255,.48);font-weight:500}
 
 
-.mo3-frame .mo3-tabs{
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  margin-bottom:23px
-}
+.mo4-up{color:#3EC6AC;font-weight:700}
 
-
-.mo3-frame .mo3-panels{margin-top:0}
-
-@media(max-width:700px) {
-.mo3-frame{padding:14.5px 12.5px 21px}
+@media(max-width:640px) {
+.mo4-kpirow{flex-direction:column;gap:16px}
+.mo4-kpi{padding:0 0 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.mo4-kpi:not(:last-child)::after{display:none}
+.mo4-kpi:last-child{padding-bottom:0;border-bottom:none}
 }
 
 
 
-.mo2-card{
-  --mo2-a:#3EC6AC;--mo2-a-d:#0F6E56;--mo2-a-bg:rgba(62,198,172,.08);--mo2-halo:rgba(62,198,172,.16);
-  background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;
-  box-shadow:0 2px 12px rgba(10,10,30,.08);
-  transition:transform .22s ease,box-shadow .22s ease;
-  display:flex;flex-direction:column
+/* ── Divisor entre KPIs y tabla ───────────────────────────── */
+.mo4-divider{height:1px;background:rgba(255,255,255,.09);margin:clamp(18px,2vw,24px) 0}
+
+
+
+/* ── Etiqueta de sección activa (reemplaza header de card) ──── */
+.mo4-tag{
+  display:flex;align-items:center;gap:8px;margin-bottom:14px;
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--mo4-a,#3EC6AC)
 }
 
 
-.mo2-card:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(10,10,30,.13),0 16px 40px -12px var(--mo2-halo)}
+.mo4-dot{width:6px;height:6px;border-radius:50%;background:var(--mo4-a,#3EC6AC);flex:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--mo4-a,#3EC6AC) 18%,transparent)}
 
 
-.mo2-card.mo2-arq{--mo2-a:#3b82f6;--mo2-a-d:#1e40af;--mo2-a-bg:rgba(59,130,246,.08);--mo2-halo:rgba(59,130,246,.16)}
+
+/* ── Tabla — directa sobre el panel, sin card blanco ─────────── */
+.mo4-table{width:100%}
 
 
-.mo2-card-hd{
-  padding:14.5px 20.5px;
-  background:linear-gradient(135deg,#061430 0%,#0c2454 55%,#061430 100%);
-  display:flex;align-items:center;gap:9px
+.mo4-trow{
+  display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr 1fr .9fr;
+  align-items:center;gap:14px;padding:19px 14px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  border-radius:10px;
+  transition:background .2s ease
 }
 
 
-.mo2-card-hd::before{content:'';width:8.5px;height:8.5px;border-radius:50%;background:var(--mo2-a);flex:none;box-shadow:0 0 0 4px rgba(255,255,255,.08)}
+.mo4-trow:last-child{border-bottom:none}
 
 
-.mo2-card-name{font-size:13.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#fff}
+.mo4-trow.mo4-thead{padding-left:14px;padding-right:14px}
 
 
-.mo2-table{padding:6px 20.5px 4px;flex:1}
+.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover{background:rgba(255,255,255,.045)}
 
 
-.mo2-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr 1fr;align-items:center;gap:8.5px;padding:12.5px 4px;border-bottom:1px solid var(--border);border-radius:6px;transition:background .15s ease}
+.mo4-thead{padding-top:0;padding-bottom:16px}
 
 
-.mo2-row:hover:not(.mo2-row-head):not(.mo2-row-main){background:rgba(62,198,172,.03)}
+.mo4-thead .mo4-tcol{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.4);text-align:right;line-height:1.5}
 
 
-.mo2-row:last-child{border-bottom:none}
+.mo4-thead .mo4-tcol span{display:block;font-size:12px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.3)}
 
 
-.mo2-row-head{padding-top:14.5px;padding-bottom:10.5px}
+.mo4-thead .mo4-tcol.mo4-hl,.mo4-thead .mo4-tcol.mo4-hl span{color:var(--mo4-a,#3EC6AC)}
 
 
-.mo2-row-head .mo2-col{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#94a3b8;text-align:right;line-height:1.4}
+.mo4-tlbl{font-size:16px;font-weight:600;color:rgba(255,255,255,.72);transition:color .2s ease,transform .2s ease}
 
 
-.mo2-row-head .mo2-col span{display:block;font-size:12px;font-weight:600;letter-spacing:.3px;color:#b6c0d4}
+.mo4-tcell{
+  font-size:20px;font-weight:600;color:rgba(255,255,255,.92);text-align:right;
+  font-variant-numeric:tabular-nums;transition:transform .2s ease,color .2s ease
+}
 
 
-.mo2-lbl{font-size:13px;font-weight:600;color:var(--tm)}
+.mo4-tcell.mo4-hl{color:#fff;font-weight:700}
 
 
-.mo2-cell{font-size:20px;font-weight:700;color:var(--navy);text-align:right;font-variant-numeric:tabular-nums}
+.mo4-trow.mo4-lead .mo4-tcell.mo4-hl{color:var(--mo4-a,#3EC6AC)}
 
 
-.mo2-col-hl{background:var(--mo2-a-bg);border-radius:6px;padding:6px 8.5px;color:var(--mo2-a-d)}
+.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover{transform:scale(1.008)}
 
 
-.mo2-row-head .mo2-col-hl{color:var(--mo2-a-d);background:var(--mo2-a-bg);border-radius:6px 6px 0 0}
+.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover .mo4-tlbl{color:#fff;transform:translateX(3px)}
 
 
-.mo2-row-main{padding:16.5px 0 19px;margin-top:2px;background:linear-gradient(180deg,transparent 0%,var(--mo2-a-bg) 100%);border-radius:0 0 10px 10px}
+.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover .mo4-tcell{transform:scale(1.07);color:#fff}
 
 
-.mo2-row-main .mo2-lbl{font-size:13.5px;font-weight:800;color:var(--navy)}
+.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover .mo4-tcell.mo4-hl{transform:scale(1.12);color:var(--mo4-a,#3EC6AC)}
 
 
-.mo2-row-main .mo2-cell{font-size:19px;font-weight:900}
+.mo4-tmain{
+  margin-top:6px;padding:22px 14px 4px;border-top:1px solid color-mix(in srgb,var(--mo4-a,#3EC6AC) 45%,transparent);
+  border-bottom:none;transition:background .2s ease
+}
 
 
-.mo2-row-main .mo2-col-hl{font-size:22px;background:var(--mo2-a-bg)}
+.mo4-tmain:hover{background:rgba(255,255,255,.035)}
+
+
+.mo4-tmain .mo4-tlbl{font-size:17.5px;font-weight:800;color:#fff;transition:transform .2s ease}
+
+
+.mo4-tmain .mo4-tcell{font-size:23px;font-weight:800;color:rgba(255,255,255,.92);transition:transform .2s ease,color .2s ease}
+
+
+.mo4-tmain .mo4-tcell.mo4-hl{font-size:27px;color:var(--mo4-a,#3EC6AC)}
+
+
+.mo4-tmain:hover .mo4-tlbl{transform:translateX(3px)}
+
+
+.mo4-tmain:hover .mo4-tcell{transform:scale(1.06);color:#fff}
+
+
+.mo4-tmain:hover .mo4-tcell.mo4-hl{transform:scale(1.06)}
+
+@media(max-width:640px) {
+.mo4-trow{grid-template-columns:1.4fr 1fr 1fr 1fr;gap:8px;padding:15px 10px}
+.mo4-trow > :nth-child(6){display:none}
+.mo4-tlbl{font-size:13px}
+.mo4-tcell{font-size:15px}
+.mo4-tmain .mo4-tlbl{font-size:14.5px}
+.mo4-tmain .mo4-tcell{font-size:18px}
+.mo4-tmain .mo4-tcell.mo4-hl{font-size:20px}
+}
 
 
 #moventas button:focus-visible,#moventas [tabindex]:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
 
-@media(max-width:600px) {
-
-  .mo2-row,.mo2-row-head{grid-template-columns:1.3fr 1fr 1fr 1fr;gap:5px}
-
-  .mo2-cell{font-size:12.5px}
-
-  .mo2-row-main .mo2-cell{font-size:15px}
-
-  .mo2-row-main .mo2-col-hl{font-size:17px}
-}
-
 @media(prefers-reduced-motion:reduce) {
-
-  #moventas .mo2-card,#moventas .mo3-view.active{transition:none!important;animation:none!important}
+  #moventas .mo4-panel,#moventas .mo3-view.active{transition:none!important;animation:none!important}
 }

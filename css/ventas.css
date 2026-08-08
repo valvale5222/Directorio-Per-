@@ -186,10 +186,17 @@
 .vt-hero-prog-track{height:7px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;margin-bottom:6px;position:relative}
 
 
-.vt-hero-prog-fill{height:100%;background:linear-gradient(90deg,#3EC6AC,#7dd3fc);border-radius:5px;transition:width 1.4s cubic-bezier(.4,0,.2,1);position:relative}
+.vt-hero-prog-fill{height:100%;background:linear-gradient(90deg,#3EC6AC,#7dd3fc);border-radius:5px;transition:width 1.4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
 
 
 .vt-hero-prog-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;background:rgba(255,255,255,.75);border-radius:2px}
+
+
+.vt-hero-prog-fill::before{
+  content:'';position:absolute;top:0;left:-60%;width:35%;height:100%;
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.55) 50%,transparent 100%);
+  transform:skewX(-18deg);animation:pfChipShine 1s 1.6s cubic-bezier(.4,0,.2,1) both;pointer-events:none
+}
 
 
 .vt-hero-prog-lbl{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.35)}
@@ -241,6 +248,15 @@
 
 /* Tipo de Venta card — dona compacta + leyenda ejecutiva (header fijo + cuerpo scroll 2x + total fijo) */
 .vt-tipo-cols,.vt-tipo-row,.vt-tipo-totalrow{display:flex;align-items:center;gap:6px;padding:0 14px}
+
+
+.vt-tipo-row{cursor:pointer;border-radius:6px;transition:background .18s ease,transform .18s ease}
+
+
+.vt-tipo-row:hover{background:rgba(62,198,172,.08);transform:translateX(2px)}
+
+
+.vt-tipo-row:hover .vt-tipo-col-pct{transform:scale(1.08);display:inline-block}
 
 
 /* Encabezado de columnas — estático, fuera del área de scroll (sin sticky, sin solapes) */
@@ -303,13 +319,19 @@
 .top10-tbl th.r{text-align:right}
 
 
-.top10-tbl td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.top10-tbl td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle;transition:background .18s ease,color .18s ease}
 
 
-.top10-tbl td.r{text-align:right;font-variant-numeric:tabular-nums}
+.top10-tbl td.r{text-align:right;font-variant-numeric:tabular-nums;transition:background .18s ease,color .18s ease,transform .18s ease}
 
 
-.top10-tbl tr:hover td{background:#f7faff}
+.top10-tbl tr:hover td{background:linear-gradient(90deg,rgba(62,198,172,.09),rgba(62,198,172,.02) 65%)}
+
+
+.top10-tbl tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--brand)}
+
+
+.top10-tbl tr:hover td.r{color:var(--navy);font-weight:700;transform:scale(1.04);transform-origin:right center}
 
 
 .top10-tbl tr:last-child td{border-bottom:none}

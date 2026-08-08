@@ -124,7 +124,14 @@
 .kpi-v3 .kv3-bar-track{height:4px;background:#e8edf5;border-radius:2px;overflow:hidden;margin-bottom:6px}
 
 
-.kpi-v3 .kv3-bar-fill{height:100%;border-radius:2px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.kpi-v3 .kv3-bar-fill{height:100%;border-radius:2px;transition:width 1.2s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+
+
+.kpi-v3 .kv3-bar-fill::before{
+  content:'';position:absolute;top:0;left:-60%;width:35%;height:100%;
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.65) 50%,transparent 100%);
+  transform:skewX(-18deg);animation:pfChipShine .9s 1.3s cubic-bezier(.4,0,.2,1) both;pointer-events:none
+}
 
 
 .kpi-v3 .kv3-delta{font-size:10.5px;font-weight:700;display:flex;align-items:center;gap:4px}

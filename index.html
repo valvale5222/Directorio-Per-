@@ -23,18 +23,23 @@
   <div class="hdr-top">
     <img class="hdr-logo" id="hdrLogo" alt="FrioPacking">
     <div class="hdr-titles">
-      <span class="t1">Informe Ejecutivo</span>
+      <span class="t1">Directorio - Informe Ejecutivo</span>
       <span class="t2">Desempeño actual, pipeline de oportunidades y objetivos estratégicos</span>
     </div>
+    <svg class="hdr-flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bandera del Perú">
+      <rect width="1" height="2" fill="#D91023"/>
+      <rect width="1" height="2" x="1" fill="#fff"/>
+      <rect width="1" height="2" x="2" fill="#D91023"/>
+    </svg>
   </div>
   <div class="tabs" id="tabs">
     <div class="tab active" data-s="portada">🏠 Portada</div>
     <div class="tab" data-s="resumen">📋 Resumen</div>
     <div class="tab" data-s="ventas">💰 Ventas</div>
     <div class="tab" data-s="pipeline">🎯 Pipeline</div>
-    <div class="tab" data-s="objetivos">🏆 Objetivos</div>
+    <div class="tab" data-s="objetivos">🏆 Objetivos y Planes</div>
     <div class="tab" data-s="moventas">⚙️ Mano de Obra</div>
-    <div class="tab" data-s="participacion">📊 Participación</div>
+    <div class="tab" data-s="participacion" style="display:none">📊 Participación</div>
     <div class="tab" data-s="clientes">👥 Clientes</div>
     <div class="tab" data-s="organigrama">🏢 Organigrama</div>
   </div>
@@ -51,31 +56,31 @@
     <input type="file" id="imgInput" accept="image/*" style="display:none">
     <div class="cover-inner">
       <div class="cover-eyebrow">FrioPacking · Gerencia Comercial</div>
-      <div class="cover-title">DIRECTORIO – GERENCIA COMERCIAL</div>
-      <div class="cover-period">Enero – Junio 2026</div>
+      <div class="cover-title">Gerencia Comercial - <span class="ct-peru">Perú</span></div>
+      <div class="cover-period">Enero – Julio 2026</div>
       <div class="cover-cards">
         <div class="ccard" onclick="go('ventas')">
           <div class="cc-lbl">💰 Ventas acum. 2026</div>
-          <div class="cc-val">$28.26<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">MM</span></div>
-          <div class="cc-sub">94.20% de meta $30MM · +48.55% vs 2025</div>
+          <div class="cc-val">$29.10<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">MM</span></div>
+          <div class="cc-sub">96.99% de meta $30MM · +46.13% vs 2025</div>
           <div class="cc-go">Ver ventas <svg class="svgic"><use href="#i-arr"/></svg></div>
         </div>
         <div class="ccard" onclick="go('clientes')">
           <div class="cc-lbl">👥 Clientes activos</div>
           <div class="cc-val">73</div>
-          <div class="cc-sub">13 clientes nuevos · Periodo 2026</div>
+          <div class="cc-sub">34 clientes nuevos · Período 2025–2026</div>
           <div class="cc-go">Ver cartera <svg class="svgic"><use href="#i-arr"/></svg></div>
         </div>
         <div class="ccard" onclick="go('pipeline')">
           <div class="cc-lbl">🎯 Win Rate</div>
-          <div class="cc-val">68% <span style="font-size:clamp(13px,1.2vw,17px);font-weight:600;opacity:.7">PR 2026</span></div>
+          <div class="cc-val">69% <span style="font-size:clamp(13px,1.2vw,17px);font-weight:600;opacity:.7">PR 2026</span></div>
           <div class="cc-sub"><span id="coverPipeCount">&mdash;</span> <span >oportunidades activas</span></div>
           <div class="cc-go">Ver pipeline <svg class="svgic"><use href="#i-arr"/></svg></div>
         </div>
         <div class="ccard obj-card" onclick="go('objetivos','o2026')">
           <div class="cc-lbl">🏆 Objetivos estratégicos</div>
           <div class="cc-val">2<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">/5 cumplido</span></div>
-          <div class="cc-sub">3 en seguimiento · Revisión Ene–Jun 2026</div>
+          <div class="cc-sub">3 en seguimiento · Revisión Ene–Jul 2026</div>
           <div class="cc-go">Ver detalle <svg class="svgic"><use href="#i-arr"/></svg></div>
           <canvas id="coverRing" width="64" height="64" style="display:none"></canvas>
         </div>
@@ -92,7 +97,9 @@
 
 <!-- ============ RESUMEN (AGENDA) ============ -->
 <section class="section" id="resumen">
-  <div class="cli-hero">
+  <div class="rs-view">
+
+  <div class="cli-hero rs-hero">
     <div class="cli-hero-left">
       <span class="cli-hero-icon">📋</span>
       <div>
@@ -100,69 +107,91 @@
         <div class="cli-hero-ttl">Agenda de Revisi&oacute;n</div>
       </div>
     </div>
-    <div class="cli-hero-right"></div>
+    <div class="cli-hero-right">6 frentes clave &middot; 2026</div>
+    <div class="rs-hero-strip"></div>
   </div>
-  <div class="agenda">
 
-    <div class="ag-card" onclick="go('ventas','y2026')">
-      <div class="ag-num">01</div>
-      <span class="ag-icon">💰</span>
-      <div class="ag-cat">Estado real · 2026</div>
-      <div class="ag-metric">$28.26MM</div>
-      <div class="ag-title">Ventas Actuales</div>
-      <div class="ag-ctx">Estado real de ventas a junio 2026, detalle operativo y lectura comercial del periodo.</div>
-      <div class="ag-cta">Abrir Ventas 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
+  <div class="rs-grid">
+
+    <div class="rs-card" data-num="01" style="--accent:#3EC6AC;--accent-d:#0F6E56" onclick="go('ventas','y2026')">
+      <div class="rs-top">
+        <span class="rs-num">01</span>
+        <div class="rs-icon">💰</div>
+      </div>
+      <div class="rs-metric"><span class="rs-metric-pre">$</span><span class="rs-metric-num">29.10</span><span class="rs-metric-suf">MM</span></div>
+      <div class="rs-title">Ventas Actuales</div>
+      <div class="rs-ctx">Estado real de ventas a julio 2026 · 96.99% de la meta anual</div>
+      <div class="rs-cta">Abrir Ventas 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
-    <div class="ag-card" onclick="go('ventas','evol')">
-      <div class="ag-num">02</div>
-      <span class="ag-icon">📈</span>
-      <div class="ag-cat">Márgen Acumulado · 2026</div>
-      <div class="ag-metric">15.32%</div>
-      <div class="ag-title">Ventas &amp; Márgenes</div>
-      <div class="ag-ctx">Evolución acumulada de ventas y márgenes a junio, comparando 2026 vs 2025 y 2024.</div>
-      <div class="ag-cta">Abrir Evolución <svg class="svgic"><use href="#i-arr"/></svg></div>
+    <div class="rs-card" data-num="02" style="--accent:#3aabef;--accent-d:#1a8fd1" onclick="go('ventas','evol')">
+      <div class="rs-top">
+        <span class="rs-num">02</span>
+        <div class="rs-icon">📈</div>
+      </div>
+      <div class="rs-metric"><span class="rs-metric-num">15.36</span><span class="rs-metric-suf">%</span></div>
+      <div class="rs-title">Ventas &amp; Márgenes</div>
+      <div class="rs-ctx">Evolución acumulada de ventas y márgenes, 2026 vs 2025 y 2024</div>
+      <div class="rs-cta">Abrir Evolución <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
-    <div class="ag-card" onclick="go('objetivos','o2026')">
-      <div class="ag-num">03</div>
-      <span class="ag-icon">🏆</span>
-      <div class="ag-cat">Status · KPIs</div>
-      <div class="ag-metric">2 / 5</div>
-      <div class="ag-title">Objetivos / KPIs</div>
-      <div class="ag-ctx">Cumplimiento a junio y avance de objetivos estratégicos 2026.</div>
-      <div class="ag-cta">Abrir Objetivos 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
+    <div class="rs-card" data-num="03" style="--accent:#10b981;--accent-d:#047857" onclick="go('objetivos','o2026')">
+      <div class="rs-top">
+        <span class="rs-num">03</span>
+        <div class="rs-icon">🏆</div>
+      </div>
+      <div class="rs-metric"><span class="rs-metric-num">2</span><span class="rs-metric-suf">/ 5 cumplidos</span></div>
+      <div class="rs-title">Objetivos / KPIs</div>
+      <div class="rs-ctx">Cumplimiento a julio y avance de objetivos estratégicos 2026</div>
+      <div class="rs-cta">Abrir Objetivos 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
-    <div class="ag-card" onclick="go('moventas')">
-      <div class="ag-num">04</div>
-      <span class="ag-icon">⚙️</span>
-      <div class="ag-cat">Mano de obra &middot; Productividad 2026</div>
-      <div class="ag-metric">1.84%</div>
-      <div class="ag-title">Costo del area comercial / venta</div>
-      <div class="ag-ctx">Costo del area de arquitectura: 50%</div>
-      <div class="ag-cta">Abrir Mano de Obra <svg class="svgic"><use href="#i-arr"/></svg></div>
+    <div class="rs-card" data-num="04" style="--accent:#64748b;--accent-d:#334155" onclick="go('moventas')">
+      <div class="rs-top">
+        <span class="rs-num">04</span>
+        <div class="rs-icon">⚙️</div>
+      </div>
+      <div class="rs-metric"><span class="rs-metric-num">1.83</span><span class="rs-metric-suf">%</span></div>
+      <div class="rs-title">Costo Comercial / Venta</div>
+      <div class="rs-ctx">Mano de obra y productividad · Costo del área de arquitectura: 50%</div>
+      <div class="rs-cta">Abrir Mano de Obra <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
-    <div class="ag-card" onclick="go('objetivos','plan')">
-      <div class="ag-num">05</div>
-      <span class="ag-icon">🎯</span>
-      <div class="ag-cat">Plan de Acción</div>
-      <div class="ag-metric">3 SMART</div>
-      <div class="ag-title">Objetivos Jul-Sep</div>
-      <div class="ag-ctx">Mejoramiento continuo e iniciativas comerciales para julio-septiembre.</div>
-      <div class="ag-cta">Abrir Plan de Acción <svg class="svgic"><use href="#i-arr"/></svg></div>
+    <div class="rs-card" data-num="05" style="--accent:#d97706;--accent-d:#92400e" onclick="go('objetivos','plan')">
+      <div class="rs-top">
+        <span class="rs-num">05</span>
+        <div class="rs-icon">🎯</div>
+      </div>
+      <div class="rs-metric"><span class="rs-metric-num">3</span><span class="rs-metric-suf">SMART</span></div>
+      <div class="rs-title">Plan de Acción Jul&ndash;Sep</div>
+      <div class="rs-ctx">Mejoramiento continuo e iniciativas comerciales para julio&ndash;septiembre</div>
+      <div class="rs-cta">Abrir Plan de Acción <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
-    <div class="ag-card" onclick="go('participacion')">
-      <div class="ag-num">06</div>
-      <span class="ag-icon">📊</span>
-      <div class="ag-cat">Analisis de Mercado · 2026</div>
-      <div class="ag-metric">44.98%</div>
-      <div class="ag-title">Tamaño del mercado de la refrigeracion</div>
-      <div class="ag-ctx">Friopacking lidera el periodo 2025–2026, ocupa la posición #1 y supera por +24.92 pp a Energy Project Group.</div>
-      <div class="ag-cta">Abrir Participación <svg class="svgic"><use href="#i-arr"/></svg></div>
+    <div class="rs-card" data-num="06" style="--accent:#8b5cf6;--accent-d:#5b21b6" onclick="go('objetivos','nino')">
+      <div class="rs-top">
+        <span class="rs-num">06</span>
+        <div class="rs-icon">🌊</div>
+      </div>
+      <div class="rs-metric"><span class="rs-metric-num">4</span><span class="rs-metric-suf">Planes</span></div>
+      <div class="rs-title">Contingencia · El Niño</div>
+      <div class="rs-ctx">Frentes de mitigación ante el fenómeno El Niño</div>
+      <div class="rs-cta">Abrir Planes de Contingencia <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
+
+    <!-- Participación desactivada — card oculta, código conservado -->
+    <div class="rs-card" data-num="07" style="--accent:#94a3b8;--accent-d:#475569;display:none" onclick="go('participacion')">
+      <div class="rs-top">
+        <span class="rs-num">07</span>
+        <div class="rs-icon">📊</div>
+      </div>
+      <div class="rs-metric"><span class="rs-metric-num">44.98</span><span class="rs-metric-suf">%</span></div>
+      <div class="rs-title">Tamaño del mercado de la refrigeración</div>
+      <div class="rs-ctx">Friopacking lidera el periodo 2025–2026, posición #1, +24.92 pp sobre Energy Project Group</div>
+      <div class="rs-cta">Abrir Participación <svg class="svgic"><use href="#i-arr"/></svg></div>
+    </div>
+
+  </div>
 
   </div>
 </section>
@@ -176,32 +205,33 @@
       <div class="vt-hero-left">
         <div class="vt-hero-ttl">Evoluci&oacute;n de ventas</div>
         <div class="vt-hl">KPI Principal &middot; Meta Anual 2026</div>
-        <div class="vt-hv">$28.26<span class="vt-hv-unit">MM</span></div>
+        <div class="vt-hv">$29.10<span class="vt-hv-unit">MM</span></div>
       </div>
       <div class="vt-hero-right">
         <div class="vt-hkpi">
           <div class="vt-hkl">Avance de meta</div>
-          <div class="vt-hkv" style="color:#7dd3fc">94.2%</div>
-          <div class="vt-hks" style="color:#4ade80">&#8593; +48.55% vs 2025</div>
+          <div class="vt-hkv" style="color:#7dd3fc">96.99%</div>
+          <div class="vt-hks" style="color:#4ade80">&#8593; +46.13% vs 2025</div>
         </div>
         <div class="vt-hkpi">
           <div class="vt-hkl">Proyectos adjudicados</div>
-          <div class="vt-hkv">41</div>
-          <div class="vt-hks" style="color:#4ade80">&#8593; +13.89% vs 2025</div>
+          <div class="vt-hkv">44</div>
+          <div class="vt-hks" style="color:#4ade80">&#8593; +2.33% vs 2025</div>
         </div>
-        <!-- Win Rate PR 2026 (económico): Importe PR adjudicado 2026 ($26,963,097 — ver tipoAgg.PR en la dona "Por Tipo de Venta") /
+        <!-- Win Rate PR 2026 (económico): Importe PR adjudicado Ene–Jul 2026 ($27,730,585.05 — ver tipoAgg.PR en la dona "Por Tipo de Venta") /
              (adjudicado + perdido). Perdido PR 2026: 11 oportunidades, $12,687,570.87 (fuente: Excel "PIPELINE 01.07", pestaña PIPELINE, Estado=Perdido;
-             incluye Pura Fruits · Ampliación de planta de Arándanos · $850,000, agregado en la actualización de julio 2026).
-             26963097 / (26963097 + 12687570.87) = 68.00% -->
+             incluye Pura Fruits · Ampliación de planta de Arándanos · $850,000, agregado en la actualización de julio 2026; Pipeline no fue actualizado en
+             esta revisión — el numerador sí refleja el nuevo total de Ventas Ene–Jul 2026 tomado de DATA_PRODUC_25.07.xlsx).
+             27730585.05 / (27730585.05 + 12687570.87) = 68.61% -->
         <div class="vt-hkpi">
           <div class="vt-hkl">Win Rate PR 2026</div>
-          <div class="vt-hkv">68.00%</div>
+          <div class="vt-hkv">68.61%</div>
           <div class="vt-hks" style="color:rgba(255,255,255,.5)">11 perdidos &middot; $12.69MM</div>
         </div>
         <div class="vt-hkpi">
           <div class="vt-hkl">Margen ponderado</div>
-          <div class="vt-hkv" id="vtHeroMargenVal" style="color:#EF9F27">15.32%</div>
-          <div class="vt-hks" id="vtHeroMargenSub" style="color:#f87171">&#8595; Meta 18% &middot; &minus;2.68 pp</div>
+          <div class="vt-hkv" id="vtHeroMargenVal" style="color:#EF9F27">15.36%</div>
+          <div class="vt-hks" id="vtHeroMargenSub" style="color:#f87171">&#8595; Meta 18% &middot; &minus;2.64 pp</div>
         </div>
       </div>
     </div>
@@ -211,12 +241,12 @@
       </div>
       <div class="vt-hero-prog-lbl">
         <span>$0</span>
-        <span class="vt-hero-prog-mid">Vendido: $28.26MM &middot; Brecha: $1.74MM</span>
+        <span class="vt-hero-prog-mid">Vendido: $29.10MM &middot; Brecha: $0.90MM</span>
         <span>Meta: $30MM</span>
       </div>
     </div>
     <div class="vt-hero-msg">
-      Ventas Ene&ndash;Jun 2026 crecen <strong style="color:#fff">+48.55%</strong> vs Ene&ndash;Jun 2025
+      Ventas Ene&ndash;Jul 2026 crecen <strong style="color:#fff">+46.13%</strong> vs Ene&ndash;Jul 2025
     </div>
   </div>
 
@@ -235,7 +265,7 @@
     <div class="card" style="padding:0;overflow:hidden">
       <div style="padding:16px 18px 12px;border-bottom:1px solid var(--border)">
         <div class="vt-card-ttl">Top 20 Clientes &middot; 2026</div>
-        <div class="vt-card-sub">Por importe facturado Ene&ndash;Jun 2026</div>
+        <div class="vt-card-sub">Por importe facturado Ene&ndash;Jul 2026</div>
       </div>
       <div style="overflow-x:auto">
         <table class="top10-tbl" id="top10Tbl">
@@ -266,7 +296,7 @@
     <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
       <div style="padding:13px 15px 9px;border-bottom:1px solid var(--border);flex-shrink:0">
         <div class="vt-card-ttl">Participaci&oacute;n Top 20</div>
-        <div class="vt-card-sub">vs resto &middot; Ene&ndash;Jun 2026</div>
+        <div class="vt-card-sub">vs resto &middot; Ene&ndash;Jul 2026</div>
       </div>
       <div class="vt-dona-outer">
         <div class="vt-dona-box">
@@ -280,7 +310,7 @@
     <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
       <div style="padding:12px 14px 8px;border-bottom:1px solid var(--border);flex-shrink:0">
         <div class="vt-card-ttl">Por Tipo de Venta</div>
-        <div class="vt-card-sub">Participaci&oacute;n por importe facturado &mdash; Ene&ndash;Jun 2026</div>
+        <div class="vt-card-sub">Participaci&oacute;n por importe facturado &mdash; Ene&ndash;Jul 2026</div>
       </div>
       <!-- Dona — protagonismo equivalente a "Participación Top 20", ligeramente mayor vía modificador propio -->
       <div class="vt-dona-outer">
@@ -341,7 +371,7 @@
     </div>
     <div class="card">
       <div class="vt-card-ttl" style="margin-bottom:2px">Evoluci&oacute;n de ventas acumuladas &middot; 2021&ndash;2026</div>
-      <div class="vt-card-sub" style="margin-bottom:14px">Cierre anual por a&ntilde;o &middot; 2026 YTD Ene&ndash;Jun</div>
+      <div class="vt-card-sub" style="margin-bottom:14px">Cierre anual por a&ntilde;o &middot; 2026 YTD Ene&ndash;Jul</div>
       <div class="chart-wrap" style="height:clamp(220px,18vw,300px)"><canvas id="chVentasAnualBar" data-vt-fmt="mm"></canvas></div>
     </div>
     <div class="card vt-chart-card" onclick="openVtMargen()">
@@ -359,7 +389,7 @@
       <div class="vt-card-head" style="margin-bottom:8px">
         <div>
           <div class="vt-card-ttl">M&aacute;rgenes acumulados por a&ntilde;o &middot; 2021&ndash;2026</div>
-          <div class="vt-card-sub">Margen ponderado de cierre anual &middot; 2026 YTD Ene&ndash;Jun</div>
+          <div class="vt-card-sub">Margen ponderado de cierre anual &middot; 2026 YTD Ene&ndash;Jul</div>
         </div>
         <span style="font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:20px;background:#fef3c7;color:#d97706;white-space:nowrap;border:1px solid rgba(217,119,6,.25);margin-top:2px">&#9472; Meta 18%</span>
       </div>
@@ -457,13 +487,13 @@
   <div class="vt-view active" data-vtview="y2026">
   <div class="sec-head" style="margin-top:28px">
     <h1>Detalle de Ventas 2026</h1>
-    <span class="sub">Registros individuales Enero &ndash; Junio 2026</span>
+    <span class="sub">Registros individuales Enero &ndash; Julio 2026</span>
   </div>
   <div class="card" style="padding:0;overflow:hidden;margin-bottom:18px">
     <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
       <div>
         <div class="vt-card-ttl">Operaciones comerciales 2026</div>
-        <div class="vt-card-sub" id="vt26Info">83 operaciones &middot; Total: $28.26MM &middot; 15 por p&aacute;gina</div>
+        <div class="vt-card-sub" id="vt26Info">90 operaciones &middot; Total: $29.10MM &middot; 15 por p&aacute;gina</div>
       </div>
       <input class="vt26-search" id="vt26Search" placeholder="Buscar por cliente…" style="max-width:260px;border-radius:8px;margin:0;padding:7px 12px">
     </div>
@@ -531,20 +561,44 @@
 
   <!-- ===== VISTA 2 &middot; FORECAST ===== -->
   <div class="pipe-view" id="pipeViewForecast">
-    <div class="pf-panel">
-      <div class="pf-row">
-        <span class="pf-lbl">Probabilidad</span>
-        <div class="pf-chips" id="pfProb"></div>
+    <div class="pf-panel collapsed" id="pfPanel">
+      <div class="pf-panel-hd" id="pfPanelToggle">
+        <div class="pf-panel-hd-left">
+          <span class="pf-panel-ic">🎛️</span>
+          <span class="pf-panel-title">Filtros de Forecast</span>
+          <span class="pf-panel-count" id="pfActiveCount"></span>
+        </div>
+        <div class="pf-panel-hd-right">
+          <button class="pf-clear-btn" id="pfClearBtn" type="button" title="Limpiar filtros">🧹 Limpiar filtros</button>
+          <span class="pf-panel-chev" id="pfPanelChev" aria-hidden="true">▾</span>
+        </div>
       </div>
-      <div class="pf-sep-h"></div>
-      <div class="pf-row">
-        <span class="pf-lbl">Estado</span>
-        <div class="pf-chips" id="pfEstado"></div>
-      </div>
-      <div class="pf-sep-h"></div>
-      <div class="pf-row">
-        <span class="pf-lbl">Mes de cierre</span>
-        <select id="pfMes" style="padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--tm);background:#fff;cursor:pointer;outline:none"></select>
+      <div class="pf-panel-body-wrap">
+        <div class="pf-panel-body-inner">
+          <div class="pf-panel-body">
+            <div class="pf-row">
+              <span class="pf-lbl">Probabilidad</span>
+              <div class="pf-chips" id="pfProb"></div>
+            </div>
+            <div class="pf-sep-h"></div>
+            <div class="pf-row">
+              <span class="pf-lbl">Estado</span>
+              <div class="pf-chips" id="pfEstado"></div>
+            </div>
+            <div class="pf-sep-h"></div>
+            <div class="pf-row pf-row-combo">
+              <div class="pf-combo-group">
+                <span class="pf-lbl">Año</span>
+                <div class="pf-chips" id="pfAnio"></div>
+              </div>
+              <div class="pf-combo-sep-v" aria-hidden="true"></div>
+              <div class="pf-combo-group">
+                <span class="pf-lbl">Mes de cierre</span>
+                <div class="pf-chips" id="pfMes"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -583,7 +637,7 @@
 
   <!-- ===== VISTA 3 &middot; CLIENTES POR ETAPA ===== -->
   <div class="pipe-view" id="pipeViewClientes">
-    <div class="pf-panel" style="flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px">
+    <div class="pf-panel pf-panel-simple" style="flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px">
       <input class="vt26-search" id="pipeClienteSearch" placeholder="Buscar por cliente o proyecto…" style="max-width:280px;border-radius:10px;margin:0;padding:9px 14px;flex-shrink:0">
       <span class="pf-lbl" style="min-width:auto">Mes</span>
       <select id="pipeClienteMes" style="padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--tm);background:#fff;cursor:pointer;outline:none"></select>
@@ -597,147 +651,190 @@
 <!-- ============ MANO DE OBRA ============ -->
 <section class="section" id="moventas">
 
-  <div class="mo3-hero">
-    <div class="mo3-hero-in">
-      <div class="mo3-hero-eye">Productividad Operativa</div>
-      <div class="mo3-hero-ttl">Mano de Obra y generaci&oacute;n de margen</div>
-      <div class="mo3-hero-sub">Evoluci&oacute;n de ventas, margen comercial y costo de mano de obra &middot; 2024&ndash;Junio 2026</div>
-    </div>
-  </div>
+  <div class="mo4-panel">
+    <div class="mo4-bg" id="moFrameBg"></div>
+    <div class="mo4-grid"></div>
+    <div class="mo4-glow"></div>
 
-  <div class="mo3-frame">
-    <div class="mo3-frame-bg" id="moFrameBg"></div>
-    <div class="mo3-frame-overlay"></div>
-    <div class="mo3-frame-in">
+    <div class="mo4-in">
 
-      <div class="mo3-tabs" id="moTabs">
-        <div class="mo3-tab-btn active" data-motab="com">Comercial</div>
-        <div class="mo3-tab-btn" data-motab="arq">Arquitectura</div>
+      <div class="mo4-head">
+        <div class="mo4-head-text">
+          <div class="mo4-eyebrow">Productividad Operativa</div>
+          <div class="mo4-title">Mano de Obra y generaci&oacute;n de margen</div>
+          <div class="mo4-sub">Evoluci&oacute;n de ventas, margen comercial y costo de mano de obra &middot; 2024&ndash;Julio 2026</div>
+        </div>
+        <div class="mo3-tabs" id="moTabs">
+          <div class="mo3-tab-btn active" data-motab="com">Comercial</div>
+          <div class="mo3-tab-btn" data-motab="arq">Arquitectura</div>
+        </div>
       </div>
 
-      <div class="mo3-panels">
-      <div class="mo3-view active" data-motab="com">
-    <div class="mo2-card mo2-com">
-      <div class="mo2-card-hd"><span class="mo2-card-name">Comercial</span></div>
-      <div class="mo2-table">
-        <div class="mo2-row mo2-row-head">
-          <div class="mo2-lbl">Indicador</div>
-          <div class="mo2-col">2024<span>Ene&ndash;Dic</span></div>
-          <div class="mo2-col">2025<span>Ene&ndash;Dic</span></div>
-          <div class="mo2-col mo2-col-hl">2026<span>Ene&ndash;Jun</span></div>
-          <div class="mo2-col mo2-col-hl">2026<span>Jul&ndash;Dic</span></div>
-          <div class="mo2-col mo2-col-hl"><span>INCREMENTO %</span></div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Venta</div>
-          <div class="mo2-cell">$15.45MM</div>
-          <div class="mo2-cell">$34.96MM</div>
-          <div class="mo2-cell mo2-col-hl">$28.26MM</div>
-          <div class="mo2-cell mo2-col-hl">$36.26MM</div>
-          <div class="mo2-cell mo2-col-hl">3.71%</div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Margen Bruto</div>
-          <div class="mo2-cell">15.30%</div>
-          <div class="mo2-cell">15.87%</div>
-          <div class="mo2-cell">15.27%</div>
-          <div class="mo2-cell">15.60%</div>
-          <div class="mo2-cell"></div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Dolares</div>
-          <div class="mo2-cell">$2,363,110</div>
-          <div class="mo2-cell">$5,548,519</div>
-          <div class="mo2-cell">$4,315,402</div>
-          <div class="mo2-cell">$5,656,663</div>
-          <div class="mo2-cell">1.95%</div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Colaboradores</div>
-          <div class="mo2-cell">7</div>
-          <div class="mo2-cell">9</div>
-          <div class="mo2-cell">12</div>
-          <div class="mo2-cell">11</div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">% Costo del area comercial</div>
-          <div class="mo2-cell">$528,886</div>
-          <div class="mo2-cell">$668,987</div>
-          <div class="mo2-cell">$333,893</div>
-          <div class="mo2-cell">$667,785</div>
-        </div>
-        <div class="mo2-row mo2-row-main">
-          <div class="mo2-lbl">Costo / Venta %</div>
-          <div class="mo2-cell">3.42%</div>
-          <div class="mo2-cell">1.91%</div>
-          <div class="mo2-cell mo2-col-hl">1.18%</div>
-          <div class="mo2-cell mo2-col-hl">1.84%</div>
+      <div class="mo3-view active" data-motab="com" style="--mo4-a:#3EC6AC">
+        <div class="mo4-kpirow">
+          <div class="mo4-kpi">
+            <div class="mo4-kpi-lbl">Venta 2026 &middot; Ene&ndash;Dic</div>
+            <div class="mo4-kpi-val">$36.58MM</div>
+            <div class="mo4-kpi-ctx">Ene&ndash;Jul $29.10MM &middot; <span class="mo4-up">&#8593;4.63%</span></div>
+          </div>
+          <div class="mo4-kpi">
+            <div class="mo4-kpi-lbl">Margen Bruto 2026</div>
+            <div class="mo4-kpi-val">15.60%</div>
+            <div class="mo4-kpi-ctx">Ene&ndash;Jul 15.33%</div>
+          </div>
+          <div class="mo4-kpi">
+            <div class="mo4-kpi-lbl">Colaboradores 2026</div>
+            <div class="mo4-kpi-val">11</div>
+            <div class="mo4-kpi-ctx">Ene&ndash;Jul: 11</div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="mo3-view" data-motab="arq">
-    <div class="mo2-card mo2-arq">
-      <div class="mo2-card-hd"><span class="mo2-card-name">Arquitectura</span></div>
-      <div class="mo2-table">
-        <div class="mo2-row mo2-row-head">
-          <div class="mo2-lbl">Indicador</div>
-          <div class="mo2-col">2024<span>Ene&ndash;Dic</span></div>
-          <div class="mo2-col">2025<span>Ene&ndash;Dic</span></div>
-          <div class="mo2-col mo2-col-hl">2026<span>Ene&ndash;Jun</span></div>
-          <div class="mo2-col mo2-col-hl">2026<span>Jul&ndash;Dic</span></div>
-          <div class="mo2-col mo2-col-hl"><span>INCREMENTO %</span></div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Venta</div>
-          <div class="mo2-cell">$0.00</div>
-          <div class="mo2-cell">$306.70KK</div>
-          <div class="mo2-cell mo2-col-hl">$95.33K</div>
-          <div class="mo2-cell mo2-col-hl">$346.11KK</div>
-          <div class="mo2-cell mo2-col-hl">12.85%</div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Margen Bruto %</div>
-          <div class="mo2-cell">0.00%</div>
-          <div class="mo2-cell">30.00%</div>
-          <div class="mo2-cell">30.00%</div>
-          <div class="mo2-cell">30.00%</div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Dolares</div>
-          <div class="mo2-cell">$0.00</div>
-          <div class="mo2-cell">$92,009</div>
-          <div class="mo2-cell">$28,598</div>
-          <div class="mo2-cell">$103,833</div>
-          <div class="mo2-cell">12.85%</div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Colaboradores</div>
-          <div class="mo2-cell">2</div>
-          <div class="mo2-cell">3</div>
-          <div class="mo2-cell">4</div>
-          <div class="mo2-cell">5</div>
-        </div>
-        <div class="mo2-row">
-          <div class="mo2-lbl">Costo del area arquitectura</div>
-          <div class="mo2-cell">$76,804</div>
-          <div class="mo2-cell">$123,660</div>
-          <div class="mo2-cell">$87,865</div>
-          <div class="mo2-cell">$205,627</div>
-          <div class="mo2-cell">166%</div>
-        </div>
-        <div class="mo2-row mo2-row-main">
-          <div class="mo2-lbl">Costo / Venta %</div>
-          <div class="mo2-cell">0</div>
-          <div class="mo2-cell">74%</div>
-          <div class="mo2-cell mo2-col-hl">33%</div>
-          <div class="mo2-cell mo2-col-hl">50%</div>
+      <div class="mo3-view" data-motab="arq" style="--mo4-a:#5b9dff">
+        <div class="mo4-kpirow">
+          <div class="mo4-kpi">
+            <div class="mo4-kpi-lbl">Venta 2026 &middot; Ene&ndash;Dic</div>
+            <div class="mo4-kpi-val">$346.11K</div>
+            <div class="mo4-kpi-ctx">Ene&ndash;Jul $150.87K &middot; <span class="mo4-up">&#8593;12.85%</span></div>
+          </div>
+          <div class="mo4-kpi">
+            <div class="mo4-kpi-lbl">Margen Bruto % 2026</div>
+            <div class="mo4-kpi-val">30.00%</div>
+            <div class="mo4-kpi-ctx">Ene&ndash;Jul 28.47%</div>
+          </div>
+          <div class="mo4-kpi">
+            <div class="mo4-kpi-lbl">Colaboradores 2026</div>
+            <div class="mo4-kpi-val">5</div>
+            <div class="mo4-kpi-ctx">Ene&ndash;Jul: 4</div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  </div>
+
+      <div class="mo4-divider"></div>
+
+      <div class="mo3-view active" data-motab="com" style="--mo4-a:#3EC6AC">
+        <div class="mo4-tag"><span class="mo4-dot"></span>Comercial</div>
+        <div class="mo4-table">
+          <div class="mo4-trow mo4-thead">
+            <div class="mo4-tlbl">Indicador</div>
+            <div class="mo4-tcol">2024<span>Ene&ndash;Dic</span></div>
+            <div class="mo4-tcol">2025<span>Ene&ndash;Dic</span></div>
+            <div class="mo4-tcol mo4-hl">2026<span>Ene&ndash;Jul</span></div>
+            <div class="mo4-tcol mo4-hl">2026<span>ENE - DIC</span></div>
+            <div class="mo4-tcol mo4-hl"><span>INCREMENTO %</span></div>
+          </div>
+          <div class="mo4-trow mo4-lead">
+            <div class="mo4-tlbl">Venta</div>
+            <div class="mo4-tcell">$15.45MM</div>
+            <div class="mo4-tcell">$34.96MM</div>
+            <div class="mo4-tcell mo4-hl">$29.10MM</div>
+            <div class="mo4-tcell mo4-hl">$36.58MM</div>
+            <div class="mo4-tcell mo4-hl">4.63%</div>
+          </div>
+          <div class="mo4-trow">
+            <div class="mo4-tlbl">Margen Bruto</div>
+            <div class="mo4-tcell">15.30%</div>
+            <div class="mo4-tcell">15.87%</div>
+            <div class="mo4-tcell">15.33%</div>
+            <div class="mo4-tcell">15.60%</div>
+            <div class="mo4-tcell">&mdash;</div>
+          </div>
+          <div class="mo4-trow">
+            <div class="mo4-tlbl">D&oacute;lares</div>
+            <div class="mo4-tcell">$2,363,110</div>
+            <div class="mo4-tcell">$5,548,519</div>
+            <div class="mo4-tcell">$4,460,700</div>
+            <div class="mo4-tcell">$5,706,480</div>
+            <div class="mo4-tcell">2.85%</div>
+          </div>
+          <div class="mo4-trow">
+            <div class="mo4-tlbl">Colaboradores</div>
+            <div class="mo4-tcell">7</div>
+            <div class="mo4-tcell">9</div>
+            <div class="mo4-tcell">11</div>
+            <div class="mo4-tcell">11</div>
+            <div class="mo4-tcell">&mdash;</div>
+          </div>
+          <div class="mo4-trow">
+            <div class="mo4-tlbl">% Costo del &aacute;rea comercial</div>
+            <div class="mo4-tcell">$528,886</div>
+            <div class="mo4-tcell">$668,987</div>
+            <div class="mo4-tcell">$384,904</div>
+            <div class="mo4-tcell">$667,785</div>
+            <div class="mo4-tcell">&mdash;</div>
+          </div>
+          <div class="mo4-trow mo4-tmain">
+            <div class="mo4-tlbl">Costo / Venta %</div>
+            <div class="mo4-tcell">3.42%</div>
+            <div class="mo4-tcell">1.91%</div>
+            <div class="mo4-tcell mo4-hl"></div>
+            <div class="mo4-tcell mo4-hl">1.83%</div>
+            <div class="mo4-tcell">&mdash;</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mo3-view" data-motab="arq" style="--mo4-a:#5b9dff">
+        <div class="mo4-tag"><span class="mo4-dot"></span>Arquitectura</div>
+        <div class="mo4-table">
+          <div class="mo4-trow mo4-thead">
+            <div class="mo4-tlbl">Indicador</div>
+            <div class="mo4-tcol">2024<span>Ene&ndash;Dic</span></div>
+            <div class="mo4-tcol">2025<span>Ene&ndash;Dic</span></div>
+            <div class="mo4-tcol mo4-hl">2026<span>Ene&ndash;Jul</span></div>
+            <div class="mo4-tcol mo4-hl">2026<span>ENE - DIC</span></div>
+            <div class="mo4-tcol mo4-hl"><span>INCREMENTO %</span></div>
+          </div>
+          <div class="mo4-trow mo4-lead">
+            <div class="mo4-tlbl">Venta</div>
+            <div class="mo4-tcell">$0.00</div>
+            <div class="mo4-tcell">$306.70K</div>
+            <div class="mo4-tcell mo4-hl">$150.87K</div>
+            <div class="mo4-tcell mo4-hl">$346.11K</div>
+            <div class="mo4-tcell mo4-hl">12.85%</div>
+          </div>
+          <div class="mo4-trow">
+            <div class="mo4-tlbl">Margen Bruto %</div>
+            <div class="mo4-tcell">0.00%</div>
+            <div class="mo4-tcell">30.00%</div>
+            <div class="mo4-tcell">28.47%</div>
+            <div class="mo4-tcell">30.00%</div>
+            <div class="mo4-tcell">&mdash;</div>
+          </div>
+          <div class="mo4-trow">
+            <div class="mo4-tlbl">D&oacute;lares</div>
+            <div class="mo4-tcell">$0.00</div>
+            <div class="mo4-tcell">$92,009</div>
+            <div class="mo4-tcell">$42,953</div>
+            <div class="mo4-tcell">$103,833</div>
+            <div class="mo4-tcell">12.85%</div>
+          </div>
+          <div class="mo4-trow">
+            <div class="mo4-tlbl">Colaboradores</div>
+            <div class="mo4-tcell">2</div>
+            <div class="mo4-tcell">3</div>
+            <div class="mo4-tcell">4</div>
+            <div class="mo4-tcell">5</div>
+            <div class="mo4-tcell">&mdash;</div>
+          </div>
+          <div class="mo4-trow">
+            <div class="mo4-tlbl">Costo del &aacute;rea arquitectura</div>
+            <div class="mo4-tcell">$76,804</div>
+            <div class="mo4-tcell">$123,660</div>
+            <div class="mo4-tcell">$102,509</div>
+            <div class="mo4-tcell">$205,627</div>
+            <div class="mo4-tcell">166%</div>
+          </div>
+          <div class="mo4-trow mo4-tmain">
+            <div class="mo4-tlbl">Costo / Venta %</div>
+            <div class="mo4-tcell">0</div>
+            <div class="mo4-tcell">74%</div>
+            <div class="mo4-tcell mo4-hl"></div>
+            <div class="mo4-tcell mo4-hl">50%</div>
+            <div class="mo4-tcell">&mdash;</div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -794,11 +891,11 @@
     <div class="kpi-v3" style="cursor:default">
       <div class="kv3-icon" style="font-size:20px">💰</div>
       <div class="kv3-lbl">Valor generado 2025&ndash;2026 YTD</div>
-      <div class="kv3-val" style="color:#d97706">$63.20MM</div>
+      <div class="kv3-val" style="color:#d97706">$63.86MM</div>
       <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:100%;background:#d97706"></div></div>
-      <!-- Nota: Valor calculado como SUM(Ene 2025–Jun 2026). Comparativo contra SUM(Ene 2023–Jun 2024) -->
-      <div class="kv3-ctx">Acumulado Ene 2025 &ndash; Jun 2026 (18 meses)</div>
-      <div class="kv3-delta" style="color:#16a34a">&#8593; +107.50% vs per&iacute;odo Ene 2023 &ndash; Jun 2024</div>
+      <!-- Nota: Valor calculado como SUM(Ene 2025–Jul 2026), fuente Data Cruda. Comparativo contra SUM(Ene 2023–Jul 2024), mismo largo de periodo (19 meses) -->
+      <div class="kv3-ctx">Acumulado Ene 2025 &ndash; Jul 2026 (19 meses)</div>
+      <div class="kv3-delta" style="color:#16a34a">&#8593; +128.72% vs per&iacute;odo Ene 2023 &ndash; Jul 2024</div>
     </div>
   </div>
 
@@ -881,7 +978,7 @@
   </div>
   <div class="cli-evol-wrap" id="cliTicketEvolCard">
     <div class="card-h" style="margin-bottom:2px">Evoluci&oacute;n del Ticket Promedio</div>
-    <div style="font-size:11px;color:var(--ts);margin-bottom:14px">Ventas del a&ntilde;o &divide; clientes &uacute;nicos con facturaci&oacute;n &middot; 2021&ndash;2026 (2026 = YTD Ene&ndash;Jun)</div>
+    <div style="font-size:11px;color:var(--ts);margin-bottom:14px">Ventas del a&ntilde;o &divide; clientes &uacute;nicos con facturaci&oacute;n &middot; 2021&ndash;2026 (2026 = YTD Ene&ndash;Jul)</div>
     <div class="chart-wrap" style="height:clamp(240px,20vw,360px)"><canvas id="chTicketEvol"></canvas></div>
     <div class="insight" style="margin-top:14px" id="ticketEvolInsight"></div>
   </div>
@@ -940,8 +1037,8 @@
 
 </section>
 
-<!-- ============ PARTICIPACIÓN ============ -->
-<section class="section" id="participacion">
+<!-- ============ PARTICIPACIÓN (desactivada temporalmente — oculta de navegación, código conservado) ============ -->
+<section class="section" id="participacion" style="display:none">
   <div class="part-hero" id="partHero">
     <div class="part-hero-left">
       <div class="part-hero-eye">Directorio Ejecutivo &middot; Participación</div>
@@ -1055,6 +1152,7 @@
   <div class="obj-tabs">
     <div class="obj-tab active" data-otab="o2026" onclick="objTab('o2026',this)">Objetivos 2026</div>
     <div class="obj-tab" data-otab="plan" onclick="objTab('plan',this)">Plan de Acci&oacute;n Julio &ndash; Septiembre</div>
+    <div class="obj-tab" data-otab="nino" onclick="objTab('nino',this)">Planes de Contingencia &middot; El Ni&ntilde;o</div>
   </div>
 
   <div class="obj-pane" id="objPane-plan">
@@ -1184,6 +1282,98 @@
             <div class="pa-pm"><span class="pa-pm-v">Semanal</span><span class="pa-pm-l">Reporte</span></div>
           </div>
           <div class="pa-pc-resp"><b>Responsables:</b> Equipo comercial por zona, Planner Comercial + Supervisión de la Gerencia Comercial.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-pane" id="objPane-nino">
+    <div class="pa-hero">
+      <div class="pa-hero-in">
+        <div class="pa-hero-left">
+          <div class="pa-hero-eye">Gesti&oacute;n de Riesgo Clim&aacute;tico · Directorio</div>
+          <div class="pa-hero-title">Planes de Contingencia &mdash; Fen&oacute;meno El Ni&ntilde;o</div>
+        </div>
+        <div class="pa-hero-kpis">
+          <div class="pa-hkpi"><span class="pa-hkpi-v">4</span><span class="pa-hkpi-l">Frentes de acci&oacute;n</span></div>
+          <div class="pa-hkpi"><span class="pa-hkpi-v">2026</span><span class="pa-hkpi-l">Vigencia</span></div>
+          <div class="pa-hkpi"><span class="pa-hkpi-v">Activo</span><span class="pa-hkpi-l">Estado</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pa-section-lbl">Frentes de mitigaci&oacute;n</div>
+    <div class="pa-smart-grid">
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <span class="pa-sc-num">01</span>
+          <span class="pa-sc-ico">🏗️</span>
+          <span class="pa-pc-title">Protecci&oacute;n de infraestructura cr&iacute;tica</span>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Impermeabilizaci&oacute;n y refuerzo de drenajes en plantas y almacenes refrigerados; revisi&oacute;n de techos, c&aacute;maras y generadores de respaldo ante posibles cortes el&eacute;ctricos por lluvias intensas.</div>
+          <div class="pa-chips">
+            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">% de sedes con infraestructura reforzada</span></div>
+            <div class="pa-chip-row">
+              <div class="pa-chip"><span class="pa-chip-l">Responsable</span><span class="pa-chip-v">Gerencia de Operaciones</span></div>
+              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Plazo</span><span class="pa-chip-v">Antes de temporada de lluvias</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <span class="pa-sc-num">02</span>
+          <span class="pa-sc-ico">🚚</span>
+          <span class="pa-pc-title">Continuidad log&iacute;stica y rutas alternas</span>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Mapeo de rutas alternas de transporte y coordinaci&oacute;n anticipada con transportistas ante posible cierre de v&iacute;as por huaicos o inundaciones en zonas cr&iacute;ticas.</div>
+          <div class="pa-chips">
+            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">N&deg; de rutas alternas validadas</span></div>
+            <div class="pa-chip-row">
+              <div class="pa-chip"><span class="pa-chip-l">Responsable</span><span class="pa-chip-v">Log&iacute;stica + Gerencia Comercial</span></div>
+              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Plazo</span><span class="pa-chip-v">Antes de temporada de lluvias</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <span class="pa-sc-num">03</span>
+          <span class="pa-sc-ico">📦</span>
+          <span class="pa-pc-title">Gesti&oacute;n de inventario y abastecimiento cr&iacute;tico</span>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Aumento del stock de seguridad de insumos cr&iacute;ticos y coordinaci&oacute;n anticipada con proveedores clave para asegurar la continuidad operativa ante disrupciones de abastecimiento.</div>
+          <div class="pa-chips">
+            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">D&iacute;as de cobertura de inventario cr&iacute;tico</span></div>
+            <div class="pa-chip-row">
+              <div class="pa-chip"><span class="pa-chip-l">Responsable</span><span class="pa-chip-v">Planner Comercial</span></div>
+              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Plazo</span><span class="pa-chip-v">Antes de temporada de lluvias</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pa-smart-card" onclick="paSmartToggle(this)">
+        <div class="pa-sc-head">
+          <span class="pa-sc-num">04</span>
+          <span class="pa-sc-ico">📡</span>
+          <span class="pa-pc-title">Monitoreo, alerta temprana y comunicaci&oacute;n</span>
+          <span class="pa-sc-chev" aria-hidden="true">▾</span>
+        </div>
+        <div class="pa-sc-body">
+          <div class="pa-sc-desc">Seguimiento de pron&oacute;sticos de SENAMHI y ENFEN, y protocolo de comunicaci&oacute;n interna y con clientes ante alertas del fen&oacute;meno El Ni&ntilde;o.</div>
+          <div class="pa-chips">
+            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">% de alertas comunicadas dentro de 24h</span></div>
+            <div class="pa-chip-row">
+              <div class="pa-chip"><span class="pa-chip-l">Responsable</span><span class="pa-chip-v">Gerencia Comercial</span></div>
+              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Plazo</span><span class="pa-chip-v">Permanente · temporada El Ni&ntilde;o</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1618,14 +1808,14 @@
   <div class="od-tb">
     <button class="od-back" onclick="odClose()" style="color:#185fa5;border-color:#185fa5">&#8592; Volver</button>
     <span class="od-tb-title">Objetivo 01 &mdash; Venta Comercial</span>
-    <span class="od-tb-chip" style="background:#dbeef9;color:#0e4a7a">En ritmo &middot; 94.20%</span>
+    <span class="od-tb-chip" style="background:#dbeef9;color:#0e4a7a">En ritmo &middot; 96.98%</span>
   </div>
   <div class="od-body">
     <div class="od-hero" style="background:linear-gradient(135deg,#071430 0%,#0d2a56 60%,#071430 100%)">
-      <div class="od-kpi"><span class="od-kl">Acumulado Ene&ndash;Jun 2026</span><span class="od-kv">$28.26M</span><span class="od-ks">Vendido 2026</span></div>
+      <div class="od-kpi"><span class="od-kl">Acumulado Ene&ndash;Jul 2026</span><span class="od-kv">$29.09M</span><span class="od-ks">Vendido 2026</span></div>
       <div class="od-kpi"><span class="od-kl">Meta anual</span><span class="od-kv">$30.00M</span><span class="od-ks">Objetivo 2026</span></div>
-      <div class="od-kpi"><span class="od-kl">Crecimiento vs 2025</span><span class="od-kv">+47.08%</span><span class="od-ks">Mismo per&iacute;odo</span></div>
-      <div class="od-kpi"><span class="od-kl">Margen comercial 2026</span><span class="od-kv">15.32%</span><span class="od-ks">Promedio ponderado</span></div>
+      <div class="od-kpi"><span class="od-kl">Crecimiento vs 2025</span><span class="od-kv">+47.14%</span><span class="od-ks">Mismo per&iacute;odo</span></div>
+      <div class="od-kpi"><span class="od-kl">Margen comercial 2026</span><span class="od-kv">15.36%</span><span class="od-ks">Promedio ponderado</span></div>
     </div>
     <div class="od-pane active" id="od1-a">
       <table class="sc">
@@ -1636,11 +1826,12 @@
           <tr><td>Marzo</td><td class="r">$480K</td><td class="r">18.10%</td><td class="r">$6.59M</td><td class="r"><span class="sb-crit">-$6.11M</span></td></tr>
           <tr><td>Abril</td><td class="r">$4.27M</td><td class="r">18.30%</td><td class="r">$4.49M</td><td class="r"><span class="sb-warn">-$220K</span></td></tr>
           <tr><td>Mayo</td><td class="r">$13.04M</td><td class="r">14.00%</td><td class="r">$2.23M</td><td class="r"><span class="sb-ok">+$10.81M</span></td></tr>
-          <tr><td>Junio</td><td class="r">$2.53M</td><td class="r">15.10%</td><td class="r">$4.27M</td><td class="r"><span class="sb-warn">-$1.74M</span></td></tr>
-          <tr style="background:#f7fafc;border-top:2px solid #3aabef"><td><strong>TOTAL Ene&ndash;Jun</strong></td><td class="r"><strong>$28.26M</strong></td><td class="r"><strong>15.32%</strong></td><td class="r"><strong>$18.88M</strong></td><td class="r"><strong><span class="sb-ok">+$9.38M</span></strong></td></tr>
+          <tr><td>Junio</td><td class="r">$2.86M</td><td class="r">15.20%</td><td class="r">$4.27M</td><td class="r"><span class="sb-warn">-$1.41M</span></td></tr>
+          <tr><td>Julio</td><td class="r">$503K</td><td class="r">17.30%</td><td class="r">$888K</td><td class="r"><span class="sb-warn">-$385K</span></td></tr>
+          <tr style="background:#f7fafc;border-top:2px solid #3aabef"><td><strong>TOTAL Ene&ndash;Jul</strong></td><td class="r"><strong>$29.09M</strong></td><td class="r"><strong>15.36%</strong></td><td class="r"><strong>$19.77M</strong></td><td class="r"><strong><span class="sb-ok">+$9.32M</span></strong></td></tr>
         </tbody>
       </table>
-      <div class="od-note">Acumulado enero&ndash;junio: <strong>$28.26M</strong> &mdash; Pendiente para meta anual: <strong>$1.74M</strong> (Julio&ndash;Diciembre 2026).</div>
+      <div class="od-note">Acumulado enero&ndash;julio: <strong>$29.09M</strong> &mdash; Pendiente para meta anual: <strong>$906K</strong> (Agosto&ndash;Diciembre 2026).</div>
     </div>
   </div>
 </div>
@@ -1656,7 +1847,7 @@
     <div class="od-hero" style="background:linear-gradient(135deg,#052b1a 0%,#0a4d30 60%,#052b1a 100%)">
       <div class="od-kpi"><span class="od-kl">Proyectos CO&#8322; vendidos</span><span class="od-kv">0 / 2</span><span class="od-ks">Avance 2026</span></div>
       <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">0.00%</span><span class="od-ks">Meta: 2 proyectos</span></div>
-      <div class="od-kpi"><span class="od-kl">Importe pipeline CO&#8322;</span><span class="od-kv">$3,753,306</span><span class="od-ks">4 oportunidades activas</span></div>
+      <div class="od-kpi"><span class="od-kl">Importe pipeline CO&#8322;</span><span class="od-kv">$9,346,322</span><span class="od-ks">6 oportunidades activas</span></div>
     </div>
     <div class="od-pane active" id="od2-a">
 
@@ -1665,14 +1856,16 @@
         <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
           <thead><tr><th>Cliente</th><th>Requerimiento</th><th class="r">Importe ($)</th><th class="r">Prob.</th><th>Estado</th></tr></thead>
           <tbody>
-            <tr><td><strong>Emergent Cold</strong></td><td>1 T&uacute;nel est&aacute;tico CO&#8322;</td><td class="r">$1,048,822</td><td class="r">20.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></tr>
-            <tr><td><strong>Axion Log</strong></td><td>CD Trujillo CO&#8322;</td><td class="r">$1,004,484</td><td class="r">5.00%</td><td><span class="sb-info">Prospecto</span></td></tr>
-            <tr><td><strong>Vita Foods</strong></td><td>C&aacute;maras de CO&#8322;</td><td class="r">$900,000</td><td class="r">80.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
-            <tr><td><strong>Frutos de Oro</strong></td><td>C&aacute;maras de CO&#8322;</td><td class="r">$800,000</td><td class="r">60.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
-            <tr style="background:#f7fafc;border-top:2px solid #10b981"><td><strong>TOTAL</strong></td><td><strong>4 oportunidades</strong></td><td class="r"><strong>$3,753,306</strong></td><td class="r"><strong>&mdash;</strong></td><td class="r"></td></tr>
+            <tr><td><strong>Yamboli</strong></td><td>C&aacute;maras de congelado de helado (sistema de fr&iacute;o): CO&#8322; y Fre&oacute;n</td><td class="r">$3,500,000</td><td class="r">20.00%</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr><td><strong>Broom Fr&iacute;o</strong></td><td>3 C&aacute;maras y pasillo de despacho</td><td class="r">$2,850,000</td><td class="r">40.00%</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr><td><strong>Axion Log</strong></td><td>CD Trujillo</td><td class="r">$1,004,484</td><td class="r">5.00%</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>La Grama</strong></td><td>C&aacute;mara y t&uacute;nel de congelado (CO&#8322;)</td><td class="r">$1,000,000</td><td class="r">20.00%</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>T&uacute;nel congelado</td><td class="r">$824,838</td><td class="r">60.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>Suministro e instalaci&oacute;n de compresor (3er para back up)</td><td class="r">$167,000</td><td class="r">80.00%</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #10b981"><td><strong>TOTAL</strong></td><td><strong>6 oportunidades</strong></td><td class="r"><strong>$9,346,322</strong></td><td class="r"><strong>&mdash;</strong></td><td class="r"></td></tr>
           </tbody>
         </table>
-        <div class="od-note" style="margin-top:10px">Las 4 oportunidades requieren cierre antes de fin de a&ntilde;o. Acelerar decisiones comerciales para cumplir la meta de 2 proyectos CO&#8322;.</div>
+        <div class="od-note" style="margin-top:10px">Las 6 oportunidades requieren cierre antes de fin de a&ntilde;o. Acelerar decisiones comerciales para cumplir la meta de 2 proyectos CO&#8322;.</div>
       </div>
     </div>
   </div>
@@ -1690,7 +1883,7 @@
       <div class="od-kpi"><span class="od-kl">Clientes nuevos logrados</span><span class="od-kv">2 / 4</span><span class="od-ks">Fuera del sector agro</span></div>
       <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">50.00%</span><span class="od-ks">Meta: 4 clientes</span></div>
       <div class="od-kpi"><span class="od-kl">Pendiente</span><span class="od-kv">2 clientes</span><span class="od-ks">Para cumplir meta</span></div>
-      <div class="od-kpi"><span class="od-kl">Pipeline no agro activo</span><span class="od-kv">13 oport.</span><span class="od-ks">Valor estimado $17.74M</span></div>
+      <div class="od-kpi"><span class="od-kl">Pipeline no agro activo</span><span class="od-kv">19 oport.</span><span class="od-ks">Valor estimado $16.67M</span></div>
     </div>
     <div class="od-pane active" id="od3-a">
       <div class="od-card" style="margin-bottom:14px">
@@ -1711,25 +1904,29 @@
         <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
           <thead><tr><th>Cliente</th><th>Proyecto</th><th class="r">Importe ($)</th><th>Estado</th></tr></thead>
           <tbody>
-            <tr><td><strong>Axion Log</strong></td><td>CD Trujillo</td><td class="r">$1,004,484</td><td><span class="sb-crit">Postpuesto</span></td></tr>
+            <tr><td><strong>Yamboli</strong></td><td>C&aacute;maras de congelado de helado (sistema de fr&iacute;o): CO&#8322; y Fre&oacute;n</td><td class="r">$3,500,000</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr><td><strong>Hijuelas</strong></td><td>Laboratorio de crecimiento de Ar&aacute;ndanos</td><td class="r">$3,000,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Ransa</strong></td><td>Planta de congelado &mdash; Callao &oacute; Paita</td><td class="r">$1,950,000</td><td><span class="sb-info">Prospecto</span></td></tr>
             <tr><td><strong>Delice</strong></td><td>Planta procesadora de l&aacute;cteos y derivados (sistema de fr&iacute;o)</td><td class="r">$1,572,932</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
-            <tr><td><strong>Pronex (Prod. Naturales)</strong></td><td>C&aacute;mara + esclusa recepci&oacute;n/despacho</td><td class="r">$620,036</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Emergent Cold</strong></td><td>T&uacute;nel congelado</td><td class="r">$1,084,509</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Gloria</strong></td><td>Planta de congelado multiprop&oacute;sito</td><td class="r">$4,000,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Rinti SA</strong></td><td>Planta empacadora de comida para perros</td><td class="r">$469,189</td><td><span class="sb-crit">Postpuesto</span></td></tr>
-            <tr><td><strong>Zedina</strong></td><td>&Aacute;reas de inyecci&oacute;n y proporcionado de carnes</td><td class="r">$75,928</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Hijuelas</strong></td><td>Laboratorio de crecimiento de Ar&aacute;ndanos</td><td class="r">$6,805,759</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
-            <tr><td><strong>NGR &ndash; Nutra</strong></td><td>Expediente e implementaci&oacute;n de c&aacute;maras de fr&iacute;o</td><td class="r">$450,000</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>NGR &ndash; Nutra</strong></td><td>Implementaci&oacute;n de c&aacute;maras de fr&iacute;o &mdash; Proyecto Chronos</td><td class="r">$1,100,000</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>Axion Log</strong></td><td>CD Trujillo</td><td class="r">$1,004,484</td><td><span class="sb-info">Prospecto</span></td></tr>
             <tr><td><strong>Perupez</strong></td><td>Ampliaci&oacute;n de planta pesquera</td><td class="r">$1,000,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Talma</strong></td><td>C&aacute;maras &mdash; Almac&eacute;n de fr&iacute;o</td><td class="r">$500,000</td><td><span class="sb-info">Prospecto</span></td></tr>
-            <tr><td><strong>Cementos Pacasmayo</strong></td><td>Instalaci&oacute;n 2 Chillers Ecuador</td><td class="r">$128,993</td><td><span class="sb-info">Prospecto</span></td></tr>
-            <tr><td><strong>Europan &mdash; San Antonio</strong></td><td>Antec&aacute;mara</td><td class="r">$30,600</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
-            <tr style="background:#f7fafc;border-top:2px solid #0891b2"><td><strong>TOTAL ACTIVO</strong></td><td><strong>13 oportunidades</strong></td><td class="r"><strong>$17,742,429</strong></td><td></td></tr>
-            <tr><td><strong>San Fernando</strong></td><td>Implementaci&oacute;n del sistema de refrigeraci&oacute;n &mdash; PPPC Huaral</td><td class="r">$2,923,053</td><td><span class="sb-crit">Perdido</span></td></tr>
-            <tr><td><strong>Agropecuarios del Sur</strong></td><td>Planta de embutidos</td><td class="r">$421,756</td><td><span class="sb-crit">Perdido</span></td></tr>
+            <tr><td><strong>Pesquera Altair-Oc&eacute;ano</strong></td><td>C&aacute;mara de congelado y and&eacute;n de congelado</td><td class="r">$840,000</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>T&uacute;nel congelado</td><td class="r">$824,838</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Pronex (Prod. Naturales)</strong></td><td>C&aacute;mara + esclusa recepci&oacute;n/despacho</td><td class="r">$620,036</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr><td><strong>Zedina</strong></td><td>Planta de c&aacute;rnicos</td><td class="r">$274,410</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Europan &mdash; San Antonio</strong></td><td>C&aacute;maras de refrigeraci&oacute;n y congelados</td><td class="r">$250,000</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>Suministro e instalaci&oacute;n de compresor (3er para back up)</td><td class="r">$167,000</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr><td><strong>Delice</strong></td><td>L&iacute;neas de proceso de agua helada y agua de torre</td><td class="r">$150,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Cementos Pacasmayo</strong></td><td>Instalaci&oacute;n 2 Chillers Ecuador</td><td class="r">$128,993</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr><td><strong>Hayduk</strong></td><td>Suministro e instalaci&oacute;n de compresor</td><td class="r">$120,000</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr><td><strong>Molitalia</strong></td><td>Suministro de Chiller</td><td class="r">$100,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Talma</strong></td><td>Ingenier&iacute;a</td><td class="r">$35,000</td><td><span class="sb-info">Prospecto</span></td></tr>
+            <tr><td><strong>Europan &mdash; San Antonio</strong></td><td>Expediente t&eacute;cnico</td><td class="r">$30,600</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #0891b2"><td><strong>TOTAL ACTIVO</strong></td><td><strong>19 oportunidades</strong></td><td class="r"><strong>$16,668,292</strong></td><td></td></tr>
           </tbody>
         </table>
-        <div class="od-note" style="margin-top:10px">Pipeline no agro activo: $17.74M en 13 oportunidades (excluye 2 oportunidades marcadas como &ldquo;Perdido&rdquo;, mostradas al pie de la tabla como referencia). Cerrar 2 clientes m&aacute;s como &ldquo;Vendido&rdquo; completa la meta anual.</div>
+        <div class="od-note" style="margin-top:10px">Pipeline no agro activo: $16.67M en 19 oportunidades. Cerrar 2 clientes m&aacute;s como &ldquo;Vendido&rdquo; completa la meta anual.</div>
       </div>
     </div>
   </div>
@@ -1791,7 +1988,7 @@
   <div class="od-tb">
     <button class="od-back" onclick="odClose()" style="color:#3d4a6a;border-color:#3d4a6a">&#8592; Volver</button>
     <span class="od-tb-title">Objetivo 05 &mdash; Cross Selling &ndash; Frioteam</span>
-    <span class="od-tb-chip" style="background:#e7eaf2;color:#20283f">En atenci&oacute;n &middot; 50.56%</span>
+    <span class="od-tb-chip" style="background:#dcfce7;color:#16a34a">Meta superada &middot; 132.03%</span>
   </div>
   <div class="od-body">
     <div class="od-hero" style="background:linear-gradient(135deg,#0a0e18 0%,#1c2440 60%,#0a0e18 100%);display:block">
@@ -1828,7 +2025,7 @@
               <tr><td>Emergent Cold Peru S.A.C.</td><td>Modificaci&oacute;n de control de t&uacute;neles de congelado (opci&oacute;n 2)</td><td class="r">$87,009</td><td class="r">22.00%</td><td>Junio</td><td>Industrial</td><td>Fre&oacute;n</td><td>Centro</td></tr>
               <tr><td>Oregon Foods S.A.C.</td><td>Mantenimiento de rack de compresores y UC</td><td class="r">$24,240</td><td class="r">25.00%</td><td>Junio</td><td>C&aacute;rnico</td><td>Fre&oacute;n</td><td>Centro</td></tr>
               <tr><td>Zedina Alimentos S.A.C.</td><td>Mantenimiento anual de equipos de fr&iacute;o</td><td class="r">$15,156</td><td class="r">27.00%</td><td>Junio</td><td>C&aacute;rnico</td><td>Fre&oacute;n</td><td>Centro</td></tr>
-              <tr><td>Arca Continental Lindley S.A</td><td>Suministro e instalación de serpentín</td><td class="r">$203,678</td><td class="r">21.30%</td><td>Marzo</td><td>Industrial</td><td>Amoniaco</td><td>Norte</td></tr>
+              <tr><td>Arca Continental Lindley S.A</td><td>Suministro e instalación de serpentín</td><td class="r">$203,678</td><td class="r">21.30%</td><td>Marzo</td><td>Industrial</td><td>Amoniaco</td><td>Centro</td></tr>
               <tr style="background:#f7fafc;border-top:2px solid #3d4a6a"><td colspan="2" style="font-weight:700">TOTAL &mdash; 4 servicios</td><td class="r" style="font-weight:900;color:#3d4a6a">$330,083</td><td class="r" style="font-weight:700">22.02%</td><td colspan="4"></td></tr>
             </tbody>
           </table>
@@ -1839,12 +2036,13 @@
           <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
             <thead><tr><th>Cliente</th><th>Requerimiento</th><th class="r">Importe ($)</th></tr></thead>
             <tbody>
+              <tr><td>Emergent Cold Peru S.A.C.</td><td>Suministro e instalaci&oacute;n de compresor</td><td class="r">$167,000</td></tr>
               <tr><td>Farmacias Peruanas S.A.C.</td><td>Servicio de mantenimiento anual</td><td class="r">$60,000</td></tr>
               <tr><td>Delice S.A.C.</td><td>Servicio de mantenimiento anual</td><td class="r">$22,000</td></tr>
-              <tr style="background:#f7fafc;border-top:2px solid #3d4a6a"><td><strong>TOTAL</strong></td><td><strong>2 oportunidades</strong></td><td class="r"><strong>$82,000</strong></td></tr>
+              <tr style="background:#f7fafc;border-top:2px solid #3d4a6a"><td><strong>TOTAL</strong></td><td><strong>3 oportunidades</strong></td><td class="r"><strong>$249,000</strong></td></tr>
             </tbody>
           </table>
-          <div class="od-note" style="margin-top:10px">Pipeline estimado: $82,000. Aporta valor a la meta ya superada: <strong>$123,595</strong>.</div>
+          <div class="od-note" style="margin-top:10px">Pipeline estimado: $249,000. La meta anual ya fue superada en <strong>$80,084</strong>.</div>
         </div>
       </div>
     </div>

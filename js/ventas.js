@@ -1,5 +1,5 @@
 /* ============================================================
-   DATA — Fuente: DATA_PRODUC_25.06.xlsx
+   DATA — Fuente: DATA_PRODUC_25.07.xlsx
    ============================================================ */
 const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
@@ -10,7 +10,7 @@ const VC = {
   23: [0.67,1.19,3.60,5.33,8.10,9.09,10.60,11.64,11.67,12.26,13.67,15.29],
   24: [0.08,1.25,4.84,6.46,9.58,10.74,12.30,12.88,13.21,14.88,15.35,15.45],
   25: [0.20,1.29,7.91,12.52,14.75,19.02,19.91,25.27,29.34,31.33,33.76,34.77],
-  26: [4.36,7.94,8.42,12.69,25.73,28.26,null,null,null,null,null,null]
+  26: [4.36,7.94,8.42,12.69,25.73,28.59,29.10,null,null,null,null,null]
 };
 
 /* ── Margen ponderado acumulado (%) — 2021-2026 ── */
@@ -20,7 +20,7 @@ const MCA = {
   23: [17.73,17.78,15.29,16.51,17.68,17.52,17.49,17.58,17.56,17.46,16.90,17.09],
   24: [16.67,16.42,15.36,15.21,15.55,15.83,15.30,15.25,15.26,15.21,15.30,15.30],
   25: [15.20,15.48,15.11,15.82,15.91,15.49,15.40,15.80,15.81,15.92,16.02,15.96],
-  26: [15.10,15.77,15.90,16.69,15.34,15.32,null,null,null,null,null,null]
+  26: [15.10,15.77,15.90,16.69,15.34,15.32,15.36,null,null,null,null,null]
 };
 
 /* ── Ventas acumuladas — Venta de Servicios (VS + VSI, US$ MM) ── */
@@ -30,17 +30,17 @@ const VC_SRV = {
   23: [0,0,0,0,0,0,0,0,0,0,0,0],
   24: [0,0,0,0,0,0,0,0,0,0,0,0],
   25: [0,0,0.03,0.05,0.05,0.06,0.11,0.21,0.30,0.32,0.32,0.33],
-  26: [0,0.08,0.08,0.08,0.09,0.10,null,null,null,null,null,null]
+  26: [0,0.08,0.08,0.08,0.09,0.10,0.16,null,null,null,null,null]
 };
 
 /* ── Ventas acumuladas SIN OO.CC y EE.MM (US$ MM) — cruce por CODIGO PROYECTO
    contra hoja "OO.CC Y EEMM"; reemplaza venta/margen solo en los proyectos
    con código coincidente, resto de la data cruda queda igual ── */
-const VC_OOCC = {21:[1.55,3.22,4.34,6.4,8.91,12.5,14.42,15.56,16.83,16.87,18.01,20.63],22:[0.23,4.1,7.7,13.33,18.47,19.9,23.37,25.24,25.67,25.81,27.12,30.27],23:[0.67,1.19,3.09,4.62,7.39,8.38,9.88,10.92,10.95,11.55,12.96,14.65],24:[0.08,1,4.59,6.15,9.26,10.42,11.98,12.56,12.9,14.34,14.81,14.91],25:[0.2,1.17,6.12,10.73,12.96,16.51,17.4,22.92,26.99,28.98,31.41,32.42],26:[4.25,7.82,8.31,12.57,21.84,24.37,null,null,null,null,null,null]};
+const VC_OOCC = {21:[1.55,3.22,4.34,6.4,8.91,12.5,14.42,15.56,16.83,16.87,18.01,20.63],22:[0.23,4.1,7.7,13.33,18.47,19.9,23.37,25.24,25.67,25.81,27.12,30.27],23:[0.67,1.19,3.09,4.62,7.39,8.38,9.88,10.92,10.95,11.55,12.96,14.65],24:[0.08,1,4.59,6.15,9.26,10.42,11.98,12.56,12.9,14.34,14.81,14.91],25:[0.2,1.17,6.12,10.73,12.96,16.51,17.4,22.92,26.99,28.98,31.41,32.42],26:[4.25,7.82,8.31,12.57,21.84,24.70,25.21,null,null,null,null,null]};
 
 /* ── Margen ponderado acumulado SIN OO.CC y EE.MM (%) — usa margen frío ajustado
    ponderado por venta ajustada para los proyectos con código coincidente ── */
-const MCA_OOCC = {21:[16.69,13.93,14.81,10.12,11.5,12.86,13.4,12.42,12.69,12.7,13.07,13.38],22:[14.98,13.74,14.94,10.67,12.65,12.96,13.51,13.61,14.21,14.22,14.28,14.48],23:[17.73,17.78,16.27,17.55,18.44,18.18,18.05,18.09,18.07,17.93,17.29,17.56],24:[16.67,17.83,15.62,15.61,15.83,16.08,15.5,15.45,15.45,15.46,15.55,15.54],25:[15.2,16.06,16.43,16.69,16.43,16.06,15.93,16.27,16.22,16.31,16.38,16.31],26:[15.23,15.85,15.98,16.75,16.06,15.96,null,null,null,null,null,null]};
+const MCA_OOCC = {21:[16.69,13.93,14.81,10.12,11.5,12.86,13.4,12.42,12.69,12.7,13.07,13.38],22:[14.98,13.74,14.94,10.67,12.65,12.96,13.51,13.61,14.21,14.22,14.28,14.48],23:[17.73,17.78,16.27,17.55,18.44,18.18,18.05,18.09,18.07,17.93,17.29,17.56],24:[16.67,17.83,15.62,15.61,15.83,16.08,15.5,15.45,15.45,15.46,15.55,15.54],25:[15.2,16.06,16.43,16.69,16.43,16.06,15.93,16.27,16.22,16.31,16.38,16.31],26:[15.23,15.85,15.98,16.75,16.06,15.95,15.98,null,null,null,null,null]};
 
 /* Alias legacy para compatibilidad con otras secciones */
 const V = { 23:VC[23], 24:VC[24], 25:VC[25], 26:VC[26] };
@@ -48,7 +48,7 @@ const M = { 23:MCA[23], 24:MCA[24], 25:MCA[25], 26:MCA[26] };
 
 
 /* ============================================================
-   DATA ESTACIONALIDAD — Fuente: DATA_PRODUC_25.06.xlsx
+   DATA ESTACIONALIDAD — Fuente: DATA_PRODUC_25.07.xlsx
    Hojas "7. Análisis por Zona" y "8. Estacionalidad"
    ============================================================ */
 
@@ -60,7 +60,7 @@ const ZMON = {
     23:[673095,516517,2410566,1729389,2771063,993087,1503733,1039788,27778,594477,1413141,1616741],
     24:[77020,1168612,3590757,1626869,3115788,1156829,1562516,578586,334649,1672198,470764,96562],
     25:[197251,1096221,6615418,4607683,2233583,4274626,888259,5353131,4071840,1992459,2432241,1003761],
-    26:[4362016,3578570,481539,4267062,13044891,2526579,0,0,0,0,0,0]
+    26:[4362016,3578570,481539,4267062,13044891,2860617,503373,0,0,0,0,0]
   },
   norte:{
     21:[1073934,257020,379433,2041744,1559152,482827,1024067,488536,150224,20343,312581,1334431],
@@ -68,7 +68,7 @@ const ZMON = {
     23:[388659,11674,2147024,1699794,343575,132426,2925,640313,6251,3357,31021,1559462],
     24:[18480,371629,2331665,1599788,192553,6405,1238261,65145,222056,135702,60851,11261],
     25:[3882,1081789,4713415,3672249,1407724,2139804,412648,1136674,4050638,1446019,2162000,10566],
-    26:[3200000,1837982,292455,187219,11543568,10322,0,0,0,0,0,0]
+    26:[3200000,1837982,292455,187219,11543568,17810,4500,0,0,0,0,0]
   },
   centro:{
     21:[385223,706847,133807,2826,791516,1851,259402,0,974211,100,569506,664624],
@@ -76,7 +76,7 @@ const ZMON = {
     23:[0,256151,36755,13717,522198,121000,550208,63970,7551,4745,88658,22000],
     24:[3047,505514,6657,5052,1404340,55025,0,205000,79941,0,404267,0],
     25:[0,3092,38670,117308,227378,0,159825,99000,0,514967,0,360886],
-    26:[946218,41690,0,144516,382560,10600,0,0,0,0,0,0]
+    26:[946218,41690,0,144516,382560,10600,57857,0,0,0,0,0]
   },
   sur:{
     21:[351236,125365,603630,23923,154473,3104706,633759,651705,151580,13555,266118,616285],
@@ -84,13 +84,13 @@ const ZMON = {
     23:[284436,248692,226787,15878,1905291,739661,950600,335505,13976,586375,1293462,35279],
     24:[55493,291470,1252435,22029,1518895,1095400,324255,308440,32652,1536495,5646,85301],
     25:[193369,11340,1863333,818127,598482,2134822,315785,4117457,21202,31474,270241,632309],
-    26:[215798,1698898,189083,3935327,1118763,2505658,0,0,0,0,0,0]
+    26:[215798,1698898,189083,3935327,1118763,2832208,441016,0,0,0,0,0]
   }
 };
 
 /* Estacionalidad promedio por mes (2021-2026) */
-const SEAS_PCT = [5.1,7.3,12.7,13.2,19.8,9.5,7.1,6.2,4.0,3.5,4.8,6.8];
-const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2328049,1558033,1663660,1153817,739239,1128307,1656682];
+const SEAS_PCT = [5.0,7.2,12.7,13.1,19.6,9.7,7.4,6.2,4.0,3.5,4.8,6.8];
+const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2383722,1641929,1663660,1153817,739239,1128307,1656682];
 
 
 /* ============================================================
@@ -99,22 +99,22 @@ const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2328049,1558033,1663
 
 /* Refrigerante: Freón / Amoniaco / Otros (US$ MM) */
 const REF_DATA = {
-  freon:    [9.72,11.78,10.02,6.48,6.47,4.91],
+  freon:    [9.72,11.78,10.02,6.48,6.47,5.25],
   amoniaco: [9.84,20.44, 4.06,7.45,21.03,21.82],
-  otros:    [0.75, 0.97, 1.21,1.53, 7.26, 1.53]
+  otros:    [0.75, 0.97, 1.21,1.53, 7.26, 2.03]
 };
 
 /* Tipo de venta: PR / AD / VS / VSI (% participación y montos nominales) */
 const TCV_PCT = {
-  PR: [95.3,85.3,93.2,90.8,95.5,95.4],
-  AD: [ 4.1, 3.3, 6.8, 9.2, 3.5, 4.2],
-  VS: [ 0.3, 0.0, 0.0, 0.0, 0.9, 0.3],
-  VSI:[ 0.3, 0.0, 0.0, 0.0, 0.1, 0.0]
+  PR: [95.3,85.3,93.2,90.8,95.5,95.30],
+  AD: [ 4.1, 3.3, 6.8, 9.2, 3.5, 4.15],
+  VS: [ 0.3, 0.0, 0.0, 0.0, 0.9, 0.52],
+  VSI:[ 0.3, 0.0, 0.0, 0.0, 0.1, 0.03]
 };
 const TCV_MONTO = {
-  PR: [19355389,28303498,14249025,14024848,33216546,26963097],
-  AD: [  832200, 1109472, 1040349, 1426301, 1219229, 1196075],
-  VS: [   52000,       0,       0,       0,  306698,   93015],
+  PR: [19355389,28303498,14249025,14024848,33216546,27730585],
+  AD: [  832200, 1109472, 1040349, 1426301, 1219229, 1208141],
+  VS: [   52000,       0,       0,       0,  306698,  150872],
   VSI:[   69252,       0,       0,       0,   24000,    8470]
 };
 
@@ -206,7 +206,7 @@ function vtToggle(seg, el) {
    reacciona a los segmentadores del tab Evolución de Ventas. Reutiliza
    _vtEffMargin()/_vtYearClose() (misma base filtrada que chMargenAcum y
    chMargenAnualProgress); fuera de ese tab conserva el valor global original. */
-var _vtHeroMargenGlobal = { val: 15.32, meta: 18 };
+var _vtHeroMargenGlobal = { val: 15.36, meta: 18 };
 function _vtUpdateHeroMargen() {
   var valEl = document.getElementById('vtHeroMargenVal');
   var subEl = document.getElementById('vtHeroMargenSub');
@@ -295,8 +295,8 @@ const Z = {
 
 
 /* ============================================================
-   DATA VENTAS 2026 — Fuente única: DATA_PRODUC_25.06.xlsx (hoja "Data Cruda")
-   Filtro aplicado: Año = 2026, Mes = Enero..Junio → 83 registros reales.
+   DATA VENTAS 2026 — Fuente única: DATA_PRODUC_25.07.xlsx (hoja "Data Cruda")
+   Filtro aplicado: Año = 2026, Mes = Enero..Julio → 90 registros reales.
    Cada fila = 1 operación real (columna "Importe total" y "Margen Comercial").
    Nombres normalizados a Title Case desde el valor exacto del Excel (sin inventar).
    Se fusionaron 2 pares de variantes de escritura del mismo cliente (mismo
@@ -388,7 +388,14 @@ const ventas2026 = [
   {mes:'Feb',cli:'El Rocio S.A.',zona:'Norte',imp:890,mg:15,tipo:'AD'},
   {mes:'Ene',cli:'Uvica S.A.C.',zona:'Sur',imp:798,mg:15,tipo:'AD'},
   {mes:'Feb',cli:'Agroindustria Frutos de Oro S.A.C.',zona:'Norte',imp:760,mg:15,tipo:'AD'},
-  {mes:'Jun',cli:'Sociedad Agricola 3P S.A.C.',zona:'Sur',imp:500,mg:20,tipo:'AD'}
+  {mes:'Jun',cli:'Sociedad Agricola 3P S.A.C.',zona:'Sur',imp:500,mg:20,tipo:'AD'},
+  {mes:'Jul',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:435000,mg:16,tipo:'PR'},
+  {mes:'Jun',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:325000,mg:16,tipo:'PR'},
+  {mes:'Jul',cli:'In Vitro Lab Perú S.A.C.',zona:'Centro',imp:57857,mg:26,tipo:'VS'},
+  {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:7488.07,mg:13,tipo:'PR'},
+  {mes:'Jul',cli:'Consorcio Agricola Moquegua S.A.C.',zona:'Sur',imp:6016,mg:25,tipo:'AD'},
+  {mes:'Jul',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4500,mg:23,tipo:'AD'},
+  {mes:'Jun',cli:'Family Farms Perú S.R.L.',zona:'Sur',imp:1550,mg:20,tipo:'AD'}
 ];
 
 
@@ -398,7 +405,7 @@ const ventas2026 = [
 function _seasDsData(zone, yr) {
   var raw = ZMON[zone][yr];
   return raw.map(function(v, i) {
-    if (yr === 26 && i >= 6) return null; /* meses sin datos en 2026 */
+    if (yr === 26 && i >= 7) return null; /* meses sin datos en 2026 */
     return v;
   });
 }
@@ -486,8 +493,9 @@ function _hmapRender() {
   });
   var vmax = allVals.length ? Math.max.apply(null,allVals) : 1;
 
-  /* Aqua → navy gradient (Friopacking identity) */
-  var stops = [[0,240,249,246],[0.15,196,232,220],[0.35,128,211,189],[0.58,62,198,172],[0.82,22,110,92],[1,10,10,30]];
+  /* Progresión multicolor por nivel: mint→turquesa→cian→azul→índigo→ámbar
+     (ámbar reservado al extremo superior, para valores excepcionalmente altos) */
+  var stops = [[0,209,250,229],[0.15,125,233,209],[0.35,20,184,166],[0.55,56,189,248],[0.72,37,99,235],[0.88,67,56,202],[1,245,158,11]];
   function interpHm(t) {
     if(t<=0) return stops[0].slice(1);
     for(var i=1;i<stops.length;i++){
@@ -522,7 +530,7 @@ function _hmapRender() {
     h += '<tr><td class="hmap-yr-th">'+yStr+'</td>';
     for(var m=0;m<12;m++){
       var v = yData[m];
-      var isFuture = (yr===26 && m>=6);
+      var isFuture = (yr===26 && m>=7);
       var isEmpty  = (v===null||v===undefined||v===0||isFuture);
       var tipText  = cellTitle(yr,m,isEmpty?0:v);
       if(isEmpty){
@@ -582,14 +590,18 @@ const _elMA = document.getElementById('chMargenAcum');
 /* External tooltip reads data-vt-fmt from canvas element (set in HTML) */
 if (_elVA) {
   _chVA = new Chart(_elVA, {type:'line', data:{labels:meses, datasets:_vtDs(VC)},
+    plugins:[window._sheenPlugin],
     options:{..._vtSharedOpts,
+      animation:{..._vtSharedOpts.animation, onComplete:function(a){window._triggerSheen(a.chart);}},
       scales:{..._vtSharedOpts.scales,
         y:{..._vtSharedOpts.scales.y, ticks:{..._vtSharedOpts.scales.y.ticks,
           callback:function(v){return '$'+v+'MM';}}}}}});
 }
 if (_elMA) {
   _chMA = new Chart(_elMA, {type:'line', data:{labels:meses, datasets:_vtDs(MCA)},
+    plugins:[window._sheenPlugin],
     options:{..._vtSharedOpts,
+      animation:{..._vtSharedOpts.animation, onComplete:function(a){window._triggerSheen(a.chart);}},
       scales:{..._vtSharedOpts.scales,
         y:{..._vtSharedOpts.scales.y, min:8, max:20,
           ticks:{..._vtSharedOpts.scales.y.ticks, callback:function(v){return v+'%';}}}}}});
@@ -613,9 +625,10 @@ if (_elVAB) {
         categoryPercentage:0.7
       }]
     },
+    plugins:[window._sheenPlugin],
     options:{
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart'},
+      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:false},
         tooltip:{
@@ -626,7 +639,7 @@ if (_elVAB) {
           callbacks:{
             title:function(items){ return items.length ? items[0].label : ''; },
             label:function(ctx){ return 'Ventas acumuladas: ' + fmtMM(ctx.parsed.y); },
-            afterLabel:function(ctx){ return ctx.dataIndex === 5 ? 'YTD Ene–Jun 2026' : null; }
+            afterLabel:function(ctx){ return ctx.dataIndex === 5 ? 'YTD Ene–Jul 2026' : null; }
           }
         }
       },
@@ -662,7 +675,7 @@ if (_elMAP) {
     },
     options:{
       responsive:true, maintainAspectRatio:false, indexAxis:'y',
-      animation:{duration:900, easing:'easeInOutQuart'},
+      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:false},
         tooltip:{
@@ -693,7 +706,7 @@ if (_elMAP) {
         c2.beginPath(); c2.moveTo(x, chart.chartArea.top); c2.lineTo(x, chart.chartArea.bottom); c2.stroke();
         c2.restore();
       }
-    }]
+    }, window._sheenPlugin]
   });
 }
 
@@ -756,16 +769,22 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
   });
 })();
 
+/* Paleta fija — tab "Análisis de Ventas" (Estacionalidad, Refrigerante, Tipo de Venta) */
+var AV_COLOR = {
+  mint:'#A7F3D0', turquesa:'#14B8A6', cian:'#38BDF8',
+  azul:'#2563EB', indigo:'#4338CA', amber:'#F59E0B'
+};
+
 /* === Estacionalidad promedio: barras horizontales === */
 (function(){
   var el = document.getElementById('chSeasAvg');
   if (!el) return;
-  var cols = SEAS_PCT.map(function(p){
-    if(p>=15)return '#0a0a1e';
-    if(p>=10)return '#0F6E56';
-    if(p>=7) return '#3EC6AC';
-    return '#BFE8DC';
-  });
+  /* Paleta multicolor alternada mes a mes (turquesa→índigo→ámbar→cian→azul→mint,
+     repetida) para que no haya dos barras consecutivas del mismo tono */
+  var cols = [
+    AV_COLOR.turquesa, AV_COLOR.indigo, AV_COLOR.amber, AV_COLOR.cian, AV_COLOR.azul, AV_COLOR.mint,
+    AV_COLOR.turquesa, AV_COLOR.indigo, AV_COLOR.amber, AV_COLOR.cian, AV_COLOR.azul, AV_COLOR.mint
+  ];
   new Chart(el, {
     type:'bar',
     data:{
@@ -777,10 +796,11 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
         barPercentage:0.72
       }]
     },
+    plugins:[window._sheenPlugin],
     options:{
       indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart'},
+      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:false},
         tooltip:{
@@ -810,20 +830,24 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
 (function(){
   var el = document.getElementById('chSeasQ');
   if (!el) return;
+  /* Mismos 4 colores y mismo orden que "Análisis por Tipo de Venta" */
+  var qVals = [24.7,43.1,17.8,14.3];
+  var qCols = ['#14B8A6','#2563EB','#4338CA','#F59E0B'];
   new Chart(el, {
     type:'bar',
     data:{
       labels:['Q1','Q2','Q3','Q4'],
       datasets:[{
-        data:[24.7,43.1,17.8,14.3],
-        backgroundColor:['#3EC6AC','#0a0a1e','rgba(62,198,172,.55)','#94a3b8'],
+        data:qVals,
+        backgroundColor:qCols,
         borderRadius:7,
         barPercentage:0.65
       }]
     },
+    plugins:[window._sheenPlugin],
     options:{
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart'},
+      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:false},
         tooltip:{
@@ -860,7 +884,7 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
 (function(){
   var el = document.getElementById('chRef');
   if (!el) return;
-  /* Participación en ventas: Freón / Otros (Amoniaco + Otros) — Fuente: DATA_PRODUC_25.06 */
+  /* Participación en ventas: Freón / Otros (Amoniaco + Otros) — Fuente: DATA_PRODUC_25.07 */
   var V_FREON_IMP = REF_DATA.freon;
   var V_OTROS_IMP = REF_DATA.amoniaco.map(function(v,i){return Math.round((v+REF_DATA.otros[i])*100)/100;});
   var V_TOTAL     = V_FREON_IMP.map(function(v,i){return Math.round((v+V_OTROS_IMP[i])*100)/100;});
@@ -872,17 +896,18 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
     data:{
       labels:['2021','2022','2023','2024','2025','2026'],
       datasets:[
-        {label:'Freón', data:V_FREON_PCT, backgroundColor:'#3EC6AC',
+        {label:'Freón', data:V_FREON_PCT, backgroundColor:'#17B890',
           borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0}, stack:'r',
           borderColor:'rgba(255,255,255,.1)', borderWidth:1},
-        {label:'Otros', data:V_OTROS_PCT, backgroundColor:'#0A1E64',
+        {label:'Otros', data:V_OTROS_PCT, backgroundColor:'#2147D9',
           borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0}, stack:'r',
           borderColor:'rgba(255,255,255,.1)', borderWidth:1}
       ]
     },
+    plugins:[window._sheenPlugin],
     options:{
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart'},
+      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:true,position:'bottom',labels:{boxWidth:9,font:{size:10},padding:12,color:'#7b8db0'}},
         tooltip:{
@@ -917,23 +942,23 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
 (function(){
   var el = document.getElementById('chTcv');
   if (!el) return;
-  /* Mismos colores base que la dona "Por Tipo de Venta 2026" para consistencia visual */
-  var TCV_COLOR = {PR:'#0A1E64', AD:'#0F6E56', VS:'#7b8db0', VSI:'#b45309'};
+  var TCV_COLOR = {PR:'#14B8A6', AD:'#2563EB', VS:'#4338CA', VSI:'#F59E0B'};
   var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VS:'V. servicio', VSI:'V. servicio de ingeniería'};
   new Chart(el, {
     type:'bar',
     data:{
       labels:['2021','2022','2023','2024','2025','2026'],
       datasets:[
-        {label:'PR',  data:TCV_PCT.PR,  backgroundColor:TCV_COLOR.PR,  borderRadius:3, stack:'t'},
-        {label:'AD',  data:TCV_PCT.AD,  backgroundColor:TCV_COLOR.AD,  borderRadius:3, stack:'t'},
-        {label:'VS',  data:TCV_PCT.VS,  backgroundColor:TCV_COLOR.VS,  borderRadius:3, stack:'t'},
-        {label:'VSI', data:TCV_PCT.VSI, backgroundColor:TCV_COLOR.VSI, borderRadius:3, stack:'t'}
+        {label:'PR',  data:TCV_PCT.PR,  backgroundColor:TCV_COLOR.PR,  borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
+        {label:'AD',  data:TCV_PCT.AD,  backgroundColor:TCV_COLOR.AD,  borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
+        {label:'VS',  data:TCV_PCT.VS,  backgroundColor:TCV_COLOR.VS,  borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
+        {label:'VSI', data:TCV_PCT.VSI, backgroundColor:TCV_COLOR.VSI, borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1}
       ]
     },
+    plugins:[window._sheenPlugin],
     options:{
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart'},
+      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         /* Leyenda visible sin abrir modal — nombres completos, compacta y alineada */
         legend:{display:true,position:'bottom',
@@ -1103,8 +1128,8 @@ function _vtTableV(data) {
     fmtMM(m21[i]),fmtMM(m22[i]),fmtMM(m23[i]),fmtMM(m24[i]),fmtMM(m25[i]),
     m26[i]!=null?fmtMM(m26[i]):'—'];});
   var foot=['Total año',fmtMM(data[21][11]),fmtMM(data[22][11]),fmtMM(data[23][11]),
-    fmtMM(data[24][11]),fmtMM(data[25][11]),'$28.26MM *'];
-  return tbl(head,rows,foot)+'<div class="mnote">* 2026 enero&ndash;junio. Valores mensuales de venta. Total = suma del a&ntilde;o.</div>';
+    fmtMM(data[24][11]),fmtMM(data[25][11]),'$29.10MM *'];
+  return tbl(head,rows,foot)+'<div class="mnote">* 2026 enero&ndash;julio. Valores mensuales de venta. Total = suma del a&ntilde;o.</div>';
 }
 
 /* ── Cumulative table for margen ── */
@@ -1117,7 +1142,7 @@ function _vtTableM(data) {
   var close26 = _vtYearClose(data[26]);
   var foot=['Cierre año',fmtPct(data[21][11]),fmtPct(data[22][11]),fmtPct(data[23][11]),
     fmtPct(data[24][11]),fmtPct(data[25][11]),fmtPct(close26)+' *'];
-  return tbl(head,rows,foot)+'<div class="mnote">* 2026 hasta junio. Margen ponderado acumulado. Meta: 18.00%.</div>';
+  return tbl(head,rows,foot)+'<div class="mnote">* 2026 hasta julio. Margen ponderado acumulado. Meta: 18.00%.</div>';
 }
 
 function openVtVentas() {
@@ -1226,8 +1251,8 @@ function openAD3Ref() {
       if(_mci){_mci.destroy();_mci=null;}
       _mci=new Chart(el,{type:'bar',
         data:{labels:['2021','2022','2023','2024','2025','2026'],datasets:[
-          {label:'Fre\xf3n',data:V_FREON_PCT,backgroundColor:'#3EC6AC',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'},
-          {label:'Otros',   data:V_OTROS_PCT,backgroundColor:'#0A1E64',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'}
+          {label:'Fre\xf3n',data:V_FREON_PCT,backgroundColor:'#17B890',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'},
+          {label:'Otros',   data:V_OTROS_PCT,backgroundColor:'#2147D9',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'}
         ]},
         options:{responsive:true,maintainAspectRatio:false,
           animation:{duration:900,easing:'easeInOutQuart'},
@@ -1286,15 +1311,14 @@ function openAD3Tcv() {
       var el=document.getElementById('_mcanvas3tcv');
       if(!el)return;
       if(_mci){_mci.destroy();_mci=null;}
-      /* Mismos colores base que la dona "Por Tipo de Venta 2026" para consistencia visual */
-      var TCV_COLOR = {PR:'#0A1E64', AD:'#0F6E56', VS:'#7b8db0', VSI:'#b45309'};
+      var TCV_COLOR = {PR:'#14B8A6', AD:'#2563EB', VS:'#4338CA', VSI:'#F59E0B'};
       var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VS:'V. servicio', VSI:'V. servicio de ingeniería'};
       _mci=new Chart(el,{type:'bar',
         data:{labels:['2021','2022','2023','2024','2025','2026'],datasets:[
-          {label:'PR', data:TCV_PCT.PR, backgroundColor:TCV_COLOR.PR, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t'},
-          {label:'AD', data:TCV_PCT.AD, backgroundColor:TCV_COLOR.AD, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t'},
-          {label:'VS', data:TCV_PCT.VS, backgroundColor:TCV_COLOR.VS, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t'},
-          {label:'VSI',data:TCV_PCT.VSI,backgroundColor:TCV_COLOR.VSI,borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t'}
+          {label:'PR', data:TCV_PCT.PR, backgroundColor:TCV_COLOR.PR, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
+          {label:'AD', data:TCV_PCT.AD, backgroundColor:TCV_COLOR.AD, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
+          {label:'VS', data:TCV_PCT.VS, backgroundColor:TCV_COLOR.VS, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
+          {label:'VSI',data:TCV_PCT.VSI,backgroundColor:TCV_COLOR.VSI,borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1}
         ]},
         options:{responsive:true,maintainAspectRatio:false,
           animation:{duration:900,easing:'easeInOutQuart'},
@@ -1594,7 +1618,7 @@ window._animVtHero = function(){
   requestAnimationFrame(function(){
     requestAnimationFrame(function(){
       fill.style.transition = 'width 1.1s cubic-bezier(.4,0,.2,1)';
-      fill.style.width = '94.2%';
+      fill.style.width = '96.99%';
     });
   });
 };
@@ -1777,7 +1801,7 @@ window._animVtHero = function(){
   /* Ordenar de mayor a menor por importe */
   var rows=[].concat(ventas2026).sort(function(a,b){return b.imp-a.imp;});
   var PG=15, pg=0, sc=-1, sa=true, q='';
-  var MES_ORD={Ene:1,Feb:2,Mar:3,Abr:4,May:5,Jun:6};
+  var MES_ORD={Ene:1,Feb:2,Mar:3,Abr:4,May:5,Jun:6,Jul:7};
 
   var fmt = fmtEjecutivo;
   function mgCls(v){return v>=18?'mg-ok':v>=12?'mg-warn':'mg-crit';}

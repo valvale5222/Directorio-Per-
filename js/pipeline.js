@@ -1,91 +1,106 @@
 /* ============================================================
-   PIPELINE COMERCIAL — DATOS REALES (Excel "PIPELINE 01.07", pestaña PIPELINE)
-   Fila = [Cliente, Importe, Probabilidad de cierre (0–1), Mes de cierre (1–12|null), Proyecto/Descripción, Estado]
-   Estado 'Perdido' fuerza probabilidad=0 (coherencia: perdido = 0% de cierre).
-   Actualizado Jul 2026: 80 oportunidades (reemplazo completo desde el Excel actualizado).
+   PIPELINE COMERCIAL — DATOS REALES (Excel "PIPELINE 2026-2027.xlsx", hoja PIPELINE)
+   Fila = [Cliente, Importe (col VENTA), Probabilidad de cierre (0–1, desde "% PROBABILIDAD DE ÉXITO"),
+           Mes de cierre (1–12, desde "MES ESTIMADO DE CIERRE"), Proyecto/Descripción (col REQUERIMIENTO),
+           Estado (col STATUS), Año (col AÑO, 2026 o 2027 — dato real de la hoja, no inferido)]
+   Nombres/descripciones normalizados a Title Case desde el valor exacto del Excel (sin inventar contenido).
+   Actualizado Ago 2026: 94 oportunidades (reemplazo completo desde "PIPELINE 2026-2027.xlsx").
    ============================================================ */
 const PIPE_ROWS = [
-  ['Vita Foods',90928,0.8,8,'Servicio de ingeniería','En análisis del cliente'],
-  ['Vita Foods',4500000,0.6,11,'Planta de congelado','En análisis del cliente'],
-  ['NGR - Nutra',1100000,0.4,7,'Implementación de cámaras de frío para Planta de producción Proyecto Chronos (freón)','En análisis del cliente'],
-  ['Emergent Cold',771249.7,0.4,11,'Túnel Congelado','En análisis del cliente'],
-  ['El Parque Alaya Packing Sac',487628.54,0.4,1,'Equipos','En análisis del cliente'],
-  ['Prize',329805.2,0.4,7,'Oficinas','En análisis del cliente'],
-  ['Rapel',3211211,0.4,11,'10/14 Túneles de planta de uva - Piura','En análisis del cliente'],
-  ['Retail',25245.6,0.2,7,'Cámara de congelado','Prospecto'],
-  ['Frutos De Oro',616364.4,0.2,8,'02 Túneles de maduración','En análisis del cliente'],
-  ['Cultivos Orgánicos',150000,0.05,7,'Túnel y cámara de arándanos','Postpuesto'],
-  ['Tyt',300000,0.2,8,'Proyecto de 03 túneles y 01 cámara de producto terminado','Prospecto'],
-  ['Agro Develop',150000,0.2,8,'Packing de Jengibre','Prospecto'],
-  ['Agrovisión',28155.56,0.2,8,'Cámara de gasificado','Prospecto'],
-  ['Maestranza',5139992,0.2,7,'Equipos de refrigeración','Prospecto'],
-  ['Uvas Del Sur',200000,0.2,8,'Planta empacadora de Uva','Prospecto'],
-  ['Almacenera del norte',391611.8,0,null,'Cámaras de refrigeración','Perdido'],
-  ['Rinti SA',469188.52,0,null,'Chiller','Perdido'],
-  ['Danper - Arequipa',35800,0.05,8,'Suministro e instalación de Chiller','Postpuesto'],
-  ['Proagro Nazca',1325752.5,0.05,1,'Planta empacadora de arándanos','Postpuesto'],
-  ['Inka Select Fruit',789000,0.05,10,'Planta para procesos de frutas frescas – Primera etapa','Postpuesto'],
-  ['Sociedad Agrícola Drokasa S.A.',460000,0.05,12,'PV2 - NH3','Postpuesto'],
-  ['Agrícola La Joya',98000,0.05,10,'Planta empacadora de Uva','Postpuesto'],
-  ['AIB Chincha',48500,0.05,12,'Planta de congelado de fruta multipropósito (Chincha)','Postpuesto'],
-  ['Frutos Tropicales',5986141.91,0.05,10,'Planta de congelado de Mango','Postpuesto'],
-  ['Don Packing',372462.18,0,null,'Planta empacadora de fruta multipropósito','Perdido'],
-  ['Sur Export',1258000,0,null,'Acopio de arándanos','Perdido'],
-  ['San Fernando',2923052.67,0,null,'Implementación del Sistema de refrigeración - PPPC Huaral','Perdido'],
-  ['Agroextiende',1545500,0,null,'Planta empacadora de arándanos','Perdido'],
-  ['Agropecuarios del Sur',421755.7,0,null,'Planta de Embutidos','Perdido'],
-  ['Camposol',700000,0,null,'Acopio Nuevo','Perdido'],
-  ['Danper',3500000,0,null,'Ampliación Muchik','Perdido'],
-  ['Danper',5000000,0.4,9,'Proyecto: Olmos','En proceso de cotización'],
-  ['Pedregal',256000,0,null,'Planta antigua de uva - mejoras','Perdido'],
-  ['Pura Fruits',850000,0,null,'Ampliación de planta de arándanos','Perdido'],
-  ['Delice',1572931.74,0.8,7,'Planta procesadora de lácteos y derivados (sistema de frío)','Negociación'],
-  ['Agrokasa - Pisco',435000,0.8,7,'2 Túneles de MP','Negociación'],
-  ['Europan - San Antonio',30600,0.8,7,'Antecámara - Fuera del agro','Negociación'],
-  ['Atgro (Ecosac)',32000,0.6,7,'Planta de procesamiento de arándanos','En proceso de cotización'],
-  ['Tricao',4000000,0.4,8,'Planta de arándanos (Proyecto)','Prospecto'],
-  ['Tricao',40000,0.4,8,'Plan de arquitectura, diseño de 3 plantas','En proceso de cotización'],
-  ['El Parque Alaya Packing Sac',500000,0.4,7,'Implementación de campamento','En proceso de cotización'],
-  ['Delice',150000,0.4,8,'Líneas de proceso de agua helada y agua de torre','En proceso de cotización'],
-  ['Agroberries',103694.6,0.8,7,'Túnel 02 - adicional para materia prima','En proceso de cotización'],
-  ['Grupo Rocío: Noraves Santa Elena (Virú)',500000,0.4,9,'Sistema de respaldo (backup) de refrigeración','En proceso de cotización'],
-  ['Kamuk',189900,0.4,10,'Planta multipropósito','En proceso de cotización'],
-  ['Vitafoods',0,0.2,8,'Cotización de infraestructura','En proceso de cotización'],
-  ['Molitalia',100000,0.2,8,'Suministro de Chiller','En proceso de cotización'],
-  ['Frozen Processed Fruits SAC',0,0.2,null,'Cámara de congelados','En proceso de cotización'],
-  ['Prolan',800000,0.6,10,'Ampliación de la planta San Fernando - Chincha','En proceso de cotización'],
-  ['Frutos De Oro',800000,0.8,8,'Cámaras de C02 y freón','En proceso de cotización'],
-  ['Broom frío',2850000,0.4,12,'3 Cámaras y pasillo de despacho','En proceso de cotización'],
-  ['Sociedad Agrícola Drokasa S.A.',400000,0.6,9,'Planta antigua de espárragos - mejoras','En proceso de cotización'],
-  ['Cementos Pacasmayo',128992.98,0.2,9,'Instalación de 2 Chilleres - Ecuador','En proceso de cotización'],
-  ['2M',180000,0.6,7,'Ampliación de planta de arándanos','En proceso de cotización'],
-  ['Zedina',75928,0.2,7,'Áreas de inyección y proporcionado de carnes','En proceso de cotización'],
-  ['Country Home',0,0.2,9,'Cámara de almacenamiento de producto terminado - limón','En proceso de cotización'],
-  ['Torre Blanca',0,0.2,8,'Ingeniería y estudio de Planta','En proceso de cotización'],
-  ['La Grama',1000000,0.2,9,'Cámara y túnel de congelado (CO2)','En proceso de cotización'],
-  ['Hayduk',0,0.2,8,'Suministro e instalación de compresor','En proceso de cotización'],
-  ['El Parque Alaya Packing Sac',0,0.2,8,'Ampliación de Packing Palta','En proceso de cotización'],
-  ['Agrícola Huarmey',30000,0.6,7,'Implementación de cocina','En proceso de cotización'],
-  ['Medlog Ica',5800000,0.4,10,'Planta empacadora de Uva y arándanos','En análisis del cliente'],
-  ['AIB Motupe',645833,0.8,8,'Planta de congelado de fruta multipropósito (Motupe)','Negociación'],
-  ['Quelen',1024378.89,0.4,12,'Planta empacadora de arándanos - 2da etapa','En análisis del cliente'],
-  ['Hijuelas',6805759.24,0.6,9,'Laboratorio de crecimiento de arándanos','En análisis del cliente'],
-  ['Agrofutura',75000,0.4,10,'Ampliación de planta multipropósito - uva','En análisis del cliente'],
-  ['Gloria',4000000,0.6,12,'Planta de congelado multipropósito','En análisis del cliente'],
-  ['Avocado Packing Company (Mission Produce)',4589259,0.2,1,'Layout base planta congelado APC Chao','En análisis del cliente'],
-  ['Savia Corp',1493776.65,0.6,8,'Planta empacadora de fruta multipropósito','En análisis del cliente'],
-  ['Perupez',1000000,0.6,10,'Ampliación de planta pesquera','En análisis del cliente'],
-  ['Medlog Cayalti',3580000,0.2,1,'Planta empacadora de arándanos','En análisis del cliente'],
-  ['Talma',35000,0.2,10,'Ingeniería','En análisis del cliente'],
-  ['San Efisio Sac',772012.6,0.6,11,'Acopio de arándanos','En análisis del cliente'],
-  ['Zedina',274409.85,0.2,11,'Planta de cárnicos','En análisis del cliente'],
-  ['Productos Naturales de Exportación S.A. - Pronex S.A.',620035.84,0.2,7,'Cámara + Esclusa (Recepción/despacho)','En análisis del cliente'],
-  ['Limatambo',259000,0.05,1,'Cámara 140 ps y 1 túnel de 20 pallets (freón)','En análisis del cliente'],
-  ['Agrofloral',23500,0.2,7,'Suministro e instalación de Chiller','En análisis del cliente'],
-  ['Agrícola Huarmey',272704.88,0.6,7,'Planta empacadora de arándanos // 5 Esclusas','En análisis del cliente'],
-  ['Frutos De Oro',100000,0.6,8,'Sistema de frío IQF','En análisis del cliente'],
-  ['AIB Chincha',60000,0.6,9,'Evaporador para túnel estático 2 (Chincha)','En análisis del cliente'],
-  ['Emergent Cold',0,0.2,9,'Suministro e instalación de compresor','En proceso de cotización']
+  ['Vitafoods',6304645.35,0.6,2,'Planta de Congelado Multiproposito','En análisis del cliente',2027],
+  ['Frutos Tropicales',5986141.91,0.05,4,'Planta de Congelado de Mango','Postpuesto',2027],
+  ['Medlog Ica',5800000,0.2,1,'Planta Empacadora de Uva y Arandanos','En análisis del cliente',2027],
+  ['Maestranza',5139992,0.05,1,'Equipos de Refrigeracion','Postpuesto',2027],
+  ['Danper',5000000,0.2,1,'Ampliación Olmos','Prospecto',2027],
+  ['Avocado Packing Company (Mission Produce)',4589259,0.2,5,'Layout Base Planta Congelado APC Chao','En análisis del cliente',2027],
+  ['Gloria',4000000,0.05,4,'Planta de Congelado Multiproposito','Postpuesto',2027],
+  ['Medlog Cayalti',3580000,0.2,1,'Planta Empacadora de Arandanos','Prospecto',2027],
+  ['Yamboli',3500000,0.2,10,'Camaras de Congelado de Helado (Sistema de Frio) : C02 y Freon','En proceso de cotización',2026],
+  ['Rapel',3211211,0.4,1,'10/14 Tuneles de Planta de Uva - Piura','En análisis del cliente',2027],
+  ['Hijuelas',3000000,0.6,10,'Laboratorio de Crecimiento de Arandanos','En análisis del cliente',2026],
+  ['San Fernando',2934737.67,0,8,'Implementación del Sistema de Refrigeracion - PPPC Huaral','Perdido',2026],
+  ['Broom Frio',2850000,0.4,2,'3 Camaras y Pasillo de Despacho','En proceso de cotización',2027],
+  ['Atgro (Ecosac)',2500000,0.4,1,'Planta de Procesamiento de Arandanos','En análisis del cliente',2027],
+  ['Hass Peru',2000000,0.05,2,'Planta Olmos','Prospecto',2027],
+  ['Ransa',1950000,0.05,2,'Planta de Congelado - Callao Ó Paita','Prospecto',2027],
+  ['Delice',1572931.74,0.8,9,'Planta Procesadora de Lacteos y Derivados (Sistema de Frio)','Negociación',2026],
+  ['Agroextiende',1545500,0,6,'Planta Empacadora de Arandanos','Perdido',2026],
+  ['Frozen Processed Fruits SAC',1500000,0.05,5,'Camara de Congelados','Postpuesto',2027],
+  ['Vanguard - Ica',1500000,0.8,1,'Ampliación de Sala de Procesos 3 y 4: 02 Túneles Californianos y 1 de Cámara Terminado','En análisis del cliente',2027],
+  ['Savia Corp',1493776.65,0.6,11,'Planta Empacadora de Fruta Multiproposito','En análisis del cliente',2026],
+  ['Proagro Nazca',1325752.5,0.05,1,'Planta Empacadora de Arandanos','Postpuesto',2027],
+  ['Sur Export',1258000,0,6,'Acopio de Arandanos','Perdido',2026],
+  ['Ngr - Nutra',1100000,0.4,9,'Implementación de Cámaras de Frio para Planta de Producción Proyecto Chronos (Freon)','Prospecto',2026],
+  ['Quelen',1024378.89,0.4,2,'Planta Empacadora de Arandanos - 2da Etapa','En análisis del cliente',2027],
+  ['Axion Log',1004484,0.05,2,'CD Trujillo','Prospecto',2027],
+  ['La Grama',1000000,0.2,10,'Cámara y Tunel de Congelado (CO2)','En proceso de cotización',2026],
+  ['Perupez',1000000,0.6,11,'Ampliación de Planta Pesquera','En análisis del cliente',2026],
+  ['Reiter',1000000,0.4,2,'Ampliación Planta','Prospecto',2027],
+  ['Fruglobe',1000000,0.05,6,'Planta de Palta','Prospecto',2027],
+  ['Prolan',957966,0.6,9,'Ampliacion de la Planta San Fernando - Chincha','En análisis del cliente',2026],
+  ['Inka Select Fruit - Ica',877000,0.05,4,'Suministro de Sistema de Frio','Postpuesto',2027],
+  ['Pura Fruits',850000,0,4,'Ampliación de Planta de Arandanos','Perdido',2026],
+  ['Prosembra (Vanguard) - Pisco',850000,0.6,10,'Ampliacion de Camara de Arandanos','Prospecto',2026],
+  ['Pesquera Altair-oceano',840000,0.2,9,'Camara de Congelado y Anden de Congelado','En proceso de cotización',2026],
+  ['Emergent Cold',824838,0.6,1,'Túnel Congelado','En análisis del cliente',2027],
+  ['Atgro (Ecosac)',817400,0.2,9,'Ingeneria','En análisis del cliente',2026],
+  ['Pampa Baja - Arequipa',800000,0.6,1,'Ampliacion de Planta de Arandanos','Prospecto',2027],
+  ['Sociedad Agricola Drokasa S.A.',780000,0.4,10,'Planta Antigua de Esparragos - Mejoras','En análisis del cliente',2026],
+  ['San Efisio Sac',772012.6,0.6,1,'Acopio de Arandanos','En análisis del cliente',2027],
+  ['Sunshine Export S.A.C',760000,0.05,6,'Nueva Cámara de Congelado','Prospecto',2027],
+  ['Agrolatina - Nazca',750000,0.4,3,'Climatizacion de Sala de Procesos - Camara de Materia Prima','Prospecto',2027],
+  ['Camposol',700000,0,3,'Acopio Nuevo','Perdido',2026],
+  ['Agricola Chapi',680000,0.4,1,'Ampliacion de Tunel de Materia Prima y Producto Terminado. Camara de Producto Terminado y Sala de Despacho. (Multifruta)','Prospecto',2027],
+  ['Aib Motupe',657241.41,0.8,8,'Planta de Congelado de Fruta Multiproposito (Motupe)','Negociación',2026],
+  ['Productos Naturales de Exportacion S.A. - Pronex S.A.',620035.84,0.2,11,'Cámara + Esclusa (Recepción/despacho)','En proceso de cotización',2026],
+  ['Frutos de Oro',616364.4,0.6,8,'02 Tuneles de Maduracion','Negociación',2026],
+  ['Don Ricardo',580000,0.2,3,'Ampliacion de Planta "Casa Chica" - Procesamiento de Uva','Prospecto',2027],
+  ['Frutos de Oro',542014.85,0.6,8,'Camaras de C02 y Freon','Negociación',2026],
+  ['El Parque Alaya Packing Sac',500000,0.05,9,'Implementación de Campamento','Postpuesto',2026],
+  ['El Parque Alaya Packing Sac',500000,0.2,9,'Ampliación de Packing Palta','En proceso de cotización',2026],
+  ['El Parque Alaya Packing Sac',487628.54,0.2,9,'Equipos','En análisis del cliente',2026],
+  ['Sociedad Agricola Drokasa S.A.',460000,0.4,1,'PV2 - NH3','En análisis del cliente',2027],
+  ['2M',450000,0.6,1,'Ampliacion Recepción, Cmp, Sp','En análisis del cliente',2027],
+  ['Camsac',450000,0.6,2,'Ampliacion de Planta de Arandanos 2 TMP, 1 CPT, 1 Despacho','Prospecto',2027],
+  ['Torre Blanca',450000,0.4,1,'Proyecto 1 Túnel, Pasillo )','En proceso de cotización',2027],
+  ['Agropecuarios del Sur',421755.7,0,5,'Planta de Embutidos','Perdido',2026],
+  ['Agrofloral',380000,0.6,11,'Ampliacion de Camara de Producto Terminado','En análisis del cliente',2026],
+  ['Don Packing',372462.18,0,4,'Planta Empacadaora de Fruta Multiproposito','Perdido',2026],
+  ['Prize',329805.2,0.2,2,'Oficinas','Postpuesto',2027],
+  ['Grupo Rocío: Noraves Santa Elena (Virú)',328879.93,0.4,9,'Sistema de Respaldo (Backup) de Refrigeración','En análisis del cliente',2026],
+  ['Tyt',300000,0.4,12,'Proyecto de 03 Tuneles y 01 Camara de Proudcto Terminado','En proceso de cotización',2026],
+  ['Zedina',274409.85,0.2,2,'Planta de Carnicos','En análisis del cliente',2027],
+  ['Agricola Huarmey',272704.88,0.2,9,'Deshumidificadores, 4 Esclusas','En análisis del cliente',2026],
+  ['Limatambo',259000,0.05,1,'Camara 140 Ps y 1 Tunel de 20 Pallets (Freon)','Postpuesto',2027],
+  ['Pedregal Ica',256000,0,5,'Ampliación de Túneles en PK1 y PK2','Perdido',2026],
+  ['Country Home',250000,0.2,9,'Cámara de Almacenamiento de Producto Terminado - Limon','En proceso de cotización',2026],
+  ['Europan - San Antonio',250000,0.4,12,'Cámaras de Refrigeracion y Congelados','Prospecto',2026],
+  ['Uvas del Sur',200000,0.2,8,'Planta Empacadora de Uva','En proceso de cotización',2026],
+  ['Kamuk',198801,0.2,10,'Túnel','Prospecto',2026],
+  ['Emergent Cold',167000,0.8,8,'Suministro e Instalación de Compresor (3er para Back Up)','Negociación',2026],
+  ['Agro Develop',150000,0.2,3,'Packing de Jengibre','Prospecto',2027],
+  ['Cultivos Orgánicos',150000,0.05,10,'Tunel y Camara de Arandanos','Prospecto',2026],
+  ['Delice',150000,0.2,9,'Lineas de Proceso de Agua Helada y Agua de Torre','En análisis del cliente',2026],
+  ['Cementos Pacasmayo',128992.98,0.05,2,'Instalacion de 2 Chilleres - Ecuador','En proceso de cotización',2027],
+  ['Hayduk',120000,0.2,10,'Suministro e Instalación de Compresor','En proceso de cotización',2026],
+  ['Agroberries',103694.6,0.8,1,'Tunel 02 - Adicional para Materia Prima','En análisis del cliente',2027],
+  ['Frutos de Oro',100000,0.2,9,'Sistema de Frio IQF','En proceso de cotización',2026],
+  ['Molitalia',100000,0.05,1,'Suministro de Chiller','En análisis del cliente',2027],
+  ['Agricola la Joya',98000,0.05,1,'Planta Empacadora de Uva','Postpuesto',2027],
+  ['Vitafoods',90928,0.8,8,'Servicio de Ingeneria','Negociación',2026],
+  ['3P',79900,0.05,8,'Instalacion y Puesta en Marcha - Chiller','Prospecto',2026],
+  ['2M',78297,0.8,8,'Ampliacion del Despacho (Multifruta)','Negociación',2026],
+  ['Safco',78000,0.8,8,'Suministros e Instalación de de Condensador Frioraf','En análisis del cliente',2026],
+  ['Agrofutura',75000,0.4,10,'Ampliación de Planta Multiproposito - Uva','En análisis del cliente',2026],
+  ['Aib Chinca',60000,0.4,8,'Evaporador para Tunel IQF','En proceso de cotización',2026],
+  ['Aib Chinca',60000,0.6,8,'Evaporador para Tunel Estatico 2 (Chincha)','En análisis del cliente',2026],
+  ['Aib Chinca',54334,0.2,8,'Climatización de Prefrio','En análisis del cliente',2026],
+  ['Agrofutura',38534.24,0.4,8,'Inst. Camaras de Gasificado Acopios 1Y2','Negociación',2026],
+  ['Talma',35000,0.05,12,'Ingeneria','Prospecto',2026],
+  ['Grupo Rocío: Noraves Santa Elena (Virú)',33894.15,0.4,9,'Repuestos','En proceso de cotización',2026],
+  ['Tricao',32000,0.2,12,'Plan de Arquitectura, Diseño de 3 Plantas','En análisis del cliente',2026],
+  ['Europan - San Antonio',30600,0.8,8,'Expediente Técnico','Negociación',2026],
+  ['Agrovisión',28155.56,0.05,9,'Camara de Gasificado','Prospecto',2026]
 ];
 const PIPE_ESTADOS = ['Prospecto','En proceso de cotización','En análisis del cliente','Negociación','Postpuesto','Perdido'];
 const PIPE_ESTADO_COLOR = {
@@ -107,37 +122,42 @@ const PIPE_ESTADO_BG = {
 let _pipeProbSel = new Set(['all']);
 let _pipeEstadoSel = new Set(['all']);
 
-/* Objetivos estratégicos 2026 — datos reales del Excel */
+/* Objetivos estratégicos 2026 — datos reales del Excel
+   Obj. 01 actualizado Ago 2026 (dato directo: cierre real Jun/Jul 2026 y 2025).
+   Obj. 02–05 actualizados desde "Friopacking_Objetivos_2_3_4_5.xlsx". */
 const OBJ5 = [
-  {id:1, num:'01', cat:'Comercial', name:'Venta Comercial', icon:'📈',
-   pct:94.2, pctLabel:'94.20', color:'#185fa5', colorBg:'#dbeef9', colorDark:'#0e4a7a',
+  {id:1, num:'01', cat:'Comercial', name:'Venta Comercial',
+   icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Chart%20increasing/3D/chart_increasing_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"📈\"'>",
+   pct:96.98, pctLabel:'96.98', color:'#185fa5', colorBg:'#dbeef9', colorDark:'#0e4a7a',
    status:'ok', stxt:'En ritmo',
    metaLabel:'$30M anual',
    stats:[
-     {lbl:'Acumulado Ene–Jun', val:'$28.26M', cls:'c-ok'},
+     {lbl:'Acumulado Ene–Jul', val:'$29.09M', cls:'c-ok'},
      {lbl:'Meta anual', val:'$30.00M', cls:''},
-     {lbl:'Pendiente', val:'$1.74M', cls:''},
-     {lbl:'vs Ene–Jun 2025', val:'+48.55%', cls:'c-ok'}
+     {lbl:'Pendiente', val:'$906K', cls:''},
+     {lbl:'vs Ene–Jul 2025', val:'+47.14%', cls:'c-ok'}
    ],
    minis:[
-     {lbl:'Pendiente meta', val:'$1.74M'},
-     {lbl:'Margen 2026', val:'15.32%'}
+     {lbl:'Pendiente meta', val:'$906K'},
+     {lbl:'Margen 2026', val:'15.36%'}
    ]},
-  {id:2, num:'02', cat:'Tecnología CO₂', name:'Proyectos CO₂', icon:'❄️',
+  {id:2, num:'02', cat:'Tecnología CO₂', name:'Proyectos CO₂',
+   icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Snowflake/3D/snowflake_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"❄️\"'>",
    pct:0, pctLabel:'0.00', color:'#10b981', colorBg:'#d1fae5', colorDark:'#065f46',
    status:'crit', stxt:'En riesgo',
    metaLabel:'2 proyectos',
    stats:[
      {lbl:'Proyectos vendidos', val:'0 / 2', cls:'c-crit'},
-     {lbl:'Pipeline activo', val:'4 oport.', cls:''},
-     {lbl:'Importe pipeline', val:'$3.75M', cls:''},
+     {lbl:'Pipeline activo', val:'6 oport.', cls:''},
+     {lbl:'Importe pipeline', val:'$9.35M', cls:''},
      {lbl:'Proyectos vendidos', val:'0/2', cls:''}
    ],
    minis:[
-     {lbl:'Oportunidades', val:'4 activas'},
-     {lbl:'Importe pot.', val:'$3.75M'}
+     {lbl:'Oportunidades', val:'6 activas'},
+     {lbl:'Importe pot.', val:'$9.35M'}
    ]},
-  {id:4, num:'03', cat:'Nuevas líneas', name:'Valor Sin Frío', icon:'🏗️',
+  {id:4, num:'03', cat:'Nuevas líneas', name:'Valor Sin Frío',
+   icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Building%20construction/3D/building_construction_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"🏗️\"'>",
    pct:100, pctLabel:'193.80', color:'#0d9488', colorBg:'#ccfbf1', colorDark:'#115e59',
    status:'ok', stxt:'Meta superada',
    metaLabel:'$2.8M',
@@ -151,21 +171,23 @@ const OBJ5 = [
      {lbl:'OOCC', val:'$2.69M'},
      {lbl:'EEMM', val:'$2.74M'}
    ]},
-  {id:3, num:'04', cat:'Diversificación', name:'Clientes No Agro', icon:'🏭',
+  {id:3, num:'04', cat:'Diversificación', name:'Clientes No Agro',
+   icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Factory/3D/factory_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"🏭\"'>",
    pct:50, pctLabel:'50.00', color:'#0891b2', colorBg:'#e0f7fa', colorDark:'#164e63',
    status:'warn', stxt:'En seguimiento',
    metaLabel:'4 clientes',
    stats:[
      {lbl:'Logrados', val:'2 / 4', cls:'c-warn'},
      {lbl:'Pendiente', val:'2 clientes', cls:''},
-     {lbl:'Pipeline no agro', val:'13 oport.', cls:''},
-     {lbl:'Importe pipeline', val:'$17.74M', cls:''}
+     {lbl:'Pipeline no agro', val:'19 oport.', cls:''},
+     {lbl:'Importe pipeline', val:'$16.67M', cls:''}
    ],
    minis:[
      {lbl:'Logrados', val:'2 de 4'},
-     {lbl:'En pipeline', val:'13 oport.'}
+     {lbl:'En pipeline', val:'19 oport.'}
    ]},
-  {id:5, num:'05', cat:'Cross Selling', name:'Cross Selling – Frioteam', icon:'🔧',
+  {id:5, num:'05', cat:'Cross Selling', name:'Cross Selling – Frioteam',
+   icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Wrench/3D/wrench_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"🔧\"'>",
    pct:132.03, pctLabel:'132.03', color:'#3d4a6a', colorBg:'#e7eaf2', colorDark:'#20283f',
    status:'ok', stxt:'Meta superada',
    metaLabel:'$250K',
@@ -188,25 +210,43 @@ const OBJ5 = [
    ============================================================ */
 (function() {
   var MESES_ABR = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  /* Horizonte de forecast: mes actual (Jul 2026) hasta Abr 2027 — evita ambigüedad entre
-     los meses Ene–Abr (2027) y el resto del año en curso (2026). */
-  var FORECAST_HORIZON = [
-    {m:7,  lbl:'Jul 26'}, {m:8,  lbl:'Ago 26'}, {m:9,  lbl:'Sep 26'}, {m:10, lbl:'Oct 26'},
-    {m:11, lbl:'Nov 26'}, {m:12, lbl:'Dic 26'}, {m:1,  lbl:'Ene 27'}, {m:2,  lbl:'Feb 27'},
-    {m:3,  lbl:'Mar 27'}, {m:4,  lbl:'Abr 27'}
-  ];
-  var FORECAST_HORIZON_MONTHS = FORECAST_HORIZON.map(function(h){ return h.m; });
+  /* Horizonte de forecast — construido dinámicamente desde los pares (Año, Mes) reales de
+     PIPE_ROWS (columna AÑO del Excel "PIPELINE 2026-2027"), ordenado cronológicamente.
+     Cada opción usa la clave compuesta "AAAA-M" para nunca confundir, por ejemplo, enero 2026
+     con enero 2027 (ambos años están presentes en la data real). */
+  function mesKey(anio, mes) { return anio + '-' + mes; }
+  var FORECAST_HORIZON = (function() {
+    var seen = {}, list = [];
+    PIPE_ROWS.forEach(function(r) {
+      if (r[3] == null || r[6] == null) return;
+      var k = mesKey(r[6], r[3]);
+      if (seen[k]) return;
+      seen[k] = true;
+      list.push({anio:r[6], m:r[3], key:k, lbl: MESES_ABR[r[3]-1] + ' ' + String(r[6]).slice(2)});
+    });
+    list.sort(function(a,b){ return (a.anio-b.anio) || (a.m-b.m); });
+    return list;
+  })();
+  var FORECAST_HORIZON_KEYS = FORECAST_HORIZON.map(function(h){ return h.key; });
   var FORECAST_HORIZON_LABELS = FORECAST_HORIZON.map(function(h){ return h.lbl; });
-  function horizonIdx(m) { return FORECAST_HORIZON_MONTHS.indexOf(m); }
+  function horizonIdx(anio, mes) { return FORECAST_HORIZON_KEYS.indexOf(mesKey(anio, mes)); }
   var PROB_LABELS = [['all','Todas'],['0','0%'],['5','5%'],['20','20%'],['40','40%'],['60','60%'],['80','80%'],['100','100%']];
+  /* Años reales presentes en PIPE_ROWS (columna AÑO del Excel), no hardcodeados */
+  var PIPE_ANIOS = (function() {
+    var seen = {}, list = [];
+    PIPE_ROWS.forEach(function(r) { if (r[6] != null && !seen[r[6]]) { seen[r[6]] = true; list.push(r[6]); } });
+    list.sort(function(a,b){ return a-b; });
+    return list;
+  })();
   var _chPipeSeas = null;
   var _pipeSeasCache = {};
-  var _pipeMesSel = 'all';
+  var _pipeAnioSel = new Set(['all']);
+  var _pipeMesSel = new Set(['all']);
   var _pipeStageSel = null;
   var _pipeClienteFocus = 'all';
   var _pipeClienteSearch = '';
   var _pipeClienteMes = 'all';
-  function rowMatchesClienteMes(r) { return _pipeClienteMes === 'all' || (r[3] != null && String(r[3]) === String(_pipeClienteMes)); }
+  function rowMatchesClienteMes(r) { return _pipeClienteMes === 'all' || (r[3] != null && r[6] != null && mesKey(r[6], r[3]) === _pipeClienteMes); }
 
   function agg(rows) {
     var importe = 0;
@@ -365,7 +405,7 @@ const OBJ5 = [
     } else {
       html += '<div class="psd-list-scroll">';
       top5.forEach(function(r) {
-        var mesLbl = r[3] != null ? MESES_ABR[r[3]-1] : '—';
+        var mesLbl = (r[3] != null && r[6] != null) ? (MESES_ABR[r[3]-1] + ' ' + r[6]) : '—';
         html += '<div class="psd-item"><div class="psd-item-main">'
           + '<div class="psd-item-cli">' + r[0] + '</div>'
           + '<div class="psd-item-proj">' + (r[4] || 'Sin descripción registrada') + '</div></div>'
@@ -382,8 +422,9 @@ const OBJ5 = [
      ════════════════════════════════════════════════════════════ */
   function rowMatchesProb(r) { return _pipeProbSel.has('all') || (r[2] != null && _pipeProbSel.has(String(Math.round(r[2]*100)))); }
   function rowMatchesEstado(r) { return _pipeEstadoSel.has('all') || _pipeEstadoSel.has(r[5]); }
-  function rowMatchesMes(r) { return _pipeMesSel === 'all' || (r[3] != null && String(r[3]) === String(_pipeMesSel)); }
-  function forecastRows() { return PIPE_ROWS.filter(function(r){ return rowMatchesProb(r) && rowMatchesEstado(r) && rowMatchesMes(r); }); }
+  function rowMatchesAnio(r) { return _pipeAnioSel.has('all') || (r[6] != null && _pipeAnioSel.has(String(r[6]))); }
+  function rowMatchesMes(r) { return _pipeMesSel.has('all') || (r[3] != null && r[6] != null && _pipeMesSel.has(mesKey(r[6], r[3]))); }
+  function forecastRows() { return PIPE_ROWS.filter(function(r){ return rowMatchesProb(r) && rowMatchesEstado(r) && rowMatchesAnio(r) && rowMatchesMes(r); }); }
 
   function toggleSel(sel, val) {
     if (val === 'all') { sel.clear(); sel.add('all'); }
@@ -409,44 +450,168 @@ const OBJ5 = [
       return '<div class="pf-chip' + (active?' active':'') + '" data-estado="' + it[0] + '">' + dot + it[1] + '</div>';
     }).join('');
   }
-  function renderMesSelect() {
-    var el = document.getElementById('pfMes'); if (!el) return;
-    el.innerHTML = '<option value="all">Todos los meses</option>' + MESES_ABR.map(function(m,i){ return '<option value="' + (i+1) + '">' + m + '</option>'; }).join('');
-    el.value = _pipeMesSel;
+  function renderAnioChips() {
+    var el = document.getElementById('pfAnio'); if (!el) return;
+    var items = [['all','Todos']].concat(PIPE_ANIOS.map(function(a){ return [String(a), String(a)]; }));
+    el.innerHTML = items.map(function(it) {
+      var active = _pipeAnioSel.has(it[0]);
+      return '<div class="pf-chip' + (active?' active':'') + '" data-anio="' + it[0] + '">' + it[1] + '</div>';
+    }).join('');
   }
+  /* Opciones de mes visibles — solo los meses del/los año(s) seleccionados en "Año"
+     (con "Todos" en Año, se muestra el horizonte completo 2026–2027) */
+  function currentMesOptions() {
+    if (_pipeAnioSel.has('all')) return FORECAST_HORIZON;
+    return FORECAST_HORIZON.filter(function(h){ return _pipeAnioSel.has(String(h.anio)); });
+  }
+  /* Si al cambiar de Año quedan meses seleccionados que ya no aplican (p.ej. "Mar 27"
+     con Año=2026), se descartan para no filtrar en silencio contra un universo vacío */
+  function pruneMesSel() {
+    var validKeys = currentMesOptions().map(function(h){ return h.key; });
+    _pipeMesSel.forEach(function(k){ if (k !== 'all' && validKeys.indexOf(k) === -1) _pipeMesSel.delete(k); });
+    if (!_pipeMesSel.size) _pipeMesSel.add('all');
+  }
+  function renderMesChips() {
+    var el = document.getElementById('pfMes'); if (!el) return;
+    /* Con un único Año seleccionado, el filtro Año ya deja claro el año: el chip de Mes
+       no debe repetirlo (evita "Feb 2027" redundante — solo "Feb"). Con "Todos" (o varios
+       años a la vez) sí se mantiene el año corto para no confundir Feb 2026 con Feb 2027. */
+    var singleYear = !_pipeAnioSel.has('all') && _pipeAnioSel.size === 1;
+    var items = [['all','Todos']].concat(currentMesOptions().map(function(h){
+      return [h.key, singleYear ? MESES_ABR[h.m-1] : h.lbl];
+    }));
+    el.innerHTML = items.map(function(it) {
+      var active = _pipeMesSel.has(it[0]);
+      return '<div class="pf-chip' + (active?' active':'') + '" data-mes="' + it[0] + '">' + it[1] + '</div>';
+    }).join('');
+  }
+
+  /* ── Contador de filtros activos + limpiar filtros ── */
+  function countActiveFilterGroups() {
+    var n = 0;
+    if (!_pipeProbSel.has('all')) n++;
+    if (!_pipeEstadoSel.has('all')) n++;
+    if (!_pipeAnioSel.has('all')) n++;
+    if (!_pipeMesSel.has('all')) n++;
+    return n;
+  }
+  function updatePfSummary() {
+    var el = document.getElementById('pfActiveCount'); if (!el) return;
+    var n = countActiveFilterGroups();
+    el.textContent = n ? (n + (n===1 ? ' filtro activo' : ' filtros activos')) : '';
+  }
+  function clearAllForecastFilters() {
+    _pipeProbSel = new Set(['all']);
+    _pipeEstadoSel = new Set(['all']);
+    _pipeAnioSel = new Set(['all']);
+    _pipeMesSel = new Set(['all']);
+    renderProbChips(); renderEstadoChips(); renderAnioChips(); renderMesChips();
+    renderForecastAll();
+    updatePfSummary();
+  }
+
   var pfProbEl = document.getElementById('pfProb');
   if (pfProbEl) pfProbEl.addEventListener('click', function(e) {
     var t = e.target.closest('.pf-chip'); if (!t) return;
     toggleSel(_pipeProbSel, t.dataset.prob);
-    renderProbChips(); renderForecastAll();
+    renderProbChips(); renderForecastAll(); updatePfSummary();
   });
   var pfEstadoEl = document.getElementById('pfEstado');
   if (pfEstadoEl) pfEstadoEl.addEventListener('click', function(e) {
     var t = e.target.closest('.pf-chip'); if (!t) return;
     toggleSel(_pipeEstadoSel, t.dataset.estado);
-    renderEstadoChips(); renderForecastAll();
+    renderEstadoChips(); renderForecastAll(); updatePfSummary();
+  });
+  var pfAnioEl = document.getElementById('pfAnio');
+  if (pfAnioEl) pfAnioEl.addEventListener('click', function(e) {
+    var t = e.target.closest('.pf-chip'); if (!t) return;
+    toggleSel(_pipeAnioSel, t.dataset.anio);
+    pruneMesSel();
+    renderAnioChips(); renderMesChips(); renderForecastAll(); updatePfSummary();
   });
   var pfMesEl = document.getElementById('pfMes');
-  if (pfMesEl) pfMesEl.addEventListener('change', function() { _pipeMesSel = this.value; renderForecastAll(); });
+  if (pfMesEl) pfMesEl.addEventListener('click', function(e) {
+    var t = e.target.closest('.pf-chip'); if (!t) return;
+    toggleSel(_pipeMesSel, t.dataset.mes);
+    renderMesChips(); renderForecastAll(); updatePfSummary();
+  });
+
+  /* ── Panel plegable ── */
+  var pfPanelEl = document.getElementById('pfPanel');
+  var pfPanelToggleEl = document.getElementById('pfPanelToggle');
+  if (pfPanelToggleEl) pfPanelToggleEl.addEventListener('click', function() {
+    if (pfPanelEl) pfPanelEl.classList.toggle('collapsed');
+  });
+  var pfClearBtnEl = document.getElementById('pfClearBtn');
+  if (pfClearBtnEl) pfClearBtnEl.addEventListener('click', function(e) {
+    e.stopPropagation();
+    clearAllForecastFilters();
+  });
+
+  /* "Importe ponderado" = Σ(importe × probabilidad) de las oportunidades que cumplen los
+     filtros activos de Forecast (probabilidad / estado / mes — mismo universo que forecastRows(),
+     igual que las tarjetas "Forecast" y "Oportunidades" de esta misma fila). Ponderación exclusiva
+     de esta KPI: no toca importes nominales, gráficos, tablas ni el resto de tarjetas. */
+  function weightedImporte(rows) {
+    return rows.reduce(function(s, r) { return s + (r[1] || 0) * (r[2] || 0); }, 0);
+  }
 
   function renderForecastKpis() {
     var rows = forecastRows();
     var a = agg(rows);
     var fixedA = agg(activeRows());
-    var peakM = null, peakVal = -1;
-    FORECAST_HORIZON.forEach(function(h) {
-      var mAgg = agg(rows.filter(function(r){ return r[3]===h.m; }));
-      if (mAgg.importe > peakVal) { peakVal = mAgg.importe; peakM = h.m; }
-    });
-    var peakLbl = peakVal > 0 ? FORECAST_HORIZON_LABELS[horizonIdx(peakM)] : '—';
-    var peakCtx = peakVal > 0 ? ('Importe: ' + fmtEjecutivo(peakVal)) : 'Sin cierres estimados en el filtro';
+    var weighted = weightedImporte(rows);
     var html = ''
       + kpiCard('#1E3A5F', 'Pipeline Bruto Total', fmtEjecutivo(fixedA.importe), 'Importe de todas las oportunidades activas', null)
       + kpiCard('#0F6E56', 'Forecast', fmtEjecutivo(a.importe), a.count + ' oportunidades seg&uacute;n filtro', null)
       + kpiCard('#3EC6AC', 'Oportunidades', String(a.count), 'N&uacute;mero de oportunidades filtradas', null)
-      + kpiCard('#D97706', 'Mes Pico', peakLbl, peakCtx, null);
+      + kpiCard('#D97706', 'Importe ponderado', fmtEjecutivo(weighted), 'Suma de (importe &times; probabilidad) seg&uacute;n filtro', null);
     var el = document.getElementById('pipeKpiForecast');
     if (el) el.innerHTML = html;
+  }
+
+  /* Destello sutil sobre las barras del gráfico de Forecast — un solo barrido diagonal
+     cuando terminan de cargar/actualizar (no interfiere con tooltips ni con los datos) */
+  var _reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pipeBarSheenPlugin = {
+    id: 'pipeBarSheen',
+    afterDatasetsDraw: function(chart) {
+      var s = chart.$sheen;
+      if (!s) return;
+      var area = chart.chartArea;
+      var w = area.right - area.left, h = area.bottom - area.top;
+      var band = 90;
+      var x = area.left - band + s.progress * (w + band * 2);
+      var ctx = chart.ctx;
+      var grad = ctx.createLinearGradient(x, 0, x + band, 0);
+      grad.addColorStop(0, 'rgba(255,255,255,0)');
+      grad.addColorStop(0.5, 'rgba(255,255,255,.30)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(area.left, area.top, w, h);
+      ctx.clip();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = grad;
+      ctx.fillRect(x, area.top, band, h);
+      ctx.restore();
+    }
+  };
+  function triggerBarSheen(chart) {
+    if (_reduceMotion || !chart || chart.$sheenRunning) return;
+    chart.$sheenRunning = true;
+    chart.$sheen = {progress: 0};
+    var start = null, DUR = 650;
+    function step(ts) {
+      if (!chart.ctx) { chart.$sheenRunning = false; return; }
+      if (!start) start = ts;
+      var p = Math.min(1, (ts - start) / DUR);
+      chart.$sheen.progress = p;
+      chart.draw();
+      if (p < 1) requestAnimationFrame(step);
+      else { chart.$sheen = null; chart.$sheenRunning = false; }
+    }
+    requestAnimationFrame(step);
   }
 
   function renderPipeSeasChart() {
@@ -457,8 +622,8 @@ const OBJ5 = [
       for (var m=0; m<FORECAST_HORIZON.length; m++) byMonthEtapa[e].push({importe:0, count:0, probSum:0, probN:0});
     });
     rows.forEach(function(r) {
-      if (r[3] == null) return;
-      var idx = horizonIdx(r[3]);
+      if (r[3] == null || r[6] == null) return;
+      var idx = horizonIdx(r[6], r[3]);
       if (idx === -1) return;
       var cell = byMonthEtapa[r[5]][idx];
       cell.importe += (r[1]||0);
@@ -496,9 +661,10 @@ const OBJ5 = [
     _chPipeSeas = new Chart(ctx, {
       type: 'bar',
       data: { labels: FORECAST_HORIZON_LABELS, datasets: datasets },
+      plugins: [pipeBarSheenPlugin],
       options: {
         responsive: true, maintainAspectRatio: false,
-        animation: {duration:450, easing:'easeInOutQuart'},
+        animation: {duration:450, easing:'easeInOutQuart', onComplete: function(a) { triggerBarSheen(a.chart); }},
         interaction: {mode:'index', intersect:false},
         plugins: {
           legend: {display:true, position:'bottom', labels:{boxWidth:9, font:{size:9.5}, padding:10, color:'#7b8db0'}},
@@ -532,11 +698,11 @@ const OBJ5 = [
 
   function renderForecastTable() {
     var allFiltered = forecastRows();
-    var rows = allFiltered.filter(function(r){ return r[3] != null && horizonIdx(r[3]) !== -1; });
+    var rows = allFiltered.filter(function(r){ return r[3] != null && r[6] != null && horizonIdx(r[6], r[3]) !== -1; });
     var body = '';
     var totCount = 0, totImporte = 0, totProbSum = 0, totProbN = 0;
     FORECAST_HORIZON.forEach(function(h) {
-      var mr = rows.filter(function(r){ return r[3]===h.m; });
+      var mr = rows.filter(function(r){ return r[3]===h.m && r[6]===h.anio; });
       if (!mr.length) return;
       var a = agg(mr);
       var pAvg = avgProb(mr);
@@ -633,12 +799,12 @@ const OBJ5 = [
   if (clienteSearchEl) clienteSearchEl.addEventListener('input', function() { _pipeClienteSearch = this.value; renderClienteGroups(); });
 
   /* Filtro de Mes propio de "Clientes por Etapa" — independiente del filtro de Forecast.
-     Reutiliza el mismo horizonte Jul 26–Abr 27 para que los meses fuera de 2026 (Ene–Abr)
-     se lean sin ambigüedad como 2027. */
+     Reutiliza el mismo horizonte dinámico (clave "Año-Mes") para nunca confundir, por
+     ejemplo, enero 2026 con enero 2027. */
   function renderClienteMesSelect() {
     var el = document.getElementById('pipeClienteMes'); if (!el) return;
     el.innerHTML = '<option value="all">Todos los meses</option>' + FORECAST_HORIZON.map(function(h) {
-      return '<option value="' + h.m + '">' + h.lbl + '</option>';
+      return '<option value="' + h.key + '">' + h.lbl + '</option>';
     }).join('');
     el.value = _pipeClienteMes;
   }
@@ -669,7 +835,7 @@ const OBJ5 = [
 
       var sorted = filtered.slice().sort(function(x,y){ return (y[1]||0)-(x[1]||0); });
       var rowsHtml = sorted.map(function(r) {
-        var mesLbl = r[3] != null ? MESES_ABR[r[3]-1] : '—';
+        var mesLbl = (r[3] != null && r[6] != null) ? (MESES_ABR[r[3]-1] + ' ' + r[6]) : '—';
         var proyecto = r[4] || 'Sin descripción registrada';
         return '<tr><td>' + r[0] + '</td>'
           + '<td style="color:var(--tm);max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="' + String(proyecto).replace(/"/g,'&quot;') + '">' + proyecto + '</td>'
@@ -718,8 +884,10 @@ const OBJ5 = [
     renderStageDetail();
     renderProbChips();
     renderEstadoChips();
-    renderMesSelect();
+    renderAnioChips();
+    renderMesChips();
     renderForecastAll();
+    updatePfSummary();
     renderClienteMesSelect();
     renderClienteTabs();
     renderClienteGroups();

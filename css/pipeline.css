@@ -53,9 +53,78 @@
 .pipe-view.active{display:block}
 
 
-/* Panel de filtros — Probabilidad / Estado */
+/* Panel de filtros — Probabilidad / Estado / Año / Mes (plegable) */
 .pf-panel{background:var(--card);border:1px solid var(--border);border-radius:12px;
-  box-shadow:var(--sh);padding:14px 18px;margin-bottom:20px;display:flex;flex-direction:column;gap:12px}
+  box-shadow:var(--sh);margin-bottom:20px;overflow:hidden;transition:border-color .3s ease,box-shadow .3s ease}
+
+
+#pfPanel:not(.collapsed){box-shadow:var(--sh2)}
+
+
+/* Uso simple sin encabezado plegable (p.ej. barra de filtros de "Clientes por Etapa") */
+.pf-panel-simple{display:flex;flex-direction:column;padding:14px 18px;gap:12px}
+
+
+/* ── Encabezado plegable ── */
+.pf-panel-hd{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:13px 18px;cursor:pointer;user-select:none;transition:background .2s ease}
+
+
+.pf-panel-hd:hover{background:rgba(62,198,172,.045)}
+
+
+.pf-panel-hd-left{display:flex;align-items:center;gap:9px;min-width:0}
+
+
+.pf-panel-ic{font-size:15px;line-height:1;flex-shrink:0}
+
+
+.pf-panel-title{font-size:12.5px;font-weight:800;color:var(--t);letter-spacing:.2px;white-space:nowrap}
+
+
+.pf-panel-count{font-size:10.5px;font-weight:700;color:var(--brand-d);background:rgba(62,198,172,.12);
+  border:1px solid rgba(62,198,172,.25);border-radius:20px;padding:2px 10px;white-space:nowrap;
+  animation:pfChipPop .3s cubic-bezier(.34,1.56,.64,1)}
+
+
+.pf-panel-count:empty{display:none}
+
+
+.pf-panel-hd-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+
+
+.pf-clear-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
+  color:var(--ts);background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:6px 13px;
+  cursor:pointer;transition:border-color .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease;
+  font-family:inherit}
+
+
+.pf-clear-btn:hover{border-color:#D85A30;color:#D85A30;transform:translateY(-1px);box-shadow:0 4px 12px rgba(216,90,48,.16)}
+
+
+.pf-clear-btn:active{transform:translateY(0)}
+
+
+.pf-panel-chev{font-size:11px;color:var(--ts);flex-shrink:0;transition:transform .32s cubic-bezier(.4,0,.2,1)}
+
+
+.pf-panel:not(.collapsed) .pf-panel-chev{transform:rotate(180deg);color:var(--brand-d)}
+
+
+/* ── Cuerpo — colapsa con grid-template-rows animado, sin saltos ── */
+.pf-panel-body-wrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows .38s cubic-bezier(.4,0,.2,1)}
+
+
+.pf-panel.collapsed .pf-panel-body-wrap{grid-template-rows:0fr}
+
+
+.pf-panel-body-inner{overflow:hidden;transition:opacity .28s ease}
+
+
+.pf-panel.collapsed .pf-panel-body-inner{opacity:0}
+
+
+.pf-panel-body{display:flex;flex-direction:column;gap:14px;padding:18px 18px 18px;border-top:1px solid var(--border)}
 
 
 .pf-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -70,12 +139,40 @@
 
 .pf-sep-h{height:1px;background:var(--border)}
 
+
+/* ── Año + Mes de cierre en la misma línea, para ahorrar espacio ── */
+.pf-row-combo{align-items:flex-start;gap:18px}
+
+
+.pf-combo-group{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1;min-width:240px}
+
+
+.pf-combo-sep-v{width:1px;align-self:stretch;background:var(--border);flex-shrink:0}
+
+
+@keyframes pfChipPop{0%{opacity:0;transform:scale(.82)}60%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
+
+
 @media(max-width:900px) {
 .pipe-hero-right{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px;width:100%}
 }
 
+@media(max-width:700px) {
+.pf-combo-sep-v{display:none}
+.pf-combo-group{min-width:100%}
+}
+
 @media(max-width:600px) {
 .pf-lbl{min-width:100%}
+.pf-panel-hd{padding:11px 14px;flex-wrap:wrap}
+.pf-panel-title{white-space:normal}
+.pf-clear-btn{padding:5px 11px;font-size:10.5px}
+.pf-panel-body{padding:2px 14px 14px}
+}
+
+@media(prefers-reduced-motion:reduce) {
+.pf-panel-body-wrap,.pf-panel-body-inner,.pf-panel-chev,.pf-chip,.pf-clear-btn{transition:none}
+.pf-panel-count{animation:none}
 }
 
 
