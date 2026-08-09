@@ -23,7 +23,7 @@ const MCA = {
   26: [15.10,15.77,15.90,16.69,15.34,15.32,15.36,null,null,null,null,null]
 };
 
-/* ── Ventas acumuladas — Venta de Servicios (VS + VSI, US$ MM) ── */
+/* ── Ventas acumuladas — Venta de Servicios (VSA + VSI, US$ MM) ── */
 const VC_SRV = {
   21: [0,0.02,0.02,0.04,0.04,0.04,0.04,0.09,0.11,0.11,0.12,0.12],
   22: [0,0,0,0,0,0,0,0,0,0,0,0],
@@ -104,17 +104,17 @@ const REF_DATA = {
   otros:    [0.75, 0.97, 1.21,1.53, 7.26, 2.03]
 };
 
-/* Tipo de venta: PR / AD / VS / VSI (% participación y montos nominales) */
+/* Tipo de venta: PR / AD / VSA / VSI (% participación y montos nominales) */
 const TCV_PCT = {
   PR: [95.3,85.3,93.2,90.8,95.5,95.30],
   AD: [ 4.1, 3.3, 6.8, 9.2, 3.5, 4.15],
-  VS: [ 0.3, 0.0, 0.0, 0.0, 0.9, 0.52],
+  VSA:[ 0.3, 0.0, 0.0, 0.0, 0.9, 0.52],
   VSI:[ 0.3, 0.0, 0.0, 0.0, 0.1, 0.03]
 };
 const TCV_MONTO = {
   PR: [19355389,28303498,14249025,14024848,33216546,27730585],
   AD: [  832200, 1109472, 1040349, 1426301, 1219229, 1208141],
-  VS: [   52000,       0,       0,       0,  306698,  150872],
+  VSA:[   52000,       0,       0,       0,  306698,  150872],
   VSI:[   69252,       0,       0,       0,   24000,    8470]
 };
 
@@ -130,7 +130,7 @@ const VT_YR_CFG = [
 ];
 
 let _vtFilter = 'frio'; /* legacy compat */
-let _vtExclSrv  = false; /* toggle: exclude VS+VSI  */
+let _vtExclSrv  = false; /* toggle: exclude VSA+VSI */
 let _vtExclOocc = false; /* toggle: exclude OO.CC   */
 
 /* Compute effective ventas dataset after exclusions */
@@ -348,10 +348,10 @@ const ventas2026 = [
   {mes:'Mar',cli:'Imbarex S.A.',zona:'Sur',imp:54100,mg:20.15,tipo:'AD'},
   {mes:'Feb',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:53240.92,mg:19.5,tipo:'PR'},
   {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:50864.99,mg:15,tipo:'AD'},
-  {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:38315,mg:30,tipo:'VS'},
+  {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:38315,mg:30,tipo:'VSA'},
   {mes:'May',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:36416.39,mg:18.58,tipo:'PR'},
   {mes:'May',cli:'Packing del Carmen S.A.C.',zona:'Sur',imp:36347.87,mg:17.64,tipo:'PR'},
-  {mes:'Feb',cli:'Vitafoods Peru S.A.C.',zona:'Centro',imp:35000,mg:30,tipo:'VS'},
+  {mes:'Feb',cli:'Vitafoods Peru S.A.C.',zona:'Centro',imp:35000,mg:30,tipo:'VSA'},
   {mes:'Feb',cli:'Q Pack S.A.C.',zona:'Norte',imp:30773.49,mg:15,tipo:'AD'},
   {mes:'May',cli:'Berry Harvest S.A.',zona:'Norte',imp:27857.31,mg:19.15,tipo:'AD'},
   {mes:'Abr',cli:'Delice S.A.C',zona:'Centro',imp:25500,mg:23,tipo:'AD'},
@@ -361,7 +361,7 @@ const ventas2026 = [
   {mes:'May',cli:'Tal S.A.',zona:'Norte',imp:17671.66,mg:25,tipo:'AD'},
   {mes:'Abr',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:17565.18,mg:17.34,tipo:'PR'},
   {mes:'Abr',cli:'Delice S.A.C',zona:'Centro',imp:17083.21,mg:12.55,tipo:'AD'},
-  {mes:'May',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:12000,mg:30,tipo:'VS'},
+  {mes:'May',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:12000,mg:30,tipo:'VSA'},
   {mes:'May',cli:'Q Pack S.A.C.',zona:'Norte',imp:10183.62,mg:17.29,tipo:'AD'},
   {mes:'Jun',cli:'Vitafoods Peru S.A.C.',zona:'Centro',imp:8470,mg:14.99,tipo:'VSI'},
   {mes:'May',cli:'El Parque Alaya Packing S.A.C.',zona:'Norte',imp:8441.32,mg:12.27,tipo:'AD'},
@@ -374,10 +374,10 @@ const ventas2026 = [
   {mes:'May',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:5725.28,mg:15.5,tipo:'AD'},
   {mes:'May',cli:'Bomarea S.R.L.',zona:'Norte',imp:5368.75,mg:20,tipo:'PR'},
   {mes:'May',cli:'Santa Sofia del Sur S.A.C.',zona:'Sur',imp:5187.52,mg:15,tipo:'AD'},
-  {mes:'Feb',cli:'Danper Trujillo S.A.C.',zona:'Norte',imp:5000,mg:30,tipo:'VS'},
+  {mes:'Feb',cli:'Danper Trujillo S.A.C.',zona:'Norte',imp:5000,mg:30,tipo:'VSA'},
   {mes:'May',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4306.7,mg:18.2,tipo:'AD'},
   {mes:'Mar',cli:'Agro Floral Peru S.A.C.',zona:'Sur',imp:3261,mg:17.93,tipo:'AD'},
-  {mes:'Jun',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:2700,mg:30,tipo:'VS'},
+  {mes:'Jun',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:2700,mg:30,tipo:'VSA'},
   {mes:'Jun',cli:'Q Pack S.A.C.',zona:'Norte',imp:2700,mg:-82.59,tipo:'AD'},
   {mes:'May',cli:'Procesadora Torre Blanca S.A.C',zona:'Centro',imp:2658.59,mg:29.47,tipo:'AD'},
   {mes:'Jun',cli:'Austral Group S.A.A',zona:'Norte',imp:2310,mg:12.94,tipo:'AD'},
@@ -391,7 +391,7 @@ const ventas2026 = [
   {mes:'Jun',cli:'Sociedad Agricola 3P S.A.C.',zona:'Sur',imp:500,mg:20,tipo:'AD'},
   {mes:'Jul',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:435000,mg:16,tipo:'PR'},
   {mes:'Jun',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:325000,mg:16,tipo:'PR'},
-  {mes:'Jul',cli:'In Vitro Lab Perú S.A.C.',zona:'Centro',imp:57857,mg:26,tipo:'VS'},
+  {mes:'Jul',cli:'In Vitro Lab Perú S.A.C.',zona:'Centro',imp:57857,mg:26,tipo:'VSA'},
   {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:7488.07,mg:13,tipo:'PR'},
   {mes:'Jul',cli:'Consorcio Agricola Moquegua S.A.C.',zona:'Sur',imp:6016,mg:25,tipo:'AD'},
   {mes:'Jul',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4500,mg:23,tipo:'AD'},
@@ -942,8 +942,8 @@ var AV_COLOR = {
 (function(){
   var el = document.getElementById('chTcv');
   if (!el) return;
-  var TCV_COLOR = {PR:'#14B8A6', AD:'#2563EB', VS:'#4338CA', VSI:'#F59E0B'};
-  var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VS:'V. servicio', VSI:'V. servicio de ingeniería'};
+  var TCV_COLOR = {PR:'#14B8A6', AD:'#2563EB', VSA:'#4338CA', VSI:'#F59E0B'};
+  var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VSA:'V. servicio arquitectura', VSI:'V. servicio de ingeniería'};
   new Chart(el, {
     type:'bar',
     data:{
@@ -951,7 +951,7 @@ var AV_COLOR = {
       datasets:[
         {label:'PR',  data:TCV_PCT.PR,  backgroundColor:TCV_COLOR.PR,  borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
         {label:'AD',  data:TCV_PCT.AD,  backgroundColor:TCV_COLOR.AD,  borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
-        {label:'VS',  data:TCV_PCT.VS,  backgroundColor:TCV_COLOR.VS,  borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
+        {label:'VSA', data:TCV_PCT.VSA, backgroundColor:TCV_COLOR.VSA, borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
         {label:'VSI', data:TCV_PCT.VSI, backgroundColor:TCV_COLOR.VSI, borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1}
       ]
     },
@@ -1281,43 +1281,43 @@ function openAD3Ref() {
 /* === Modal: Análisis por Tipo de Venta === */
 function openAD3Tcv() {
   function _f(v){return v>=1000000?'$'+(v/1000000).toFixed(2)+'MM':v>=1000?'$'+Math.round(v/1000)+'K':'$'+v;}
-  var head = [{t:'A\xf1o'},{t:'PR US$',r:1},{t:'PR %',r:1},{t:'AD US$',r:1},{t:'AD %',r:1},{t:'VS US$',r:1},{t:'VS %',r:1},{t:'VSI US$',r:1},{t:'VSI %',r:1}];
+  var head = [{t:'A\xf1o'},{t:'PR US$',r:1},{t:'PR %',r:1},{t:'AD US$',r:1},{t:'AD %',r:1},{t:'VSA US$',r:1},{t:'VSA %',r:1},{t:'VSI US$',r:1},{t:'VSI %',r:1}];
   var yrs  = ['2021','2022','2023','2024','2025','2026'];
   var rows = yrs.map(function(yr,i){
     return [yr,
       _f(TCV_MONTO.PR[i]),TCV_PCT.PR[i].toFixed(2)+'%',
       _f(TCV_MONTO.AD[i]),TCV_PCT.AD[i].toFixed(2)+'%',
-      _f(TCV_MONTO.VS[i]),TCV_PCT.VS[i].toFixed(2)+'%',
+      _f(TCV_MONTO.VSA[i]),TCV_PCT.VSA[i].toFixed(2)+'%',
       _f(TCV_MONTO.VSI[i]),TCV_PCT.VSI[i].toFixed(2)+'%'
     ];
   });
   var totPR =TCV_MONTO.PR.reduce(function(a,b){return a+b;},0);
   var totAD =TCV_MONTO.AD.reduce(function(a,b){return a+b;},0);
-  var totVS =TCV_MONTO.VS.reduce(function(a,b){return a+b;},0);
+  var totVSA=TCV_MONTO.VSA.reduce(function(a,b){return a+b;},0);
   var totVSI=TCV_MONTO.VSI.reduce(function(a,b){return a+b;},0);
-  var totAll=totPR+totAD+totVS+totVSI;
+  var totAll=totPR+totAD+totVSA+totVSI;
   var foot=['TOTAL',
     _f(totPR),(totPR/totAll*100).toFixed(2)+'%',
     _f(totAD),(totAD/totAll*100).toFixed(2)+'%',
-    _f(totVS),(totVS/totAll*100).toFixed(2)+'%',
+    _f(totVSA),(totVSA/totAll*100).toFixed(2)+'%',
     _f(totVSI),(totVSI/totAll*100).toFixed(2)+'%'
   ];
 
   openModal('Análisis por Tipo de Venta · 2021–2026',
-    _ad3FlipModal('_mcanvas3tcv', tbl(head,rows,foot)+'<div class="mnote">PR: Proyecto &middot; AD: Adicional &middot; VS: Venta de servicio &middot; VSI: Venta de servicio de ingenier\xeda</div>'),
-    'Proyecto · Adicional · V. servicio · V. servicio de ingeniería — participación % de importe anual');
+    _ad3FlipModal('_mcanvas3tcv', tbl(head,rows,foot)+'<div class="mnote">PR: Proyecto &middot; AD: Adicional &middot; VSA: Venta de Servicio Arquitectura &middot; VSI: Venta de servicio de ingenier\xeda</div>'),
+    'Proyecto · Adicional · V. servicio arquitectura · V. servicio de ingeniería — participación % de importe anual');
   if(typeof Chart!=='undefined'){
     setTimeout(function(){
       var el=document.getElementById('_mcanvas3tcv');
       if(!el)return;
       if(_mci){_mci.destroy();_mci=null;}
-      var TCV_COLOR = {PR:'#14B8A6', AD:'#2563EB', VS:'#4338CA', VSI:'#F59E0B'};
-      var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VS:'V. servicio', VSI:'V. servicio de ingeniería'};
+      var TCV_COLOR = {PR:'#14B8A6', AD:'#2563EB', VSA:'#4338CA', VSI:'#F59E0B'};
+      var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VSA:'V. servicio arquitectura', VSI:'V. servicio de ingeniería'};
       _mci=new Chart(el,{type:'bar',
         data:{labels:['2021','2022','2023','2024','2025','2026'],datasets:[
           {label:'PR', data:TCV_PCT.PR, backgroundColor:TCV_COLOR.PR, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
           {label:'AD', data:TCV_PCT.AD, backgroundColor:TCV_COLOR.AD, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
-          {label:'VS', data:TCV_PCT.VS, backgroundColor:TCV_COLOR.VS, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
+          {label:'VSA', data:TCV_PCT.VSA, backgroundColor:TCV_COLOR.VSA, borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
           {label:'VSI',data:TCV_PCT.VSI,backgroundColor:TCV_COLOR.VSI,borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1}
         ]},
         options:{responsive:true,maintainAspectRatio:false,
@@ -1634,7 +1634,7 @@ window._animVtHero = function(){
   var TIPO_META = {
     PR:  {lbl:'Proyecto',                        c1:'#3A5FA8', c2:'#0A1E64'},
     AD:  {lbl:'Adicional',                       c1:'#6EE7D3', c2:'#0F6E56'},
-    VS:  {lbl:'V. servicio',                     c1:'#c3ccd9', c2:'#7b8db0'},
+    VSA: {lbl:'V. servicio arquitectura',         c1:'#c3ccd9', c2:'#7b8db0'},
     VSI: {lbl:'V. servicio de ingeniería',        c1:'#f3c88a', c2:'#b45309'}
   };
   var tipoAgg = {};
