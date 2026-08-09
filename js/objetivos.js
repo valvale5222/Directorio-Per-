@@ -18,7 +18,7 @@
         + '<span class="o5-stat-lbl">' + s.lbl + '</span>'
         + '</div>';
     }).join('');
-    return '<div class="obj5" onclick="odOpen(' + o.id + ')">'
+    return '<div class="obj5' + (o.status === 'ok' ? ' obj5-ok-glow' : '') + '" onclick="odOpen(' + o.id + ')">'
       + '<div class="o5h" style="background:' + o.colorBg + '">'
       + '<div class="o5h-top">'
       + '<span class="o5h-eye" style="color:' + o.colorDark + '">Objetivo ' + o.num + ' &middot; ' + o.cat + '</span>'
@@ -112,6 +112,41 @@ function odClose() {
     setTimeout(function() { bar.style.transition = ''; }, 50);
   });
 }
+
+/* ── Objetivo 05 — ordenamiento interactivo de "Detalle completo" ── */
+(function() {
+  var MES_ORDER = {'Enero':1,'Febrero':2,'Marzo':3,'Abril':4,'Mayo':5,'Junio':6,'Julio':7,'Agosto':8,'Septiembre':9,'Octubre':10,'Noviembre':11,'Diciembre':12};
+  var sortState = {};
+  window.od5SortTable = function(key, colIndex, th) {
+    var table = document.getElementById('od5DetailTbl');
+    if (!table) return;
+    var tbody = table.querySelector('tbody');
+    var totalRow = tbody.querySelector('tr.od-total-row');
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr')).filter(function(r) { return r !== totalRow; });
+    var dir = sortState[key] === 'asc' ? 'desc' : 'asc';
+    sortState = {};
+    sortState[key] = dir;
+    rows.sort(function(a, b) {
+      var av = a.children[colIndex].textContent.trim();
+      var bv = b.children[colIndex].textContent.trim();
+      var cmp = (key === 'importe')
+        ? parseFloat(av.replace(/[^0-9.-]/g, '')) - parseFloat(bv.replace(/[^0-9.-]/g, ''))
+        : (MES_ORDER[av] || 0) - (MES_ORDER[bv] || 0);
+      return dir === 'asc' ? cmp : -cmp;
+    });
+    rows.forEach(function(r) { tbody.appendChild(r); });
+    if (totalRow) tbody.appendChild(totalRow);
+    table.querySelectorAll('th.sortable .sort-ic').forEach(function(ic) {
+      ic.textContent = '⇅';
+      ic.classList.remove('active');
+    });
+    var ic = th.querySelector('.sort-ic');
+    if (ic) {
+      ic.textContent = dir === 'asc' ? '▲' : '▼';
+      ic.classList.add('active');
+    }
+  };
+})();
 
 function odTab(detailId, paneId) {
   var det = document.getElementById(detailId);

@@ -604,7 +604,7 @@ td.td-hi{background:rgba(62,198,172,.09);font-weight:700}
 @media(prefers-reduced-motion:reduce){.pf-chip,.pf-chip.active,.pf-chip.active::after{animation:none;transition:none}}
 
 
-@media(prefers-reduced-motion:reduce){.fv2-bar::before,.o5-prog-fill::before,.kv3-bar-fill::before,.vt-hero-prog-fill::before{animation:none;display:none}}
+@media(prefers-reduced-motion:reduce){.fv2-bar::before,.o5-prog-fill::before,.kv3-bar-fill::before,.vt-hero-prog-fill::before{animation:none;display:none}.obj5.obj5-ok-glow{animation:none}}
 
 @media(max-width:900px) {
 .fstage-v2{grid-template-columns:130px 1fr 96px;gap:10px}
@@ -700,6 +700,19 @@ td.td-hi{background:rgba(62,198,172,.09);font-weight:700}
 
 
 .obj5:hover .o5-prog-fill{filter:brightness(1.1) saturate(1.1)}
+
+
+/* ── Objetivos cumplidos: brillo sutil y periódico ── */
+@keyframes obj5AchievedPulse{
+  0%,100%{box-shadow:0 2px 14px rgba(10,10,30,.07),0 0 0 0 rgba(22,163,74,0)}
+  50%{box-shadow:0 2px 14px rgba(10,10,30,.07),0 0 20px 3px rgba(22,163,74,.30)}
+}
+
+
+.obj5.obj5-ok-glow{animation:obj5AchievedPulse 3.6s ease-in-out infinite}
+
+
+.obj5.obj5-ok-glow:hover{animation-play-state:paused}
 
 
 #objetivos .sec-head{margin-bottom:8px}
