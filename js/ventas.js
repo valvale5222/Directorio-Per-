@@ -493,9 +493,9 @@ function _hmapRender() {
   });
   var vmax = allVals.length ? Math.max.apply(null,allVals) : 1;
 
-  /* Progresión multicolor por nivel: mint→turquesa→cian→azul→índigo→ámbar
-     (ámbar reservado al extremo superior, para valores excepcionalmente altos) */
-  var stops = [[0,209,250,229],[0.15,125,233,209],[0.35,20,184,166],[0.55,56,189,248],[0.72,37,99,235],[0.88,67,56,202],[1,245,158,11]];
+  /* Progresión cromática por importe: azul frío→azul medio→turquesa→cálido intermedio→ámbar→coral
+     (el coral queda reservado exclusivamente al extremo superior, sin connotación de alerta) */
+  var stops = [[0,217,230,251],[0.16,157,189,240],[0.34,37,99,235],[0.52,62,198,172],[0.70,224,164,88],[0.86,217,119,6],[1,216,90,48]];
   function interpHm(t) {
     if(t<=0) return stops[0].slice(1);
     for(var i=1;i<stops.length;i++){
@@ -543,7 +543,8 @@ function _hmapRender() {
         var t  = Math.sqrt(v/vmax);
         var c  = interpHm(t);
         var bg = 'rgb('+c[0]+','+c[1]+','+c[2]+')';
-        var tx = t>0.52?'#fff':(t>0.22?'#0A1E64':'#3d5070');
+        var lum = 0.299*c[0]+0.587*c[1]+0.114*c[2];
+        var tx = lum>150?'#0A1E64':'#fff';
         var lbl= cellFmt(v);
         h += '<td class="hmap-cell" style="background:'+bg+';color:'+tx+'"'
           + ' onmouseenter="_hmTipShow(event,\''+tipText+'\')" onmouseleave="_hmTipHide()" onmousemove="_hmTipMove(event)">'+lbl+'</td>';
@@ -771,19 +772,19 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
 
 /* Paleta fija — tab "Análisis de Ventas" (Estacionalidad, Refrigerante, Tipo de Venta) */
 var AV_COLOR = {
-  mint:'#A7F3D0', turquesa:'#14B8A6', cian:'#38BDF8',
-  azul:'#2563EB', indigo:'#4338CA', amber:'#F59E0B'
+  azul:'#3A5FA8', azul2:'#5B82C4', turquesa:'#3EC6AC',
+  petroleo:'#0F6E56', plomo:'#7B8DB0', amber:'#D97706', coral:'#D85A30'
 };
 
 /* === Estacionalidad promedio: barras horizontales === */
 (function(){
   var el = document.getElementById('chSeasAvg');
   if (!el) return;
-  /* Paleta multicolor alternada mes a mes (turquesa→índigo→ámbar→cian→azul→mint,
-     repetida) para que no haya dos barras consecutivas del mismo tono */
+  /* Paleta corporativa fría (azules, turquesa, verde petróleo, plomo) con acentos cálidos
+     reservados a los meses de mayor peso del año (Mar–May, pico en mayo) */
   var cols = [
-    AV_COLOR.turquesa, AV_COLOR.indigo, AV_COLOR.amber, AV_COLOR.cian, AV_COLOR.azul, AV_COLOR.mint,
-    AV_COLOR.turquesa, AV_COLOR.indigo, AV_COLOR.amber, AV_COLOR.cian, AV_COLOR.azul, AV_COLOR.mint
+    AV_COLOR.azul, AV_COLOR.turquesa, AV_COLOR.petroleo, AV_COLOR.amber, AV_COLOR.coral, AV_COLOR.azul2,
+    AV_COLOR.turquesa, AV_COLOR.plomo, AV_COLOR.azul, AV_COLOR.petroleo, AV_COLOR.plomo, AV_COLOR.azul2
   ];
   new Chart(el, {
     type:'bar',
@@ -832,7 +833,7 @@ var AV_COLOR = {
   if (!el) return;
   /* Mismos 4 colores y mismo orden que "Análisis por Tipo de Venta" */
   var qVals = [24.7,43.1,17.8,14.3];
-  var qCols = ['#14B8A6','#2563EB','#4338CA','#F59E0B'];
+  var qCols = ['#3EC6AC','#2563EB','#7B8DB0','#D97706'];
   new Chart(el, {
     type:'bar',
     data:{
@@ -896,10 +897,10 @@ var AV_COLOR = {
     data:{
       labels:['2021','2022','2023','2024','2025','2026'],
       datasets:[
-        {label:'Freón', data:V_FREON_PCT, backgroundColor:'#17B890',
+        {label:'Freón', data:V_FREON_PCT, backgroundColor:'#3EC6AC',
           borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0}, stack:'r',
           borderColor:'rgba(255,255,255,.1)', borderWidth:1},
-        {label:'Otros', data:V_OTROS_PCT, backgroundColor:'#2147D9',
+        {label:'Otros', data:V_OTROS_PCT, backgroundColor:'#2563EB',
           borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0}, stack:'r',
           borderColor:'rgba(255,255,255,.1)', borderWidth:1}
       ]
@@ -942,7 +943,7 @@ var AV_COLOR = {
 (function(){
   var el = document.getElementById('chTcv');
   if (!el) return;
-  var TCV_COLOR = {PR:'#14B8A6', AD:'#2563EB', VSA:'#4338CA', VSI:'#F59E0B'};
+  var TCV_COLOR = {PR:'#3EC6AC', AD:'#2563EB', VSA:'#7B8DB0', VSI:'#D97706'};
   var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VSA:'V. servicio arquitectura', VSI:'V. servicio de ingeniería'};
   new Chart(el, {
     type:'bar',
@@ -1251,8 +1252,8 @@ function openAD3Ref() {
       if(_mci){_mci.destroy();_mci=null;}
       _mci=new Chart(el,{type:'bar',
         data:{labels:['2021','2022','2023','2024','2025','2026'],datasets:[
-          {label:'Fre\xf3n',data:V_FREON_PCT,backgroundColor:'#17B890',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'},
-          {label:'Otros',   data:V_OTROS_PCT,backgroundColor:'#2147D9',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'}
+          {label:'Fre\xf3n',data:V_FREON_PCT,backgroundColor:'#3EC6AC',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'},
+          {label:'Otros',   data:V_OTROS_PCT,backgroundColor:'#2563EB',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'}
         ]},
         options:{responsive:true,maintainAspectRatio:false,
           animation:{duration:900,easing:'easeInOutQuart'},
@@ -1311,7 +1312,7 @@ function openAD3Tcv() {
       var el=document.getElementById('_mcanvas3tcv');
       if(!el)return;
       if(_mci){_mci.destroy();_mci=null;}
-      var TCV_COLOR = {PR:'#14B8A6', AD:'#2563EB', VSA:'#4338CA', VSI:'#F59E0B'};
+      var TCV_COLOR = {PR:'#3EC6AC', AD:'#2563EB', VSA:'#7B8DB0', VSI:'#D97706'};
       var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VSA:'V. servicio arquitectura', VSI:'V. servicio de ingeniería'};
       _mci=new Chart(el,{type:'bar',
         data:{labels:['2021','2022','2023','2024','2025','2026'],datasets:[
