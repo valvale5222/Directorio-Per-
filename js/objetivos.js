@@ -22,7 +22,7 @@
       + '<div class="o5h" style="background:' + o.colorBg + '">'
       + '<div class="o5h-top">'
       + '<span class="o5h-eye" style="color:' + o.colorDark + '">Objetivo ' + o.num + ' &middot; ' + o.cat + '</span>'
-      + '<span class="o5f-chip" style="background:' + ss.bg + ';color:' + ss.color + '">'
+      + '<span class="o5f-chip' + ((o.stxt === 'En ritmo' || o.stxt === 'Meta superada') ? ' o5f-chip-live' : '') + '" style="background:' + ss.bg + ';color:' + ss.color + '">'
       + '<span class="o5f-dot" style="background:' + ss.dot + '"></span>' + o.stxt + '</span>'
       + '</div>'
       + '<div class="o5h-row">'

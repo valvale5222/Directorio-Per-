@@ -604,7 +604,7 @@ td.td-hi{background:rgba(62,198,172,.09);font-weight:700}
 @media(prefers-reduced-motion:reduce){.pf-chip,.pf-chip.active,.pf-chip.active::after{animation:none;transition:none}}
 
 
-@media(prefers-reduced-motion:reduce){.fv2-bar::before,.o5-prog-fill::before,.kv3-bar-fill::before,.vt-hero-prog-fill::before{animation:none;display:none}.obj5.obj5-ok-glow{animation:none}}
+@media(prefers-reduced-motion:reduce){.fv2-bar::before,.o5-prog-fill::before,.kv3-bar-fill::before,.vt-hero-prog-fill::before{animation:none;display:none}.obj5.obj5-ok-glow,.o5f-chip-live{animation:none}.o5f-chip-live::after{animation:none;display:none}}
 
 @media(max-width:900px) {
 .fstage-v2{grid-template-columns:130px 1fr 96px;gap:10px}
@@ -741,6 +741,21 @@ td.td-hi{background:rgba(62,198,172,.09);font-weight:700}
 
 
 .o5f-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+
+
+/* ── Chip "En ritmo" / "Meta superada": flotación + brillo discreto y periódico ── */
+@keyframes o5ChipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+
+
+@keyframes o5ChipShine{0%{left:-60%}16%{left:135%}100%{left:135%}}
+
+
+.o5f-chip-live{position:relative;overflow:hidden;animation:o5ChipFloat 2.8s ease-in-out infinite}
+
+
+.o5f-chip-live::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.85) 50%,transparent 100%);
+  transform:skewX(-18deg);animation:o5ChipShine 3.6s ease-in-out infinite;pointer-events:none}
 
 
 /* ── Body ── */
