@@ -10,6 +10,14 @@
 *{box-sizing:border-box;margin:0;padding:0}
 
 
+/* ── Cursor personalizado global — Friopacking (40×40, fondo transparente) ──
+   Hotspot centrado (20,20) sobre el ícono simétrico para clics/navegación precisos.
+   Fallback "auto" (cursor estándar contextual) si la imagen no puede cargarse.
+   !important asegura que se mantenga sobre botones, cards, tabs, gráficos y enlaces,
+   que de otro modo tendrían mayor especificidad con sus propios "cursor:pointer". */
+*{cursor:url('../Friopacking_40x40.png') 20 20, auto !important}
+
+
 body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t);
   font-size:clamp(14px,1.1vw,16px);line-height:1.5;-webkit-font-smoothing:antialiased}
 
