@@ -3,61 +3,67 @@
    ============================================================ */
 (function() {
   var statusStyles = {
-    ok:   {bg:'#dcfce7', color:'#16a34a', dot:'#16a34a'},
-    warn: {bg:'#fef9c3', color:'#ca8a04', dot:'#ca8a04'},
-    crit: {bg:'#fee2e2', color:'#dc2626', dot:'#dc2626'}
+    ok:   {color:'#16a34a', dot:'#16a34a'},
+    warn: {color:'#ca8a04', dot:'#ca8a04'},
+    crit: {color:'#dc2626', dot:'#dc2626'}
   };
 
-  function buildCard(o) {
+  var RING_R = 52;
+  var RING_C = 2 * Math.PI * RING_R;
+
+  function buildCard(o, i) {
     var ss = statusStyles[o.status] || statusStyles.warn;
-    var fillPct = Math.min(o.pct, 100);
-    var gradient = 'linear-gradient(90deg,' + o.colorDark + ',' + o.color + ')';
-    var statsHtml = o.stats.slice(1, 4).map(function(s) {
-      return '<div class="o5-stat">'
-        + '<span class="o5-stat-val ' + (s.cls || '') + '">' + s.val + '</span>'
-        + '<span class="o5-stat-lbl">' + s.lbl + '</span>'
-        + '</div>';
-    }).join('');
-    return '<div class="obj5' + (o.status === 'ok' ? ' obj5-ok-glow' : '') + '" onclick="odOpen(' + o.id + ')">'
-      + '<div class="o5h" style="background:' + o.colorBg + '">'
-      + '<div class="o5h-top">'
-      + '<span class="o5h-eye" style="color:' + o.colorDark + '">Objetivo ' + o.num + ' &middot; ' + o.cat + '</span>'
-      + '<span class="o5f-chip' + ((o.stxt === 'En ritmo' || o.stxt === 'Meta superada') ? ' o5f-chip-live' : '') + '" style="background:' + ss.bg + ';color:' + ss.color + '">'
-      + '<span class="o5f-dot" style="background:' + ss.dot + '"></span>' + o.stxt + '</span>'
-      + '</div>'
-      + '<div class="o5h-row">'
-      + '<div class="o5h-icon" style="background:' + o.color + '">' + o.icon + '</div>'
-      + '<span class="o5h-name" style="color:' + o.colorDark + '">' + o.name + '</span>'
-      + '</div></div>'
-      + '<div class="o5-body">'
-      + '<div class="o5-achv-row">'
-      + '<div class="o5-achv-main">'
-      + '<span class="o5-achv-val ' + (o.stats[0].cls || '') + '" style="color:' + o.color + '">' + o.stats[0].val + '</span>'
-      + '<span class="o5-achv-lbl">' + o.stats[0].lbl + '</span>'
-      + '</div>'
-      + '<div class="o5-achv-meta">'
-      + '<span class="o5-meta-val">' + o.metaLabel + '</span>'
-      + '<span class="o5-meta-lbl">Meta</span>'
-      + '</div></div>'
-      + '<div class="o5-prog">'
-      + '<div class="o5-prog-track">'
-      + '<div class="o5-prog-fill" style="background:' + gradient + ';width:0" data-w="' + fillPct.toFixed(1) + '%"></div>'
-      + '</div>'
-      + '<div class="o5-prog-foot">'
-      + '<span class="o5-prog-lbl">Progreso</span>'
-      + '<span class="o5-prog-pct" style="color:' + o.color + '">' + o.pctLabel + '%</span>'
-      + '</div></div>'
-      + '<div class="o5-stats">' + statsHtml + '</div>'
-      + '</div></div>';
+    var real = parseFloat(o.pctLabel);
+    if (isNaN(real)) real = o.pct;
+    var fillPct = Math.min(real, 100);
+    var off = RING_C * (1 - fillPct / 100);
+    var over = real > 100;
+    return '<button type="button" class="o5r' + (over ? ' is-over' : '') + '" style="--c:' + o.color + ';--cd:' + o.colorDark + ';--cbg:' + o.colorBg + ';--i:' + i + '" onclick="odOpen(' + o.id + ')" aria-label="Objetivo ' + o.num + ' — ' + o.name + '">'
+      + '<span class="o5r-head">'
+      + '<span class="o5r-num">' + o.num + '</span>'
+      + '<span class="o5r-ico">' + o.icon + '</span>'
+      + '</span>'
+      + '<span class="o5r-cat">' + o.cat + '</span>'
+      + '<span class="o5r-name">' + o.name + '</span>'
+      + '<span class="o5r-ringwrap">'
+      + '<svg class="o5r-ring" viewBox="0 0 120 120" aria-hidden="true">'
+      + '<circle class="o5r-ring-t" cx="60" cy="60" r="' + RING_R + '"></circle>'
+      + '<circle class="o5r-ring-f" cx="60" cy="60" r="' + RING_R + '"'
+      + ' stroke-dasharray="' + RING_C.toFixed(2) + '"'
+      + ' stroke-dashoffset="' + RING_C.toFixed(2) + '"'
+      + ' data-off="' + off.toFixed(2) + '"></circle>'
+      + '</svg>'
+      + '<span class="o5r-ring-c">'
+      + '<span class="o5r-pct">' + o.pctLabel + '<i>%</i></span>'
+      + '<span class="o5r-pct-lbl">avance</span>'
+      + '</span>'
+      + (over ? '<span class="o5r-crown" title="Meta superada">&#10003;</span>' : '')
+      + '</span>'
+      + '<span class="o5r-val">' + o.stats[0].val + '</span>'
+      + '<span class="o5r-val-lbl">' + o.stats[0].lbl + '</span>'
+      + '<span class="o5r-meta"><i>Meta</i>' + o.metaLabel + '</span>'
+      + '<span class="o5r-state" style="color:' + ss.color + '">'
+      + '<span class="o5r-state-dot" style="background:' + ss.dot + '"></span>' + o.stxt + '</span>'
+      + '<span class="o5r-go">Ver detalle <i>&#8594;</i></span>'
+      + '</button>';
   }
 
-  document.getElementById('obj5Grid').innerHTML = OBJ5.map(function(o){ return buildCard(o); }).join('');
+  var grid = document.getElementById('obj5Grid');
+  grid.className = 'o5r-grid';
+  grid.innerHTML = OBJ5.map(buildCard).join('');
 
-  setTimeout(function() {
-    document.querySelectorAll('.o5-prog-fill').forEach(function(bar) {
-      bar.style.width = bar.getAttribute('data-w');
+  window.o5rAnimate = function() {
+    document.querySelectorAll('#obj5Grid .o5r-ring-f').forEach(function(arc, i) {
+      arc.style.transition = 'none';
+      arc.style.strokeDashoffset = arc.getAttribute('stroke-dasharray');
+      setTimeout(function() {
+        arc.style.transition = 'stroke-dashoffset 1.25s cubic-bezier(.34,.8,.3,1)';
+        arc.style.strokeDashoffset = arc.getAttribute('data-off');
+      }, 120 + i * 90);
     });
-  }, 120);
+  };
+
+  setTimeout(window.o5rAnimate, 160);
 })();
 
 function paSmartToggle(card) {
@@ -71,17 +77,11 @@ function objTab(name, btn) {
   if (btn) btn.classList.add('active');
   var pane = document.getElementById('objPane-' + name);
   if (pane) pane.classList.add('active');
-  if (name === 'o2026') {
-    setTimeout(function() {
-      document.querySelectorAll('.o5-prog-fill').forEach(function(bar) {
-        bar.style.transition = 'none';
-        bar.style.width = '0';
-        setTimeout(function() {
-          bar.style.transition = 'width 1.1s cubic-bezier(.4,0,.2,1)';
-          bar.style.width = bar.getAttribute('data-w');
-        }, 60);
-      });
-    }, 80);
+  if (name === 'o2026' && window.o5rAnimate) {
+    setTimeout(window.o5rAnimate, 80);
+  }
+  if (pane && typeof o5mAnimate === 'function') {
+    setTimeout(function() { o5mAnimate(pane); }, 80);
   }
 }
 
@@ -159,3 +159,151 @@ function odTab(detailId, paneId) {
   if (btn) btn.classList.add('active');
 }
 
+
+/* ============================================================
+   O5M — Módulos de Plan de Acción y Planes de contingencia
+   Ruedas animadas, teclado y modal de evidencias (SMART 01/02)
+   ============================================================ */
+
+/* Evidencias de los Objetivos SMART.
+   Los archivos viven en la carpeta raíz "SUSTENTO SMART": los que empiezan
+   con SMART1 son evidencia del Objetivo 01 y los que empiezan con SMART2
+   del Objetivo 02. Para sumar una evidencia basta con dejar el archivo en
+   esa carpeta y agregar su nombre a PA_EV_FILES. */
+var PA_EV_DIR = 'SUSTENTO SMART/';
+
+var PA_EV_FILES = [
+  'SMART1.A.png',
+  'SMART1.B.png',
+  'SMART1.C.png',
+  'SMART2.A.png',
+  'SMART2.B.png',
+  'SMART2.C.png'
+];
+
+var PA_EVIDENCE = (function() {
+  var map = {'1': [], '2': []};
+  PA_EV_FILES.forEach(function(file) {
+    var m = /^SMART(\d+)[.\-_ ]?(.*)\.[a-z0-9]+$/i.exec(file);
+    if (!m) return;
+    var id = m[1];
+    if (!map[id]) map[id] = [];
+    map[id].push({
+      src: encodeURI(PA_EV_DIR + file),
+      cap: 'Evidencia ' + (m[2] ? m[2].toUpperCase() : (map[id].length + 1))
+    });
+  });
+  return map;
+})();
+
+function o5mAnimate(scope) {
+  var root = scope || document;
+  root.querySelectorAll('.o5m-ring-f').forEach(function(arc, i) {
+    arc.style.transition = 'none';
+    arc.style.strokeDashoffset = arc.getAttribute('stroke-dasharray');
+    setTimeout(function() {
+      arc.style.transition = 'stroke-dashoffset 1.25s cubic-bezier(.34,.8,.3,1)';
+      arc.style.strokeDashoffset = arc.getAttribute('data-off');
+    }, 140 + i * 90);
+  });
+}
+
+function paKey(e, el) {
+  if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+    e.preventDefault();
+    el.click();
+  }
+}
+
+/* ── Modal de evidencias ── */
+var _paEvCard = null;
+
+function paEvRender(id) {
+  var list = PA_EVIDENCE[id] || [];
+  var stage = document.getElementById('paEvStage');
+  var thumbs = document.getElementById('paEvThumbs');
+  if (!stage || !thumbs) return;
+  stage.classList.remove('is-img');
+  thumbs.classList.remove('is-single');
+  if (!list.length) {
+    stage.innerHTML = '<div class="pa-ev-empty">'
+      + '<b>Zona lista para evidencias</b>'
+      + '<span>Las capturas y fotograf&iacute;as del logro se mostrar&aacute;n aqu&iacute; en formato ampliado.</span>'
+      + '</div>';
+    thumbs.innerHTML = '<div class="pa-ev-th pa-ev-th-ghost">1</div>'
+      + '<div class="pa-ev-th pa-ev-th-ghost">2</div>'
+      + '<div class="pa-ev-th pa-ev-th-ghost">3</div>';
+    return;
+  }
+  function show(n) {
+    var it = list[n];
+    stage.innerHTML = '<img src="' + it.src + '" alt="' + (it.cap || '') + '">'
+      + (list.length > 1 ? '<span class="pa-ev-count">' + (n + 1) + ' / ' + list.length + '</span>' : '');
+    stage.classList.add('is-img');
+    thumbs.querySelectorAll('.pa-ev-th').forEach(function(t, k) {
+      t.classList.toggle('active', k === n);
+    });
+  }
+  thumbs.classList.toggle('is-single', list.length < 2);
+  thumbs.innerHTML = list.map(function(it, n) {
+    return '<button type="button" class="pa-ev-th" data-n="' + n + '" title="' + (it.cap || '') + '">'
+      + '<img src="' + it.src + '" alt="' + (it.cap || '') + '"></button>';
+  }).join('');
+  thumbs.querySelectorAll('.pa-ev-th').forEach(function(t) {
+    t.onclick = function() { show(parseInt(t.getAttribute('data-n'), 10)); };
+  });
+  show(0);
+}
+
+function paEvOpen(card) {
+  var modal = document.getElementById('paEv');
+  if (!modal || !card) return;
+  _paEvCard = card;
+  var id = card.getAttribute('data-ev');
+  var noEv = card.hasAttribute('data-noev');
+  var detail = card.querySelector('.pa-detail');
+  var full = detail ? detail.querySelector('.pa-sc-full') : null;
+  var state = card.querySelector('.o5m-state');
+  var pct = card.querySelector('.o5m-pct');
+  var num = card.querySelector('.o5m-num');
+  var box = modal.querySelector('.pa-ev-box');
+
+  box.style.setProperty('--c', getComputedStyle(card).getPropertyValue('--c'));
+  box.classList.toggle('no-ev', noEv);
+  document.getElementById('paEvNum').textContent = num ? num.textContent : '';
+  document.getElementById('paEvTitle').innerHTML = full ? full.innerHTML : '';
+  document.getElementById('paEvDetail').innerHTML = detail ? detail.innerHTML : '';
+
+  var adv = document.getElementById('paEvAdv');
+  if (adv) adv.innerHTML = pct ? pct.innerHTML + '<em>avance</em>' : '';
+
+  var evState = document.getElementById('paEvState');
+  if (state && evState) {
+    evState.innerHTML = state.innerHTML;
+    evState.style.color = state.style.color || '';
+  }
+
+  if (!noEv) paEvRender(id);
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function paEvClose() {
+  var modal = document.getElementById('paEv');
+  if (!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (_paEvCard) { _paEvCard.focus(); _paEvCard = null; }
+}
+
+function paEvBackdrop(e) {
+  if (e.target && e.target.id === 'paEv') paEvClose();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape') return;
+  var modal = document.getElementById('paEv');
+  if (modal && modal.classList.contains('open')) paEvClose();
+});
