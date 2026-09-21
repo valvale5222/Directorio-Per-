@@ -10,7 +10,7 @@ const VC = {
   23: [0.67,1.19,3.60,5.33,8.10,9.09,10.60,11.64,11.67,12.26,13.67,15.29],
   24: [0.08,1.25,4.84,6.46,9.58,10.74,12.30,12.88,13.21,14.88,15.35,15.45],
   25: [0.20,1.29,7.91,12.52,14.75,19.02,19.91,25.27,29.34,31.33,33.76,34.77],
-  26: [4.36,7.94,8.42,12.69,25.73,28.59,29.10,null,null,null,null,null]
+  26: [4.36,7.94,8.42,12.69,25.73,28.59,29.10,30.01,null,null,null,null]
 };
 
 /* ── Margen ponderado acumulado (%) — 2021-2026 ── */
@@ -20,7 +20,7 @@ const MCA = {
   23: [17.73,17.78,15.29,16.51,17.68,17.52,17.49,17.58,17.56,17.46,16.90,17.09],
   24: [16.67,16.42,15.36,15.21,15.55,15.83,15.30,15.25,15.26,15.21,15.30,15.30],
   25: [15.20,15.48,15.11,15.82,15.91,15.49,15.40,15.80,15.81,15.92,16.02,15.96],
-  26: [15.10,15.77,15.90,16.69,15.34,15.32,15.36,null,null,null,null,null]
+  26: [15.10,15.77,15.90,16.69,15.34,15.32,15.37,15.55,null,null,null,null]
 };
 
 /* ── Ventas acumuladas — Venta de Servicios (VSA + VSI, US$ MM) ── */
@@ -30,17 +30,17 @@ const VC_SRV = {
   23: [0,0,0,0,0,0,0,0,0,0,0,0],
   24: [0,0,0,0,0,0,0,0,0,0,0,0],
   25: [0,0,0.03,0.05,0.05,0.06,0.11,0.21,0.30,0.32,0.32,0.33],
-  26: [0,0.08,0.08,0.08,0.09,0.10,0.16,null,null,null,null,null]
+  26: [0,0.08,0.08,0.08,0.09,0.10,0.16,0.16,null,null,null,null]
 };
 
 /* ── Ventas acumuladas SIN OO.CC y EE.MM (US$ MM) — cruce por CODIGO PROYECTO
    contra hoja "OO.CC Y EEMM"; reemplaza venta/margen solo en los proyectos
    con código coincidente, resto de la data cruda queda igual ── */
-const VC_OOCC = {21:[1.55,3.22,4.34,6.4,8.91,12.5,14.42,15.56,16.83,16.87,18.01,20.63],22:[0.23,4.1,7.7,13.33,18.47,19.9,23.37,25.24,25.67,25.81,27.12,30.27],23:[0.67,1.19,3.09,4.62,7.39,8.38,9.88,10.92,10.95,11.55,12.96,14.65],24:[0.08,1,4.59,6.15,9.26,10.42,11.98,12.56,12.9,14.34,14.81,14.91],25:[0.2,1.17,6.12,10.73,12.96,16.51,17.4,22.92,26.99,28.98,31.41,32.42],26:[4.25,7.82,8.31,12.57,21.84,24.70,25.21,null,null,null,null,null]};
+const VC_OOCC = {21:[1.55,3.22,4.34,6.4,8.91,12.5,14.42,15.56,16.83,16.87,18.01,20.63],22:[0.23,4.1,7.7,13.33,18.47,19.9,23.37,25.24,25.67,25.81,27.12,30.27],23:[0.67,1.19,3.09,4.62,7.39,8.38,9.88,10.92,10.95,11.55,12.96,14.65],24:[0.08,1,4.59,6.15,9.26,10.42,11.98,12.56,12.9,14.34,14.81,14.91],25:[0.2,1.17,6.12,10.73,12.96,16.51,17.4,22.92,26.99,28.98,31.41,32.42],26:[4.25,7.82,8.31,12.57,21.84,24.70,25.21,26.12,null,null,null,null]};
 
 /* ── Margen ponderado acumulado SIN OO.CC y EE.MM (%) — usa margen frío ajustado
    ponderado por venta ajustada para los proyectos con código coincidente ── */
-const MCA_OOCC = {21:[16.69,13.93,14.81,10.12,11.5,12.86,13.4,12.42,12.69,12.7,13.07,13.38],22:[14.98,13.74,14.94,10.67,12.65,12.96,13.51,13.61,14.21,14.22,14.28,14.48],23:[17.73,17.78,16.27,17.55,18.44,18.18,18.05,18.09,18.07,17.93,17.29,17.56],24:[16.67,17.83,15.62,15.61,15.83,16.08,15.5,15.45,15.45,15.46,15.55,15.54],25:[15.2,16.06,16.43,16.69,16.43,16.06,15.93,16.27,16.22,16.31,16.38,16.31],26:[15.23,15.85,15.98,16.75,16.06,15.95,15.98,null,null,null,null,null]};
+const MCA_OOCC = {21:[16.69,13.93,14.81,10.12,11.5,12.86,13.4,12.42,12.69,12.7,13.07,13.38],22:[14.98,13.74,14.94,10.67,12.65,12.96,13.51,13.61,14.21,14.22,14.28,14.48],23:[17.73,17.78,16.27,17.55,18.44,18.18,18.05,18.09,18.07,17.93,17.29,17.56],24:[16.67,17.83,15.62,15.61,15.83,16.08,15.5,15.45,15.45,15.46,15.55,15.54],25:[15.2,16.06,16.43,16.69,16.43,16.06,15.93,16.27,16.22,16.31,16.38,16.31],26:[15.23,15.85,15.98,16.75,16.06,15.95,15.99,16.18,null,null,null,null]};
 
 /* Alias legacy para compatibilidad con otras secciones */
 const V = { 23:VC[23], 24:VC[24], 25:VC[25], 26:VC[26] };
@@ -60,7 +60,7 @@ const ZMON = {
     23:[673095,516517,2410566,1729389,2771063,993087,1503733,1039788,27778,594477,1413141,1616741],
     24:[77020,1168612,3590757,1626869,3115788,1156829,1562516,578586,334649,1672198,470764,96562],
     25:[197251,1096221,6615418,4607683,2233583,4274626,888259,5353131,4071840,1992459,2432241,1003761],
-    26:[4362016,3578570,481539,4267062,13044891,2860617,503373,0,0,0,0,0]
+    26:[4362016,3578570,481539,4267062,13044891,2860617,507563,909187,0,0,0,0]
   },
   norte:{
     21:[1073934,257020,379433,2041744,1559152,482827,1024067,488536,150224,20343,312581,1334431],
@@ -68,7 +68,7 @@ const ZMON = {
     23:[388659,11674,2147024,1699794,343575,132426,2925,640313,6251,3357,31021,1559462],
     24:[18480,371629,2331665,1599788,192553,6405,1238261,65145,222056,135702,60851,11261],
     25:[3882,1081789,4713415,3672249,1407724,2139804,412648,1136674,4050638,1446019,2162000,10566],
-    26:[3200000,1837982,292455,187219,11543568,17810,4500,0,0,0,0,0]
+    26:[3200000,1837982,292455,187219,11543568,17810,4500,721774,0,0,0,0]
   },
   centro:{
     21:[385223,706847,133807,2826,791516,1851,259402,0,974211,100,569506,664624],
@@ -84,13 +84,13 @@ const ZMON = {
     23:[284436,248692,226787,15878,1905291,739661,950600,335505,13976,586375,1293462,35279],
     24:[55493,291470,1252435,22029,1518895,1095400,324255,308440,32652,1536495,5646,85301],
     25:[193369,11340,1863333,818127,598482,2134822,315785,4117457,21202,31474,270241,632309],
-    26:[215798,1698898,189083,3935327,1118763,2832208,441016,0,0,0,0,0]
+    26:[215798,1698898,189083,3935327,1118763,2832208,445206,187412,0,0,0,0]
   }
 };
 
 /* Estacionalidad promedio por mes (2021-2026) */
-const SEAS_PCT = [5.0,7.2,12.7,13.1,19.6,9.7,7.4,6.2,4.0,3.5,4.8,6.8];
-const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2383722,1641929,1663660,1153817,739239,1128307,1656682];
+const SEAS_PCT = [4.9,7.6,12.0,13.8,19.4,9.6,6.6,7.3,4.6,3.0,4.5,6.7];
+const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2383722,1642627,1815191,1153817,739239,1128307,1656682];
 
 
 /* ============================================================
@@ -100,20 +100,20 @@ const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2383722,1641929,1663
 /* Refrigerante: Freón / Amoniaco / Otros (US$ MM) */
 const REF_DATA = {
   freon:    [9.72,11.78,10.02,6.48,6.47,5.25],
-  amoniaco: [9.84,20.44, 4.06,7.45,21.03,21.82],
-  otros:    [0.75, 0.97, 1.21,1.53, 7.26, 2.03]
+  amoniaco: [9.84,20.44, 4.06,7.45,21.03,22.45],
+  otros:    [0.75, 0.97, 1.21,1.53, 7.26, 2.31]
 };
 
 /* Tipo de venta: PR / AD / VSA / VSI (% participación y montos nominales) */
 const TCV_PCT = {
-  PR: [95.3,85.3,93.2,90.8,95.5,95.30],
-  AD: [ 4.1, 3.3, 6.8, 9.2, 3.5, 4.15],
-  VSA:[ 0.3, 0.0, 0.0, 0.0, 0.9, 0.52],
+  PR: [95.3,85.3,93.2,90.8,95.5,95.19],
+  AD: [ 4.1, 3.3, 6.8, 9.2, 3.5, 4.28],
+  VSA:[ 0.3, 0.0, 0.0, 0.0, 0.9, 0.50],
   VSI:[ 0.3, 0.0, 0.0, 0.0, 0.1, 0.03]
 };
 const TCV_MONTO = {
-  PR: [19355389,28303498,14249025,14024848,33216546,27730585],
-  AD: [  832200, 1109472, 1040349, 1426301, 1219229, 1208141],
+  PR: [19355389,28303498,14249025,14024848,33216546,28568208],
+  AD: [  832200, 1109472, 1040349, 1426301, 1219229, 1283895],
   VSA:[   52000,       0,       0,       0,  306698,  150872],
   VSI:[   69252,       0,       0,       0,   24000,    8470]
 };
@@ -128,6 +128,193 @@ const VT_YR_CFG = [
   {yr:25,label:'2025',c:'#3EC6AC',d:[5,3],w:2.5,r:4,  hr:6  },
   {yr:26,label:'2026',c:'#0A1E64',d:[],  w:3.5,r:5.5,hr:8   }
 ];
+
+/* ============================================================
+   EVOLUCIÓN DE VENTAS — utilidades visuales (no tocan datos ni lógica)
+   Mismo sistema gráfico de Ventas 2026: glow sutil en la serie protagonista,
+   relleno en degradado para barras y track base bajo cada barra.
+   ============================================================ */
+function _vtHexA(hex, a){
+  var h = String(hex).replace('#','');
+  if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  var n = parseInt(h,16);
+  return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';
+}
+function _vtLighten(col, t){
+  var r, g, b;
+  var c = String(col).trim();
+  var m = c.match(/rgba?\(([^)]+)\)/);
+  if (m) {                                   /* acepta rgb()/rgba(), no solo hex */
+    var pr = m[1].split(',');
+    r = parseFloat(pr[0]); g = parseFloat(pr[1]); b = parseFloat(pr[2]);
+  } else {
+    var h = c.replace('#','');
+    if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+    var n = parseInt(h,16);
+    r = (n>>16)&255; g = (n>>8)&255; b = n&255;
+  }
+  if (isNaN(r)||isNaN(g)||isNaN(b)) return c;   /* color no reconocido: se devuelve tal cual */
+  r = Math.round(r+(255-r)*t); g = Math.round(g+(255-g)*t); b = Math.round(b+(255-b)*t);
+  return 'rgb('+r+','+g+','+b+')';
+}
+
+/* Halo suave bajo la serie marcada con _glow — profundidad sin ensuciar la lectura */
+window._vtLineGlow = {
+  id:'vtLineGlow',
+  beforeDatasetDraw:function(chart, args){
+    var ds = chart.data.datasets[args.index];
+    if (!ds || !ds._glow) return;
+    var c = chart.ctx;
+    c.save();
+    c.shadowColor = ds._glow; c.shadowBlur = ds._glowBlur || 10;
+    c.shadowOffsetX = 0; c.shadowOffsetY = 2;
+  },
+  afterDatasetDraw:function(chart, args){
+    var ds = chart.data.datasets[args.index];
+    if (!ds || !ds._glow) return;
+    chart.ctx.restore();
+  }
+};
+
+/* Cifras mes a mes sobre los puntos de las series marcadas con _lbl.
+   Formato tomado de data-vt-fmt del canvas (mm = ventas, pct = margen),
+   igual que el tooltip premium. Se omite la etiqueta si no cabe en el carril
+   del mes, antes que saturar la lectura. */
+window._vtLineLabels = {
+  id:'vtLineLabels',
+  afterDatasetsDraw:function(chart){
+    var area = chart.chartArea;
+    if (!area) return;
+    var c = chart.ctx;
+
+    /* Secuencia de entrada: la cifra aparece cuando el trazo ya terminó su
+       animación (duración del chart + respiro). Mismo criterio que _vtBarLabels. */
+    var st = chart.$vtLnLbl || (chart.$vtLnLbl = {t0:null, raf:0});
+    var nowT = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+    if (st.t0 === null) st.t0 = nowT;
+    function _again(){
+      if (st.raf) return;
+      st.raf = requestAnimationFrame(function(){ st.raf = 0; if (chart.ctx) chart.draw(); });
+    }
+    var alpha = 1, rise = 0;
+    if (!_vtReduceMotion) {
+      var anim = (chart.options && chart.options.animation) || {};
+      var wait = (typeof anim.duration === 'number' ? anim.duration : 650) + _VT_LBL_LAG;
+      var t = nowT - st.t0 - wait;
+      if (t <= 0) { _again(); return; }        /* el gráfico aún se está dibujando */
+      var prog = Math.min(1, t / _VT_LBL_DUR);
+      alpha = 1 - Math.pow(1 - prog, 3);       /* ease-out cúbico, sin rebote */
+      rise = (1 - alpha) * 4;
+      if (prog < 1) _again();
+    }
+
+    var isPct = chart.canvas.dataset && chart.canvas.dataset.vtFmt === 'pct';
+    var fmt = isPct ? function(v){ return v.toFixed(1)+'%'; }
+                    : function(v){ return '$'+v.toFixed(2); };
+    var n = (chart.data.labels || []).length || 1;
+    var slot = (area.right - area.left) / n;
+    c.save();
+    c.globalAlpha = alpha;
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.lineJoin = 'round';
+    chart.data.datasets.forEach(function(ds, di){
+      if (!ds._lbl) return;
+      var meta = chart.getDatasetMeta(di);
+      if (!meta || meta.hidden || !meta.data) return;
+      var size = ds._lblSize || 9;
+      c.font = '800 ' + size + 'px Inter, "Segoe UI", sans-serif';
+      var up  = ds._lblUp !== false;
+      var gap = ds._lblGap || 12;
+      meta.data.forEach(function(pt, i){
+        var v = ds.data[i];
+        if (v === null || v === undefined) return;
+        var q = pt.getProps(['x','y'], true);
+        var txt = fmt(v);
+        var w = c.measureText(txt).width;
+        if (w > slot - 3) return;                 /* no cabe en el carril del mes */
+        var y = (up ? q.y - gap : q.y + gap) + rise;
+        if (y - size/2 < area.top || y + size/2 > area.bottom) y = up ? q.y + gap : q.y - gap;
+        if (y - size/2 < area.top || y + size/2 > area.bottom) return;
+        var x = Math.max(area.left + w/2 + 1, Math.min(q.x, area.right - w/2 - 1));
+        c.lineWidth = 3.2;
+        c.strokeStyle = 'rgba(255,255,255,.94)';  /* halo para separar de la línea */
+        c.strokeText(txt, x, y);
+        c.fillStyle = ds._lblColor || '#0a0a1e';
+        c.fillText(txt, x, y);
+      });
+    });
+    c.restore();
+  }
+};
+
+/* Relleno en degradado por barra (color base por año).
+   El degradado se ancla al LARGO PROPIO de cada barra (base → valor), nunca al
+   ancho/alto total del área de dibujo: si se ancla al área completa, el mismo
+   degradado se muestrea en un punto distinto cada vez que el segmentador cambia
+   el valor (y por lo tanto el largo) de una barra, y el color visible parece
+   "cambiar" aunque la función nunca varió. Ancladdo al propio largo, el color
+   se ve idéntico sin importar cuánto mida la barra. */
+function _vtBarFill(colors, vertical){
+  return function(ctx){
+    var area = ctx.chart.chartArea;
+    var base = colors[ctx.dataIndex] || colors[0];
+    if (!area) return base;
+    var scales = ctx.chart.scales || {};
+    var parsed = ctx.parsed;
+    var chartCtx = ctx.chart.ctx;
+    var g;
+    if (vertical) {
+      var yScale = scales.y;
+      var yVal = parsed ? parsed.y : null;
+      var yEnd = (yScale && yVal !== null && yVal !== undefined) ? yScale.getPixelForValue(yVal) : area.top;
+      if (area.bottom - yEnd < 1) return base;             /* barra ~0: degradado inválido */
+      g = chartCtx.createLinearGradient(0, yEnd, 0, area.bottom);
+      g.addColorStop(0, _vtLighten(base,.30)); g.addColorStop(1, base);
+    } else {
+      var xScale = scales.x;
+      var xVal = parsed ? parsed.x : null;
+      var xEnd = (xScale && xVal !== null && xVal !== undefined) ? xScale.getPixelForValue(xVal) : area.right;
+      if (xEnd - area.left < 1) return base;                /* barra ~0: degradado inválido */
+      g = chartCtx.createLinearGradient(area.left, 0, xEnd, 0);
+      g.addColorStop(0, base); g.addColorStop(1, _vtLighten(base,.32));
+    }
+    return g;
+  };
+}
+
+function _vtRoundRect(c,x,y,w,h,r){
+  r = Math.max(0, Math.min(r, h/2, w/2));
+  c.beginPath();
+  c.moveTo(x+r,y); c.lineTo(x+w-r,y); c.quadraticCurveTo(x+w,y,x+w,y+r);
+  c.lineTo(x+w,y+h-r); c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  c.lineTo(x+r,y+h); c.quadraticCurveTo(x,y+h,x,y+h-r);
+  c.lineTo(x,y+r); c.quadraticCurveTo(x,y,x+r,y);
+  c.closePath(); c.fill();
+}
+
+/* Track base: carril neutro detrás de cada barra — mejora el contraste
+   entre el valor actual y el máximo de referencia del eje */
+function _vtBarTrack(opt){
+  opt = opt || {};
+  return {
+    id:'vtBarTrack'+(opt.id||''),
+    beforeDatasetsDraw:function(chart){
+      var meta = chart.getDatasetMeta(0);
+      if (!meta || !meta.data || !chart.chartArea) return;
+      var area = chart.chartArea, c = chart.ctx;
+      var horiz = chart.options.indexAxis === 'y';
+      c.save();
+      c.fillStyle = opt.color || 'rgba(10,10,30,.045)';
+      meta.data.forEach(function(bar){
+        var b = bar.getProps(['x','y','width','height'], true);
+        if (horiz) _vtRoundRect(c, area.left, b.y - b.height/2, area.right-area.left, b.height, opt.r||9);
+        else       _vtRoundRect(c, b.x - b.width/2, area.top, b.width, area.bottom-area.top, opt.r||9);
+      });
+      c.restore();
+    }
+  };
+}
 
 let _vtFilter = 'frio'; /* legacy compat */
 let _vtExclSrv  = false; /* toggle: exclude VSA+VSI */
@@ -172,20 +359,28 @@ function _vtAnnualCloseArr(data) {
 function updateSegmentCharts(data) {
   if (_chVA) {
     _chVA.data.datasets.forEach(function(ds, i) { ds.data = data[VT_YR_CFG[i].yr]; });
-    _chVA.update('active');
+    _chVA.update();
   }
   if (_chVAB) {
-    _chVAB.data.datasets[0].data = _vtAnnualCloseArr(data);
-    _chVAB.update('active');
+    var dsVAB = _chVAB.data.datasets[0];
+    dsVAB.data = _vtAnnualCloseArr(data);
+    /* El segmentador sólo cambia los valores: la paleta de las barras se
+       re-fija siempre a los colores originales (VT_YR_CFG), nunca a otra */
+    dsVAB.backgroundColor = _vtBarFill(dsVAB._baseColors, false);
+    dsVAB.hoverBackgroundColor = _vtBarFill(dsVAB._baseColors.map(function(c){ return _vtLighten(c,.12); }), false);
+    _chVAB.update();
   }
   var mdata = _vtEffMargin();
   if (_chMA) {
     _chMA.data.datasets.forEach(function(ds, i) { ds.data = mdata[VT_YR_CFG[i].yr]; });
-    _chMA.update('active');
+    _chMA.update();
   }
   if (_chMAP) {
-    _chMAP.data.datasets[0].data = _vtAnnualCloseArr(mdata);
-    _chMAP.update('active');
+    var dsMAP = _chMAP.data.datasets[0];
+    dsMAP.data = _vtAnnualCloseArr(mdata);
+    dsMAP.backgroundColor = _vtBarFill(dsMAP._baseColors, false);
+    dsMAP.hoverBackgroundColor = _vtBarFill(dsMAP._baseColors.map(function(c){ return _vtLighten(c,.12); }), false);
+    _chMAP.update();
   }
 }
 
@@ -200,13 +395,14 @@ function vtToggle(seg, el) {
   }
   updateSegmentCharts(_vtEffData());
   _vtUpdateHeroMargen();
+  _vtEvolKpis();
 }
 
 /* KPI "Margen ponderado" del hero de Ventas — único elemento del hero que
    reacciona a los segmentadores del tab Evolución de Ventas. Reutiliza
    _vtEffMargin()/_vtYearClose() (misma base filtrada que chMargenAcum y
    chMargenAnualProgress); fuera de ese tab conserva el valor global original. */
-var _vtHeroMargenGlobal = { val: 15.36, meta: 18 };
+var _vtHeroMargenGlobal = { val: 15.55, meta: 18 };
 function _vtUpdateHeroMargen() {
   var valEl = document.getElementById('vtHeroMargenVal');
   var subEl = document.getElementById('vtHeroMargenSub');
@@ -218,7 +414,7 @@ function _vtUpdateHeroMargen() {
   var diff = val - _vtHeroMargenGlobal.meta;
   var up = diff >= 0;
   valEl.textContent = val.toFixed(2) + '%';
-  subEl.style.color = up ? '#4ade80' : '#f87171';
+  subEl.style.color = up ? '#bbf7d0' : '#fecaca';
   subEl.innerHTML = (up ? '&#8593;' : '&#8595;') + ' Meta ' + _vtHeroMargenGlobal.meta + '% &middot; ' +
     (up ? '+' : '&minus;') + Math.abs(diff).toFixed(2) + ' pp';
 }
@@ -251,17 +447,27 @@ function _vtDs(data) {
     /* Solid fill for protagonists; open (white) circles for background years */
     var ptBg = is26 ? '#0A1E64' : (is25 ? '#3EC6AC' : (is24 ? '#F59E0B' : '#fff'));
     var ptBw = is26 ? 2.5 : (is25 || is24 ? 2 : 1.5);
+    /* Años de contexto (2021-2023): mismo color, menor peso visual */
+    var bc = cfg.yr <= 23 ? _vtHexA(cfg.c, .58) : cfg.c;
     return {
       label: cfg.label,
       data: data[cfg.yr],
-      borderColor: cfg.c,
+      borderColor: bc,
       borderWidth: cfg.w,
+      /* Halo: marcado solo en las series protagonistas */
+      _glow: is26 ? 'rgba(10,30,100,.34)' : (is25 ? 'rgba(62,198,172,.30)' : null),
+      _glowBlur: is26 ? 12 : 8,
+      /* Cifra mes a mes: 2026 arriba de la línea, 2025 debajo */
+      _lbl: is26 || is25,
+      _lblUp: is26,
+      _lblSize: is26 ? 9.5 : 9,
+      _lblColor: is26 ? '#0A1E64' : '#0F6E56',
       borderDash: cfg.d,
       /* Permanent visible markers — size varies by year prominence */
       pointRadius: cfg.r,
       pointHoverRadius: cfg.hr,
       pointBackgroundColor: ptBg,
-      pointBorderColor: cfg.c,
+      pointBorderColor: bc,
       pointBorderWidth: ptBw,
       /* Hover: white fill + colored border for clean pop effect */
       pointHoverBackgroundColor: '#fff',
@@ -287,16 +493,16 @@ const Z = {
       s:[0.19,0.01,1.86,0.82,0.60,2.13,0.32,4.12,0.02,0.03,0.27,0.63],
       c:[0,0,0.04,0,0.23,0,0.16,0.10,0,0.51,0,0.36],
       e:[0,0,0,0,0,0,0,0,0,0,0,0]},
-  26:{n:[3.20,1.84,0.29,0.19,11.54,0.01,0,0,0,0,0,0],
-      s:[0.22,1.70,0.19,3.94,1.12,2.51,0,0,0,0,0,0],
-      c:[0.95,0.04,0,0.14,0.38,0.01,0,0,0,0,0,0],
+  26:{n:[3.20,1.84,0.29,0.19,11.54,0.02,0,0.72,0,0,0,0],
+      s:[0.22,1.70,0.19,3.94,1.12,2.83,0.45,0.19,0,0,0,0],
+      c:[0.95,0.04,0,0.14,0.38,0.01,0.06,0,0,0,0,0],
       e:[0,0,0,0,0,0,0,0,0,0,0,0]}
 };
 
 
 /* ============================================================
    DATA VENTAS 2026 — Fuente única: DATA_PRODUC_25.07.xlsx (hoja "Data Cruda")
-   Filtro aplicado: Año = 2026, Mes = Enero..Julio → 90 registros reales.
+   Filtro aplicado: Año = 2026, Mes = Enero..Agosto → 101 registros reales.
    Cada fila = 1 operación real (columna "Importe total" y "Margen Comercial").
    Nombres normalizados a Title Case desde el valor exacto del Excel (sin inventar).
    Se fusionaron 2 pares de variantes de escritura del mismo cliente (mismo
@@ -304,6 +510,12 @@ const Z = {
      "TAL S A" + "TAL S.A." → "Tal S.A."
      "AGRICOLA HUARMEY S.A." + "AGRICOLA HUARMEY S.A.C." → "Agricola Huarmey S.A.C."
    No se fusionó ningún otro cliente: cada razón social distinta se mantuvo tal cual.
+
+   TIPO DE VENTA: se toma tal cual de la columna "TIPO DE PROYECTO" de la hoja.
+   La hoja mezcla dos convenciones equivalentes y aquí se unifican:
+   PRY = PR (proyecto) y VSR = VSA (venta de servicio); AD y VSI van igual.
+   El tipo declarado manda sobre el prefijo del código: hay 3 filas 2026 donde no
+   coinciden (p. ej. EL PEDREGAL, código PRY 2026-0000046, declarado AD).
    ============================================================ */
 const ventas2026 = [
   {mes:'May',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:9500000,mg:13.78,tipo:'PR'},
@@ -335,7 +547,7 @@ const ventas2026 = [
   {mes:'Abr',cli:'Reiter Peruvian Berry S.A.',zona:'Sur',imp:110710,mg:14.17,tipo:'PR'},
   {mes:'Mar',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:105000,mg:17.92,tipo:'PR'},
   {mes:'May',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:103585.21,mg:17,tipo:'PR'},
-  {mes:'Abr',cli:'Ingenieria En Cartones Y Papeles S.A.C',zona:'Centro',imp:101933.16,mg:20.03,tipo:'PR'},
+  {mes:'Abr',cli:'Ingenieria En Cartones Y Papeles S.A.C.',zona:'Centro',imp:101933.16,mg:20.03,tipo:'PR'},
   {mes:'May',cli:'Ara Foods Industry S.A.C.',zona:'Norte',imp:100000,mg:20,tipo:'PR'},
   {mes:'Feb',cli:'Berry Harvest S.A.',zona:'Norte',imp:97846.74,mg:15,tipo:'AD'},
   {mes:'May',cli:'Bomarea S.R.L.',zona:'Norte',imp:97000,mg:19,tipo:'AD'},
@@ -380,7 +592,7 @@ const ventas2026 = [
   {mes:'Jun',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:2700,mg:30,tipo:'VSA'},
   {mes:'Jun',cli:'Q Pack S.A.C.',zona:'Norte',imp:2700,mg:-82.59,tipo:'AD'},
   {mes:'May',cli:'Procesadora Torre Blanca S.A.C',zona:'Centro',imp:2658.59,mg:29.47,tipo:'AD'},
-  {mes:'Jun',cli:'Austral Group S.A.A',zona:'Norte',imp:2310,mg:12.94,tipo:'AD'},
+  {mes:'Jun',cli:'Austral Group S.A.A.',zona:'Norte',imp:2310,mg:12.94,tipo:'AD'},
   {mes:'Jun',cli:'Agro Floral Peru S.A.C.',zona:'Centro',imp:2130,mg:13.31,tipo:'AD'},
   {mes:'Jun',cli:'Smart Packing S.A.C.',zona:'Norte',imp:1996.83,mg:17,tipo:'PR'},
   {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:1900,mg:13.58,tipo:'AD'},
@@ -389,13 +601,24 @@ const ventas2026 = [
   {mes:'Ene',cli:'Uvica S.A.C.',zona:'Sur',imp:798,mg:15,tipo:'AD'},
   {mes:'Feb',cli:'Agroindustria Frutos de Oro S.A.C.',zona:'Norte',imp:760,mg:15,tipo:'AD'},
   {mes:'Jun',cli:'Sociedad Agricola 3P S.A.C.',zona:'Sur',imp:500,mg:20,tipo:'AD'},
-  {mes:'Jul',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:435000,mg:16,tipo:'PR'},
+  {mes:'Jul',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:435000,mg:16.46,tipo:'PR'},
   {mes:'Jun',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:325000,mg:16,tipo:'PR'},
-  {mes:'Jul',cli:'In Vitro Lab Perú S.A.C.',zona:'Centro',imp:57857,mg:26,tipo:'VSA'},
+  {mes:'Jul',cli:'In Vitro Lab Perú S.A.C.',zona:'Centro',imp:57857,mg:26.38,tipo:'VSA'},
   {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:7488.07,mg:13,tipo:'PR'},
   {mes:'Jul',cli:'Consorcio Agricola Moquegua S.A.C.',zona:'Sur',imp:6016,mg:25,tipo:'AD'},
-  {mes:'Jul',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4500,mg:23,tipo:'AD'},
-  {mes:'Jun',cli:'Family Farms Perú S.R.L.',zona:'Sur',imp:1550,mg:20,tipo:'AD'}
+  {mes:'Jul',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4500,mg:23.33,tipo:'AD'},
+  {mes:'Jun',cli:'Family Farms Perú S.R.L.',zona:'Sur',imp:1550,mg:20,tipo:'AD'},
+  {mes:'Ago',cli:'Agroindustrias Aib S.A',zona:'Norte',imp:611603.32,mg:21.85,tipo:'PR'},
+  {mes:'Ago',cli:'Agricola Safco Peru S.A.',zona:'Sur',imp:153872.62,mg:24.22,tipo:'PR'},
+  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:33994.43,mg:16.31,tipo:'PR'},
+  {mes:'Ago',cli:'Uvica S.A.C.',zona:'Sur',imp:33539.69,mg:17.92,tipo:'PR'},
+  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:26316.26,mg:19.24,tipo:'AD'},
+  {mes:'Ago',cli:'El Pedregal S.A.',zona:'Norte',imp:21297,mg:5,tipo:'AD'},
+  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:14820.87,mg:22.5,tipo:'AD'},
+  {mes:'Ago',cli:'Viru Frozen S.A.',zona:'Norte',imp:4612.5,mg:20,tipo:'PR'},
+  {mes:'Ago',cli:'Q Pack S.A.C.',zona:'Norte',imp:4580,mg:20,tipo:'AD'},
+  {mes:'Ago',cli:'Q Pack S.A.C.',zona:'Norte',imp:4550,mg:28.9,tipo:'AD'},
+  {mes:'Jul',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:4190,mg:16.42,tipo:'AD'}
 ];
 
 
@@ -405,7 +628,7 @@ const ventas2026 = [
 function _seasDsData(zone, yr) {
   var raw = ZMON[zone][yr];
   return raw.map(function(v, i) {
-    if (yr === 26 && i >= 7) return null; /* meses sin datos en 2026 */
+    if (yr === 26 && i >= 8) return null; /* meses sin datos en 2026 */
     return v;
   });
 }
@@ -453,22 +676,32 @@ function hmapSetZone(btn) {
   _hmapRender();
 }
 
+/* Tooltip del mapa de calor — dos niveles de lectura (contexto arriba, cifra
+   abajo) con el mismo lenguaje que los tooltips de Chart.js de esta pestaña.
+   `title` llega como "contexto|cifra"; sin separador se pinta en una sola línea. */
 function _hmTipShow(ev, title) {
   if (!_hmTip) {
     _hmTip = document.createElement('div');
     _hmTip.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;opacity:0;'
-      + 'transition:opacity .15s;background:rgba(9,12,30,.95);border:1px solid rgba(62,198,172,.28);'
-      + 'border-radius:10px;padding:9px 14px;font-family:Inter,sans-serif;font-size:11px;'
-      + 'font-weight:600;color:#fff;box-shadow:0 14px 40px rgba(10,10,30,.4),0 3px 10px rgba(10,10,30,.22);'
-      + 'white-space:nowrap;letter-spacing:.2px';
+      + 'transition:opacity .15s ease,transform .15s ease;transform:translateY(3px);'
+      + 'background:rgba(9,12,30,.96);border:1px solid rgba(79,168,224,.30);'
+      + 'border-radius:10px;padding:9px 13px;font-family:Inter,sans-serif;'
+      + 'box-shadow:0 14px 40px rgba(10,10,30,.36),0 3px 10px rgba(10,10,30,.2);'
+      + 'white-space:nowrap;letter-spacing:.2px;line-height:1.35';
     document.body.appendChild(_hmTip);
   }
-  _hmTip.textContent = title;
+  var parts = String(title).split('|');
+  _hmTip.innerHTML = '<div style="font-size:9.5px;font-weight:700;letter-spacing:.9px;'
+    + 'text-transform:uppercase;color:rgba(255,255,255,.45)">' + parts[0] + '</div>'
+    + (parts.length > 1
+        ? '<div style="font-size:13.5px;font-weight:800;color:#fff;margin-top:2px">' + parts[1] + '</div>'
+        : '');
   _hmTip.style.opacity = '1';
+  _hmTip.style.transform = 'none';
   _hmTip.style.left = (ev.clientX + 16) + 'px';
-  _hmTip.style.top  = (ev.clientY - 40) + 'px';
+  _hmTip.style.top  = (ev.clientY - 44) + 'px';
 }
-function _hmTipHide() { if (_hmTip) _hmTip.style.opacity = '0'; }
+function _hmTipHide() { if (_hmTip) { _hmTip.style.opacity = '0'; _hmTip.style.transform = 'translateY(3px)'; } }
 function _hmTipMove(ev) {
   if (!_hmTip || _hmTip.style.opacity === '0') return;
   var tipW = _hmTip.offsetWidth || 180;
@@ -493,10 +726,19 @@ function _hmapRender() {
   });
   var vmax = allVals.length ? Math.max.apply(null,allVals) : 1;
 
-  /* Progresión cromática por importe — paleta real de la app (celeste/azul → turquesa → ámbar → coral):
-     azul frío (celeste #4FA8E0) → turquesa brand (#3EC6AC) → ámbar (#D97706) → coral (#D85A30).
-     El coral queda reservado exclusivamente al importe más alto, sin connotación de alerta. */
-  var stops = [[0,224,240,252],[0.22,79,168,224],[0.46,62,198,172],[0.70,217,119,6],[1,216,90,48]];
+  /* Progresión cromática por importe — escala premium navy → teal → aqua → ámbar.
+     Arranca en el navy de profundidad de la app, pasa por el celeste/turquesa ya
+     usados en Ventas 2026 y Evolución, abre a un aqua claro y reserva el ámbar/
+     naranja para los importes más altos (pico, no alerta). */
+  var stops = [
+    [0.00,  22, 41, 74],   /* navy profundo            */
+    [0.20,  17, 84,106],   /* teal oscuro              */
+    [0.42,  26,145,140],   /* teal medio               */
+    [0.60,  62,198,172],   /* turquesa brand #3EC6AC   */
+    [0.78, 150,228,196],   /* aqua claro               */
+    [0.90, 243,196, 90],   /* ámbar claro              */
+    [1.00, 216,120, 40]    /* naranja — pico de serie  */
+  ];
   function interpHm(t) {
     if(t<=0) return stops[0].slice(1);
     for(var i=1;i<stops.length;i++){
@@ -514,41 +756,51 @@ function _hmapRender() {
     if(v>=1000)    return '$'+Math.round(v/1000)+'K';
     return '$'+Math.round(v);
   }
+  /* "contexto|cifra" — el tooltip parte por "|" para pintar los dos niveles */
+  var mesLargo = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  var zonaLbl  = {total:'Todas las zonas', norte:'Zona Norte', centro:'Zona Centro', sur:'Zona Sur'};
   function cellTitle(yr,m,v) {
     var yStr='20'+(yr<10?'0':'')+yr;
     var vStr=v&&v>0?(v>=1000000?'$'+(v/1000000).toFixed(3)+'M':(v>=1000?'$'+Math.round(v/1000)+'K':'$'+v)):'Sin datos';
-    return yStr+' · '+mes[m]+': '+vStr;
+    return mesLargo[m]+' '+yStr+' · '+(zonaLbl[zone]||zonaLbl.total)+'|'+vStr;
   }
 
   var h = '<table class="hmap-table"><thead><tr>';
-  h += '<th class="hmap-yr-th" style="vertical-align:bottom;padding-bottom:8px;width:6.5%">&nbsp;</th>';
+  h += '<th class="hmap-yr-th" style="vertical-align:bottom;padding-bottom:9px;width:7%">&nbsp;</th>';
   mes.forEach(function(m){ h += '<th class="hmap-th">'+m+'</th>'; });
   h += '</tr></thead><tbody>';
 
-  years.forEach(function(yr){
+  /* Aparición progresiva: cada celda recibe su propio retardo (--d) en diagonal,
+     de modo que el mapa se "revela" de arriba-izquierda a abajo-derecha. */
+  years.forEach(function(yr, yi){
     var yData = data[yr]||[];
     var yStr  = '20'+(yr<10?'0':'')+yr;
     h += '<tr><td class="hmap-yr-th">'+yStr+'</td>';
     for(var m=0;m<12;m++){
       var v = yData[m];
-      var isFuture = (yr===26 && m>=7);
+      var isFuture = (yr===26 && m>=8);
       var isEmpty  = (v===null||v===undefined||v===0||isFuture);
       var tipText  = cellTitle(yr,m,isEmpty?0:v);
+      var delay    = 'style="--d:'+((yi*3 + m*9))+'ms;';
+      var evts     = ' onmouseenter="_hmTipShow(event,\''+tipText+'\')"'
+                   + ' onmouseleave="_hmTipHide()" onmousemove="_hmTipMove(event)"';
       if(isEmpty){
         var stripeStyle = isFuture
-          ? 'background:repeating-linear-gradient(135deg,#edf1f7 0px,#edf1f7 4px,#e2e8f0 4px,#e2e8f0 8px)'
-          : 'background:#f5f7fa';
-        h += '<td class="hmap-cell" style="'+stripeStyle+';color:#c8d0de"'
-          + ' onmouseenter="_hmTipShow(event,\''+tipText+'\')" onmouseleave="_hmTipHide()" onmousemove="_hmTipMove(event)"></td>';
+          ? 'background:repeating-linear-gradient(135deg,#f2f5fa 0px,#f2f5fa 4px,#e7edf5 4px,#e7edf5 8px)'
+          : 'background:#f4f7fb';
+        h += '<td class="hmap-cell is-empty" '+delay+stripeStyle+';color:#c8d0de;'
+          + 'box-shadow:inset 0 0 0 1px rgba(10,10,30,.03)"'+evts+'></td>';
       } else {
         var t  = Math.sqrt(v/vmax);
         var c  = interpHm(t);
         var bg = 'rgb('+c[0]+','+c[1]+','+c[2]+')';
+        /* Contraste del texto según la intensidad real de la celda (luminancia
+           percibida): tinta clara sobre navy/teal, navy sobre aqua y ámbar. */
         var lum = 0.299*c[0]+0.587*c[1]+0.114*c[2];
-        var tx = lum>150?'#0A1E64':'#fff';
+        var tx = lum>152?'#0B2136':'rgba(255,255,255,.95)';
         var lbl= cellFmt(v);
-        h += '<td class="hmap-cell" style="background:'+bg+';color:'+tx+'"'
-          + ' onmouseenter="_hmTipShow(event,\''+tipText+'\')" onmouseleave="_hmTipHide()" onmousemove="_hmTipMove(event)">'+lbl+'</td>';
+        h += '<td class="hmap-cell" '+delay+'background:'+bg+';color:'+tx+'"'+evts+'>'+lbl+'</td>';
       }
     }
     h += '</tr>';
@@ -573,6 +825,226 @@ Chart.defaults.font.family = "'Inter','Segoe UI',sans-serif";
 Chart.defaults.font.size = 10;
 Chart.defaults.color = '#7b8db0';
 
+/* ============================================================
+   ETIQUETAS DE VALOR SOBRE BARRAS — tab Ventas
+   Dibuja el valor de cada barra directamente sobre el canvas, sin hover y sin
+   depender de plugins externos (no se agrega ninguna librería). Se registra por
+   gráfico vía `plugins:[..., _vtBarLabels({...})]` y corre en afterDatasetsDraw,
+   después del sheen, para que nada lo tape.
+
+   No toca datos, escalas, colores, tipos de gráfico ni tooltips: solo pinta texto.
+
+   ENTRADA — la etiqueta no aparece junto con la barra: espera a que ESA barra
+   termine de crecer y recién entra con un fundido sutil (opacity 0→1 + 5px de
+   desplazamiento vertical, ~300ms, ease-out). El momento de arranque se deriva
+   de la animación real del gráfico (`options.animation.duration` y, si existe,
+   `delay` escalonado por barra), no de un tiempo fijo: si mañana cambia la
+   duración de las barras, las etiquetas se reacomodan solas.
+   ============================================================ */
+
+/* Luminancia relativa WCAG de un color CSS (#hex o rgb/rgba). Devuelve null si
+   no es un color plano legible (p. ej. un CanvasGradient). */
+function _vtRelLum(color){
+  if (typeof color !== 'string') return null;
+  var c = color.trim(), r, g, b;
+  if (c.charAt(0) === '#') {
+    if (c.length === 4)      { r=parseInt(c[1]+c[1],16); g=parseInt(c[2]+c[2],16); b=parseInt(c[3]+c[3],16); }
+    else if (c.length >= 7)  { r=parseInt(c.substr(1,2),16); g=parseInt(c.substr(3,2),16); b=parseInt(c.substr(5,2),16); }
+    else return null;
+  } else {
+    var m = c.match(/rgba?\(([^)]+)\)/);
+    if (!m) return null;
+    var p = m[1].split(',');
+    r=parseFloat(p[0]); g=parseFloat(p[1]); b=parseFloat(p[2]);
+    if (p.length > 3 && parseFloat(p[3]) < 0.5) return null; /* casi transparente */
+  }
+  if (isNaN(r)||isNaN(g)||isNaN(b)) return null;
+  function lin(v){ v/=255; return v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); }
+  return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+}
+
+var _VT_LBL_DARK  = '#0a0a1e';                /* tinta sobre superficie clara */
+var _VT_LBL_LIGHT = 'rgba(255,255,255,.95)';  /* tinta sobre superficie oscura */
+var _VT_LUM_DARK  = 0.0037;                   /* luminancia de #0a0a1e */
+var _VT_LBL_GAP   = 7;                        /* separación barra → número (px) */
+var _VT_LBL_RISE  = 5;                        /* desplazamiento de entrada (px) */
+var _VT_LBL_DUR   = 300;                      /* duración del fundido (ms) */
+var _VT_LBL_LAG   = 80;                       /* respiro tras cerrar la barra (ms) */
+var _vtReduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+/* Elige blanco o navy según cuál contrasta más contra el relleno dado */
+function _vtBarBaseColor(ds, i, bar){
+  if (ds && ds._baseColors) return ds._baseColors[i] || ds._baseColors[0];
+  return bar && bar.options ? bar.options.backgroundColor : null;
+}
+function _vtInkOn(fill){
+  var L = _vtRelLum(fill);
+  if (L === null) return _VT_LBL_DARK;
+  var cWhite = 1.05 / (L + 0.05);
+  var cDark  = (L + 0.05) / (_VT_LUM_DARK + 0.05);
+  return cWhite >= cDark ? _VT_LBL_LIGHT : _VT_LBL_DARK;
+}
+
+/* Tinta para etiquetas fuera de la barra: se lee el fondo real de la card, de
+   modo que la etiqueta se adapta sola a tema claro u oscuro. Cacheado 1s porque
+   el sheen redibuja a 60fps y getComputedStyle no es gratis. */
+function _vtInkOnSurface(chart){
+  var now = Date.now();
+  if (chart.$vtInk && now - chart.$vtInkT < 1000) return chart.$vtInk;
+  var el = chart.canvas ? chart.canvas.parentNode : null, n = 0;
+  while (el && el.nodeType === 1 && n < 6) {
+    var L = _vtRelLum(getComputedStyle(el).backgroundColor);
+    if (L !== null) { chart.$vtInk = (L < 0.5 ? _VT_LBL_LIGHT : _VT_LBL_DARK); chart.$vtInkT = now; return chart.$vtInk; }
+    el = el.parentNode; n++;
+  }
+  chart.$vtInk = _VT_LBL_DARK; chart.$vtInkT = now;
+  return _VT_LBL_DARK;
+}
+
+/* Instante (ms desde el inicio de la animación) en que ESA barra termina de
+   crecer = delay propio + duración. Lee la config real del gráfico para respetar
+   un escalonado si algún día se agrega. */
+function _vtBarEnd(chart, di, i){
+  var dur = 900, dly = 0;
+  try {
+    var an = chart.options && chart.options.animation;
+    if (an) {
+      var c = {chart:chart, type:'data', datasetIndex:di, dataIndex:i, mode:'default'};
+      var d = (typeof an.duration === 'function') ? an.duration(c) : an.duration;
+      var y = (typeof an.delay === 'function') ? an.delay(c) : an.delay;
+      if (typeof d === 'number' && isFinite(d)) dur = d;
+      if (typeof y === 'number' && isFinite(y)) dly = y;
+    }
+  } catch(e) { /* config no estándar: se usa el valor por defecto */ }
+  return dly + dur;
+}
+
+/* Fábrica del plugin.
+   opt.fmt(valor, indice, indiceDataset) -> string ('' u omitido = no se pinta)
+   opt.size  tamaño base en px (se reduce hasta opt.min si no cabe)
+   opt.min   tamaño mínimo antes de omitir la etiqueta */
+function _vtBarLabels(opt){
+  opt = opt || {};
+  var BASE = opt.size || 10.5, MIN = opt.min || 8.5, FAM = "'Inter','Segoe UI',sans-serif";
+  return {
+    id: 'vtBarValueLabels',
+
+    /* Reinicia el reloj cuando las barras vuelven a animarse (carga inicial y
+       cambios del filtro de Segmento). En 'resize' no, para no re-animar
+       mientras se arrastra la ventana. */
+    afterUpdate: function(chart, args){
+      if (args && args.mode === 'resize') return;
+      chart.$vtLbl = {t0:null, raf:0};
+    },
+
+    afterDatasetsDraw: function(chart){
+      var area = chart.chartArea;
+      if (!area || typeof opt.fmt !== 'function') return;
+      var ctx = chart.ctx;
+      var st = chart.$vtLbl || (chart.$vtLbl = {t0:null, raf:0});
+      var now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+      if (st.t0 === null) st.t0 = now;
+
+      var horiz = chart.options.indexAxis === 'y';
+      var inkOut = opt.ink || _vtInkOnSurface(chart);
+      var nCat = (chart.data.labels || []).length || 1;
+      /* Espacio disponible por categoría — evita que dos etiquetas se toquen */
+      var slot = horiz ? (area.bottom - area.top) / nCat : (area.right - area.left) / nCat;
+      var pending = false;
+
+      ctx.save();
+      ctx.textAlign = 'center';
+
+      chart.data.datasets.forEach(function(ds, di){
+        var meta = chart.getDatasetMeta(di);
+        if (!meta || meta.hidden) return;
+        meta.data.forEach(function(bar, i){
+          var raw = ds.data[i];
+          if (raw === null || raw === undefined || isNaN(raw)) return;
+          var txt = opt.fmt(raw, i, di);
+          if (!txt) return;
+
+          /* ── Progreso de entrada de ESTA etiqueta ── */
+          var prog;
+          if (_vtReduceMotion) {
+            prog = 1;
+          } else {
+            var t = now - st.t0 - _vtBarEnd(chart, di, i) - _VT_LBL_LAG;
+            if (t <= 0) { pending = true; return; }   /* la barra aún está creciendo */
+            prog = Math.min(1, t / _VT_LBL_DUR);
+            if (prog < 1) pending = true;
+          }
+          var e = 1 - Math.pow(1 - prog, 3);          /* ease-out cúbico, sin rebote */
+          var rise = (1 - e) * _VT_LBL_RISE;
+
+          var p = bar.getProps(['x','y','base'], true);
+          if (p.base === undefined) return;
+
+          /* Ajuste de tamaño hasta que la etiqueta quepa en su carril */
+          var size = BASE, w;
+          ctx.font = '800 ' + size + 'px ' + FAM;
+          w = ctx.measureText(txt).width;
+          if (!horiz) {
+            while (w > slot - 6 && size > MIN) {
+              size -= 0.5; ctx.font = '800 ' + size + 'px ' + FAM; w = ctx.measureText(txt).width;
+            }
+            if (w > slot - 2) return; /* no cabe: se omite antes que saturar */
+          } else if (slot < size + 4) {
+            return;                   /* carriles demasiado juntos en vertical */
+          }
+
+          ctx.globalAlpha = e;
+
+          if (horiz) {
+            var len = Math.abs(p.x - p.base);
+            var end = p.x, dir = (p.x >= p.base) ? 1 : -1;
+            ctx.textBaseline = 'middle';
+            if (!opt.outside && len >= w + 18) {        /* cabe dentro de la barra */
+              ctx.fillStyle = _vtInkOn(_vtBarBaseColor(ds, i, bar));
+              ctx.textAlign = dir > 0 ? 'right' : 'left';
+              ctx.fillText(txt, end - dir * 8, p.y + rise);
+            } else {                                    /* si no, justo al lado */
+              var xo = end + dir * 7;
+              if (dir > 0 && xo + w > area.right) xo = area.right - w - 1;
+              ctx.fillStyle = inkOut;
+              ctx.textAlign = dir > 0 ? 'left' : 'right';
+              ctx.fillText(txt, xo, p.y + rise);
+            }
+            ctx.textAlign = 'center';
+          } else {
+            var top = Math.min(p.y, p.base), lenV = Math.abs(p.base - p.y);
+            var yOut = top - _VT_LBL_GAP;
+            if (yOut - size >= area.top) {              /* encima de la barra */
+              ctx.fillStyle = inkOut;
+              ctx.textBaseline = 'bottom';
+              ctx.fillText(txt, p.x, yOut + rise);
+            } else if (lenV >= size + 16) {             /* sin aire arriba: dentro */
+              ctx.fillStyle = _vtInkOn(_vtBarBaseColor(ds, i, bar));
+              ctx.textBaseline = 'top';
+              ctx.fillText(txt, p.x, top + _VT_LBL_GAP + rise);
+            } else {                                    /* barra mínima al tope */
+              ctx.fillStyle = inkOut;
+              ctx.textBaseline = 'top';
+              ctx.fillText(txt, p.x, area.top + 1 + rise);
+            }
+          }
+          ctx.globalAlpha = 1;
+        });
+      });
+      ctx.restore();
+
+      /* Mientras haya etiquetas entrando, se pide otro frame. Mismo patrón que
+         _triggerSheen; el bucle se detiene solo al completar el fundido. */
+      if (pending && !st.raf) {
+        st.raf = requestAnimationFrame(function(){
+          st.raf = 0;
+          if (chart.ctx) chart.draw();
+        });
+      }
+    }
+  };
+}
+
 const lineOpts = {
   responsive:true, maintainAspectRatio:false,
   plugins:{legend:{display:false}, tooltip:{mode:'index', intersect:false,
@@ -592,18 +1064,20 @@ const _elMA = document.getElementById('chMargenAcum');
 /* External tooltip reads data-vt-fmt from canvas element (set in HTML) */
 if (_elVA) {
   _chVA = new Chart(_elVA, {type:'line', data:{labels:meses, datasets:_vtDs(VC)},
-    plugins:[window._sheenPlugin],
+    plugins:[window._vtLineGlow, window._sheenPlugin, window._vtLineLabels],
     options:{..._vtSharedOpts,
-      animation:{..._vtSharedOpts.animation, onComplete:function(a){window._triggerSheen(a.chart);}},
+      animation:{..._vtSharedOpts.animation, duration:650, easing:'easeOutQuart',
+        onComplete:function(a){window._triggerSheen(a.chart);}},
       scales:{..._vtSharedOpts.scales,
         y:{..._vtSharedOpts.scales.y, ticks:{..._vtSharedOpts.scales.y.ticks,
           callback:function(v){return '$'+v+'MM';}}}}}});
 }
 if (_elMA) {
   _chMA = new Chart(_elMA, {type:'line', data:{labels:meses, datasets:_vtDs(MCA)},
-    plugins:[window._sheenPlugin],
+    plugins:[window._vtLineGlow, window._sheenPlugin, window._vtLineLabels],
     options:{..._vtSharedOpts,
-      animation:{..._vtSharedOpts.animation, onComplete:function(a){window._triggerSheen(a.chart);}},
+      animation:{..._vtSharedOpts.animation, duration:650, easing:'easeOutQuart',
+        onComplete:function(a){window._triggerSheen(a.chart);}},
       scales:{..._vtSharedOpts.scales,
         y:{..._vtSharedOpts.scales.y, min:8, max:20,
           ticks:{..._vtSharedOpts.scales.y.ticks, callback:function(v){return v+'%';}}}}}});
@@ -619,18 +1093,23 @@ if (_elVAB) {
       labels: VT_YR_LBL_YTD,
       datasets:[{
         data: _vtAnnualCloseArr(_vtEffData()),
-        backgroundColor: VT_YR_CFG.map(function(c){ return c.c; }),
-        borderRadius:{topLeft:10,topRight:10,bottomLeft:0,bottomRight:0},
+        _baseColors: VT_YR_CFG.map(function(c){ return c.c; }),
+        backgroundColor: _vtBarFill(VT_YR_CFG.map(function(c){ return c.c; }), false),
+        hoverBackgroundColor: _vtBarFill(VT_YR_CFG.map(function(c){ return _vtLighten(c.c,.12); }), false),
+        borderRadius:{topLeft:0,topRight:9,bottomLeft:0,bottomRight:9},
         borderSkipped:false,
-        maxBarThickness:54,
-        barPercentage:0.62,
-        categoryPercentage:0.7
+        maxBarThickness:28,
+        barPercentage:0.72,
+        categoryPercentage:0.8
       }]
     },
-    plugins:[window._sheenPlugin],
+    /* Etiqueta de importe encima de cada barra — visible sin hover (data en US$ MM) */
+    plugins:[_vtBarTrack({id:'VAB', r:9}), window._sheenPlugin,
+             _vtBarLabels({outside:true, ink:'#3d4a6a', fmt:function(v){ return fmtEjecutivo(v*1e6); }})],
     options:{
-      responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      responsive:true, maintainAspectRatio:false, indexAxis:'y',
+      animation:{duration:650, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      animations:{colors:{duration:0}},
       plugins:{
         legend:{display:false},
         tooltip:{
@@ -640,15 +1119,21 @@ if (_elVAB) {
           bodyColor:'rgba(255,255,255,.85)', bodyFont:{size:12,weight:'600'},
           callbacks:{
             title:function(items){ return items.length ? items[0].label : ''; },
-            label:function(ctx){ return 'Ventas acumuladas: ' + fmtMM(ctx.parsed.y); },
-            afterLabel:function(ctx){ return ctx.dataIndex === 5 ? 'YTD Ene–Jul 2026' : null; }
+            label:function(ctx){ return 'Ventas acumuladas: ' + fmtMM(ctx.parsed.x); },
+            afterLabel:function(ctx){ return ctx.dataIndex === 5 ? 'YTD Ene–Ago 2026' : null; }
           }
         }
       },
       scales:{
-        x:{grid:{display:false}, border:{display:false}, ticks:{font:{size:10}, color:'#94a3b8'}},
-        y:{grid:{color:'rgba(10,10,30,.05)'}, border:{display:false},
-           ticks:{font:{size:10}, color:'#94a3b8', callback:function(v){return '$'+v+'MM';}}}
+        /* Holgura del ~16% sobre el maximo para que la cifra quepa a la DERECHA de
+           la barra mas larga sin agrandar la card. Es solo tope de eje: no toca
+           datos y se recalcula al filtrar segmento. */
+        x:{grid:{color:'rgba(10,10,30,.04)'}, border:{display:false},
+           afterDataLimits:function(sc){ if(sc.max > 0) sc.max = sc.max * 1.16; },
+           ticks:{font:{size:10}, color:'#94a3b8', callback:function(v){return '$'+v+'MM';}}},
+        y:{grid:{display:false}, border:{display:false},
+           ticks:{color:'#94a3b8', padding:4,
+             font:function(c){ return {size:10, weight: c.index === 5 ? '800' : '600'}; }}}
       }
     }
   });
@@ -668,16 +1153,20 @@ if (_elMAP) {
       labels: VT_YR_LBL_YTD,
       datasets:[{
         data: _mgnCloseArr,
-        backgroundColor: VT_YR_CFG.map(function(c){ return c.c; }),
-        borderRadius:{topLeft:0,topRight:10,bottomLeft:0,bottomRight:10},
+        _baseColors: VT_YR_CFG.map(function(c){ return c.c; }),
+        backgroundColor: _vtBarFill(VT_YR_CFG.map(function(c){ return c.c; }), false),
+        hoverBackgroundColor: _vtBarFill(VT_YR_CFG.map(function(c){ return _vtLighten(c.c,.12); }), false),
+        borderRadius:{topLeft:0,topRight:9,bottomLeft:0,bottomRight:9},
         borderSkipped:false,
-        barThickness:20,
-        categoryPercentage:0.7
+        maxBarThickness:28,
+        barPercentage:0.72,
+        categoryPercentage:0.8
       }]
     },
     options:{
       responsive:true, maintainAspectRatio:false, indexAxis:'y',
-      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      animation:{duration:650, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      animations:{colors:{duration:0}},
       plugins:{
         legend:{display:false},
         tooltip:{
@@ -695,20 +1184,24 @@ if (_elMAP) {
         }
       },
       scales:{
-        x:{min:0, max:22, grid:{color:'rgba(10,10,30,.05)'}, border:{display:false},
+        x:{min:0, max:22, grid:{color:'rgba(10,10,30,.04)'}, border:{display:false},
            ticks:{font:{size:10}, color:'#94a3b8', callback:function(v){return v+'%';}}},
-        y:{grid:{display:false}, border:{display:false}}
+        y:{grid:{display:false}, border:{display:false},
+           ticks:{color:'#94a3b8', padding:4,
+             font:function(c){ return {size:10, weight: c.index === 5 ? '800' : '600'}; }}}
       }
     },
     plugins:[{
       id:'metaLine18',
       afterDraw:function(chart){
         var xs = chart.scales.x, x = xs.getPixelForValue(18), c2 = chart.ctx;
-        c2.save(); c2.strokeStyle = '#D85A30'; c2.lineWidth = 1.5; c2.setLineDash([4,3]);
+        c2.save(); c2.strokeStyle = '#EF9F27'; c2.lineWidth = 1.5; c2.setLineDash([4,3]);
         c2.beginPath(); c2.moveTo(x, chart.chartArea.top); c2.lineTo(x, chart.chartArea.bottom); c2.stroke();
         c2.restore();
       }
-    }, window._sheenPlugin]
+    }, _vtBarTrack({id:'MAP', r:9}), window._sheenPlugin,
+    /* Este grafico trabaja en % de margen, no en importe: se etiqueta el % */
+    _vtBarLabels({outside:true, ink:'#3d4a6a', fmt:function(v){ return v.toFixed(2)+'%'; }})]
   });
 }
 
@@ -773,43 +1266,179 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
 
 /* Paleta fija — tab "Análisis de Ventas" (Estacionalidad, Refrigerante, Tipo de Venta)
    Reutiliza exactamente los tonos ya validados en Ventas 2026/Evolución (VT_YR_CFG) y Pipeline
-   (PIPE_ESTADO_COLOR): navy, celeste/azul, turquesa brand, plomos y ámbar/coral como acento. */
+   (PIPE_ESTADO_COLOR): navy, celeste/azul, turquesa brand, plomos y ámbar como acento.
+   `violeta` es el único tono añadido — se usa como cuarta familia categórica y
+   toma el valor ya documentado en la guía de diseño para el Objetivo 4. */
 var AV_COLOR = {
-  navy:'#1E3A5F', azul:'#4FA8E0', turquesa:'#3EC6AC',
+  navy:'#1E3A5F', azul:'#4FA8E0', turquesa:'#3EC6AC', violeta:'#8B7CF0',
   slate:'#7B98B2', slate2:'#9AAEC2', plomo:'#AAB6C9', amber:'#D97706', coral:'#D85A30'
 };
+
+/* Referencias a los gráficos de la pestaña — las usa el relanzador de entrada */
+var _chSeasAvg = null, _chSeasQ = null, _chRef = null, _chTcv = null;
+
+/* ── Lenguaje común de los gráficos de esta pestaña ──────────────────────────
+   Barras horizontales finas sobre un track suave, sin rejilla ni ejes: la
+   lectura la dan el label (izquierda) y la cifra (derecha). Los helpers de
+   abajo son puramente de dibujo; no tocan datos, escalas ni tooltips. */
+var AV_BAR_H   = 9;                       /* grosor de barra (px)            */
+var AV_TRACK   = 'rgba(10,10,30,.045)';   /* track de fondo                  */
+var AV_LBL_PAD = 46;                      /* carril reservado a la cifra (px)*/
+
+/* Cifra alineada a la derecha del carril, fuera del área del gráfico.
+
+   ENTRADA — barrido de izquierda a derecha: una vez que las barras terminan de
+   crecer, cada total se revela progresivamente recortando su propio ancho de
+   texto (clip que avanza de izquierda a derecha) con un fundido corto encima.
+   Las filas entran escalonadas de arriba abajo para que se lea como secuencia
+   y no como un parpadeo simultáneo. Solo pinta texto: no toca datos ni escalas. */
+var _AV_SWEEP = 340;   /* duración del barrido por cifra (ms) */
+var _AV_STAG  = 30;    /* escalonado entre filas (ms)         */
+
+function _avValueRight(opt){
+  opt = opt || {};
+  var FAM = "'Inter','Segoe UI',sans-serif";
+  return {
+    id:'avValueRight'+(opt.id||''),
+    afterUpdate:function(chart, args){
+      if (args && args.mode === 'resize') return;
+      chart.$avVR = {t0:null, raf:0};
+    },
+    afterDatasetsDraw:function(chart){
+      var area = chart.chartArea;
+      if (!area || typeof opt.fmt !== 'function') return;
+      var meta = chart.getDatasetMeta(opt.ds || 0);
+      if (!meta || meta.hidden || !meta.data) return;
+      var ctx = chart.ctx;
+      var st = chart.$avVR || (chart.$avVR = {t0:null, raf:0});
+      var now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+      if (st.t0 === null) st.t0 = now;
+
+      /* El barrido arranca cuando la barra ya cerró su animación */
+      var an = (chart.options && chart.options.animation) || {};
+      var wait = (typeof an.duration === 'number' ? an.duration : 900) + _VT_LBL_LAG;
+      var elapsed = now - st.t0 - wait;
+      var pending = false;
+
+      ctx.save();
+      ctx.textAlign = 'right';
+      ctx.textBaseline = opt.baseline || 'middle';
+      ctx.font = '800 ' + (opt.size || 11.5) + 'px ' + FAM;
+      ctx.fillStyle = opt.color || '#0a0a1e';
+
+      var xr = chart.width - (opt.right !== undefined ? opt.right : 2);
+      meta.data.forEach(function(bar, i){
+        var txt = opt.fmt(chart.data.datasets[opt.ds || 0].data[i], i);
+        if (!txt) return;
+        var y = bar.getProps(['y'], true).y + (opt.dy || 0);
+
+        if (_vtReduceMotion) { ctx.fillText(txt, xr, y); return; }
+
+        var t = elapsed - i * _AV_STAG;
+        if (t <= 0) { pending = true; return; }            /* aún no le toca */
+        var prog = Math.min(1, t / _AV_SWEEP);
+        if (prog < 1) pending = true;
+        var e = 1 - Math.pow(1 - prog, 3);                 /* ease-out, sin rebote */
+
+        if (e >= 1) { ctx.fillText(txt, xr, y); return; }  /* ya revelada */
+
+        /* Ventana de revelado sobre el ancho real de la cifra */
+        var w = ctx.measureText(txt).width;
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(xr - w - 1, 0, w * e + 1, chart.height);
+        ctx.clip();
+        ctx.globalAlpha = Math.min(1, prog * 3);           /* opaca ya al inicio */
+        ctx.fillText(txt, xr, y);
+        ctx.restore();
+      });
+      ctx.restore();
+
+      if (pending && !st.raf) {
+        st.raf = requestAnimationFrame(function(){ st.raf = 0; if (chart.ctx) chart.draw(); });
+      }
+    }
+  };
+}
+
+/* Rótulo de fila a la izquierda del carril (sustituye al eje Y para poder
+   controlar alineación y jerarquía: título arriba, contexto debajo). */
+function _avRowLabels(opt){
+  opt = opt || {};
+  var FAM = "'Inter','Segoe UI',sans-serif";
+  return {
+    id:'avRowLabels'+(opt.id||''),
+    afterDatasetsDraw:function(chart){
+      var meta = chart.getDatasetMeta(0);
+      if (!meta || !meta.data || !chart.chartArea) return;
+      var ctx = chart.ctx;
+      ctx.save();
+      ctx.textAlign = 'left';
+      meta.data.forEach(function(bar, i){
+        var p = bar.getProps(['y'], true);
+        var top = opt.top ? opt.top(i) : null;
+        var sub = opt.sub ? opt.sub(i) : null;
+        if (top) {
+          ctx.font = '800 ' + (opt.topSize || 12) + 'px ' + FAM;
+          ctx.fillStyle = (opt.topColor ? opt.topColor(i) : '#0a0a1e');
+          ctx.textBaseline = 'alphabetic';
+          ctx.fillText(top, 0, p.y + (opt.topDy !== undefined ? opt.topDy : -14));
+        }
+        if (sub) {
+          ctx.font = '600 ' + (opt.subSize || 9.5) + 'px ' + FAM;
+          ctx.fillStyle = opt.subColor || '#94a3b8';
+          ctx.textBaseline = 'top';
+          ctx.fillText(sub, 0, p.y + (opt.subDy !== undefined ? opt.subDy : 12));
+        }
+      });
+      ctx.restore();
+    }
+  };
+}
 
 /* === Estacionalidad promedio: barras horizontales === */
 (function(){
   var el = document.getElementById('chSeasAvg');
   if (!el) return;
-  /* Paleta corporativa fría (navy, celeste/azul, turquesa, plomos) con acentos cálidos
-     reservados a los meses de mayor peso del año (Abr–May, pico en mayo) */
-  var cols = [
-    AV_COLOR.navy, AV_COLOR.azul, AV_COLOR.turquesa, AV_COLOR.amber, AV_COLOR.coral, AV_COLOR.slate2,
-    AV_COLOR.turquesa, AV_COLOR.plomo, AV_COLOR.azul, AV_COLOR.slate, AV_COLOR.navy, AV_COLOR.slate2
-  ];
-  new Chart(el, {
+  /* Temporada alta (Mar–Jun) en celeste protagonista; el resto del año en azul
+     grisáceo de menor intensidad, para que el patrón se lea de un vistazo. */
+  var cols = SEAS_PCT.map(function(_, i){
+    return (i >= 2 && i <= 5) ? AV_COLOR.azul : AV_COLOR.slate2;
+  });
+  _chSeasAvg = new Chart(el, {
     type:'bar',
     data:{
       labels:meses,
       datasets:[{
         data:SEAS_PCT,
         backgroundColor:cols,
-        borderRadius:4,
-        barPercentage:0.72
+        hoverBackgroundColor:cols.map(function(c){ return _vtLighten(c,.12); }),
+        _baseColors:cols,
+        borderRadius:5,
+        borderSkipped:false,
+        barThickness:AV_BAR_H,
+        maxBarThickness:AV_BAR_H
       }]
     },
-    plugins:[window._sheenPlugin],
+    /* La barra mide el % del año; ese mismo % se ancla a la derecha del carril.
+       El importe promedio del mes sigue disponible en el tooltip. */
+    plugins:[
+      _vtBarTrack({id:'SA', r:5, color:AV_TRACK}),
+      window._sheenPlugin,
+      _avValueRight({id:'SA', fmt:function(v){ return v.toFixed(1)+'%'; }})
+    ],
     options:{
       indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      layout:{padding:{right:AV_LBL_PAD, left:0, top:2, bottom:2}},
+      animation:{duration:820, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:false},
         tooltip:{
-          backgroundColor:'rgba(10,10,30,.92)',padding:10,cornerRadius:8,
-          titleColor:'#c4cbe4',bodyColor:'#fff',
+          backgroundColor:'rgba(9,12,30,.96)',padding:{top:10,bottom:10,left:13,right:13},
+          cornerRadius:10,borderColor:'rgba(79,168,224,.30)',borderWidth:1,
+          titleColor:'rgba(255,255,255,.45)',titleFont:{size:9.5,weight:'700'},
+          bodyColor:'rgba(255,255,255,.88)',displayColors:false,
           callbacks:{
             label:function(ctx){
               var pct = ctx.parsed.x;
@@ -821,59 +1450,82 @@ var AV_COLOR = {
         }
       },
       scales:{
-        x:{grid:{color:'rgba(10,10,30,.05)'},border:{display:false},max:22,
-           ticks:{font:{size:10},color:'#94a3b8',callback:function(v){return v+'%';}}},
-        y:{grid:{display:false},border:{display:false},
-           ticks:{font:{size:11,weight:'600'},color:'#3d4a6a'}}
+        /* Sin rejilla ni eje: el carril lo define el track de cada barra */
+        x:{display:false, grid:{display:false}, border:{display:false}, min:0, max:21},
+        y:{grid:{display:false}, border:{display:false},
+           afterFit:function(s){ s.width = 42; },
+           ticks:{font:{size:11,weight:'600'},color:'#3d4a6a',
+                  crossAlign:'far',padding:0,autoSkip:false}}
       }
     }
   });
 })();
 
-/* === Concentración trimestral: barras verticales === */
+/* === Concentración trimestral: cuatro filas ejecutivas (Q · % · meses) === */
 (function(){
   var el = document.getElementById('chSeasQ');
   if (!el) return;
-  /* Mismos 4 colores y mismo orden que "Análisis por Tipo de Venta" */
+  /* Una familia cromática por trimestre: teal, celeste, violeta y ámbar */
   var qVals = [24.7,43.1,17.8,14.3];
-  var qCols = ['#3EC6AC','#4FA8E0','#AAB6C9','#D97706'];
-  new Chart(el, {
+  var qCols = [AV_COLOR.turquesa, AV_COLOR.azul, AV_COLOR.violeta, AV_COLOR.amber];
+  var qMes  = ['Ene–Mar','Abr–Jun','Jul–Sep','Oct–Dic'];
+  _chSeasQ = new Chart(el, {
     type:'bar',
     data:{
       labels:['Q1','Q2','Q3','Q4'],
       datasets:[{
         data:qVals,
         backgroundColor:qCols,
-        borderRadius:7,
-        barPercentage:0.65
+        hoverBackgroundColor:qCols.map(function(c){ return _vtLighten(c,.12); }),
+        _baseColors:qCols,
+        borderRadius:5,
+        borderSkipped:false,
+        barThickness:AV_BAR_H,
+        maxBarThickness:AV_BAR_H
       }]
     },
-    plugins:[window._sheenPlugin],
+    /* El eje se reemplaza por rótulos propios: "Qn" en el color del trimestre,
+       el % anclado a la derecha y el rango de meses como línea secundaria. */
+    plugins:[
+      _vtBarTrack({id:'SQ', r:5, color:AV_TRACK}),
+      window._sheenPlugin,
+      _avRowLabels({id:'SQ',
+        top:function(i){ return 'Q'+(i+1); },
+        topColor:function(i){ return qCols[i]; },
+        topSize:13, topDy:-16,
+        sub:function(i){ return qMes[i]; },
+        subSize:10, subDy:13
+      }),
+      _avValueRight({id:'SQ', size:13, dy:-16, baseline:'alphabetic',
+        fmt:function(v){ return v.toFixed(1)+'%'; }})
+    ],
     options:{
+      indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      layout:{padding:{top:20, bottom:16, right:0, left:0}},
+      animation:{duration:820, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:false},
         tooltip:{
-          backgroundColor:'rgba(10,10,30,.92)',padding:10,cornerRadius:8,
-          titleColor:'#c4cbe4',bodyColor:'#fff',
+          backgroundColor:'rgba(9,12,30,.96)',padding:{top:10,bottom:10,left:13,right:13},
+          cornerRadius:10,borderColor:'rgba(79,168,224,.30)',borderWidth:1,
+          titleColor:'rgba(255,255,255,.45)',titleFont:{size:9.5,weight:'700'},
+          bodyColor:'rgba(255,255,255,.88)',displayColors:false,
           callbacks:{
             title:function(items){
-              var lbls=['Ene–Mar','Abr–Jun','Jul–Sep','Oct–Dic'];
-              return 'Q'+(items[0].dataIndex+1)+' · '+lbls[items[0].dataIndex];
+              return 'Q'+(items[0].dataIndex+1)+' · '+qMes[items[0].dataIndex];
             },
             label:function(ctx){
               var tags=['Normal','▲ Pico','Normal','▼ Valle'];
-              return ctx.parsed.y.toFixed(1)+'% del año  ·  '+tags[ctx.dataIndex];
+              return ctx.parsed.x.toFixed(1)+'% del año  ·  '+tags[ctx.dataIndex];
             }
           }
         }
       },
       scales:{
-        x:{grid:{display:false},border:{display:false},
-           ticks:{font:{size:13,weight:'800'},color:'#0a0a1e'}},
-        y:{grid:{color:'rgba(10,10,30,.05)'},border:{display:false},max:50,
-           ticks:{font:{size:10},color:'#94a3b8',callback:function(v){return v+'%';}}}
+        x:{display:false, grid:{display:false}, border:{display:false}, min:0, max:46},
+        y:{display:false, grid:{display:false}, border:{display:false},
+           afterFit:function(s){ s.width = 0; }}
       }
     }
   });
@@ -894,34 +1546,56 @@ var AV_COLOR = {
   var V_TOTAL     = V_FREON_IMP.map(function(v,i){return Math.round((v+V_OTROS_IMP[i])*100)/100;});
   var V_FREON_PCT = V_FREON_IMP.map(function(v,i){return Math.round(v/V_TOTAL[i]*10000)/100;});
   var V_OTROS_PCT = V_OTROS_IMP.map(function(v,i){return Math.round(v/V_TOTAL[i]*10000)/100;});
+  var REF_YRS     = ['2021','2022','2023','2024','2025','2026'];
 
+  /* Mismo lenguaje horizontal que Estacionalidad: una fila por año, barras
+     finas, sin rejilla ni eje de porcentaje. Se conservan las dos series y su
+     agrupación (100% apilado por año); solo cambia la orientación y el estilo. */
   _chRef = new Chart(el, {
     type:'bar',
     data:{
-      labels:['2021','2022','2023','2024','2025','2026'],
+      labels:REF_YRS,
       datasets:[
-        {label:'Freón', data:V_FREON_PCT, backgroundColor:'#3EC6AC',
-          borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0}, stack:'r',
-          borderColor:'rgba(255,255,255,.1)', borderWidth:1},
-        {label:'Otros', data:V_OTROS_PCT, backgroundColor:'#1E3A5F',
-          borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0}, stack:'r',
-          borderColor:'rgba(255,255,255,.1)', borderWidth:1}
+        {label:'Freón', data:V_FREON_PCT, backgroundColor:AV_COLOR.azul,
+          hoverBackgroundColor:_vtLighten(AV_COLOR.azul,.12),
+          borderRadius:{topLeft:5,bottomLeft:5,topRight:0,bottomRight:0}, stack:'r',
+          borderSkipped:false, barThickness:11, maxBarThickness:11},
+        {label:'Otros', data:V_OTROS_PCT, backgroundColor:AV_COLOR.turquesa,
+          hoverBackgroundColor:_vtLighten(AV_COLOR.turquesa,.12),
+          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'r',
+          borderSkipped:false, barThickness:11, maxBarThickness:11}
       ]
     },
-    plugins:[window._sheenPlugin],
+    /* Mismo esquema de fila que "Concentración por trimestre": el año a la
+       izquierda y el total facturado del año a la derecha, ambos sobre la
+       barra. El desglose % de cada serie queda en la leyenda y el tooltip. */
+    plugins:[
+      window._sheenPlugin,
+      _avRowLabels({id:'RF',
+        top:function(i){ return REF_YRS[i]; },
+        topColor:function(){ return '#3d4a6a'; },
+        topSize:11.5, topDy:-13
+      }),
+      _avValueRight({id:'RF', size:12.5, dy:-13, baseline:'alphabetic', right:3,
+        fmt:function(_, i){ return fmtEjecutivo(V_TOTAL[i] * 1e6); }})
+    ],
     options:{
+      indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      layout:{padding:{right:3, left:0, top:18, bottom:4}},
+      animation:{duration:820, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
-        legend:{display:true,position:'bottom',labels:{boxWidth:9,font:{size:10},padding:12,color:'#7b8db0'}},
+        legend:{display:true,position:'bottom',
+          labels:{boxWidth:9,boxHeight:9,font:{size:10},padding:14,color:'#94a3b8',
+                  usePointStyle:true,pointStyle:'rectRounded'}},
         tooltip:{
           mode:'index',intersect:false,
-          backgroundColor:'rgba(9,12,30,.95)',
+          backgroundColor:'rgba(9,12,30,.96)',
           padding:{top:11,bottom:11,left:13,right:13},
           cornerRadius:10,
-          borderColor:'rgba(62,198,172,.25)',borderWidth:1,
-          titleColor:'rgba(255,255,255,.4)',titleFont:{size:9.5,weight:'700'},
-          bodyColor:'rgba(255,255,255,.82)',
+          borderColor:'rgba(79,168,224,.30)',borderWidth:1,
+          titleColor:'rgba(255,255,255,.45)',titleFont:{size:9.5,weight:'700'},
+          bodyColor:'rgba(255,255,255,.88)',
           callbacks:{
             label:function(ctx){
               var i=ctx.dataIndex;
@@ -934,9 +1608,10 @@ var AV_COLOR = {
         }
       },
       scales:{
-        x:{stacked:true,grid:{display:false},border:{display:false},ticks:{font:{size:10},color:'#94a3b8'}},
-        y:{stacked:true,max:100,grid:{color:'rgba(10,10,30,.05)'},border:{display:false},
-           ticks:{font:{size:10},color:'#94a3b8',callback:function(v){return v+'%';}}}
+        x:{stacked:true, display:false, max:100, grid:{display:false}, border:{display:false}},
+        /* El eje se sustituye por los rótulos propios sobre cada barra */
+        y:{stacked:true, display:false, grid:{display:false}, border:{display:false},
+           afterFit:function(s){ s.width = 0; }}
       }
     }
   });
@@ -946,27 +1621,54 @@ var AV_COLOR = {
 (function(){
   var el = document.getElementById('chTcv');
   if (!el) return;
-  var TCV_COLOR = {PR:'#3EC6AC', AD:'#4FA8E0', VSA:'#AAB6C9', VSI:'#D97706'};
+  /* PR protagonista en celeste; VSI turquesa, VSA violeta y AD ámbar cierran
+     la familia categórica de la pestaña. Series, orden y datos sin cambios. */
+  var TCV_COLOR = {PR:AV_COLOR.azul, AD:AV_COLOR.amber, VSA:AV_COLOR.violeta, VSI:AV_COLOR.turquesa};
   var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VSA:'V. servicio arquitectura', VSI:'V. servicio de ingeniería'};
-  new Chart(el, {
+  var TCV_YRS   = ['2021','2022','2023','2024','2025','2026'];
+  /* Total facturado del año = suma de los cuatro tramos ya representados */
+  var TCV_TOT   = TCV_YRS.map(function(_, i){
+    return TCV_MONTO.PR[i] + TCV_MONTO.AD[i] + TCV_MONTO.VSA[i] + TCV_MONTO.VSI[i];
+  });
+  _chTcv = new Chart(el, {
     type:'bar',
     data:{
-      labels:['2021','2022','2023','2024','2025','2026'],
+      labels:TCV_YRS,
       datasets:[
-        {label:'PR',  data:TCV_PCT.PR,  backgroundColor:TCV_COLOR.PR,  borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
-        {label:'AD',  data:TCV_PCT.AD,  backgroundColor:TCV_COLOR.AD,  borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
-        {label:'VSA', data:TCV_PCT.VSA, backgroundColor:TCV_COLOR.VSA, borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1},
-        {label:'VSI', data:TCV_PCT.VSI, backgroundColor:TCV_COLOR.VSI, borderRadius:3, stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1}
+        {label:'PR',  data:TCV_PCT.PR,  backgroundColor:TCV_COLOR.PR,  hoverBackgroundColor:_vtLighten(TCV_COLOR.PR,.12),
+          borderRadius:{topLeft:5,bottomLeft:5,topRight:0,bottomRight:0}, stack:'t', borderSkipped:false, barThickness:11, maxBarThickness:11},
+        /* El cierre redondeado va en los tres tramos de cola: el último con
+           valor > 0 cambia según el año y así el extremo derecho nunca queda
+           cortado en recto. */
+        {label:'AD',  data:TCV_PCT.AD,  backgroundColor:TCV_COLOR.AD,  hoverBackgroundColor:_vtLighten(TCV_COLOR.AD,.12),
+          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:11, maxBarThickness:11},
+        {label:'VSA', data:TCV_PCT.VSA, backgroundColor:TCV_COLOR.VSA, hoverBackgroundColor:_vtLighten(TCV_COLOR.VSA,.12),
+          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:11, maxBarThickness:11},
+        {label:'VSI', data:TCV_PCT.VSI, backgroundColor:TCV_COLOR.VSI, hoverBackgroundColor:_vtLighten(TCV_COLOR.VSI,.12),
+          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:11, maxBarThickness:11}
       ]
     },
-    plugins:[window._sheenPlugin],
+    /* Mismo esquema de fila que "Concentración por trimestre" y Refrigerante:
+       año a la izquierda y total facturado del año a la derecha, sobre la barra. */
+    plugins:[
+      window._sheenPlugin,
+      _avRowLabels({id:'TC',
+        top:function(i){ return TCV_YRS[i]; },
+        topColor:function(){ return '#3d4a6a'; },
+        topSize:11.5, topDy:-13
+      }),
+      _avValueRight({id:'TC', size:12.5, dy:-13, baseline:'alphabetic', right:3,
+        fmt:function(_, i){ return fmtEjecutivo(TCV_TOT[i]); }})
+    ],
     options:{
+      indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      layout:{padding:{right:3, left:0, top:18, bottom:4}},
+      animation:{duration:820, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         /* Leyenda visible sin abrir modal — nombres completos, compacta y alineada */
         legend:{display:true,position:'bottom',
-          labels:{boxWidth:9,boxHeight:9,font:{size:10},padding:12,color:'#7b8db0',usePointStyle:true,pointStyle:'rectRounded',
+          labels:{boxWidth:9,boxHeight:9,font:{size:10},padding:14,color:'#94a3b8',usePointStyle:true,pointStyle:'rectRounded',
             generateLabels:function(chart){
               var items=Chart.defaults.plugins.legend.labels.generateLabels(chart);
               items.forEach(function(item){item.text=TCV_NAME[item.text]||item.text;});
@@ -974,25 +1676,26 @@ var AV_COLOR = {
             }}},
         tooltip:{
           mode:'index',intersect:false,
-          backgroundColor:'rgba(9,12,30,.95)',padding:{top:11,bottom:11,left:13,right:13},
-          cornerRadius:10,borderColor:'rgba(62,198,172,.25)',borderWidth:1,
-          titleColor:'rgba(255,255,255,.4)',titleFont:{size:9.5,weight:'700'},
-          bodyColor:'rgba(255,255,255,.82)',
+          backgroundColor:'rgba(9,12,30,.96)',padding:{top:11,bottom:11,left:13,right:13},
+          cornerRadius:10,borderColor:'rgba(79,168,224,.30)',borderWidth:1,
+          titleColor:'rgba(255,255,255,.45)',titleFont:{size:9.5,weight:'700'},
+          bodyColor:'rgba(255,255,255,.88)',
           callbacks:{
             label:function(ctx){
               var key = ctx.dataset.label;
               var idx = ctx.dataIndex;
               var arr = TCV_MONTO[key];
               var m = arr?arr[idx]:0;
-              return TCV_NAME[key]+': '+ctx.parsed.y.toFixed(2)+'%  ('+fmtEjecutivo(m)+')';
+              return TCV_NAME[key]+': '+ctx.parsed.x.toFixed(2)+'%  ('+fmtEjecutivo(m)+')';
             }
           }
         }
       },
       scales:{
-        x:{stacked:true,grid:{display:false},border:{display:false},ticks:{font:{size:10},color:'#94a3b8'}},
-        y:{stacked:true,max:101,grid:{color:'rgba(10,10,30,.05)'},border:{display:false},
-           ticks:{font:{size:10},color:'#94a3b8',callback:function(v){return v+'%';}}}
+        x:{stacked:true, display:false, max:101, grid:{display:false}, border:{display:false}},
+        /* El eje se sustituye por los rótulos propios sobre cada barra */
+        y:{stacked:true, display:false, grid:{display:false}, border:{display:false},
+           afterFit:function(s){ s.width = 0; }}
       }
     }
   });
@@ -1132,8 +1835,8 @@ function _vtTableV(data) {
     fmtMM(m21[i]),fmtMM(m22[i]),fmtMM(m23[i]),fmtMM(m24[i]),fmtMM(m25[i]),
     m26[i]!=null?fmtMM(m26[i]):'—'];});
   var foot=['Total año',fmtMM(data[21][11]),fmtMM(data[22][11]),fmtMM(data[23][11]),
-    fmtMM(data[24][11]),fmtMM(data[25][11]),'$29.10MM *'];
-  return tbl(head,rows,foot)+'<div class="mnote">* 2026 enero&ndash;julio. Valores mensuales de venta. Total = suma del a&ntilde;o.</div>';
+    fmtMM(data[24][11]),fmtMM(data[25][11]),'$30.01MM *'];
+  return tbl(head,rows,foot)+'<div class="mnote">* 2026 enero&ndash;agosto. Valores mensuales de venta. Total = suma del a&ntilde;o.</div>';
 }
 
 /* ── Cumulative table for margen ── */
@@ -1146,7 +1849,7 @@ function _vtTableM(data) {
   var close26 = _vtYearClose(data[26]);
   var foot=['Cierre año',fmtPct(data[21][11]),fmtPct(data[22][11]),fmtPct(data[23][11]),
     fmtPct(data[24][11]),fmtPct(data[25][11]),fmtPct(close26)+' *'];
-  return tbl(head,rows,foot)+'<div class="mnote">* 2026 hasta julio. Margen ponderado acumulado. Meta: 18.00%.</div>';
+  return tbl(head,rows,foot)+'<div class="mnote">* 2026 hasta agosto. Margen ponderado acumulado. Meta: 18.00%.</div>';
 }
 
 function openVtVentas() {
@@ -1162,7 +1865,9 @@ function openVtVentas() {
       el.style.width='100%'; el.style.height='100%';
       el.dataset.vtFmt = 'mm'; /* formatter for external tooltip */
       _mci=new Chart(el,{type:'line',data:{labels:meses,datasets:_vtDs(data)},
+        plugins:[window._vtLineGlow, window._vtLineLabels],
         options:{..._vtSharedOpts,
+          animation:{duration:650, easing:'easeOutQuart'},
           scales:{..._vtSharedOpts.scales,
             y:{..._vtSharedOpts.scales.y, ticks:{..._vtSharedOpts.scales.y.ticks,
               callback:function(v){return '$'+v+'MM';}}}}
@@ -1182,7 +1887,9 @@ function openVtMargen() {
       el.style.width='100%'; el.style.height='100%';
       el.dataset.vtFmt = 'pct'; /* formatter for external tooltip */
       _mci=new Chart(el,{type:'line',data:{labels:meses,datasets:_vtDs(data)},
+        plugins:[window._vtLineGlow, window._vtLineLabels],
         options:{..._vtSharedOpts,
+          animation:{duration:650, easing:'easeOutQuart'},
           scales:{..._vtSharedOpts.scales,
             y:{..._vtSharedOpts.scales.y, min:8, max:20,
               ticks:{..._vtSharedOpts.scales.y.ticks, callback:function(v){return v+'%';}}}}
@@ -1255,8 +1962,8 @@ function openAD3Ref() {
       if(_mci){_mci.destroy();_mci=null;}
       _mci=new Chart(el,{type:'bar',
         data:{labels:['2021','2022','2023','2024','2025','2026'],datasets:[
-          {label:'Fre\xf3n',data:V_FREON_PCT,backgroundColor:'#3EC6AC',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'},
-          {label:'Otros',   data:V_OTROS_PCT,backgroundColor:'#1E3A5F',borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'}
+          {label:'Fre\xf3n',data:V_FREON_PCT,backgroundColor:AV_COLOR.azul,borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'},
+          {label:'Otros',   data:V_OTROS_PCT,backgroundColor:AV_COLOR.turquesa,borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'}
         ]},
         options:{responsive:true,maintainAspectRatio:false,
           animation:{duration:900,easing:'easeInOutQuart'},
@@ -1315,7 +2022,7 @@ function openAD3Tcv() {
       var el=document.getElementById('_mcanvas3tcv');
       if(!el)return;
       if(_mci){_mci.destroy();_mci=null;}
-      var TCV_COLOR = {PR:'#3EC6AC', AD:'#4FA8E0', VSA:'#AAB6C9', VSI:'#D97706'};
+      var TCV_COLOR = {PR:AV_COLOR.azul, AD:AV_COLOR.amber, VSA:AV_COLOR.violeta, VSI:AV_COLOR.turquesa};
       var TCV_NAME  = {PR:'Proyecto', AD:'Adicional', VSA:'V. servicio arquitectura', VSI:'V. servicio de ingeniería'};
       _mci=new Chart(el,{type:'bar',
         data:{labels:['2021','2022','2023','2024','2025','2026'],datasets:[
@@ -1613,6 +2320,15 @@ function openZonaMgn() {
    HERO VENTAS — animación barra de progreso (re-dispara cada visita)
    ============================================================ */
 window._animVtHero = function(){
+  /* Entrada progresiva del header: métrica principal → barra de meta → KPIs */
+  var hero = document.querySelector('#ventas .vt-hero');
+  if(hero){
+    hero.classList.remove('vt-anim');
+    void hero.offsetWidth;                 /* reflow: permite re-disparar la secuencia */
+    hero.classList.add('vt-anim');
+  }
+  /* Re-encajar el Top 20 a la altura disponible al mostrarse la vista */
+  if(window._refitTop20) window._refitTop20();
   var fill = document.getElementById('vtHeroFill');
   if(!fill) return;
   /* Resetear instantáneamente a 0 */
@@ -1622,7 +2338,7 @@ window._animVtHero = function(){
   requestAnimationFrame(function(){
     requestAnimationFrame(function(){
       fill.style.transition = 'width 1.1s cubic-bezier(.4,0,.2,1)';
-      fill.style.width = '96.99%';
+      fill.style.width = '100%'; /* avance 100.04% — la barra se muestra completa */
     });
   });
 };
@@ -1676,11 +2392,11 @@ window._animVtHero = function(){
     ctx2.textAlign='center'; ctx2.textBaseline='middle';
     /* % de importe — dato principal */
     ctx2.fillStyle=d.c2;
-    ctx2.font='900 '+Math.min(r*0.185,22)+'px Inter,sans-serif';
+    ctx2.font='900 '+Math.min(r*0.205,32)+'px Inter,sans-serif';
     ctx2.fillText(d.pctImp.toFixed(2)+'%',cx,cy-gap*1.05);
     /* Nombre completo del tipo — envuelto en hasta 2 líneas si es largo */
     ctx2.fillStyle='#7b8db0';
-    ctx2.font='700 '+Math.min(r*0.07,9.5)+'px Inter,sans-serif';
+    ctx2.font='700 '+Math.min(r*0.075,11.5)+'px Inter,sans-serif';
     var words=d.lbl.split(' '), lines=[], cur='';
     var maxW=w*0.78;
     words.forEach(function(word){
@@ -1805,7 +2521,7 @@ window._animVtHero = function(){
   /* Ordenar de mayor a menor por importe */
   var rows=[].concat(ventas2026).sort(function(a,b){return b.imp-a.imp;});
   var PG=15, pg=0, sc=-1, sa=true, q='';
-  var MES_ORD={Ene:1,Feb:2,Mar:3,Abr:4,May:5,Jun:6,Jul:7};
+  var MES_ORD={Ene:1,Feb:2,Mar:3,Abr:4,May:5,Jun:6,Jul:7,Ago:8};
 
   var fmt = fmtEjecutivo;
   function mgCls(v){return v>=18?'mg-ok':v>=12?'mg-warn':'mg-crit';}
@@ -1886,3 +2602,540 @@ window._animVtHero = function(){
   renderTable();
 })();
 
+
+
+/* ============================================================
+   RITMO 2026 — barras mensuales + acumulado + trayectoria de meta
+   Fuente: ZMON.total[26] (facturacion mensual) y VC[26] (acumulado MM).
+   No recalcula KPIs: solo visualiza los datos ya existentes.
+   ============================================================ */
+window._vtRitmoChart = null;
+
+window._initVtRitmo = function(){
+  if(window._vtRitmoChart) return true;
+  var el = document.getElementById('chRitmo26');
+  if(!el || typeof Chart === 'undefined') return false;
+
+  var box = el.parentNode;
+  if(!box || !box.clientHeight || !box.clientWidth) return false;   /* aún sin layout: se reintenta */
+
+  var old = Chart.getChart(el);
+  if(old) old.destroy();
+
+  try {
+    var META_ANUAL = 30;                       /* US$ MM — meta anual 2026 */
+    var mensual = ZMON.total[26].map(function(v,i){ return i < 8 ? +(v/1e6).toFixed(4) : null; });
+    var acum    = VC[26].slice();
+    var metaLin = meses.map(function(_,i){ return +(META_ANUAL*(i+1)/12).toFixed(2); });
+
+    /* Último mes con dato y mes pico — derivados de las series ya existentes */
+    var lastIdx = 0;
+    acum.forEach(function(v,i){ if(v !== null && v !== undefined) lastIdx = i; });
+    var peakIdx = 0, peakVal = -1;
+    mensual.forEach(function(v,i){ if(v !== null && v > peakVal){ peakVal = v; peakIdx = i; } });
+
+    var BAR_A = '#6FB3EC', BAR_B = '#2C6FBF';
+    var PEAK_A = '#F6C27A', PEAK_B = '#D98A16';
+    var ACUM_C = '#3EC6AC', META_C = '#EF9F27';
+
+    function vGrad(chart, c1, c2){
+      var a = chart.chartArea;
+      if(!a) return c1;
+      var g = chart.ctx.createLinearGradient(0, a.top, 0, a.bottom);
+      g.addColorStop(0, c1); g.addColorStop(1, c2);
+      return g;
+    }
+    function fMM(v){ return '$' + Number(v).toFixed(2) + 'MM'; }
+    function fCompact(vMM){
+      var n = vMM * 1e6;
+      if(n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
+      if(n >= 1e3) return '$' + Math.round(n/1e3) + 'K';
+      return '$' + Math.round(n);
+    }
+
+    /* Montos sobre cada barra — entran DESPUÉS de barras y líneas */
+    var LBL_STAGGER = 45, LBL_DUR = 280;
+    var barLabels = {
+      id: 'vtRitmoBarLabels',
+      afterDatasetsDraw: function(chart){
+        if(chart.$lblT0 === undefined) return;
+        var meta = chart.getDatasetMeta(0);
+        if(!meta || !meta.data || !meta.data.length) return;
+        var now = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+        var c = chart.ctx, a = chart.chartArea, pending = false;
+        c.save();
+        c.textAlign = 'center'; c.textBaseline = 'bottom';
+        meta.data.forEach(function(bar, i){
+          var v = mensual[i];
+          if(v === null || v === undefined) return;
+          var t = (now - chart.$lblT0 - i * LBL_STAGGER) / LBL_DUR;
+          if(t < 0){ pending = true; return; }
+          if(t < 1) pending = true;
+          var e = 1 - Math.pow(1 - Math.min(1, t), 3);
+          var w = bar.width || 30;
+          var fsz = w < 30 ? 8.5 : (w < 40 ? 9.5 : 10.5);
+          var y = Math.max(bar.y - 7 - (1 - e) * 6, a.top + fsz + 2);
+          c.globalAlpha = e;
+          c.font = '800 ' + fsz + 'px Inter, sans-serif';
+          c.lineWidth = 3; c.lineJoin = 'round';
+          c.strokeStyle = 'rgba(255,255,255,.92)';
+          c.strokeText(fCompact(v), bar.x, y);
+          c.fillStyle = (i === peakIdx) ? '#B26A06' : '#1F4E86';
+          c.fillText(fCompact(v), bar.x, y);
+        });
+        c.restore();
+        if(pending) requestAnimationFrame(function(){ if(chart.ctx) chart.draw(); });
+      }
+    };
+
+    /* Callout flotante sobre el último punto acumulado */
+    var calloutPlugin = {
+      id: 'vtRitmoCallout',
+      afterDatasetsDraw: function(chart){
+        var meta = chart.getDatasetMeta(1);
+        if(!meta || !meta.data || !meta.data[lastIdx]) return;
+        var pt = meta.data[lastIdx];
+        var a = chart.chartArea, c = chart.ctx;
+        var txt = meses[lastIdx] + '  ·  ' + fMM(acum[lastIdx]);
+        c.save();
+        c.font = '800 12px Inter, sans-serif';
+        var w = c.measureText(txt).width + 22, h = 26;
+        var x = Math.min(Math.max(pt.x - w/2, a.left), a.right - w);
+        var y = Math.max(pt.y - h - 16, 2);
+        c.beginPath();
+        if(c.roundRect) c.roundRect(x, y, w, h, 8); else c.rect(x, y, w, h);
+        c.fillStyle = 'rgba(10,10,30,.94)';
+        c.shadowColor = 'rgba(10,10,30,.28)'; c.shadowBlur = 12; c.shadowOffsetY = 3;
+        c.fill();
+        c.shadowColor = 'transparent'; c.shadowBlur = 0; c.shadowOffsetY = 0;
+        c.strokeStyle = 'rgba(62,198,172,.45)'; c.lineWidth = 1; c.stroke();
+        c.beginPath(); c.moveTo(pt.x, y + h); c.lineTo(pt.x, pt.y - 7);
+        c.strokeStyle = 'rgba(62,198,172,.4)'; c.setLineDash([3,3]); c.stroke(); c.setLineDash([]);
+        c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle';
+        c.fillText(txt, x + w/2, y + h/2 + 0.5);
+        c.restore();
+      }
+    };
+
+    /* Profundidad: sombra proyectada en barras y halo en el acumulado */
+    var glowFx = {
+      id: 'vtRitmoGlow',
+      beforeDatasetDraw: function(chart, args){
+        var c = chart.ctx;
+        if(args.index === 0){ c.save(); c.shadowColor = 'rgba(31,78,134,.26)'; c.shadowBlur = 11; c.shadowOffsetY = 5; }
+        else if(args.index === 1){ c.save(); c.shadowColor = 'rgba(62,198,172,.5)'; c.shadowBlur = 15; c.shadowOffsetY = 1; }
+      },
+      afterDatasetDraw: function(chart, args){
+        if(args.index === 0 || args.index === 1) chart.ctx.restore();
+      }
+    };
+
+    /* Etiqueta de la trayectoria de meta, al final de la linea discontinua */
+    var metaTag = {
+      id: 'vtRitmoMetaTag',
+      afterDatasetsDraw: function(chart){
+        var m = chart.getDatasetMeta(2);
+        if(!m || !m.data || !m.data.length) return;
+        var pt = m.data[m.data.length - 1];
+        var c = chart.ctx;
+        c.save();
+        c.font = '800 9.5px Inter, sans-serif';
+        c.textAlign = 'right'; c.textBaseline = 'bottom';
+        c.lineWidth = 3; c.lineJoin = 'round';
+        c.strokeStyle = 'rgba(255,255,255,.92)';
+        c.strokeText('META $30MM', pt.x - 1, pt.y - 9);
+        c.fillStyle = META_C;
+        c.fillText('META $30MM', pt.x - 1, pt.y - 9);
+        c.restore();
+      }
+    };
+
+    /* Realce suave de la columna bajo el cursor */
+    var hoverBand = {
+      id: 'vtRitmoBand',
+      beforeDatasetsDraw: function(chart){
+        var act = (chart.tooltip && chart.tooltip.getActiveElements) ? chart.tooltip.getActiveElements() : [];
+        if(!act.length || !act[0].element) return;
+        var x = act[0].element.x, a = chart.chartArea, c = chart.ctx;
+        var bw = (a.right - a.left) / 12 * 0.72;
+        c.save();
+        c.fillStyle = 'rgba(62,198,172,.06)';
+        c.fillRect(x - bw/2, a.top, bw, a.bottom - a.top);
+        c.restore();
+      }
+    };
+
+    var reduce = !!_vtReduceMotion;
+
+    window._vtRitmoChart = new Chart(el.getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: meses,
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Facturado mensual',
+            data: mensual,
+            yAxisID: 'y',
+            order: 3,
+            backgroundColor: function(ctx){
+              return ctx.dataIndex === peakIdx
+                ? vGrad(ctx.chart, PEAK_A, PEAK_B)
+                : vGrad(ctx.chart, BAR_A, BAR_B);
+            },
+            hoverBackgroundColor: function(ctx){
+              return ctx.dataIndex === peakIdx
+                ? vGrad(ctx.chart, '#FBD9A4', PEAK_B)
+                : vGrad(ctx.chart, '#8CC6F3', BAR_B);
+            },
+            borderRadius: 7,
+            borderSkipped: false,
+            maxBarThickness: 38,
+            categoryPercentage: 0.62,
+            barPercentage: 0.74
+          },
+          {
+            type: 'line',
+            label: 'Acumulado',
+            data: acum,
+            yAxisID: 'y1',
+            order: 1,
+            borderColor: ACUM_C,
+            backgroundColor: 'rgba(62,198,172,.10)',
+            borderWidth: 3.4,
+            tension: 0.34,
+            spanGaps: false,
+            fill: true,
+            pointRadius: 4,
+            pointHoverRadius: 6.5,
+            pointBackgroundColor: '#ffffff',
+            pointBorderColor: ACUM_C,
+            pointBorderWidth: 2.2
+          },
+          {
+            type: 'line',
+            label: 'Meta lineal $30MM',
+            data: metaLin,
+            yAxisID: 'y1',
+            order: 2,
+            borderColor: META_C,
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderWidth: 2,
+            borderDash: [7,6],
+            tension: 0,
+            fill: false,
+            pointRadius: 0,
+            pointHoverRadius: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+          duration: reduce ? 0 : 800,
+          easing: 'easeOutQuart',
+          onComplete: function(a){
+            var ch = (a && a.chart) || window._vtRitmoChart;
+            if(!ch || ch.$lblT0 !== undefined) return;
+            ch.$lblT0 = (typeof performance !== 'undefined' ? performance.now() : Date.now()) + (reduce ? 0 : 140);
+            ch.draw();
+          }
+        },
+        interaction: { mode: 'index', intersect: false },
+        layout: { padding: { top: 42, right: 8, left: 2, bottom: 2 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(9,12,30,.95)',
+            padding: { top: 10, bottom: 10, left: 13, right: 13 },
+            cornerRadius: 10,
+            borderColor: 'rgba(62,198,172,.25)', borderWidth: 1,
+            titleColor: 'rgba(255,255,255,.45)', titleFont: { size: 9.5, weight: '700' },
+            bodyColor: 'rgba(255,255,255,.88)', bodyFont: { size: 11.5, weight: '600' },
+            displayColors: true, boxWidth: 8, boxHeight: 8, boxPadding: 4, usePointStyle: true,
+            callbacks: {
+              title: function(items){ return (items && items[0] ? items[0].label : '') + ' 2026'; },
+              label: function(ctx){
+                if(ctx.parsed.y === null || ctx.parsed.y === undefined) return null;
+                return ' ' + ctx.dataset.label + ': ' + fMM(ctx.parsed.y);
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#7b8db0', font: { size: 11, weight: '600' }, padding: 6 }
+          },
+          y: {
+            position: 'left',
+            beginAtZero: true,
+            grid: { color: 'rgba(226,232,244,.6)', drawTicks: false, lineWidth: 1 },
+            title: { display: true, text: 'MENSUAL · MM', color: '#b3c0d6', font: { size: 9, weight: '700' } },
+            ticks: { color: '#b3c0d6', font: { size: 10, weight: '600' }, padding: 8, maxTicksLimit: 6,
+              callback: function(v){ return '$' + v; } }
+          },
+          y1: {
+            position: 'right',
+            beginAtZero: true,
+            suggestedMax: 32,
+            grid: { display: false },
+            title: { display: true, text: 'ACUMULADO · MM', color: '#b3c0d6', font: { size: 9, weight: '700' } },
+            ticks: { color: '#b3c0d6', font: { size: 10, weight: '600' }, padding: 8, maxTicksLimit: 5,
+              callback: function(v){ return '$' + v; } }
+          }
+        }
+      },
+      plugins: [hoverBand, glowFx, barLabels, metaTag, calloutPlugin]
+    });
+    return true;
+  } catch(err){
+    if(window.console && console.error) console.error('[Ritmo 2026]', err);
+    window._vtRitmoChart = null;
+    return false;
+  }
+};
+
+/* Arranque robusto: reintenta hasta que el canvas tenga layout real */
+(function(){
+  var tries = 0, timer = null;
+  function pump(){
+    if(window._initVtRitmo()){ clearInterval(timer); timer = null; return; }
+    if(++tries > 60){ clearInterval(timer); timer = null; }
+  }
+  window._pumpVtRitmo = function(){
+    if(window._vtRitmoChart || timer) return;
+    tries = 0;
+    pump();
+    if(!window._vtRitmoChart) timer = setInterval(pump, 200);
+  };
+
+  var prev = window._animVtHero;
+  window._animVtHero = function(){
+    if(typeof prev === 'function') prev();
+    window._pumpVtRitmo();
+  };
+
+  function boot(){
+    window._pumpVtRitmo();
+    var sec = document.getElementById('ventas');
+    if(sec && sec.classList.contains('active') && window._animVtHero) window._animVtHero();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else setTimeout(boot, 60);
+
+  /* También al pulsar la pestaña Ventas o sus tabs internos */
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    if(!t || !t.closest) return;
+    if(t.closest('.tab[data-s="ventas"]') || t.closest('#vtTabs .vt-tab-btn')){
+      setTimeout(function(){ window._pumpVtRitmo(); if(window._refitTop20) window._refitTop20(); }, 120);
+    }
+  }, true);
+})();
+
+
+/* ============================================================
+   EVOLUCIÓN DE VENTAS — mini hero interno
+   Bloque izquierdo (contexto): estático, no se toca desde aquí.
+   Bloque derecho (3 KPIs): se recalcula con el segmentador a partir
+   de _vtEffData()/_vtEffMargin() — la misma base filtrada que alimenta
+   los 4 gráficos del grid. No introduce cifras nuevas.
+   ============================================================ */
+function _vtTxt(id, html){
+  var el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+
+function _vtEvolKpis(){
+  if (!document.getElementById('vtEvKpis')) return;
+
+  var data  = _vtEffData();
+  var mdata = _vtEffMargin();
+  var a26 = data[26] || [];
+
+  /* Último mes con dato en 2026 = corte del periodo */
+  var idx = -1;
+  for (var i = a26.length - 1; i >= 0; i--) {
+    if (a26[i] !== null && a26[i] !== undefined) { idx = i; break; }
+  }
+  if (idx < 0) return;
+
+  var per = 'Ene–' + meses[idx];
+  var v26 = a26[idx];
+  var v25 = (data[25] && data[25][idx] !== null && data[25][idx] !== undefined) ? data[25][idx] : null;
+  var mg  = _vtYearClose(mdata[26]);
+
+  /* KPI 1 — venta acumulada del periodo */
+  _vtTxt('vtEvKv1', '$' + v26.toFixed(2) + '<span class="vt-ev-ku">MM</span>');
+  _vtTxt('vtEvKl1', per + ' 2026');
+
+  /* KPI 2 — comparativo vs mismo periodo del año anterior */
+  var k2   = document.getElementById('vtEvKv2');
+  var card = k2 ? k2.parentNode : null;
+  if (v25 !== null && v25 !== 0) {
+    var d = (v26 / v25 - 1) * 100;
+    if (card) card.classList.toggle('is-dn', d < 0);
+    _vtTxt('vtEvKv2', (d >= 0 ? '+' : '−') + Math.abs(d).toFixed(1) + '%');
+    _vtTxt('vtEvKl2', 'vs ' + per + ' 2025');
+    _vtTxt('vtEvKs2', fmtMM(v25) + ' → ' + fmtMM(v26));
+  } else {
+    if (card) card.classList.remove('is-dn');
+    _vtTxt('vtEvKv2', '—');
+    _vtTxt('vtEvKl2', 'vs ' + per + ' 2025');
+    _vtTxt('vtEvKs2', 'Sin base comparable');
+  }
+
+  /* KPI 3 — margen ponderado acumulado */
+  if (mg !== null && mg !== undefined) {
+    var diff = mg - 18;
+    _vtTxt('vtEvKv3', mg.toFixed(2) + '%');
+    _vtTxt('vtEvKs3', 'Meta 18% · ' + (diff >= 0 ? '+' : '−') + Math.abs(diff).toFixed(2) + ' pp');
+    var s3 = document.getElementById('vtEvKs3');
+    if (s3) s3.style.color = diff >= 0 ? '#0F6E56' : '#C2410C';
+  }
+}
+
+/* Entrada escalonada del mini hero + grid (se re-dispara al volver al tab) */
+window._animVtEvolHero = function(){
+  var v = document.querySelector('#ventas .vt-view[data-vtview="evol"]');
+  if (!v) return;
+  v.classList.remove('vt-ev-anim');
+  void v.offsetWidth;                /* reflow: permite repetir la secuencia */
+  v.classList.add('vt-ev-anim');
+};
+
+(function(){
+  var tabs = document.getElementById('vtTabs');
+  if (tabs) {
+    tabs.addEventListener('click', function(e){
+      var t = e.target.closest ? e.target.closest('.vt-tab-btn') : null;
+      if (!t || t.dataset.vtview !== 'evol') return;
+      setTimeout(function(){
+        window._animVtEvolHero();
+        [_chVA, _chMA, _chVAB, _chMAP].forEach(function(c){
+          if (c && window._triggerSheen) window._triggerSheen(c);
+        });
+      }, 40);
+    });
+  }
+  _vtEvolKpis();
+})();
+
+
+/* ============================================================
+   COMPOSICIÓN DE VENTAS 2026 — conmutador de vistas de la card
+   (solo presentación: no altera datos ni la lógica de las donas)
+   ============================================================ */
+(function(){
+  var bar = document.getElementById('vtCompTabs');
+  if(!bar) return;
+  var card = bar.closest('.vt-comp-card');
+  if(!card) return;
+
+  function resizeCanvas(id){
+    var el = document.getElementById(id);
+    if(!el || typeof Chart === 'undefined') return;
+    var ch = Chart.getChart(el);
+    if(ch) ch.resize();
+  }
+
+  function show(key){
+    [].slice.call(bar.querySelectorAll('.vt-comp-tab')).forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-comp') === key);
+    });
+    [].slice.call(card.querySelectorAll('.vt-comp-pane')).forEach(function(pane){
+      pane.classList.toggle('active', pane.getAttribute('data-comp') === key);
+    });
+    /* el canvas oculto no tiene medidas: se reajusta al mostrarse */
+    setTimeout(function(){
+      resizeCanvas(key === 'cli' ? 'chTop10Dona' : 'chTipoVenta');
+    }, 40);
+  }
+
+  bar.addEventListener('click', function(e){
+    var b = e.target.closest('.vt-comp-tab');
+    if(!b || !b.getAttribute('data-comp')) return;
+    show(b.getAttribute('data-comp'));
+  });
+
+  /* Al entrar a Ventas, reajustar la dona visible */
+  var prevAnim = window._animVtHero;
+  window._animVtHero = function(){
+    if(typeof prevAnim === 'function') prevAnim();
+    setTimeout(function(){
+      var act = card.querySelector('.vt-comp-pane.active');
+      var key = act ? act.getAttribute('data-comp') : 'cli';
+      resizeCanvas(key === 'cli' ? 'chTop10Dona' : 'chTipoVenta');
+    }, 120);
+  };
+})();
+
+
+/* ============================================================
+   ANÁLISIS DE VENTAS — secuencia de entrada (card → gráfico → valores)
+   Se relanza cada vez que el usuario entra a la subvista, no solo en la carga
+   inicial: se observa la clase `active` del panel de Ventas y de la propia
+   vista, de modo que cubre tanto el cambio de tab interno como el regreso a
+   la sección desde otro módulo. Capa puramente visual: no toca datos ni lógica.
+   ============================================================ */
+(function(){
+  var view = document.querySelector('#ventas .vt-view[data-vtview="analisis"]');
+  var sec  = document.getElementById('ventas');
+  if (!view || !sec) return;
+
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var CICLO = 1500;               /* duración total de la secuencia (ms) */
+  var clearT = 0, lastRun = 0;
+
+  function isVisible(){
+    return sec.classList.contains('active') && view.classList.contains('active');
+  }
+
+  function replay(){
+    if (!isVisible()) return;
+    var now = Date.now();
+    if (now - lastRun < CICLO) return;   /* ya hay una secuencia en curso */
+    lastRun = now;
+
+    /* Reinicio del ciclo CSS: quitar la clase, forzar reflow y volver a ponerla */
+    view.classList.remove('av-in');
+    if (!reduce) {
+      void view.offsetWidth;
+      view.classList.add('av-in');
+    }
+
+    /* Los gráficos vuelven a crecer desde cero, en fase con las cards */
+    [_chSeasAvg, _chSeasQ, _chRef, _chTcv].forEach(function(ch){
+      if (!ch || !ch.ctx) return;
+      try { ch.reset(); ch.update(); } catch(e) { /* gráfico aún no creado */ }
+    });
+
+    /* Al terminar se retira la clase: el fill-mode de la animación no debe
+       quedar fijando transform y bloquear el hover de cards y celdas. */
+    clearTimeout(clearT);
+    clearT = setTimeout(function(){
+      view.classList.remove('av-in');
+    }, reduce ? 0 : CICLO - 100);
+  }
+
+  /* El canvas oculto no tiene medidas: se relanza tras el resize que dispara
+     el propio cambio de tab, para que las barras midan bien desde el arranque. */
+  function schedule(){ setTimeout(replay, 90); }
+
+  /* Solo interesa la transición oculto → visible. Añadir y quitar `av-in`
+     también muta la clase de la vista, pero no cambia su visibilidad, de modo
+     que la secuencia nunca se realimenta a sí misma. */
+  var wasVisible = false;
+  function onMutate(){
+    var vis = isVisible();
+    if (vis && !wasVisible) { wasVisible = true; schedule(); }
+    else if (!vis) { wasVisible = false; }
+  }
+
+  new MutationObserver(onMutate).observe(view, {attributes:true, attributeFilter:['class']});
+  new MutationObserver(onMutate).observe(sec,  {attributes:true, attributeFilter:['class']});
+
+  onMutate();
+})();

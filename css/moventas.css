@@ -1,259 +1,417 @@
+/* ════════════════════════════════════════════════════════════════
+   MANO DE OBRA · Productividad Operativa  —  prefijo mo5-
+   Hero oscuro institucional + KPIs de alto impacto + superficies
+   claras para la lectura de datos. Misma familia visual que
+   Ventas / Forecast / Clientes.
+   Acento por unidad vía --mo-a / --mo-a2 (data-unit en #moventas).
+   ════════════════════════════════════════════════════════════════ */
+
+#moventas{--mo-a:#3EC6AC;--mo-a2:#0F6E56;--mo-aw:rgba(62,198,172,.14)}
+#moventas[data-unit="arq"]{--mo-a:#5B9DFF;--mo-a2:#1E4FA8;--mo-aw:rgba(91,157,255,.14)}
 
 
-/* Mano de Obra — panel ejecutivo único (sin contenedores anidados) */
-.mo4-panel{
-  position:relative;overflow:hidden;border-radius:12px;
-  background:linear-gradient(90deg,#061430 0%,#0c2454 55%,#061430 100%);
-  border:1px solid rgba(62,198,172,.15);
-  padding:clamp(20px,2.4vw,32px) clamp(20px,2.6vw,36px);
+/* ══ 1 · HERO ══════════════════════════════════════════════════ */
+.mo5-hero{
+  border-radius:18px;padding:22px 26px;margin-bottom:16px;
+  background:linear-gradient(135deg,#050f27 0%,#0c2454 52%,#071a3c 100%);
+  position:relative;overflow:hidden;
+  border:1px solid var(--mo-aw);
+  box-shadow:0 10px 34px rgba(10,10,30,.2);
+  transition:border-color .45s ease
 }
 
 
-.mo4-bg{
-  position:absolute;inset:0;z-index:0;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  opacity:.05;filter:saturate(.85)
+.mo5-hero::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--mo-aw) 1px,transparent 1px),linear-gradient(90deg,var(--mo-aw) 1px,transparent 1px);
+  background-size:52px 52px;opacity:.5;transition:background-image .45s ease
 }
 
 
-.mo4-grid{
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(62,198,172,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(62,198,172,.045) 1px,transparent 1px);
-  background-size:52px 52px
+.mo5-hero::after{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 14% 42%,var(--mo-aw) 0%,transparent 52%),
+             radial-gradient(ellipse at 88% 92%,rgba(44,111,191,.2) 0%,transparent 55%);
+  transition:background .45s ease
 }
 
 
-.mo4-glow{
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 55% 70% at 8% 8%,rgba(62,198,172,.13) 0%,transparent 68%)
+.mo5-hero-glow{
+  position:absolute;inset:-30% -40%;z-index:0;pointer-events:none;opacity:0;
+  background:linear-gradient(100deg,transparent 34%,rgba(125,211,252,.2) 46%,var(--mo-aw) 53%,transparent 66%)
 }
 
 
-.mo4-in{position:relative;z-index:1}
+.mo5-hero.mo5-anim .mo5-hero-glow{animation:mo5Sweep 1.1s cubic-bezier(.35,0,.25,1) .05s both}
 
 
-
-/* ── Header: eyebrow + título + sub (izq) / tabs (der) ─────── */
-.mo4-head{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
-  flex-wrap:wrap;margin-bottom:clamp(22px,2.6vw,30px)
+@keyframes mo5Sweep{
+  0%{opacity:0;transform:translateX(-38%)}
+  22%{opacity:1}
+  78%{opacity:1}
+  100%{opacity:0;transform:translateX(38%)}
 }
 
 
-.mo4-head-text{min-width:0}
+.mo5-hero-in{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 
 
-.mo4-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:#3EC6AC;margin-bottom:7px}
+.mo5-hero-left{min-width:0;position:relative;padding-left:15px}
 
 
-.mo4-title{font-size:clamp(20px,2vw,28px);font-weight:800;color:#fff;line-height:1.18;letter-spacing:-.2px;margin-bottom:6px}
-
-
-.mo4-sub{font-size:13px;color:rgba(255,255,255,.55);font-weight:500;line-height:1.5}
-
-
-.mo3-tabs{
-  display:flex;gap:4px;padding:4px;flex:none;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:11px
+.mo5-hero-left::before{
+  content:'';position:absolute;left:0;top:3px;bottom:3px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,#7dd3fc 0%,var(--mo-a) 100%);
+  box-shadow:0 0 14px var(--mo-a);transition:background .45s ease,box-shadow .45s ease
 }
 
 
-.mo3-tab-btn{
-  padding:8.5px 18px;border-radius:8px;font-size:12.5px;font-weight:700;letter-spacing:.2px;
-  color:rgba(255,255,255,.55);cursor:pointer;user-select:none;white-space:nowrap;text-align:center;
-  transition:color .18s ease,background .18s ease,transform .15s ease
+.mo5-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.9px;color:rgba(255,255,255,.44);margin-bottom:6px}
+
+
+.mo5-h{font-size:clamp(22px,2.05vw,32px);font-weight:900;color:#fff;line-height:1.08;letter-spacing:-.9px;text-shadow:0 2px 22px rgba(125,211,252,.22)}
+
+
+.mo5-scope{font-size:11px;font-weight:500;color:rgba(255,255,255,.45);margin-top:7px;letter-spacing:.2px}
+
+
+.mo5-hero-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0}
+
+
+.mo5-hchip{
+  display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.6px;
+  text-transform:uppercase;color:rgba(255,255,255,.86);padding:8px 15px;border-radius:20px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07)
 }
 
 
-.mo3-tab-btn:not(.active):hover{color:rgba(255,255,255,.85)}
+.mo5-hchip-dot{width:6px;height:6px;border-radius:50%;background:var(--mo-a);box-shadow:0 0 9px var(--mo-a);flex-shrink:0;transition:background .45s ease,box-shadow .45s ease}
 
 
-.mo3-tab-btn.active{background:#3EC6AC;color:#06261f;box-shadow:0 4px 14px rgba(62,198,172,.3)}
-
-
-.mo3-tab-btn:active{transform:scale(.97)}
-
-@media(max-width:640px) {
-.mo4-head{gap:14px}
-.mo3-tabs{width:100%}
-.mo3-tab-btn{flex:1}
+/* Segmentado Comercial / Arquitectura — indicador deslizante */
+.mo5-seg{
+  position:relative;display:flex;gap:2px;padding:4px;flex:none;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06)
 }
 
 
-
-/* ── Tabs internos (contenido que alterna Comercial/Arquitectura) ── */
-.mo3-view{display:none}
-
-
-.mo3-view.active{display:block;animation:fadeUp .35s ease}
-
-@media(prefers-reduced-motion:reduce) {
-.mo3-view.active{animation:none}
+.mo5-seg-ink{
+  position:absolute;top:4px;bottom:4px;left:0;width:0;border-radius:9px;z-index:0;opacity:0;
+  background:linear-gradient(145deg,var(--mo-a) 0%,var(--mo-a2) 100%);
+  box-shadow:0 4px 16px var(--mo-aw),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .34s cubic-bezier(.4,0,.2,1),width .34s cubic-bezier(.4,0,.2,1),background .34s ease,opacity .2s ease
 }
 
 
-
-/* ── Fila de KPIs — plana, separadores finos, sin cards ─────── */
-.mo4-kpirow{display:flex;align-items:stretch}
-
-
-.mo4-kpi{flex:1;padding:0 clamp(16px,2vw,28px);position:relative}
-
-
-.mo4-kpi:first-child{padding-left:0}
-
-
-.mo4-kpi:last-child{padding-right:0}
-
-
-.mo4-kpi:not(:last-child)::after{
-  content:'';position:absolute;top:4px;bottom:4px;right:0;width:1px;
-  background:rgba(255,255,255,.1)
+.mo5-seg-btn{
+  position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:9px 20px;border-radius:9px;font-size:12.5px;font-weight:700;letter-spacing:.3px;
+  color:rgba(255,255,255,.55);white-space:nowrap;user-select:none;
+  transition:color .22s ease,transform .18s ease;min-height:38px
 }
 
 
-.mo4-kpi-lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:rgba(255,255,255,.42);margin-bottom:11px}
+.mo5-seg-btn:not(.active):hover{color:rgba(255,255,255,.9)}
+.mo5-seg-btn.active{color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.3)}
+.mo5-seg-btn:active{transform:scale(.97)}
+.mo5-seg-ico{font-size:14px;line-height:1}
 
 
-.mo4-kpi-val{
-  font-size:clamp(24px,2.6vw,34px);font-weight:800;color:#fff;line-height:1;
-  font-variant-numeric:tabular-nums;margin-bottom:8px;transition:color .2s ease
-}
-
-
-.mo4-kpi:hover .mo4-kpi-val{color:var(--mo4-a,#3EC6AC)}
-
-
-.mo4-kpi-ctx{font-size:12px;color:rgba(255,255,255,.48);font-weight:500}
-
-
-.mo4-up{color:#3EC6AC;font-weight:700}
-
-@media(max-width:640px) {
-.mo4-kpirow{flex-direction:column;gap:16px}
-.mo4-kpi{padding:0 0 14px;border-bottom:1px solid rgba(255,255,255,.08)}
-.mo4-kpi:not(:last-child)::after{display:none}
-.mo4-kpi:last-child{padding-bottom:0;border-bottom:none}
+@media(max-width:760px){
+  .mo5-hero{padding:18px;border-radius:16px}
+  .mo5-hero-right{width:100%}
+  .mo5-seg{flex:1}
+  .mo5-seg-btn{flex:1}
 }
 
 
 
-/* ── Divisor entre KPIs y tabla ───────────────────────────── */
-.mo4-divider{height:1px;background:rgba(255,255,255,.09);margin:clamp(18px,2vw,24px) 0}
+/* ══ 2 · KPI cards — acabado ejecutivo tipo Ventas 2026 ═════════
+   Card con gradiente de color y profundidad (mismo lenguaje que
+   .vt-kpi de Ventas): icono en chip translúcido, label uppercase,
+   valor protagonista pero proporcionado y contexto/delta al pie.
+   La primera card hereda el acento de la unidad activa (teal en
+   Comercial, azul en Arquitectura); las otras tres usan acentos
+   propios de Mano de Obra, distintos de la paleta de Ventas.
+   Ocupan en 2×2 el espacio del gráfico que había antes, ajustadas
+   en altura a la card "Venta por colaborador" de al lado.         */
+.mo5-kcards{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;min-width:0}
 
 
-
-/* ── Etiqueta de sección activa (reemplaza header de card) ──── */
-.mo4-tag{
-  display:flex;align-items:center;gap:8px;margin-bottom:14px;
-  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--mo4-a,#3EC6AC)
+.mo5-kcard{
+  position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;min-height:0;
+  border-radius:15px;padding:16px 18px 15px;border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(145deg,var(--acc) 0%,var(--acc-d) 100%);
+  box-shadow:0 6px 18px rgba(var(--acc-sh),.28),inset 0 1px 0 rgba(255,255,255,.15);
+  opacity:0;animation:mo5KcIn .4s cubic-bezier(.4,0,.2,1) both;
+  transition:transform .22s cubic-bezier(.4,0,.2,1),box-shadow .22s ease
 }
 
 
-.mo4-dot{width:6px;height:6px;border-radius:50%;background:var(--mo4-a,#3EC6AC);flex:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--mo4-a,#3EC6AC) 18%,transparent)}
-
-
-
-/* ── Tabla — directa sobre el panel, sin card blanco ─────────── */
-.mo4-table{width:100%}
-
-
-.mo4-trow{
-  display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr 1fr .9fr;
-  align-items:center;gap:14px;padding:19px 14px;
-  border-bottom:1px solid rgba(255,255,255,.07);
-  border-radius:10px;
-  transition:background .2s ease
+/* Brillo superior — mismo volumen suave que las KPI de Ventas */
+.mo5-kcard::before{
+  content:'';position:absolute;z-index:-1;top:-58%;right:-26%;width:76%;height:128%;
+  border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.2) 0%,transparent 66%)
+}
+.mo5-kcard::after{
+  content:'';position:absolute;z-index:-1;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.05) 0%,transparent 42%,rgba(0,0,0,.08) 100%)
 }
 
 
-.mo4-trow:last-child{border-bottom:none}
+.mo5-kcard:hover{transform:translateY(-3px);
+  box-shadow:0 14px 32px rgba(var(--acc-sh),.34),inset 0 1px 0 rgba(255,255,255,.22)}
 
 
-.mo4-trow.mo4-thead{padding-left:14px;padding-right:14px}
+.mo5-kcards .mo5-kcard:nth-child(1){animation-delay:.04s}
+.mo5-kcards .mo5-kcard:nth-child(2){animation-delay:.09s}
+.mo5-kcards .mo5-kcard:nth-child(3){animation-delay:.14s}
+.mo5-kcards .mo5-kcard:nth-child(4){animation-delay:.19s}
 
 
-.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover{background:rgba(255,255,255,.045)}
+@keyframes mo5KcIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 
-.mo4-thead{padding-top:0;padding-bottom:16px}
-
-
-.mo4-thead .mo4-tcol{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.4);text-align:right;line-height:1.5}
-
-
-.mo4-thead .mo4-tcol span{display:block;font-size:12px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.3)}
-
-
-.mo4-thead .mo4-tcol.mo4-hl,.mo4-thead .mo4-tcol.mo4-hl span{color:var(--mo4-a,#3EC6AC)}
-
-
-.mo4-tlbl{font-size:16px;font-weight:600;color:rgba(255,255,255,.72);transition:color .2s ease,transform .2s ease}
-
-
-.mo4-tcell{
-  font-size:20px;font-weight:600;color:rgba(255,255,255,.92);text-align:right;
-  font-variant-numeric:tabular-nums;transition:transform .2s ease,color .2s ease
+.mo5-kc-ico{
+  display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;
+  border-radius:8px;font-size:13px;line-height:1;margin-bottom:10px;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2)
 }
 
 
-.mo4-tcell.mo4-hl{color:#fff;font-weight:700}
-
-
-.mo4-trow.mo4-lead .mo4-tcell.mo4-hl{color:var(--mo4-a,#3EC6AC)}
-
-
-.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover{transform:scale(1.008)}
-
-
-.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover .mo4-tlbl{color:#fff;transform:translateX(3px)}
-
-
-.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover .mo4-tcell{transform:scale(1.07);color:#fff}
-
-
-.mo4-trow:not(.mo4-thead):not(.mo4-tmain):hover .mo4-tcell.mo4-hl{transform:scale(1.12);color:var(--mo4-a,#3EC6AC)}
-
-
-.mo4-tmain{
-  margin-top:6px;padding:22px 14px 4px;border-top:1px solid color-mix(in srgb,var(--mo4-a,#3EC6AC) 45%,transparent);
-  border-bottom:none;transition:background .2s ease
+.mo5-kc-lbl{
+  font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;
+  color:rgba(255,255,255,.8);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
 }
 
 
-.mo4-tmain:hover{background:rgba(255,255,255,.035)}
+.mo5-kc-val{
+  font-size:clamp(21px,1.85vw,27px);font-weight:900;color:#fff;line-height:1.05;
+  letter-spacing:-.6px;margin-top:7px;font-variant-numeric:tabular-nums;white-space:nowrap;
+  text-shadow:0 2px 12px rgba(0,0,0,.16)
+}
+.mo5-kc-val .mo5-kc-u{font-size:.46em;font-weight:800;letter-spacing:0;opacity:.78;margin-left:3px}
 
 
-.mo4-tmain .mo4-tlbl{font-size:17.5px;font-weight:800;color:#fff;transition:transform .2s ease}
-
-
-.mo4-tmain .mo4-tcell{font-size:23px;font-weight:800;color:rgba(255,255,255,.92);transition:transform .2s ease,color .2s ease}
-
-
-.mo4-tmain .mo4-tcell.mo4-hl{font-size:27px;color:var(--mo4-a,#3EC6AC)}
-
-
-.mo4-tmain:hover .mo4-tlbl{transform:translateX(3px)}
-
-
-.mo4-tmain:hover .mo4-tcell{transform:scale(1.06);color:#fff}
-
-
-.mo4-tmain:hover .mo4-tcell.mo4-hl{transform:scale(1.06)}
-
-@media(max-width:640px) {
-.mo4-trow{grid-template-columns:1.4fr 1fr 1fr 1fr;gap:8px;padding:15px 10px}
-.mo4-trow > :nth-child(6){display:none}
-.mo4-tlbl{font-size:13px}
-.mo4-tcell{font-size:15px}
-.mo4-tmain .mo4-tlbl{font-size:14.5px}
-.mo4-tmain .mo4-tcell{font-size:18px}
-.mo4-tmain .mo4-tcell.mo4-hl{font-size:20px}
+.mo5-kc-bar{height:4px;border-radius:3px;background:rgba(255,255,255,.24);overflow:hidden;margin-top:9px}
+.mo5-kc-bar i{
+  display:block;height:100%;width:0;border-radius:3px;background:#fff;
+  box-shadow:0 0 8px rgba(255,255,255,.55);
+  transition:width 1.2s cubic-bezier(.4,0,.2,1)
 }
 
 
-#moventas button:focus-visible,#moventas [tabindex]:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
-
-@media(prefers-reduced-motion:reduce) {
-  #moventas .mo4-panel,#moventas .mo3-view.active{transition:none!important;animation:none!important}
+.mo5-kc-ctx{
+  font-size:10px;font-weight:600;color:rgba(255,255,255,.76);line-height:1.4;margin-top:auto;padding-top:9px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
 }
+
+
+.mo5-kc-delta{font-weight:800;letter-spacing:.1px}
+.mo5-kc-delta.up{color:#bbf7d0}
+.mo5-kc-delta.dn{color:#fecaca}
+.mo5-kc-delta.flat{color:rgba(255,255,255,.6)}
+
+
+@media(max-width:600px){
+  .mo5-kcards{grid-template-columns:1fr}
+}
+
+
+
+/* ══ 3 · Superficies claras ════════════════════════════════════ */
+.mo5-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-bottom:16px;align-items:stretch}
+
+
+.mo5-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;
+  box-shadow:0 2px 14px rgba(10,10,30,.06);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;min-width:0;
+  transition:box-shadow .22s ease,border-color .22s ease
+}
+
+
+.mo5-card:hover{box-shadow:0 10px 30px rgba(10,10,30,.1);border-color:#d6e0ef}
+
+
+.mo5-card-h{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.mo5-chead{min-width:0;flex:1}
+.mo5-ct{font-size:15px;font-weight:800;color:var(--t);letter-spacing:-.2px;line-height:1.25}
+.mo5-cs{font-size:11px;font-weight:500;color:var(--ts);margin-top:4px;line-height:1.4}
+
+
+.mo5-tag{
+  display:inline-flex;align-items:center;gap:6px;flex:none;
+  font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+  padding:5px 11px;border-radius:20px;white-space:nowrap;
+  color:var(--mo-a2);background:var(--mo-aw);border:1px solid var(--mo-aw);
+  transition:color .35s ease,background .35s ease
+}
+.mo5-tag i{width:6px;height:6px;border-radius:50%;background:var(--mo-a);flex:none;transition:background .35s ease}
+
+
+
+
+/* ══ 5 · Board de productividad (barras por período) ═══════════ */
+.mo5-board{display:flex;flex-direction:column;justify-content:center;gap:2px;flex:1}
+
+
+.mo5-brow{
+  display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:12px;
+  padding:11px 10px;border-radius:10px;border-bottom:1px solid #f1f5f9;
+  transition:background .2s ease,transform .2s ease
+}
+.mo5-brow:last-of-type{border-bottom:none}
+.mo5-brow:hover{background:#f7faff;transform:translateX(2px)}
+
+
+.mo5-byr{font-size:12.5px;font-weight:800;color:var(--t);letter-spacing:.2px;line-height:1.2}
+.mo5-byr span{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#94a3b8;margin-top:3px}
+
+
+.mo5-btrack{position:relative;height:22px;border-radius:6px;background:#eef2f8;overflow:hidden}
+
+
+.mo5-bfill{
+  position:absolute;left:0;top:0;bottom:0;width:0;border-radius:6px;
+  background:linear-gradient(90deg,var(--bc2,#0F6E56) 0%,var(--bc,#3EC6AC) 100%);
+  transition:width 1.15s cubic-bezier(.4,0,.2,1)
+}
+
+
+.mo5-bfill::after{
+  content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;opacity:0;
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.55) 50%,transparent 100%);
+  transform:skewX(-18deg);pointer-events:none
+}
+
+
+.mo5-bfill.sheen::after{opacity:1;animation:mo5Shine 1s .85s cubic-bezier(.4,0,.2,1) both}
+
+
+@keyframes mo5Shine{from{left:-60%}to{left:140%}}
+
+
+.mo5-bval{text-align:right;min-width:100px}
+.mo5-bnum{font-size:14.5px;font-weight:900;color:var(--t);font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+.mo5-bdelta{font-size:10px;font-weight:800;margin-top:3px;letter-spacing:.2px}
+.mo5-bdelta.up{color:#0F6E56}
+.mo5-bdelta.dn{color:#dc2626}
+.mo5-bdelta.flat{color:#94a3b8}
+
+
+.mo5-brow.is-proj .mo5-btrack{background:repeating-linear-gradient(135deg,#eef2f8 0 6px,#e7edf6 6px 12px)}
+.mo5-brow.is-best .mo5-bnum{color:var(--mo-a2)}
+
+
+.mo5-bfoot{
+  display:flex;align-items:center;gap:7px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);
+  font-size:11px;font-weight:600;color:var(--ts)
+}
+.mo5-bfoot b{color:var(--t);font-weight:800}
+
+
+
+/* ══ 6 · Cuadro comparativo (tabla clara) ══════════════════════ */
+/* min-width:0 evita que la tabla (min-width:680px) empuje el ancho del
+   panel en móvil: el scroll horizontal queda dentro del card.        */
+.mo5-tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;min-width:0;max-width:100%}
+
+
+.mo5-tbl{width:100%;border-collapse:collapse;min-width:680px}
+
+
+.mo5-tbl th{
+  background:var(--navy);color:rgba(255,255,255,.72);font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.9px;padding:11px 14px;text-align:right;white-space:nowrap
+}
+.mo5-tbl th:first-child{text-align:left;border-radius:10px 0 0 0}
+.mo5-tbl th:last-child{border-radius:0 10px 0 0}
+.mo5-tbl th.mo5-th-hl{color:var(--mo-a);transition:color .35s ease}
+.mo5-tbl th small{display:block;font-size:9px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.36);margin-top:3px}
+.mo5-tbl th.mo5-th-hl small{color:rgba(255,255,255,.5)}
+
+
+.mo5-tbl td{
+  padding:12px 14px;border-bottom:1px solid var(--border);font-size:13.5px;font-weight:600;
+  color:var(--tm);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;
+  transition:color .18s ease
+}
+
+
+.mo5-tbl td.mo5-ind{
+  text-align:left;font-size:13px;font-weight:700;color:var(--t);white-space:normal
+}
+
+
+.mo5-ind-in{display:flex;align-items:center;gap:9px}
+.mo5-dot{width:7px;height:7px;border-radius:2px;flex:none}
+
+
+.mo5-tbl tbody tr{transition:background .18s ease}
+.mo5-tbl tbody tr:hover{background:#f7faff}
+.mo5-tbl tbody tr:hover td{color:var(--t)}
+.mo5-tbl td.mo5-hl{color:var(--t);font-weight:800}
+
+
+/* Fila de cierre — productividad por colaborador */
+.mo5-tbl tr.mo5-key td{
+  background:#f7faff;border-top:2px solid var(--mo-a);border-bottom:none;
+  font-size:15px;font-weight:900;color:var(--t);padding-top:15px;padding-bottom:15px
+}
+.mo5-tbl tr.mo5-key td.mo5-ind{font-size:13px;font-weight:900}
+
+
+/* Badge de variación */
+.mo5-var{
+  display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;
+  font-size:11px;font-weight:800;letter-spacing:.2px;font-variant-numeric:tabular-nums
+}
+.mo5-var.up{color:#0F6E56;background:rgba(62,198,172,.14)}
+.mo5-var.dn{color:#dc2626;background:#fee2e2}
+.mo5-var.flat{color:#7b8db0;background:#eef2f8}
+
+
+
+/* ══ 7 · Nota de lectura ═══════════════════════════════════════ */
+.mo5-note{
+  display:flex;align-items:flex-start;gap:10px;margin-top:14px;padding:13px 16px;border-radius:11px;
+  background:#f7faff;border:1px solid var(--border);border-left:3px solid var(--mo-a);
+  font-size:12px;line-height:1.55;color:var(--tm);transition:border-left-color .35s ease
+}
+.mo5-note b{color:var(--t);font-weight:800}
+.mo5-note em{font-style:normal;font-weight:800;color:var(--mo-a2);transition:color .35s ease}
+.mo5-note-ic{font-size:14px;line-height:1.3;flex:none}
+
+
+
+/* ══ 8 · Transición al cambiar de unidad ═══════════════════════ */
+.mo5-swap{animation:mo5In .38s cubic-bezier(.4,0,.2,1) both}
+@keyframes mo5In{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+
+
+/* ══ 9 · Responsive ════════════════════════════════════════════ */
+@media(max-width:1180px){
+  .mo5-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .mo5-card{padding:15px 14px}
+  .mo5-brow{grid-template-columns:64px 1fr auto;gap:9px;padding:10px 6px}
+  .mo5-bval{min-width:88px}
+  .mo5-bnum{font-size:13px}
+}
+
+
+@media(prefers-reduced-motion:reduce){
+  #moventas *,#moventas *::before,#moventas *::after{animation:none!important;transition:none!important}
+  /* Las cards con entrada fade-up nacen en opacity:0 a la espera de
+     su animación — sin ella hay que fijar el estado final a mano. */
+  .mo5-kcard{opacity:1}
+}
+
+
+#moventas [tabindex]:focus-visible{outline:2px solid var(--mo-a);outline-offset:3px;border-radius:9px}

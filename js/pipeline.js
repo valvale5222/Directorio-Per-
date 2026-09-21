@@ -123,23 +123,23 @@ let _pipeProbSel = new Set(['all']);
 let _pipeEstadoSel = new Set(['all']);
 
 /* Objetivos estratégicos 2026 — datos reales del Excel
-   Obj. 01 actualizado Ago 2026 (dato directo: cierre real Jun/Jul 2026 y 2025).
+   Obj. 01 actualizado al corte YTD Ene–Ago 2026 desde DATA_PRODUC_25.07.xlsx
    Obj. 02–05 actualizados desde "Friopacking_Objetivos_2_3_4_5.xlsx". */
 const OBJ5 = [
   {id:1, num:'01', cat:'Comercial', name:'Venta Comercial',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Chart%20increasing/3D/chart_increasing_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"📈\"'>",
-   pct:96.98, pctLabel:'96.98', color:'#185fa5', colorBg:'#dbeef9', colorDark:'#0e4a7a',
-   status:'ok', stxt:'En ritmo',
+   pct:100.04, pctLabel:'100.04', color:'#185fa5', colorBg:'#dbeef9', colorDark:'#0e4a7a',
+   status:'ok', stxt:'Meta superada',
    metaLabel:'$30M anual',
    stats:[
-     {lbl:'Acumulado Ene–Jul', val:'$29.09M', cls:'c-ok'},
+     {lbl:'Acumulado Ene–Ago', val:'$30.01M', cls:'c-ok'},
      {lbl:'Meta anual', val:'$30.00M', cls:''},
-     {lbl:'Pendiente', val:'$906K', cls:''},
-     {lbl:'vs Ene–Jul 2025', val:'+47.14%', cls:'c-ok'}
+     {lbl:'Excedente meta', val:'+$11K', cls:'c-ok'},
+     {lbl:'vs Ene–Ago 2025', val:'+18.78%', cls:'c-ok'}
    ],
    minis:[
-     {lbl:'Pendiente meta', val:'$906K'},
-     {lbl:'Margen 2026', val:'15.36%'}
+     {lbl:'Excedente meta', val:'+$11K'},
+     {lbl:'Margen 2026', val:'15.55%'}
    ]},
   {id:2, num:'02', cat:'Tecnología CO₂', name:'Proyectos CO₂',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Snowflake/3D/snowflake_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"❄️\"'>",

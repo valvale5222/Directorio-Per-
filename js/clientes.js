@@ -1,201 +1,182 @@
 /* ============================================================
-   DATA CLIENTES — Fuente: DATA_PRODUC_25.07.xlsx (2014–jul 2026)
+   DATA CLIENTES — Fuente: DATA_PRODUC_25.07.xlsx (2014–ago 2026)
    Alcance clientes: histórico completo 2014–2026
+   Las razones sociales que solo difieren en puntos se tratan como un mismo cliente
+   (p. ej. "EL PEDREGAL S.A" = "EL PEDREGAL S.A."): 4 pares fusionados.
    ============================================================ */
 
 /* Treemap top 20 — histórico 2014-2026 */
 const cliTmHist = [
-  {n:'Corp. Agrolatina',   v:14074374, p:5.51, s:'retenido'},
-  {n:'Agrovision Peru',    v:12027997, p:4.71, s:'retenido'},
-  {n:'Danper Trujillo',    v:11318013, p:4.43, s:'retenido'},
-  {n:'Soc. Agrícola Drokasa', v:10807517, p:4.23, s:'retenido'},
-  {n:'Viru S.A.',          v:10204953, p:3.99, s:'retenido'},
-  {n:'Agroberries Peru',   v:10141560, p:3.97, s:'nuevo'},
-  {n:'TAL S.A.',           v:7592460,  p:2.97, s:'reactivado'},
-  {n:'AQU ANQA S.A.C.',    v:7506654,  p:2.94, s:'retenido'},
-  {n:'Los Olivos de Villacuri', v:6191501, p:2.42, s:'retenido'},
-  {n:'Agrícola Alaya',     v:5993441,  p:2.34, s:'retenido'},
-  {n:'Bomarea S.R.L.',     v:5621736,  p:2.20, s:'reactivado'},
-  {n:'Agrocasagrande',     v:5187382,  p:2.03, s:'retenido'},
-  {n:'Hortifrut-TAL',      v:5033323,  p:1.97, s:'sinactividad'},
-  {n:'Agroindustrias AIB', v:4637686,  p:1.81, s:'retenido'},
-  {n:'Medlog Piura SAC',   v:4364402,  p:1.71, s:'sinactividad'},
-  {n:'El Pedregal S.A.',   v:4160487,  p:1.63, s:'retenido'},
-  {n:'Agrícola Huarmey',   v:4147334,  p:1.62, s:'reactivado'},
-  {n:'Camposol S.A.',      v:4010895,  p:1.57, s:'retenido'},
-  {n:'Sun Fruits Exports', v:3930940,  p:1.54, s:'retenido'},
-  {n:'Prosembra S.A.C.',   v:3632242,  p:1.42, s:'nuevo'}
+  {n:'Corp. Agrolatina', v:14074374, p:5.49, s:'retenido'},
+  {n:'Agrovision Peru', v:12027997, p:4.69, s:'retenido'},
+  {n:'Danper Trujillo', v:11318013, p:4.41, s:'retenido'},
+  {n:'Soc. Agrícola Drokasa', v:10807517, p:4.22, s:'retenido'},
+  {n:'Viru S.A.', v:10204953, p:3.98, s:'retenido'},
+  {n:'Agroberries Peru', v:10141560, p:3.96, s:'nuevo'},
+  {n:'TAL S.A.', v:7592460, p:2.96, s:'reactivado'},
+  {n:'AQU ANQA S.A.C.', v:7506654, p:2.93, s:'retenido'},
+  {n:'Los Olivos de Villacuri', v:6191501, p:2.41, s:'retenido'},
+  {n:'Agrícola Alaya', v:5993441, p:2.34, s:'retenido'},
+  {n:'Bomarea S.R.L.', v:5621736, p:2.19, s:'reactivado'},
+  {n:'Agroindustrias AIB', v:5249289, p:2.05, s:'retenido'},
+  {n:'Agrocasagrande', v:5187382, p:2.02, s:'retenido'},
+  {n:'Hortifrut-TAL', v:5033323, p:1.96, s:'sinactividad'},
+  {n:'Medlog Piura SAC', v:4364402, p:1.70, s:'sinactividad'},
+  {n:'El Pedregal S.A.', v:4181784, p:1.63, s:'retenido'},
+  {n:'Agrícola Huarmey', v:4147334, p:1.62, s:'reactivado'},
+  {n:'Camposol S.A.', v:4010895, p:1.56, s:'retenido'},
+  {n:'Sun Fruits Exports', v:3930940, p:1.53, s:'retenido'},
+  {n:'Prosembra S.A.C.', v:3632242, p:1.42, s:'nuevo'}
 ];
 
 /* Treemap top 20 — período 2025–2026 */
 const cliTmCurr = [
-  {n:'Agroberries Peru',   v:10141560, p:15.84, s:'nuevo'},
-  {n:'Danper Trujillo',    v:4485901,  p:7.01,  s:'retenido'},
-  {n:'Corp. Agrolatina',   v:4450000,  p:6.95,  s:'retenido'},
-  {n:'Agrícola Huarmey',   v:4008997,  p:6.26,  s:'reactivado'},
-  {n:'Prosembra S.A.C.',   v:3632242,  p:5.67,  s:'nuevo'},
-  {n:'AQU ANQA S.A.C.',    v:3367989,  p:5.26,  s:'retenido'},
-  {n:'Bomarea S.R.L.',     v:3162369,  p:4.94,  s:'reactivado'},
-  {n:'Q Pack S.A.C.',      v:2949136,  p:4.61,  s:'nuevo'},
-  {n:'Soc. Drokasa',       v:2389602,  p:3.73,  s:'retenido'},
-  {n:'TAL S.A.',           v:2072733,  p:3.24,  s:'reactivado'},
-  {n:'Proc. Agroindustr.', v:2034101,  p:3.18,  s:'nuevo'},
-  {n:'Agrícola Alaya',     v:1490361,  p:2.33,  s:'retenido'},
-  {n:'TA Export S.A.C.',   v:1460000,  p:2.28,  s:'nuevo'},
-  {n:'Agrícola Pampa Baja',v:1224886,  p:1.91,  s:'reactivado'},
-  {n:'Agroindustrias AIB', v:1088057,  p:1.70,  s:'retenido'},
-  {n:'El Pedregal S.A.',   v:954731,   p:1.49,  s:'retenido'},
-  {n:'Procesadora Larán',  v:910903,   p:1.42,  s:'retenido'},
-  {n:'Ara Foods Industry', v:905597,   p:1.41,  s:'nuevo'},
-  {n:'Imbarex S.A.',       v:853450,   p:1.33,  s:'nuevo'},
-  {n:'Agrovision Peru',    v:817031,   p:1.28,  s:'retenido'}
+  {n:'Agroberries Peru', v:10141560, p:15.66, s:'nuevo'},
+  {n:'Danper Trujillo', v:4485901, p:6.93, s:'retenido'},
+  {n:'Corp. Agrolatina', v:4450000, p:6.87, s:'retenido'},
+  {n:'Agrícola Huarmey', v:4008997, p:6.19, s:'reactivado'},
+  {n:'Prosembra S.A.C.', v:3632242, p:5.61, s:'nuevo'},
+  {n:'AQU ANQA S.A.C.', v:3367989, p:5.20, s:'retenido'},
+  {n:'Bomarea S.R.L.', v:3162369, p:4.88, s:'reactivado'},
+  {n:'Q Pack S.A.C.', v:2958266, p:4.57, s:'nuevo'},
+  {n:'Soc. Agrícola Drokasa', v:2389602, p:3.69, s:'retenido'},
+  {n:'TAL S.A.', v:2072733, p:3.20, s:'reactivado'},
+  {n:'Proc. Agroindustr.', v:2034101, p:3.14, s:'nuevo'},
+  {n:'Agroindustrias AIB', v:1699661, p:2.62, s:'retenido'},
+  {n:'Agrícola Alaya', v:1490361, p:2.30, s:'retenido'},
+  {n:'TA Export S.A.C.', v:1460000, p:2.25, s:'nuevo'},
+  {n:'Agrícola Pampa Baja', v:1229076, p:1.90, s:'reactivado'},
+  {n:'El Pedregal S.A.', v:976028, p:1.51, s:'retenido'},
+  {n:'Procesadora Larán', v:910903, p:1.41, s:'retenido'},
+  {n:'Ara Foods Industry', v:905597, p:1.40, s:'nuevo'},
+  {n:'Imbarex S.A.', v:853450, p:1.32, s:'nuevo'},
+  {n:'Agrovision Peru', v:817031, p:1.26, s:'retenido'}
 ];
 
 /* Modal: activos top 20 — [nombre, val25-26, pct, segmento, primerAño, ultimoAño] */
 const cliActTop20 = [
-  ['Agroberries Peru S.A.C.',       10141560,15.84,'nuevo',     2026,2026],
-  ['Danper Trujillo S.A.C.',         4485901, 7.01,'retenido',  2014,2026],
-  ['Corp. Agrolatina S.A.C.',        4450000, 6.95,'retenido',  2014,2026],
-  ['Agrícola Huarmey S.A.',          4008997, 6.26,'reactivado',2014,2026],
-  ['Prosembra S.A.C.',               3632242, 5.67,'nuevo',     2025,2026],
-  ['AQU ANQA S.A.C.',                3367989, 5.26,'retenido',  2022,2026],
-  ['Bomarea S.R.L.',                 3162369, 4.94,'reactivado',2022,2026],
-  ['Q Pack S.A.C.',                  2949136, 4.61,'nuevo',     2025,2026],
-  ['Soc. Agrícola Drokasa S.A.',     2389602, 3.73,'retenido',  2014,2026],
-  ['TAL S.A.',                       2072733, 3.24,'reactivado',2014,2026],
-  ['Proc. Agroindustriales S.A.',    2034101, 3.18,'nuevo',     2026,2026],
-  ['Agrícola Alaya S.A.C.',          1490361, 2.33,'retenido',  2022,2025],
-  ['TA Export S.A.C.',               1460000, 2.28,'nuevo',     2026,2026],
-  ['Agrícola Pampa Baja S.A.C.',     1224886, 1.91,'reactivado',2014,2026],
-  ['Agroindustrias AIB S.A.',        1088057, 1.70,'retenido',  2014,2026],
-  ['El Pedregal S.A.',                954731, 1.49,'retenido',  2020,2025],
-  ['Procesadora Larán SAC',           910903, 1.42,'retenido',  2015,2026],
-  ['Ara Foods Industry S.A.C.',       905597, 1.41,'nuevo',     2025,2026],
-  ['Imbarex S.A.',                    853450, 1.33,'nuevo',     2025,2026],
-  ['Agrovision Peru S.A.C.',          817031, 1.28,'retenido',  2017,2025]
+  ['Agroberries Peru',10141560,15.66,'nuevo',2026,2026],
+  ['Danper Trujillo',4485901,6.93,'retenido',2014,2026],
+  ['Corp. Agrolatina',4450000,6.87,'retenido',2014,2026],
+  ['Agrícola Huarmey',4008997,6.19,'reactivado',2014,2026],
+  ['Prosembra S.A.C.',3632242,5.61,'nuevo',2025,2026],
+  ['AQU ANQA S.A.C.',3367989,5.20,'retenido',2022,2026],
+  ['Bomarea S.R.L.',3162369,4.88,'reactivado',2022,2026],
+  ['Q Pack S.A.C.',2958266,4.57,'nuevo',2025,2026],
+  ['Soc. Agrícola Drokasa',2389602,3.69,'retenido',2014,2026],
+  ['TAL S.A.',2072733,3.20,'reactivado',2014,2026],
+  ['Proc. Agroindustr.',2034101,3.14,'nuevo',2026,2026],
+  ['Agroindustrias AIB',1699661,2.62,'retenido',2014,2026],
+  ['Agrícola Alaya',1490361,2.30,'retenido',2022,2025],
+  ['TA Export S.A.C.',1460000,2.25,'nuevo',2026,2026],
+  ['Agrícola Pampa Baja',1229076,1.90,'reactivado',2014,2026],
+  ['El Pedregal S.A.',976028,1.51,'retenido',2020,2026],
+  ['Procesadora Larán',910903,1.41,'retenido',2015,2026],
+  ['Ara Foods Industry',905597,1.40,'nuevo',2025,2026],
+  ['Imbarex S.A.',853450,1.32,'nuevo',2025,2026],
+  ['Agrovision Peru',817031,1.26,'retenido',2017,2025]
 ];
 
 /* Modal: nuevos top 20 — [nombre, val, pct, primerAño] */
 const cliNewTop20 = [
-  ['Agroberries Peru S.A.C.',    10141560,16.05,2026],
-  ['Prosembra S.A.C.',            3632242, 5.75,2025],
-  ['Q Pack S.A.C.',               2949136, 4.67,2025],
-  ['Proc. Agroindustriales S.A.', 2034101, 3.22,2026],
-  ['TA Export S.A.C.',            1460000, 2.31,2026],
-  ['Ara Foods Industry S.A.C.',    905597, 1.43,2025],
-  ['Imbarex S.A.',                 853450, 1.35,2025],
-  ['Agroindustria Frutos de Oro',  508072, 0.80,2025],
-  ['Estanterías Metálicas JRM',    455000, 0.72,2026],
-  ['Delice S.A.C',                 427469, 0.68,2025],
-  ['Berry Harvest S.A.',           402751, 0.64,2025],
-  ['Diamond Bridge SAC',           321860, 0.51,2025],
-  ['Limones Piuranos S.A.C.',      317797, 0.50,2025],
-  ['Agríc. Ganadera Las Canelas',  256513, 0.41,2025],
-  ['San Efisio S.A.C.',            226880, 0.36,2025],
-  ['Cerv. Backus y Johnston SAC',  222254, 0.35,2025],
-  ['Univ. Federico Henríquez',     206090, 0.33,2026],
-  ['Arca Continental Lindley',     203678, 0.32,2026],
-  ['Distrib. Exclusiva Calidad',   189852, 0.30,2025],
-  ['Fusion Foods S.A.C.',          175588, 0.28,2025]
+  ['Agroberries Peru',10141560,15.66,2026],
+  ['Prosembra S.A.C.',3632242,5.61,2025],
+  ['Q Pack S.A.C.',2958266,4.57,2025],
+  ['Proc. Agroindustr.',2034101,3.14,2026],
+  ['TA Export S.A.C.',1460000,2.25,2026],
+  ['Ara Foods Industry',905597,1.40,2025],
+  ['Imbarex S.A.',853450,1.32,2025],
+  ['Agroindustria Frutos de Oro',508072,0.78,2025],
+  ['Estanterías Metálicas JRM',455000,0.70,2026],
+  ['Delice S.A.C',427469,0.66,2025],
+  ['Berry Harvest S.A.',402751,0.62,2025],
+  ['Diamond Bridge SAC',321860,0.50,2025],
+  ['Limones Piuranos S.A.C.',317797,0.49,2025],
+  ['Agríc. Ganadera Las Canelas',256513,0.40,2025],
+  ['San Efisio S.A.C.',226880,0.35,2025],
+  ['Cerv. Backus y Johnston SAC',222254,0.34,2025],
+  ['Univ. Federico Henríquez',206090,0.32,2026],
+  ['Arca Continental Lindley',203678,0.31,2026],
+  ['Agricola Huarmey S.A.C.',181179,0.28,2026],
+  ['Fusion Foods S.A.C.',175588,0.27,2025]
 ];
 
 /* Categorías */
 const cliCat = {
   hist:{
-    classic:{n:89,val:237620215,pct:93.0,top:[
-      ['Corp. Agrolatina S.A.C.',14074374,5.92],['Agrovision Peru S.A.C.',12027997,5.06],
-      ['Danper Trujillo S.A.C.',11318013,4.76],['Soc. Agrícola Drokasa',10807517,4.55],
-      ['Viru S.A.',10204953,4.29],['Agroberries Peru S.A.C.',10141560,4.27],
-      ['TAL S.A.',7592460,3.20],['AQU ANQA S.A.C.',7506654,3.16],
-      ['Los Olivos de Villacuri',6191501,2.61],['Agrícola Alaya',5993441,2.52],
-      ['Bomarea S.R.L.',5621736,2.37],['Agrocasagrande S.A.C.',5187382,2.18],
-      ['Hortifrut-TAL S.A.C.',5033323,2.12],['Agroindustrias AIB S.A.',4637686,1.95],
-      ['Medlog Piura SAC',4364402,1.84],['El Pedregal S.A.',4160487,1.75],
-      ['Agrícola Huarmey S.A.',4147334,1.75],['Camposol S.A.',4010895,1.69],
-      ['Sun Fruits Exports',3930940,1.65],['Prosembra S.A.C.',3632242,1.53]
+    classic:{n:89,val:238274002,pct:92.9,top:[
+      ['Corp. Agrolatina',14074374,5.91],['Agrovision Peru',12027997,5.05],
+      ['Danper Trujillo',11318013,4.75],['Soc. Agrícola Drokasa',10807517,4.54],
+      ['Viru S.A.',10204953,4.28],['Agroberries Peru',10141560,4.26],
+      ['TAL S.A.',7592460,3.19],['AQU ANQA S.A.C.',7506654,3.15],
+      ['Los Olivos de Villacuri',6191501,2.60],['Agrícola Alaya',5993441,2.52],
+      ['Bomarea S.R.L.',5621736,2.36],['Agroindustrias AIB',5249289,2.20],
+      ['Agrocasagrande',5187382,2.18],['Hortifrut-TAL',5033323,2.11],
+      ['Medlog Piura SAC',4364402,1.83],['El Pedregal S.A.',4181784,1.76],
+      ['Agrícola Huarmey',4147334,1.74],['Camposol S.A.',4010895,1.68],
+      ['Sun Fruits Exports',3930940,1.65],['Prosembra S.A.C.',3632242,1.52]
     ]},
-    platinum:{n:64,val:15360621,pct:6.0,top:[
-      ['HFE Berries Peru S.A.C.',484148,0.19],['Estanterías Metálicas JRM',455000,0.18],
-      ['Trapani Cultivares Perú',444506,0.17],['Asoc. Productores Palta Hass',442274,0.17],
-      ['T & T Fruits S.A.',441999,0.17],['Delice S.A.C',427469,0.17],
-      ['Agro Santa Verónica',422186,0.17],['Berry Harvest S.A.',402751,0.16],
-      ['Caynarachi S.A.',396723,0.16],['Delcor Fabricaciones SAC',392414,0.15],
-      ['Asica Farms S.A.C.',380208,0.15],['Viveros El Tambo',363647,0.14],
-      ["Exotic's Producers S.A.C.",355018,0.14],['Inka Crops S.A.',326511,0.13],
-      ['Sobifruits S.A.C.',324818,0.13],['Diamond Bridge SAC',321860,0.13],
-      ['Aliovo SAC',319060,0.13],['Limones Piuranos S.A.C.',317797,0.12],
-      ['Fundo Los Paltos',313498,0.12],['Blueberries Peru S.A.C.',305255,0.12]
+    platinum:{n:65,val:15638941,pct:6.1,top:[
+      ['HFE Berries Peru S.A.C.',484148,3.10],['Estanterías Metálicas JRM',455000,2.91],
+      ['Trapani Cultivares Perú',444506,2.84],['Asoc. Productores Palta Hass',442274,2.83],
+      ['T & T Fruits S.A.',441999,2.83],['Delice S.A.C',427469,2.73],
+      ['Agro Santa Verónica',422186,2.70],['Berry Harvest S.A.',402751,2.58],
+      ['Caynarachi S.A.',396723,2.54],['Delcor Fabricaciones SAC',392414,2.51],
+      ['Asica Farms S.A.C.',380208,2.43],['Viveros El Tambo',363647,2.33],
+      ['Exotic\'s Producers S.A.C.',355018,2.27],['Inka Crops S.A.',326511,2.09],
+      ['Sobifruits S.A.C.',324818,2.08],['Diamond Bridge SAC',321860,2.06],
+      ['Aliovo SAC',319060,2.04],['Limones Piuranos S.A.C.',317797,2.03],
+      ['Fundo Los Paltos',313498,2.00],['Blueberries Peru S.A.C.',305255,1.95]
     ]},
-    gold:{n:102,val:2593264,pct:1.0,top:[
-      ['In Vitro Lab Perú S.A.C.',99000,3.8],
-      ['Qberries SAC',96847,3.7],
-      ['Negocios de Distrib. y Export. S.A.',92656,3.6],
-      ['Corporación Apeisa SAC',91725,3.5],
-      ['Agromar Industrial S.A.',89868,3.5],
-      ['QS Refrigeración y Proyectos S.A.C.',89243,3.4],
-      ['Ransa Comercial S.A.',85610,3.3],
-      ['Frutos Ecológicos del Perú S.A.C.',84821,3.3],
-      ['Larama Berries S.A.C.',84469,3.3],
-      ['Ingeniería en Cartones y Papeles S.A.C.',80000,3.1],
-      ['Agroinversiones Valle y Pampa Perú S.A.',73684,2.8],
-      ['Andean Natural Products Export Import S.A.C.',70669,2.7],
-      ['Eurofresh Perú S.A.C.',66111,2.5],
-      ['Fresh Business Perú S.A.C.',64800,2.5],
-      ['Pomica Perú S.A.C.',62684,2.4],
-      ['Puquial S.A.',61856,2.4],
-      ['Florisert S.A.C.',61715,2.4],
-      ['Eco-Acuícola S.A.C.',58908,2.3],
-      ['Arcentales Olave José Miguel',53983,2.1],
-      ['Yura S.A.',46923,1.8]
+    gold:{n:100,val:2475606,pct:1.0,top:[
+      ['Qberries SAC',96847,3.91],['Negocios de Distrib. y Export. S.A.',92657,3.74],
+      ['Corporación Apeisa SAC',91726,3.71],['Agromar Industrial S.A.',89868,3.63],
+      ['QS Refrigeración y Proyectos S.A.C.',89243,3.60],['Ransa Comercial S.A.',85611,3.46],
+      ['Frutos Ecológicos del Perú S.A.C.',84822,3.43],['Larama Berries S.A.C.',84470,3.41],
+      ['Agroinversiones Valle y Pampa Perú S.A.',73684,2.98],['Andean Natural Products Export Import S.A.C.',70670,2.85],
+      ['Uvica S.A.C.',67138,2.71],['Eurofresh Perú S.A.C.',66112,2.67],
+      ['Fresh Business Perú S.A.C.',64801,2.62],['Pomica Perú S.A.C.',62684,2.53],
+      ['Puquial S.A.',61857,2.50],['Florisert S.A.C.',61716,2.49],
+      ['Eco-Acuícola S.A.C.',58909,2.38],['Arcentales Olave José Miguel',53983,2.18],
+      ['Yura S.A.',46923,1.90],['Instituto Tecnologico de la Produccion',46369,1.87]
     ]}
   },
   curr:{
-    classic:{n:26,val:56105613,pct:87.6,top:[
-      ['Agroberries Peru S.A.C.',10141560,18.08],['Danper Trujillo S.A.C.',4485901,8.00],
-      ['Corp. Agrolatina S.A.C.',4450000,7.93],['Agrícola Huarmey S.A.',4008997,7.15],
-      ['Prosembra S.A.C.',3632242,6.47],['AQU ANQA S.A.C.',3367989,6.00],
-      ['Bomarea S.R.L.',3162369,5.64],['Q Pack S.A.C.',2949136,5.26],
-      ['Soc. Agrícola Drokasa',2389602,4.26],['TAL S.A.',2072733,3.69],
-      ['Proc. Agroindustriales',2034101,3.63],['Agrícola Alaya',1490361,2.66],
-      ['TA Export S.A.C.',1460000,2.60],['Agrícola Pampa Baja',1224886,2.18],
-      ['Agroindustrias AIB S.A.',1088057,1.94],['El Pedregal S.A.',954731,1.70],
-      ['Procesadora Larán SAC',910903,1.62],['Ara Foods Industry',905597,1.61],
-      ['Imbarex S.A.',853450,1.52],['Agrovision Peru S.A.C.',817031,1.46]
+    classic:{n:26,val:56751834,pct:87.6,top:[
+      ['Agroberries Peru',10141560,17.87],['Danper Trujillo',4485901,7.90],
+      ['Corp. Agrolatina',4450000,7.84],['Agrícola Huarmey',4008997,7.06],
+      ['Prosembra S.A.C.',3632242,6.40],['AQU ANQA S.A.C.',3367989,5.93],
+      ['Bomarea S.R.L.',3162369,5.57],['Q Pack S.A.C.',2958266,5.21],
+      ['Soc. Agrícola Drokasa',2389602,4.21],['TAL S.A.',2072733,3.65],
+      ['Proc. Agroindustr.',2034101,3.58],['Agroindustrias AIB',1699661,2.99],
+      ['Agrícola Alaya',1490361,2.63],['TA Export S.A.C.',1460000,2.57],
+      ['Agrícola Pampa Baja',1229076,2.17],['El Pedregal S.A.',976028,1.72],
+      ['Procesadora Larán',910903,1.61],['Ara Foods Industry',905597,1.60],
+      ['Imbarex S.A.',853450,1.50],['Agrovision Peru',817031,1.44]
     ]},
-    platinum:{n:27,val:7293500,pct:11.4,top:[
-      ['Camposol S.A.',497385,0.68],['Sun Fruits Exports',460117,0.63],
-      ['Estanterías Metálicas JRM',455000,0.62],['Delice S.A.C',427469,0.59],
-      ['Viru S.A.',407040,0.56],['Berry Harvest S.A.',402751,0.55],
-      ['Agrícola 2M S.A.C.',390951,0.54],['Qali Fruits S.A.C.',379902,0.52],
-      ['Diamond Bridge SAC',321860,0.44],['Limones Piuranos S.A.C.',317797,0.44],
-      ['Sociedad Agrícola 3P',282001,0.39],['Agríc. Ganadera Las Canelas',256513,0.35],
-      ['Consorcio Agrícola Moquegua',238684,0.33],['T & T Fruits S.A.',227719,0.31],
-      ['San Efisio S.A.C.',226880,0.31],
-      ['Cerv. Backus y Johnston SAC',222254,0.30],['Viveros El Tambo S.A.C.',216755,0.30],
-      ['Univ. Federico Henríquez',206090,0.28],['Arca Continental Lindley',203678,0.28],
-      ['Empresa Agrícola San Juan',194359,0.27]
+    platinum:{n:27,val:7334962,pct:11.3,top:[
+      ['Camposol S.A.',497385,6.78],['Sun Fruits Exports',460117,6.27],
+      ['Estanterías Metálicas JRM',455000,6.20],['Delice S.A.C',427469,5.83],
+      ['Viru S.A.',407040,5.55],['Berry Harvest S.A.',402751,5.49],
+      ['Agrícola 2M S.A.C.',390951,5.33],['Qali Fruits S.A.C.',379902,5.18],
+      ['Diamond Bridge SAC',321860,4.39],['Limones Piuranos S.A.C.',317797,4.33],
+      ['Sociedad Agrícola 3P',282001,3.84],['Agríc. Ganadera Las Canelas',256513,3.50],
+      ['Consorcio Agrícola Moquegua',238684,3.25],['T & T Fruits S.A.',227719,3.10],
+      ['San Efisio S.A.C.',226880,3.09],['Cerv. Backus y Johnston SAC',222254,3.03],
+      ['Viveros El Tambo',216755,2.96],['Univ. Federico Henríquez',206090,2.81],
+      ['Arca Continental Lindley',203678,2.78],['Empresa Agrícola San Juan',194359,2.65]
     ]},
-    gold:{n:20,val:629779,pct:1.0,top:[
-      ['Qberries SAC',96847,15.38],
-      ['Smart Packing S.A.C.',77697,12.34],
-      ['Florisert S.A.C.',61715,9.80],
-      ['Los Olivos de Villacuri S.A.C.',50828,8.07],
-      ['Family Farms Perú S.R.L.',50080,7.95],
-      ['Alza Perú Packing S.A.C.',43600,6.92],
-      ['Vitafoods Perú S.A.C.',43470,6.90],
-      ['El Rocío S.A.',37571,5.97],
-      ['Packing del Carmen S.A.C.',36348,5.77],
-      ['Ara Export S.A.C.',34403,5.46],
-      ['Uvica S.A.C.',33598,5.33],
-      ['Quelen Fruit Perú S.A.C.',25500,4.05],
-      ['TAL S.A. (pequeño)',17672,2.81],
-      ['El Parque Alaya Packing S.A.C.',15941,2.53],
-      ['Westfalia Fruit Perú S.A.C.',10000,1.59],
-      ['Cía. de Exp. y Neg. Gnrles. S.A.',6841,1.09],
-      ['Avocado Packing Company S.A.C.',4392,0.70],
-      ['Agrícola Blue Gold S.A.C.',4265,0.68],
-      ['Austral Group S.A.A.',2310,0.37],
-      ['Steelser S.A.C.',2200,0.35]
+    gold:{n:20,val:691121,pct:1.1,top:[
+      ['Qberries SAC',96847,14.01],['Smart Packing S.A.C.',77697,11.24],
+      ['Uvica S.A.C.',67138,9.71],['Florisert S.A.C.',61716,8.93],
+      ['Los Olivos de Villacuri',50828,7.35],['Family Farms Perú S.R.L.',50080,7.25],
+      ['Alza Perú Packing S.A.C.',43600,6.31],['Vitafoods Perú S.A.C.',43470,6.29],
+      ['El Rocío S.A.',37571,5.44],['Packing del Carmen S.A.C.',36348,5.26],
+      ['Ara Export S.A.C.',34403,4.98],['Quelen Fruit Perú S.A.C.',25500,3.69],
+      ['TAL S.A. (pequeño)',17672,2.56],['El Parque Alaya Packing S.A.C.',15941,2.31],
+      ['Westfalia Fruit Perú S.A.C.',10000,1.45],['Cía. de Exp. y Neg. Gnrles. S.A.',6841,0.99],
+      ['Viru Frozen S.A.',4613,0.67],['Avocado Packing Company S.A.C.',4392,0.64],
+      ['Agrícola Blue Gold S.A.C.',4265,0.62],['Steelser S.A.C.',2200,0.32]
     ]}
   }
 };
@@ -204,18 +185,18 @@ const cliCat = {
 const cliSegs = [
   {id:'retenido',   lbl:'Retenidos',
    note:'Activos 25–26 · presentes en 2023 o 2024 · clientes leales',
-   n:29, pc:11.4, vh:121166079, pvh:47.4, vc:25313642, pvc:39.5,
+   n:29, pc:11.4, vh:121798979, pvh:47.5, vc:25946542, pvc:40.1,
    det:[
-    ['Danper Trujillo S.A.C.',4485901,11318013,2026,12],
-    ['Corp. Agrolatina S.A.C.',4450000,14074374,2026,10],
+    ['Danper Trujillo',4485901,11318013,2026,12],
+    ['Corp. Agrolatina',4450000,14074374,2026,10],
     ['AQU ANQA S.A.C.',3367989,7506654,2026,5],
     ['Soc. Agrícola Drokasa',2389602,10807517,2026,12],
+    ['Agroindustrias AIB',1699661,5249289,2026,10],
     ['Agrícola Alaya',1490361,5993441,2025,4],
-    ['Agroindustrias AIB S.A.',1088057,4637686,2026,10],
-    ['El Pedregal S.A.',954731,4160487,2025,6],
-    ['Procesadora Larán SAC',910903,1766114,2026,7],
-    ['Agrovision Peru S.A.C.',817031,12027997,2025,9],
-    ['Agrocasagrande S.A.C.',785288,5187382,2025,6],
+    ['El Pedregal S.A.',976028,4181784,2026,7],
+    ['Procesadora Larán',910903,1766114,2026,7],
+    ['Agrovision Peru',817031,12027997,2025,9],
+    ['Agrocasagrande',785288,5187382,2025,6],
     ['Procesadora Torre Blanca',721157,1973732,2026,5],
     ['Agrobusiness Intl. Perú',602333,1719775,2025,3],
     ['Agro Floral Perú S.A.C.',538929,1826899,2026,9],
@@ -227,51 +208,52 @@ const cliSegs = [
     ['Sociedad Agrícola 3P',282001,1755524,2026,3],
     ['Smart Packing S.A.C.',77697,753930,2026,4]
    ]},
-  {id:'reactivado', lbl:'Reactivados',
-   note:'Regresaron en 2025–26 tras 2+ años de ausencia · cuentas recuperadas',
-   n:10, pc:3.9, vh:26035699, pvh:10.2, vc:11931092, pvc:18.6,
+  {id:'reactivado',   lbl:'Reactivados',
+   note:'Activos 25–26 · sin compras en 2023–2024 · recuperados',
+   n:11, pc:4.3, vh:26221822, pvh:10.2, vc:12037215, pvc:18.6,
    det:[
-    ['Agrícola Huarmey S.A.',4008997,4147334,2026,8],
+    ['Agrícola Huarmey',4008997,4147334,2026,8],
     ['Bomarea S.R.L.',3162369,5621736,2026,2],
     ['TAL S.A.',2072733,7592460,2026,10],
-    ['Agrícola Pampa Baja',1224886,2741927,2026,9],
+    ['Agrícola Pampa Baja',1229076,2746117,2026,9],
     ['Santa Sofía del Sur',550188,687965,2026,5],
     ['Consorcio Agrícola Moquegua',238684,928207,2026,4],
     ['T & T Fruits S.A.',227719,441999,2026,4],
-    ['Viveros El Tambo S.A.C.',216755,363647,2026,3],
+    ['Viveros El Tambo',216755,363647,2026,3],
     ['Empresa Agrícola San Juan',194359,791662,2025,2],
+    ['Ingeniería en Cartones y Papeles S.A.C.',101933,181933,2026,2],
     ['Ara Export S.A.C.',34403,2718761,2025,5]
    ]},
-  {id:'nuevo',      lbl:'Nuevos',
+  {id:'nuevo',   lbl:'Nuevos',
    note:'Primera compra en 2025 o 2026 · captación reciente',
-   n:34, pc:13.3, vh:26784158, pvh:10.5, vc:26784158, pvc:41.8,
+   n:33, pc:13.0, vh:26794160, pvh:10.5, vc:26794160, pvc:41.4,
    det:[
-    ['Agroberries Peru S.A.C.',10141560,10141560,2026,1],
-    ['Prosembra S.A.C.',3632242,3632242,2025,2],
-    ['Q Pack S.A.C.',2949136,2949136,2025,2],
-    ['Proc. Agroindustriales',2034101,2034101,2026,1],
+    ['Agroberries Peru',10141560,10141560,2026,1],
+    ['Prosembra S.A.C.',3632242,3632242,2026,2],
+    ['Q Pack S.A.C.',2958266,2958266,2026,2],
+    ['Proc. Agroindustr.',2034101,2034101,2026,1],
     ['TA Export S.A.C.',1460000,1460000,2026,1],
-    ['Ara Foods Industry',905597,905597,2025,2],
-    ['Imbarex S.A.',853450,853450,2025,2],
-    ['Agroindustria Frutos de Oro',508072,508072,2025,2],
+    ['Ara Foods Industry',905597,905597,2026,2],
+    ['Imbarex S.A.',853450,853450,2026,2],
+    ['Agroindustria Frutos de Oro',508072,508072,2026,2],
     ['Estanterías Metálicas JRM',455000,455000,2026,1],
-    ['Delice S.A.C',427469,427469,2025,2],
-    ['Berry Harvest S.A.',402751,402751,2025,2],
-    ['Diamond Bridge SAC',321860,321860,2025,2],
-    ['Limones Piuranos S.A.C.',317797,317797,2025,2],
-    ['Agríc. Ganadera Las Canelas',256513,256513,2025,2],
-    ['San Efisio S.A.C.',226880,226880,2025,2],
-    ['Cerv. Backus y Johnston SAC',222254,222254,2025,2],
+    ['Delice S.A.C',427469,427469,2026,2],
+    ['Berry Harvest S.A.',402751,402751,2026,2],
+    ['Diamond Bridge SAC',321860,321860,2025,1],
+    ['Limones Piuranos S.A.C.',317797,317797,2025,1],
+    ['Agríc. Ganadera Las Canelas',256513,256513,2025,1],
+    ['San Efisio S.A.C.',226880,226880,2025,1],
+    ['Cerv. Backus y Johnston SAC',222254,222254,2025,1],
     ['Univ. Federico Henríquez',206090,206090,2026,1],
     ['Arca Continental Lindley',203678,203678,2026,1],
-    ['Distrib. Exclusiva Calidad',189852,189852,2025,2],
-    ['Fusion Foods S.A.C.',175588,175588,2025,2]
+    ['Agricola Huarmey S.A.C.',181179,181179,2026,1],
+    ['Fusion Foods S.A.C.',175588,175588,2025,1]
    ]},
-  {id:'sinactividad',lbl:'Sin actividad',
-   note:'Última compra en 2023 o antes · riesgo comercial',
-   n:182, pc:71.4, vh:81653588, pvh:32.0, vc:0, pvc:0,
+  {id:'sinactividad',   lbl:'Sin actividad',
+   note:'Última compra en 2024 o antes · riesgo comercial',
+   n:181, pc:71.3, vh:81573588, pvh:31.8, vc:0, pvc:0.0,
    det:[
-    ['Hortifrut-TAL S.A.C.',0,5033323,2021,7],
+    ['Hortifrut-TAL',0,5033323,2021,7],
     ['Medlog Piura SAC',0,4364402,2024,4],
     ['Broom Frio Holding',0,2885382,2023,4],
     ['LT Multi Services S.A.C.',0,2873188,2022,4],
@@ -334,8 +316,8 @@ const top20_2026 = (function(){
    ============================================================ */
 const cliEvolData = {
   years: [2021, 2022, 2023, 2024, 2025, 2026],
-  activos: [55, 51, 41, 46, 48, 48],
-  nuevos:  [17,  13,  11,  10,  20, 13]
+  activos: [55, 51, 41, 46, 48, 51],
+  nuevos:  [17, 13, 11, 10, 20, 13]
 };
 
 /* DATA PARETO — top 20 clientes 2025-2026 ordenados de mayor a menor */
@@ -351,13 +333,13 @@ const paretoData = (function(){
 /* ============================================================
    DATA TICKET PROMEDIO POR AÑO — Fuente: DATA_PRODUC_25.07.xlsx (hoja "Data Cruda")
    Fórmula: ventas del año / clientes únicos con facturación en ese año.
-   2026 = YTD Ene–Jul (único dato disponible en el archivo fuente).
+   2026 = YTD Ene–Ago (último mes disponible en el archivo fuente).
    ============================================================ */
 const cliTicketEvol = {
   years:    [2021, 2022, 2023, 2024, 2025, 2026],
-  ventas:   [20310541, 33199765, 15289375, 15451149, 34956324, 29098068],
-  clientes: [55, 51, 41, 46, 49, 48],
-  avgTicket:[369283, 650976, 372912, 335895, 713394, 606209]
+  ventas:   [20310541, 33199765, 15289375, 15451149, 34766473, 30011445],
+  clientes: [55, 51, 41, 46, 48, 51],
+  avgTicket:[369283, 650976, 372912, 335895, 724302, 588460]
 };
 
 
@@ -366,7 +348,8 @@ const cliTicketEvol = {
    cruzada con transacciones reales de DATA_PRODUC_25.07.xlsx (hoja "Data Cruda")
    por nombre de cliente (1,798/1,801 filas emparejadas · 99.8%).
    Conteos de clientes por año validados contra el resumen propio de AGRO.NOAGRO.xlsx.
-   2026 = YTD Ene–Jul.
+   2026 = YTD Ene–Jul — NO ACTUALIZADO a agosto: AGRO.NOAGRO.xlsx no clasifica
+   a FRIOTEAM S.A.C., AGRICOLA SAFCO PERU S.A. ni VIRU FROZEN S.A.
    ============================================================ */
 const agroNoAgroYear = {
   years:  [2021, 2022, 2023, 2024, 2025, 2026],
@@ -793,8 +776,28 @@ function openCliSeg(segId){
   var resto = total2026 - totalTop20;
   var pctTop20 = totalTop20/total2026*100;
   var pctResto = 100 - pctTop20;
+  /* Paginación adaptativa: el nº de filas se ajusta a la altura útil del bloque
+     (sigue siendo únicamente el Top 20; sólo cambia cómo se reparte en páginas) */
   var PG10 = 10, page10 = 0;
   var maxPage10 = Math.ceil(top20_2026.length/PG10)-1;
+
+
+  function fitRowsTop20(){ return 10; }          /* bloques fijos de 10 — Top 20 en 2 páginas */
+
+  function applyRowsTop20(){
+    var n = fitRowsTop20();
+    if(n === PG10) return false;
+    var firstVisible = page10*PG10;              /* mantener al usuario en su posición */
+    PG10 = n;
+    maxPage10 = Math.ceil(top20_2026.length/PG10)-1;
+    page10 = Math.min(Math.floor(firstVisible/PG10), maxPage10);
+    return true;
+  }
+
+  function rangeLbl(pg){
+    var a = pg*PG10+1, b = Math.min((pg+1)*PG10, top20_2026.length);
+    return a === b ? String(a) : a+'–'+b;
+  }
 
   function renderTop20(){
     var slice = top20_2026.slice(page10*PG10,(page10+1)*PG10);
@@ -820,15 +823,31 @@ function openCliSeg(segId){
       +'</tr>';
     tbody.innerHTML = html;
     var info = document.getElementById('top10PageInfo');
-    if(info) info.textContent = (page10*PG10+1)+'–'+Math.min((page10+1)*PG10,top20_2026.length)+' de '+top20_2026.length;
+    if(info) info.innerHTML = '<b>' + rangeLbl(page10) + '</b> de ' + top20_2026.length +
+      ' <span class="pgd">&middot;</span> bloque ' + (page10+1) + '/' + (maxPage10+1);
     var prev = document.getElementById('top10Prev'), next = document.getElementById('top10Next');
     if(prev) prev.disabled = page10===0;
     if(next) next.disabled = page10>=maxPage10;
   }
+
+  /* Re-ajusta el nº de filas cuando cambia la altura disponible */
+  var _t20Raf = null;
+  function refitTop20(){
+    if(_t20Raf) cancelAnimationFrame(_t20Raf);
+    _t20Raf = requestAnimationFrame(function(){
+      _t20Raf = null;
+      if(applyRowsTop20()) renderTop20();
+    });
+  }
+  window._refitTop20 = refitTop20;
+  window.addEventListener('resize', refitTop20);
+
   var top10PrevBtn = document.getElementById('top10Prev'), top10NextBtn = document.getElementById('top10Next');
   if(top10PrevBtn) top10PrevBtn.addEventListener('click',function(){ if(page10>0){page10--;renderTop20();} });
   if(top10NextBtn) top10NextBtn.addEventListener('click',function(){ if(page10<maxPage10){page10++;renderTop20();} });
   renderTop20();
+  refitTop20();
+
 
   /* Dona Top 20 vs Resto — premium, con centro dinámico seleccionable por click */
   var chEl = document.getElementById('chTop10Dona');
@@ -850,8 +869,8 @@ function openCliSeg(segId){
     var r=Math.min(w,h);
     ctx2.save();
     ctx2.textAlign='center'; ctx2.textBaseline='middle';
-    var fsPct=Math.min(r*0.165,25), fsLbl=Math.min(r*0.075,10.5), fsRef=Math.min(r*0.062,9);
-    var gap=Math.min(r*0.10,11);
+    var fsPct=Math.min(r*0.19,36), fsLbl=Math.min(r*0.079,12.5), fsRef=Math.min(r*0.066,10.5);
+    var gap=Math.min(r*0.105,14);
     /* Porcentaje principal */
     ctx2.fillStyle = centerState.key==='top20' ? '#0F6E56' : '#5b6b8c';
     ctx2.font='900 '+fsPct+'px Inter,sans-serif';
@@ -922,14 +941,14 @@ function openCliSeg(segId){
         borderWidth:3,
         spacing:4,
         borderRadius:8,
-        hoverOffset:12,
+        hoverOffset:14,
         hoverBorderWidth:3
       }]
     },
     options:{
       responsive:true,maintainAspectRatio:false,
-      cutout:'70%',
-      animation:{animateRotate:true,duration:500,easing:'easeOutQuart'},
+      cutout:'67%',
+      animation:{animateRotate:true,duration:620,easing:'easeOutQuart'},
       layout:{padding:{top:6,bottom:6,left:6,right:6}},
       onHover:function(evt, elements, chart){ chart.canvas.style.cursor = elements.length ? 'pointer' : 'default'; },
       onClick:function(evt, elements){
@@ -1097,7 +1116,7 @@ window._initCliCharts = function(){
             callbacks:{
               title:function(items){
                 var i=items[0].dataIndex,y=cliTicketEvol.years[i];
-                return 'Año '+y+(y===2026?' (YTD Ene–Jul)':'');
+                return 'Año '+y+(y===2026?' (YTD Ene–Ago)':'');
               },
               label:function(ctx){return ' Ticket promedio: '+fmtV(ctx.parsed.y);},
               afterLabel:function(ctx){

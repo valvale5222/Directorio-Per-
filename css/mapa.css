@@ -1,0 +1,632 @@
+/* ============================================================
+   MAPA COMERCIAL — sub-tab de Ventas
+   Identidad del Directorio: Inter, --brand teal, cards .card,
+   sombras y radios de base.css. Sin dependencias nuevas.
+
+   Zonas (colores ya existentes en el proyecto):
+     Norte  #3EC6AC  (--brand)
+     Centro #4FA8E0  (azul de analytics)
+     Sur    #8b5cf6  (morado de resumen.css)
+   ============================================================ */
+
+/* --zc / --zc-d / --zc-l / --zc-sh los fija js/mapa.js según la zona
+   activa (base, oscuro, claro, sombra) — sin color-mix() para que
+   funcione también en navegadores de TV. */
+#mapaComercial {
+  --mc-norte:  #3EC6AC;
+  --mc-centro: #4FA8E0;
+  --mc-sur:    #8b5cf6;
+  --mc-idle:   #dbe3ef;   /* departamento fuera de la zona activa */
+  --mc-idle-l: #eef2f8;
+}
+
+/* ── Contenedor principal ─────────────────────────────────── */
+.mc-shell {
+  background: linear-gradient(180deg, #fbfcfe, #f4f7fb);
+  border: .5px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--sh);
+  padding: 14px;
+  margin-bottom: 16px;
+  animation: fadeUp .5s cubic-bezier(.2, .8, .3, 1) both;
+}
+
+/* ── Barra superior: zonas + años ─────────────────────────── */
+.mc-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 6px;
+}
+
+.mc-zones {
+  display: flex; gap: 3px; padding: 4px;
+  background: #eef2f8; border-radius: 22px;
+}
+
+.mc-zone {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 18px; border: none; border-radius: 18px;
+  background: transparent; color: var(--ts);
+  font-family: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: .2px;
+  cursor: pointer; white-space: nowrap;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.mc-zone .mc-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--zc); flex-shrink: 0;
+  transition: background .2s ease, box-shadow .2s ease;
+}
+.mc-zone:hover:not(.active) { color: var(--t); background: rgba(255, 255, 255, .7); }
+.mc-zone.active {
+  background: var(--zc); color: #fff;
+  box-shadow: 0 4px 14px var(--zc-sh);
+}
+.mc-zone.active .mc-dot { background: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, .3); }
+.mc-zone:active { transform: scale(.98); }
+
+/* "Perú" es el agregado, no una zona más: va separado por una divisoria. */
+.mc-zone-all { margin-right: 5px; position: relative; }
+.mc-zone-all::after {
+  content: ''; position: absolute; right: -3px; top: 22%; bottom: 22%;
+  width: 1px; background: #d7dfeb;
+}
+.mc-zone-all.active::after { opacity: 0; }
+
+.mc-years { display: flex; gap: 2px; }
+
+.mc-year {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 7px 16px 6px; border: none; background: transparent;
+  border-bottom: 2px solid transparent; cursor: pointer;
+  font-family: inherit; transition: border-color .2s ease, opacity .2s ease;
+  opacity: .5;
+}
+.mc-year-n { font-size: 13px; font-weight: 700; color: var(--t); letter-spacing: .2px; }
+.mc-year-v { font-size: 10.5px; font-weight: 600; color: var(--ts); }
+.mc-year:hover { opacity: .85; }
+.mc-year.active { opacity: 1; border-bottom-color: var(--navy); }
+.mc-year.active .mc-year-n { font-weight: 800; }
+
+/* ── Escenario del mapa ───────────────────────────────────── */
+.mc-stage { position: relative; min-height: 400px; }
+
+/* El wrapper acota el overlay de etiquetas al área real del mapa. */
+.mc-mapwrap { position: relative; }
+
+.mc-map {
+  display: block; width: 100%;
+  height: clamp(400px, 36vw, 560px);
+  overflow: visible;
+}
+
+.mc-ovl {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: visible;
+}
+
+.mc-dep {
+  fill: var(--mc-idle-l);
+  stroke: #fff; stroke-width: 1.4; stroke-linejoin: round;
+  transition: fill .45s cubic-bezier(.4, 0, .2, 1), opacity .3s ease;
+}
+/* Departamento perteneciente a la zona activa */
+.mc-dep.on { fill: var(--zc); cursor: pointer; }
+.mc-dep.on:hover { fill: var(--zc-d); }
+/* Departamento seleccionado */
+.mc-dep.sel {
+  fill: var(--zc-d);
+  stroke: #fff; stroke-width: 2.2;
+  filter: drop-shadow(0 3px 10px rgba(10, 10, 30, .28));
+}
+/* Cuando hay un departamento seleccionado, el resto de la zona se atenúa */
+.mc-stage.has-sel .mc-dep.on:not(.sel) { fill: var(--zc-l); }
+.mc-dep.void { fill: var(--mc-idle); pointer-events: none; }
+
+/* Etiquetas de departamento con línea guía */
+.mc-lbl-line { stroke: var(--ts); stroke-width: .9; opacity: .45; }
+.mc-lbl {
+  font-family: inherit; font-size: 11px; font-weight: 700;
+  fill: var(--t); paint-order: stroke;
+  stroke: #fff; stroke-width: 3.5px; stroke-linejoin: round;
+  pointer-events: none;
+}
+
+/* ── Cards flotantes sobre el mapa ────────────────────────── */
+.mc-float {
+  position: absolute;
+  background: #fff; border: .5px solid var(--border);
+  border-radius: 14px; box-shadow: 0 8px 30px rgba(10, 10, 30, .1);
+  padding: 15px 17px;
+  animation: fadeUp .3s ease both;
+}
+
+/* Participación por zona — abajo izquierda */
+.mc-parts { left: 6px; bottom: 10px; width: 245px; }
+
+.mc-eyebrow {
+  font-size: 9.5px; font-weight: 800; letter-spacing: 1.1px;
+  text-transform: uppercase; color: #94a3b8; margin-bottom: 11px;
+}
+
+.mc-part-row {
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: baseline; gap: 8px;
+  padding: 8px 0; border-top: .5px solid #f1f5f9; cursor: pointer;
+  transition: opacity .18s ease;
+}
+.mc-part-row:first-of-type { border-top: none; padding-top: 0; }
+.mc-part-row:hover { opacity: .62; }
+.mc-part-nm {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 700; color: var(--t);
+}
+.mc-part-nm::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--zc); flex-shrink: 0;
+}
+.mc-part-pct { font-size: 13px; font-weight: 800; color: var(--zc); justify-self: end; }
+.mc-part-val { grid-column: 1 / -1; font-size: 10.5px; font-weight: 600; color: var(--ts); margin-top: -3px; }
+.mc-part-row.active .mc-part-nm { color: var(--zc); }
+
+/* Totalizador: separado con la regla del Directorio (border-top de acento) */
+.mc-part-total {
+  margin-top: 4px; padding-top: 9px;
+  border-top: 1.5px solid var(--navy);
+}
+.mc-part-total .mc-part-nm { font-weight: 800; }
+.mc-part-total .mc-part-pct { color: var(--navy); }
+
+/* Detalle de zona / departamento — arriba derecha */
+.mc-detail { right: 6px; top: 8px; width: 355px; }
+
+.mc-detail-hd { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+.mc-detail-bar { width: 3px; border-radius: 2px; background: var(--zc); align-self: stretch; flex-shrink: 0; }
+.mc-detail-ttls { flex: 1; min-width: 0; }
+.mc-detail-eye {
+  font-size: 9.5px; font-weight: 800; letter-spacing: 1.1px;
+  text-transform: uppercase; color: var(--zc);
+}
+.mc-detail-ttl {
+  font-size: 19px; font-weight: 800; color: var(--t);
+  line-height: 1.2; margin-top: 2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.mc-back {
+  display: inline-flex; align-items: center; gap: 4px;
+  border: none; background: transparent; padding: 2px 0;
+  color: var(--zc); font-family: inherit; font-size: 11px; font-weight: 700;
+  cursor: pointer; flex-shrink: 0; transition: opacity .16s ease;
+}
+.mc-back:hover { opacity: .65; }
+
+.mc-detail-val {
+  font-size: clamp(28px, 2.7vw, 38px); font-weight: 900;
+  color: var(--zc); line-height: 1; letter-spacing: -.5px;
+}
+.mc-detail-sub { font-size: 11.5px; font-weight: 600; color: var(--ts); margin-top: 5px; }
+
+.mc-micros { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin: 13px 0 12px; }
+.mc-micro {
+  background: #f7faff; border: .5px solid var(--border);
+  border-radius: 10px; padding: 10px 12px;
+}
+.mc-micro-v { font-size: 17px; font-weight: 800; color: var(--t); line-height: 1.1; }
+.mc-micro-l {
+  font-size: 9px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; color: #94a3b8; margin-top: 4px;
+}
+
+/* Barra apilada de sectores + leyenda */
+.mc-sbar {
+  display: flex; height: 8px; border-radius: 5px; overflow: hidden;
+  background: #eef2f8; margin-bottom: 9px;
+}
+.mc-sbar-seg { transition: width .8s cubic-bezier(.4, 0, .2, 1); min-width: 2px; }
+
+.mc-sleg { display: flex; flex-wrap: wrap; gap: 4px 13px; }
+.mc-sleg-i {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10.5px; font-weight: 600; color: var(--tm);
+}
+.mc-sleg-i::before {
+  content: ''; width: 7px; height: 7px; border-radius: 2px;
+  background: var(--sc); flex-shrink: 0;
+}
+
+/* ── Grid inferior: sectores / departamentos / clientes ───── */
+.mc-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 14px; margin-bottom: 18px;
+}
+/* La animación de entrada la aporta .mc-boot (ver sección ANIMACIONES). */
+.mc-grid > .card { padding: 15px 17px; }
+
+/* Sectores */
+.mc-sec-row {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: 10px; padding: 8.5px 0;
+  border-top: .5px solid #f1f5f9;
+}
+.mc-sec-row:first-of-type { border-top: none; }
+.mc-sec-nm {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 700; color: var(--t);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.mc-sec-nm::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--sc); flex-shrink: 0;
+}
+.mc-sec-row.sub { padding-left: 18px; }
+.mc-sec-row.sub .mc-sec-nm { font-size: 11.5px; font-weight: 600; color: var(--tm); }
+.mc-sec-row.sub .mc-sec-nm::before { width: 5px; height: 5px; }
+.mc-sec-pct { font-size: 12.5px; font-weight: 800; color: var(--t); }
+.mc-sec-row.sub .mc-sec-pct { font-size: 11.5px; font-weight: 700; color: var(--tm); }
+.mc-sec-val { font-size: 11.5px; font-weight: 600; color: var(--ts); min-width: 56px; text-align: right; }
+
+/* Departamentos — chips.
+   En vista nacional son 25: rejilla de dos columnas con scroll acotado, para
+   que la card no desborde al resto del grid. */
+.mc-chips {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  max-height: clamp(250px, 21vw, 340px); overflow-y: auto;
+  /* El hover levanta el chip 2px: sin este colchón el scroll lo recortaría. */
+  padding: 3px 2px 3px 0; margin-top: -3px;
+}
+.mc-chips::-webkit-scrollbar { width: 5px; }
+.mc-chips::-webkit-scrollbar-thumb { background: #d9e1ec; border-radius: 3px; }
+.mc-chips::-webkit-scrollbar-track { background: transparent; }
+.mc-chip {
+  display: flex; align-items: center; justify-content: space-between; gap: 7px;
+  padding: 8px 12px; border: 1px solid var(--border); border-radius: 20px;
+  background: var(--card); cursor: pointer; font-family: inherit;
+  transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
+}
+.mc-chip-nm {
+  font-size: 11.5px; font-weight: 700; color: var(--t); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+/* En vista nacional cada chip se marca con el color de su zona */
+#mapaComercial.mc-all .mc-chip-nm::before {
+  content: ''; display: inline-block; vertical-align: middle;
+  width: 6px; height: 6px; border-radius: 50%; margin-right: 6px;
+  background: var(--zc);
+}
+#mapaComercial.mc-all .mc-chip.active .mc-chip-nm::before { background: #fff; }
+.mc-chip-v  { font-size: 11px; font-weight: 600; color: var(--ts); white-space: nowrap; }
+.mc-chip:hover { border-color: var(--zc); box-shadow: 0 2px 10px rgba(10, 10, 30, .07); }
+.mc-chip.active {
+  background: var(--zc); border-color: var(--zc);
+  box-shadow: 0 3px 12px var(--zc-sh);
+}
+.mc-chip.active .mc-chip-nm, .mc-chip.active .mc-chip-v { color: #fff; }
+.mc-chip.active .mc-chip-v { opacity: .85; }
+.mc-chip-x {
+  font-size: 13px; font-weight: 700; line-height: 1;
+  color: #fff; opacity: .8; margin-left: 1px;
+}
+.mc-chip-x:hover { opacity: 1; }
+
+/* Top clientes — tabla compacta */
+.mc-cli { width: 100%; border-collapse: collapse; }
+.mc-cli th {
+  font-size: 9px; font-weight: 800; letter-spacing: .8px;
+  text-transform: uppercase; color: #94a3b8;
+  text-align: left; padding: 0 0 8px; border-bottom: .5px solid var(--border);
+}
+.mc-cli th.r, .mc-cli td.r { text-align: right; padding-left: 9px; }
+.mc-cli td {
+  font-size: 11.5px; padding: 8.5px 0; border-bottom: .5px solid #f1f5f9;
+  color: var(--t);
+}
+.mc-cli tr:last-child td { border-bottom: none; }
+.mc-cli .c-nm {
+  font-weight: 700; max-width: 132px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.mc-cli .c-dep { color: var(--ts); font-weight: 600; }
+.mc-cli .c-val { font-weight: 700; }
+.mc-cli .c-mg  { font-weight: 800; }
+
+.mc-empty {
+  font-size: 11.5px; color: var(--ts); padding: 14px 0; text-align: center;
+}
+
+/* ── Refrigerante y Tipo de proyecto — rankings con barra ─── */
+.mc-grid2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; margin-bottom: 18px;
+}
+.mc-grid2 > .card { padding: 15px 17px; }
+
+.mc-rank {
+  display: grid;
+  grid-template-columns: minmax(88px, 132px) 1fr auto auto;
+  align-items: center; gap: 11px;
+  padding: 8px 0; border-top: .5px solid #f1f5f9;
+}
+.mc-rank:first-of-type { border-top: none; }
+/* Con la columna extra de proyectos únicos */
+#mcTipo .mc-rank { grid-template-columns: minmax(88px, 132px) 1fr auto auto auto; }
+
+.mc-rank-nm {
+  font-size: 12px; font-weight: 700; color: var(--t);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.mc-rank-bar {
+  height: 6px; border-radius: 3px; background: #eef2f8;
+  overflow: hidden; min-width: 30px;
+}
+.mc-rank-bar > i {
+  display: block; height: 100%; border-radius: 3px;
+  background: var(--zc);
+  transition: width .9s cubic-bezier(.4, 0, .2, 1);
+}
+.mc-rank-v { font-size: 11.5px; font-weight: 700; color: var(--t); min-width: 54px; text-align: right; }
+.mc-rank-p { font-size: 11.5px; font-weight: 800; color: var(--zc); min-width: 38px; text-align: right; }
+.mc-rank-n { font-size: 10px; font-weight: 600; color: var(--ts); min-width: 46px; text-align: right; }
+
+/* ── Tooltip del mapa ─────────────────────────────────────── */
+.mc-tip {
+  position: absolute; z-index: 40; pointer-events: none;
+  opacity: 0; transform: translate(-50%, -100%);
+  transition: opacity .15s ease;
+  background: var(--navy); color: #fff;
+  border-radius: 10px; padding: 10px 13px;
+  box-shadow: 0 10px 30px rgba(10, 10, 30, .34);
+  min-width: 150px;
+}
+.mc-tip.show { opacity: 1; }
+.mc-tip-ttl {
+  font-size: 12px; font-weight: 800; letter-spacing: .2px;
+  padding-bottom: 7px; margin-bottom: 7px;
+  border-bottom: 1px solid rgba(255, 255, 255, .16);
+}
+.mc-tip-r {
+  display: flex; justify-content: space-between; gap: 14px;
+  font-size: 10.5px; line-height: 1.7;
+}
+.mc-tip-k { color: rgba(255, 255, 255, .58); font-weight: 600; }
+.mc-tip-v { font-weight: 700; }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1280px) {
+  .mc-detail { width: 310px; }
+  .mc-parts  { width: 215px; }
+}
+
+@media (max-width: 1100px) {
+  .mc-grid { grid-template-columns: 1fr 1fr; }
+  .mc-grid > .card:nth-child(3) { grid-column: 1 / -1; }
+}
+
+/* Tablet: las cards flotantes bajan a flujo normal */
+@media (max-width: 900px) {
+  .mc-stage { min-height: 0; }
+  .mc-map { height: clamp(360px, 64vw, 540px); }
+  .mc-float {
+    position: static; width: auto; box-shadow: none;
+    margin-top: 12px; animation: none;
+  }
+  .mc-detail { order: -1; margin-top: 0; margin-bottom: 12px; }
+  .mc-topbar { gap: 10px; }
+  .mc-years { margin-left: auto; }
+}
+
+@media (max-width: 700px) {
+  .mc-grid, .mc-grid2 { grid-template-columns: 1fr; }
+  .mc-rank, #mcTipo .mc-rank { grid-template-columns: 1fr auto auto; gap: 8px; }
+  .mc-rank-bar { display: none; }
+  .mc-grid > .card:nth-child(3) { grid-column: auto; }
+  .mc-zones { width: 100%; }
+  .mc-zone { flex: 1; justify-content: center; padding: 9px 10px; min-height: 44px; }
+  .mc-year { min-height: 44px; padding: 6px 12px; }
+  .mc-chips { grid-template-columns: 1fr; }
+  .mc-shell { padding: 10px; border-radius: 14px; }
+  .mc-lbl { font-size: 13px; }
+}
+
+@media (max-width: 420px) {
+  .mc-zone { font-size: 11px; padding: 9px 6px; gap: 5px; }
+  .mc-micros { grid-template-columns: 1fr; }
+  .mc-detail-val { font-size: 30px; }
+}
+
+/* TV / 4K */
+@media (min-width: 2400px) {
+  .mc-detail { width: 460px; }
+  .mc-parts  { width: 320px; }
+  .mc-detail-ttl { font-size: 24px; }
+  .mc-lbl { font-size: 9.5px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ANIMACIONES
+   1 · Destello de selección — entra y sale, nunca permanece
+   2 · Cascada de encendido del mapa
+   3 · Micro-interacciones de indicadores
+   4 · Arranque del grid inferior (sólo al entrar a la vista)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 1 · Destello (ping) ──────────────────────────────────────
+   js/mapa.js clona el contorno del departamento en <g id="mcPulse">
+   y el elemento se autodestruye al terminar la animación. */
+.mc-ping {
+  fill: var(--zc);
+  stroke: var(--zc);
+  stroke-linejoin: round;
+  pointer-events: none;
+  animation: mcPing .82s cubic-bezier(.16, .84, .44, 1) both;
+}
+
+@keyframes mcPing {
+  0%   { opacity: 0;   stroke-width: 0; }
+  18%  { opacity: .55; stroke-width: 4; }
+  100% { opacity: 0;   stroke-width: 30; }
+}
+
+/* Entrada a la vista: el mismo destello, más largo y a media intensidad —
+   se percibe como un halo que recorre el país, no como un parpadeo. */
+.mc-ping.soft { animation: mcPingSoft 1.5s cubic-bezier(.22, .7, .3, 1) both; }
+
+@keyframes mcPingSoft {
+  0%   { opacity: 0;   stroke-width: 0; }
+  22%  { opacity: .30; stroke-width: 3; }
+  100% { opacity: 0;   stroke-width: 22; }
+}
+
+/* ── 2 · Mapa ─────────────────────────────────────────────────
+   El retardo por departamento lo fija js/mapa.js (cascada N→S). */
+.mc-dep {
+  transition: fill .5s cubic-bezier(.4, 0, .2, 1),
+              stroke-width .3s ease,
+              opacity .3s ease;
+}
+
+/* Entrada a la vista: el relleno tarda el doble en asentarse y arranca desde
+   el departamento apagado, así que la ola norte→sur se puede seguir con la
+   vista. Al cambiar de zona vuelve el ritmo corto de arriba. */
+#mapaComercial.mc-boot .mc-dep {
+  transition: fill 1.15s cubic-bezier(.32, .72, .3, 1),
+              stroke-width .3s ease,
+              opacity .3s ease;
+}
+
+/* js/mapa.js apaga el mapa con .mc-off antes de relanzar la cascada: ese
+   salto no debe animarse, sólo el encendido posterior. */
+.mc-map.mc-off .mc-dep { transition: none !important; }
+
+/* El seleccionado respira muy leve: da sensación de "activo". */
+.mc-dep.sel { animation: mcBreathe 3.4s ease-in-out infinite; }
+
+@keyframes mcBreathe {
+  0%, 100% { filter: drop-shadow(0 3px 10px rgba(10, 10, 30, .28)); }
+  50%      { filter: drop-shadow(0 3px 16px rgba(10, 10, 30, .40)); }
+}
+
+/* Las etiquetas entran con la cascada — js/mapa.js les fija el retardo de su
+   departamento, así que la columna se escribe de norte a sur. */
+.mc-ovl.in text { animation: mcLblIn .55s cubic-bezier(.2, .8, .3, 1) both; }
+.mc-ovl.in line { animation: mcFadeIn .55s ease both; }
+
+@keyframes mcFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes mcLblIn {
+  from { opacity: 0; transform: translateX(-5px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── 3 · Indicadores ──────────────────────────────────────────*/
+
+/* El punto de la zona activa late, como el indicador "live" del Directorio */
+.mc-zone.active .mc-dot { animation: mcPulseDot 2.4s ease-in-out infinite; }
+
+@keyframes mcPulseDot {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(255, 255, 255, .30); }
+  50%      { box-shadow: 0 0 0 5px rgba(255, 255, 255, .14); }
+}
+
+/* La barra lateral de la card de detalle se despliega */
+.mc-detail-bar { animation: mcGrowY .5s cubic-bezier(.4, 0, .2, 1) both; transform-origin: top; }
+
+@keyframes mcGrowY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+/* El valor grande y las micro-cards entran al cambiar de selección */
+.mc-detail-val { animation: mcRise .42s cubic-bezier(.2, .8, .3, 1) both; }
+.mc-micro      { animation: mcRise .42s cubic-bezier(.2, .8, .3, 1) both; }
+.mc-micro:nth-child(2) { animation-delay: .06s; }
+
+@keyframes mcRise {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Los segmentos de sector crecen desde la izquierda */
+.mc-sbar-seg { transform-origin: left; animation: mcGrowX .75s cubic-bezier(.4, 0, .2, 1) both; }
+
+@keyframes mcGrowX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Chips y filas responden al puntero */
+.mc-chip { transition: border-color .16s ease, background .16s ease, box-shadow .16s ease, transform .16s ease; }
+.mc-chip:hover:not(.active) { transform: translateY(-2px); }
+.mc-chip:active { transform: scale(.97); }
+
+.mc-sec-row, .mc-rank { transition: background .16s ease; }
+.mc-sec-row:hover, .mc-rank:hover { background: #f7faff; }
+
+.mc-cli tbody tr { transition: background .16s ease; }
+.mc-cli tbody tr:hover { background: #f7faff; }
+
+/* ── 4 · Arranque del grid inferior ───────────────────────────
+   .mc-boot lo pone js/mapa.js al entrar a la vista y lo quita cuando termina
+   la cascada del mapa, así que los re-filtros posteriores no vuelven a animar.
+   El escalonado acompaña al mapa: entra después de él, no encima. */
+
+/* Barrido de progreso sobre el borde superior de cada card */
+.mc-boot .mc-grid > .card::after,
+.mc-boot .mc-grid2 > .card::after {
+  content: '';
+  position: absolute; left: 0; top: 0; height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(90deg, transparent, var(--zc), transparent);
+  animation: mcSweep 1.35s ease-out both;
+  animation-delay: calc(420ms + var(--i, 0) * 150ms);
+  pointer-events: none;
+}
+
+@keyframes mcSweep {
+  0%   { width: 0;    opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { width: 100%; opacity: 0; }
+}
+
+/* Las cards entran escalonadas */
+.mc-boot .mc-grid > .card,
+.mc-boot .mc-grid2 > .card {
+  animation: mcBootCard .72s cubic-bezier(.2, .8, .3, 1) both;
+  animation-delay: calc(420ms + var(--i, 0) * 150ms);
+}
+
+@keyframes mcBootCard {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Las filas de cada card se revelan como una lista que carga */
+.mc-boot .mc-sec-row,
+.mc-boot .mc-rank,
+.mc-boot .mc-chip,
+.mc-boot .mc-cli tbody tr {
+  animation: mcBootRow .52s ease both;
+}
+.mc-boot .mc-sec-row:nth-child(1),  .mc-boot .mc-rank:nth-child(1),
+.mc-boot .mc-chip:nth-child(1),     .mc-boot .mc-cli tbody tr:nth-child(1)  { animation-delay: .70s; }
+.mc-boot .mc-sec-row:nth-child(2),  .mc-boot .mc-rank:nth-child(2),
+.mc-boot .mc-chip:nth-child(2),     .mc-boot .mc-cli tbody tr:nth-child(2)  { animation-delay: .81s; }
+.mc-boot .mc-sec-row:nth-child(3),  .mc-boot .mc-rank:nth-child(3),
+.mc-boot .mc-chip:nth-child(3),     .mc-boot .mc-cli tbody tr:nth-child(3)  { animation-delay: .92s; }
+.mc-boot .mc-sec-row:nth-child(4),  .mc-boot .mc-rank:nth-child(4),
+.mc-boot .mc-chip:nth-child(4),     .mc-boot .mc-cli tbody tr:nth-child(4)  { animation-delay: 1.03s; }
+.mc-boot .mc-sec-row:nth-child(n+5), .mc-boot .mc-rank:nth-child(n+5),
+.mc-boot .mc-chip:nth-child(n+5),   .mc-boot .mc-cli tbody tr:nth-child(n+5) { animation-delay: 1.14s; }
+
+@keyframes mcBootRow {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Las barras de ranking se llenan como un progreso */
+.mc-boot .mc-rank-bar > i {
+  transform-origin: left;
+  animation: mcGrowX 1.25s cubic-bezier(.4, 0, .2, 1) both;
+  animation-delay: .78s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #mapaComercial *,
+  #mapaComercial *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

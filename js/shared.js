@@ -23,6 +23,9 @@ function go(s, sub) {
     if(s==='participacion'){
       if(window._initPartCharts)window._initPartCharts();
     }
+    if(s==='moventas'){
+      if(window._initMoCharts)window._initMoCharts();
+    }
   },80);
 }
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => go(t.dataset.s));

@@ -904,8 +904,8 @@ td.td-hi{background:rgba(62,198,172,.09);font-weight:700}
 
 /* Animación de entrada discreta — solo si el usuario no pidió reducir movimiento */
 @media(prefers-reduced-motion:no-preference){
-  #moventas .mo4-panel{animation:fadeUp .4s ease both}
-  #moventas .mo3-tabs{animation:fadeUp .45s .06s ease both}
+  #moventas .mo5-hero{animation:fadeUp .4s ease both}
+  #moventas .mo5-grid{animation:fadeUp .45s .06s ease both}
 }
 
 
