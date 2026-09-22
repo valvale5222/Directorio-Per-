@@ -518,107 +518,107 @@ const Z = {
    coinciden (p. ej. EL PEDREGAL, código PRY 2026-0000046, declarado AD).
    ============================================================ */
 const ventas2026 = [
-  {mes:'May',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:9500000,mg:13.78,tipo:'PR'},
-  {mes:'Abr',cli:'Corporacion Agrolatina S.A.C.',zona:'Sur',imp:2320000,mg:18.87,tipo:'PR'},
-  {mes:'Jun',cli:'Procesos Agroindustriales Sociedad Anonima',zona:'Sur',imp:2034100.57,mg:14.01,tipo:'PR'},
-  {mes:'Ene',cli:'Tal S.A.',zona:'Norte',imp:1700000,mg:13.09,tipo:'PR'},
-  {mes:'May',cli:'Bomarea S.R.L.',zona:'Norte',imp:1560000,mg:13.81,tipo:'PR'},
-  {mes:'Ene',cli:'Bomarea S.R.L.',zona:'Norte',imp:1500000,mg:15.48,tipo:'PR'},
-  {mes:'Feb',cli:'Ta Export S.A.C.',zona:'Sur',imp:1460000,mg:16.35,tipo:'PR'},
-  {mes:'Ene',cli:'Procesadora Torre Blanca S.A.C',zona:'Centro',imp:718498.3,mg:19.46,tipo:'PR'},
-  {mes:'May',cli:'Procesadora Laran SAC',zona:'Sur',imp:715885.05,mg:13.27,tipo:'PR'},
-  {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:552380.14,mg:15.39,tipo:'PR'},
-  {mes:'Feb',cli:'Camposol S.A.',zona:'Norte',imp:497385.27,mg:15.1,tipo:'PR'},
-  {mes:'Abr',cli:'Estanterias Metalicas J.R.M. S.A.C',zona:'Sur',imp:455000,mg:14.24,tipo:'PR'},
-  {mes:'Abr',cli:'Agroindustrias Aib S.A',zona:'Sur',imp:394694.81,mg:15.16,tipo:'PR'},
-  {mes:'Abr',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:392255.23,mg:13.94,tipo:'PR'},
-  {mes:'May',cli:'Qali Fruits S.A.C.',zona:'Centro',imp:379901.83,mg:15.38,tipo:'PR'},
-  {mes:'Feb',cli:'Tal S.A.',zona:'Norte',imp:352587.8,mg:16.79,tipo:'PR'},
-  {mes:'Ene',cli:'T & T Fruits S.A.',zona:'Centro',imp:227719.49,mg:13.89,tipo:'PR'},
-  {mes:'May',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:221756.97,mg:11.9,tipo:'PR'},
-  {mes:'Mar',cli:'Viveros El Tambo S.A.C.',zona:'Norte',imp:216754.9,mg:19.52,tipo:'PR'},
-  {mes:'Ene',cli:'Imbarex S.A.',zona:'Sur',imp:215000,mg:15,tipo:'AD'},
-  {mes:'Jun',cli:'Sun Fruits Exports S.A.',zona:'Sur',imp:211139.96,mg:22.69,tipo:'PR'},
-  {mes:'Abr',cli:'Universidad Federico Henriquez Y Carvajal',zona:'Sur',imp:206089.67,mg:37.2,tipo:'PR'},
-  {mes:'Feb',cli:'Arca Continental Lindley S.A.',zona:'Norte',imp:203678.39,mg:21.3,tipo:'PR'},
-  {mes:'Jun',cli:'Sun Fruits Exports S.A.',zona:'Sur',imp:184026.24,mg:21.17,tipo:'PR'},
-  {mes:'Abr',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:169653.6,mg:16.29,tipo:'AD'},
-  {mes:'Feb',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:118131.56,mg:15,tipo:'AD'},
-  {mes:'Abr',cli:'Reiter Peruvian Berry S.A.',zona:'Sur',imp:110710,mg:14.17,tipo:'PR'},
-  {mes:'Mar',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:105000,mg:17.92,tipo:'PR'},
-  {mes:'May',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:103585.21,mg:17,tipo:'PR'},
-  {mes:'Abr',cli:'Ingenieria En Cartones Y Papeles S.A.C.',zona:'Centro',imp:101933.16,mg:20.03,tipo:'PR'},
-  {mes:'May',cli:'Ara Foods Industry S.A.C.',zona:'Norte',imp:100000,mg:20,tipo:'PR'},
-  {mes:'Feb',cli:'Berry Harvest S.A.',zona:'Norte',imp:97846.74,mg:15,tipo:'AD'},
-  {mes:'May',cli:'Bomarea S.R.L.',zona:'Norte',imp:97000,mg:19,tipo:'AD'},
-  {mes:'May',cli:'Q Pack S.A.C.',zona:'Norte',imp:80000.05,mg:17.15,tipo:'AD'},
-  {mes:'May',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:69630.79,mg:17.08,tipo:'PR'},
-  {mes:'Mar',cli:'Smart Packing S.A.C.',zona:'Norte',imp:68825.16,mg:14.18,tipo:'PR'},
-  {mes:'Jun',cli:'Sun Fruits Exports S.A.',zona:'Sur',imp:64950.84,mg:8.17,tipo:'PR'},
-  {mes:'Feb',cli:'Florisert S.A.C.',zona:'Sur',imp:61715.57,mg:16.84,tipo:'PR'},
-  {mes:'Abr',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:56577.26,mg:18.39,tipo:'AD'},
-  {mes:'Mar',cli:'Imbarex S.A.',zona:'Sur',imp:54100,mg:20.15,tipo:'AD'},
-  {mes:'Feb',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:53240.92,mg:19.5,tipo:'PR'},
-  {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:50864.99,mg:15,tipo:'AD'},
-  {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:38315,mg:30,tipo:'VSA'},
-  {mes:'May',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:36416.39,mg:18.58,tipo:'PR'},
-  {mes:'May',cli:'Packing del Carmen S.A.C.',zona:'Sur',imp:36347.87,mg:17.64,tipo:'PR'},
-  {mes:'Feb',cli:'Vitafoods Peru S.A.C.',zona:'Centro',imp:35000,mg:30,tipo:'VSA'},
-  {mes:'Feb',cli:'Q Pack S.A.C.',zona:'Norte',imp:30773.49,mg:15,tipo:'AD'},
-  {mes:'May',cli:'Berry Harvest S.A.',zona:'Norte',imp:27857.31,mg:19.15,tipo:'AD'},
-  {mes:'Abr',cli:'Delice S.A.C',zona:'Centro',imp:25500,mg:23,tipo:'AD'},
-  {mes:'May',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:24000,mg:18,tipo:'AD'},
-  {mes:'May',cli:'Berry Harvest S.A.',zona:'Norte',imp:20966.56,mg:25,tipo:'AD'},
-  {mes:'Mar',cli:'Agro Floral Peru S.A.C.',zona:'Sur',imp:19881.8,mg:16.14,tipo:'AD'},
-  {mes:'May',cli:'Tal S.A.',zona:'Norte',imp:17671.66,mg:25,tipo:'AD'},
-  {mes:'Abr',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:17565.18,mg:17.34,tipo:'PR'},
-  {mes:'Abr',cli:'Delice S.A.C',zona:'Centro',imp:17083.21,mg:12.55,tipo:'AD'},
-  {mes:'May',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:12000,mg:30,tipo:'VSA'},
-  {mes:'May',cli:'Q Pack S.A.C.',zona:'Norte',imp:10183.62,mg:17.29,tipo:'AD'},
-  {mes:'Jun',cli:'Vitafoods Peru S.A.C.',zona:'Centro',imp:8470,mg:14.99,tipo:'VSI'},
-  {mes:'May',cli:'El Parque Alaya Packing S.A.C.',zona:'Norte',imp:8441.32,mg:12.27,tipo:'AD'},
-  {mes:'Jun',cli:'Consorcio Agricola Moquegua S.A.C.',zona:'Sur',imp:8240,mg:25.01,tipo:'PR'},
-  {mes:'Feb',cli:'El Parque Alaya Packing S.A.C.',zona:'Norte',imp:7500,mg:15,tipo:'AD'},
-  {mes:'Mar',cli:'Smart Packing S.A.C.',zona:'Norte',imp:6875,mg:14.24,tipo:'PR'},
-  {mes:'Mar',cli:'Cia. de Exp. y Negocios Grles. S.A. (COEXA)',zona:'Sur',imp:6840.69,mg:8.06,tipo:'PR'},
-  {mes:'Feb',cli:'Agro Floral Peru S.A.C.',zona:'Centro',imp:6690,mg:15,tipo:'AD'},
-  {mes:'Feb',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:5810,mg:15,tipo:'AD'},
-  {mes:'May',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:5725.28,mg:15.5,tipo:'AD'},
-  {mes:'May',cli:'Bomarea S.R.L.',zona:'Norte',imp:5368.75,mg:20,tipo:'PR'},
-  {mes:'May',cli:'Santa Sofia del Sur S.A.C.',zona:'Sur',imp:5187.52,mg:15,tipo:'AD'},
-  {mes:'Feb',cli:'Danper Trujillo S.A.C.',zona:'Norte',imp:5000,mg:30,tipo:'VSA'},
-  {mes:'May',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4306.7,mg:18.2,tipo:'AD'},
-  {mes:'Mar',cli:'Agro Floral Peru S.A.C.',zona:'Sur',imp:3261,mg:17.93,tipo:'AD'},
-  {mes:'Jun',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:2700,mg:30,tipo:'VSA'},
-  {mes:'Jun',cli:'Q Pack S.A.C.',zona:'Norte',imp:2700,mg:-82.59,tipo:'AD'},
-  {mes:'May',cli:'Procesadora Torre Blanca S.A.C',zona:'Centro',imp:2658.59,mg:29.47,tipo:'AD'},
-  {mes:'Jun',cli:'Austral Group S.A.A.',zona:'Norte',imp:2310,mg:12.94,tipo:'AD'},
-  {mes:'Jun',cli:'Agro Floral Peru S.A.C.',zona:'Centro',imp:2130,mg:13.31,tipo:'AD'},
-  {mes:'Jun',cli:'Smart Packing S.A.C.',zona:'Norte',imp:1996.83,mg:17,tipo:'PR'},
-  {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:1900,mg:13.58,tipo:'AD'},
-  {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:1414.83,mg:17.08,tipo:'AD'},
-  {mes:'Feb',cli:'El Rocio S.A.',zona:'Norte',imp:890,mg:15,tipo:'AD'},
-  {mes:'Ene',cli:'Uvica S.A.C.',zona:'Sur',imp:798,mg:15,tipo:'AD'},
-  {mes:'Feb',cli:'Agroindustria Frutos de Oro S.A.C.',zona:'Norte',imp:760,mg:15,tipo:'AD'},
-  {mes:'Jun',cli:'Sociedad Agricola 3P S.A.C.',zona:'Sur',imp:500,mg:20,tipo:'AD'},
-  {mes:'Jul',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:435000,mg:16.46,tipo:'PR'},
-  {mes:'Jun',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:325000,mg:16,tipo:'PR'},
-  {mes:'Jul',cli:'In Vitro Lab Perú S.A.C.',zona:'Centro',imp:57857,mg:26.38,tipo:'VSA'},
-  {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:7488.07,mg:13,tipo:'PR'},
-  {mes:'Jul',cli:'Consorcio Agricola Moquegua S.A.C.',zona:'Sur',imp:6016,mg:25,tipo:'AD'},
-  {mes:'Jul',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4500,mg:23.33,tipo:'AD'},
-  {mes:'Jun',cli:'Family Farms Perú S.R.L.',zona:'Sur',imp:1550,mg:20,tipo:'AD'},
-  {mes:'Ago',cli:'Agroindustrias Aib S.A',zona:'Norte',imp:611603.32,mg:21.85,tipo:'PR'},
-  {mes:'Ago',cli:'Agricola Safco Peru S.A.',zona:'Sur',imp:153872.62,mg:24.22,tipo:'PR'},
-  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:33994.43,mg:16.31,tipo:'PR'},
-  {mes:'Ago',cli:'Uvica S.A.C.',zona:'Sur',imp:33539.69,mg:17.92,tipo:'PR'},
-  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:26316.26,mg:19.24,tipo:'AD'},
-  {mes:'Ago',cli:'El Pedregal S.A.',zona:'Norte',imp:21297,mg:5,tipo:'AD'},
-  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:14820.87,mg:22.5,tipo:'AD'},
-  {mes:'Ago',cli:'Viru Frozen S.A.',zona:'Norte',imp:4612.5,mg:20,tipo:'PR'},
-  {mes:'Ago',cli:'Q Pack S.A.C.',zona:'Norte',imp:4580,mg:20,tipo:'AD'},
-  {mes:'Ago',cli:'Q Pack S.A.C.',zona:'Norte',imp:4550,mg:28.9,tipo:'AD'},
-  {mes:'Jul',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:4190,mg:16.42,tipo:'AD'}
+  {mes:'May',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:9500000,mg:13.78,desc:'PLANTA ARANDANO',tipo:'PR'},
+  {mes:'Abr',cli:'Corporacion Agrolatina S.A.C.',zona:'Sur',imp:2320000,mg:18.87,desc:'PLANTA UVA',tipo:'PR'},
+  {mes:'Jun',cli:'Procesos Agroindustriales Sociedad Anonima',zona:'Sur',imp:2034100.57,mg:14.01,desc:'PLANTA DE PROCESO DE UVA',tipo:'PR'},
+  {mes:'Ene',cli:'Tal S.A.',zona:'Norte',imp:1700000,mg:13.09,desc:'PLANTA DE PROCESOS PALTA',tipo:'PR'},
+  {mes:'May',cli:'Bomarea S.R.L.',zona:'Norte',imp:1560000,mg:13.81,desc:'PLANTA ARANDANO - 2 ETAPA AMONIACO',tipo:'PR'},
+  {mes:'Ene',cli:'Bomarea S.R.L.',zona:'Norte',imp:1500000,mg:15.48,desc:'PLANTA DE PROCESO DE ARÁNDANO',tipo:'PR'},
+  {mes:'Feb',cli:'Ta Export S.A.C.',zona:'Sur',imp:1460000,mg:16.35,desc:'PACKING PARA ARANDANOS',tipo:'PR'},
+  {mes:'Ene',cli:'Procesadora Torre Blanca S.A.C',zona:'Centro',imp:718498.3,mg:19.46,desc:'AMPLIACION DE PLANTA',tipo:'PR'},
+  {mes:'May',cli:'Procesadora Laran SAC',zona:'Sur',imp:715885.05,mg:13.27,desc:'AMPLIACIÓN DE TÚNELES, CÁMARA Y',tipo:'PR'},
+  {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:552380.14,mg:15.39,desc:'CONSTRUCCION ACOPIO ARANDANOS',tipo:'PR'},
+  {mes:'Feb',cli:'Camposol S.A.',zona:'Norte',imp:497385.27,mg:15.1,desc:'NAVE PRODUCTO TERMINADO',tipo:'PR'},
+  {mes:'Abr',cli:'Estanterias Metalicas J.R.M. S.A.C',zona:'Sur',imp:455000,mg:14.24,desc:'CÁMARA DE CONGELADO Y AMBIENTES',tipo:'PR'},
+  {mes:'Abr',cli:'Agroindustrias Aib S.A',zona:'Sur',imp:394694.81,mg:15.16,desc:'CÁMARA DE CONGELADOS',tipo:'PR'},
+  {mes:'Abr',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:392255.23,mg:13.94,desc:'AMPLIACIÓN PACKING DE UVA',tipo:'PR'},
+  {mes:'May',cli:'Qali Fruits S.A.C.',zona:'Centro',imp:379901.83,mg:15.38,desc:'AMPLIACION CPT',tipo:'PR'},
+  {mes:'Feb',cli:'Tal S.A.',zona:'Norte',imp:352587.8,mg:16.79,desc:'ACOPIO DE ARANDANOS',tipo:'PR'},
+  {mes:'Ene',cli:'T & T Fruits S.A.',zona:'Centro',imp:227719.49,mg:13.89,desc:'SUMINISTRO E INSTALACION DE SERVICIO DE SISTEMA DE ENFRIAMIENTO PARA CAMARA DE FRIO',tipo:'PR'},
+  {mes:'May',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:221756.97,mg:11.9,desc:'INSTALACION RACK PALLETS RUNNER',tipo:'PR'},
+  {mes:'Mar',cli:'Viveros El Tambo S.A.C.',zona:'Norte',imp:216754.9,mg:19.52,desc:'PROYECTO VIVEROS TAMBO',tipo:'PR'},
+  {mes:'Ene',cli:'Imbarex S.A.',zona:'Sur',imp:215000,mg:15,desc:'PLANTA PROCESOS CITRICOS Y ARANDANOS',tipo:'AD'},
+  {mes:'Jun',cli:'Sun Fruits Exports S.A.',zona:'Sur',imp:211139.96,mg:22.69,desc:'REPOTENCIACION COMPRESOR',tipo:'PR'},
+  {mes:'Abr',cli:'Universidad Federico Henriquez Y Carvajal',zona:'Sur',imp:206089.67,mg:37.2,desc:'PACKING DE UVA',tipo:'PR'},
+  {mes:'Feb',cli:'Arca Continental Lindley S.A.',zona:'Norte',imp:203678.39,mg:21.3,desc:'SUMINISTRO E INSTALACIÓN DE SERPENTIN',tipo:'PR'},
+  {mes:'Jun',cli:'Sun Fruits Exports S.A.',zona:'Sur',imp:184026.24,mg:21.17,desc:'CONDENSADOR - REPONTENCIACION TUNELES',tipo:'PR'},
+  {mes:'Abr',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:169653.6,mg:16.29,desc:'1° ETAPA PLANTA PROCESO ARANDANO - ADICIONAL',tipo:'AD'},
+  {mes:'Feb',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:118131.56,mg:15,desc:'OFICINAS TERMOACÚSTICAS PACKING',tipo:'AD'},
+  {mes:'Abr',cli:'Reiter Peruvian Berry S.A.',zona:'Sur',imp:110710,mg:14.17,desc:'AMPLIACION PLANTA',tipo:'PR'},
+  {mes:'Mar',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:105000,mg:17.92,desc:'REPOTENCIACIÓN DE TÚNELES DE PT',tipo:'PR'},
+  {mes:'May',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:103585.21,mg:17,desc:'REPOTENCIACIÓN DE TÚNELES DE PT',tipo:'PR'},
+  {mes:'Abr',cli:'Ingenieria En Cartones Y Papeles S.A.C.',zona:'Centro',imp:101933.16,mg:20.03,desc:'ICYP - SUMINISTRO E INSTALACIÓN',tipo:'PR'},
+  {mes:'May',cli:'Ara Foods Industry S.A.C.',zona:'Norte',imp:100000,mg:20,desc:'TÚNEL CONGELADO',tipo:'PR'},
+  {mes:'Feb',cli:'Berry Harvest S.A.',zona:'Norte',imp:97846.74,mg:15,desc:'REFORZAMIENTO ESTRUCTURAL SOLDADURA Y ENSAMBLE PUERTAS',tipo:'AD'},
+  {mes:'May',cli:'Bomarea S.R.L.',zona:'Norte',imp:97000,mg:19,desc:'PLANTA PROCESO ARANDANO - 2DA ETAPA AMONIACO-GLICOL',tipo:'AD'},
+  {mes:'May',cli:'Q Pack S.A.C.',zona:'Norte',imp:80000.05,mg:17.15,desc:'AMPLIACIÓN SALA DE PROCESOS',tipo:'AD'},
+  {mes:'May',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:69630.79,mg:17.08,desc:'SUMINISTRO E INSTALACION EQUIPOS Y',tipo:'PR'},
+  {mes:'Mar',cli:'Smart Packing S.A.C.',zona:'Norte',imp:68825.16,mg:14.18,desc:'CLIMATIZACIÓN PRE-TÚNELES',tipo:'PR'},
+  {mes:'Jun',cli:'Sun Fruits Exports S.A.',zona:'Sur',imp:64950.84,mg:8.17,desc:'ADECUACIÓN DE VANO EN TÚNEL',tipo:'PR'},
+  {mes:'Feb',cli:'Florisert S.A.C.',zona:'Sur',imp:61715.57,mg:16.84,desc:'AMPLIACION PROCESADORA FLORES',tipo:'PR'},
+  {mes:'Abr',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:56577.26,mg:18.39,desc:'Climatizacion de Camara Mercado Nacional',tipo:'AD'},
+  {mes:'Mar',cli:'Imbarex S.A.',zona:'Sur',imp:54100,mg:20.15,desc:'ESTRUCTURA METALICA',tipo:'AD'},
+  {mes:'Feb',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:53240.92,mg:19.5,desc:'TERMOMETRIA MAMUT',tipo:'PR'},
+  {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:50864.99,mg:15,desc:'CONSTRUCCION ACOPIO ARANDANOS',tipo:'AD'},
+  {mes:'Feb',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:38315,mg:30,desc:'ANTEPROYECTO PLANTA EMPACADORA',tipo:'VSA'},
+  {mes:'May',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:36416.39,mg:18.58,desc:'TUNEL DE GASIFICADO',tipo:'PR'},
+  {mes:'May',cli:'Packing del Carmen S.A.C.',zona:'Sur',imp:36347.87,mg:17.64,desc:'SUMINISTRO DE MATERIALES PARA TÚNELE',tipo:'PR'},
+  {mes:'Feb',cli:'Vitafoods Peru S.A.C.',zona:'Centro',imp:35000,mg:30,desc:'SERVICIO ARQUITECTURA',tipo:'VSA'},
+  {mes:'Feb',cli:'Q Pack S.A.C.',zona:'Norte',imp:30773.49,mg:15,desc:'PACKING DE ARANDANOS',tipo:'AD'},
+  {mes:'May',cli:'Berry Harvest S.A.',zona:'Norte',imp:27857.31,mg:19.15,desc:'DESMONTAJE PISOS Y MONTAJE TRIPLAY',tipo:'AD'},
+  {mes:'Abr',cli:'Delice S.A.C',zona:'Centro',imp:25500,mg:23,desc:'SUMINISTRO E INSTALACION RACKS',tipo:'AD'},
+  {mes:'May',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:24000,mg:18,desc:'IMPLEMENTACION DE SISTEMA DE GASIFICADO',tipo:'AD'},
+  {mes:'May',cli:'Berry Harvest S.A.',zona:'Norte',imp:20966.56,mg:25,desc:'SUMINISTRO E INSTALACION ELECTRICA',tipo:'AD'},
+  {mes:'Mar',cli:'Agro Floral Peru S.A.C.',zona:'Sur',imp:19881.8,mg:16.14,desc:'SUMINISTRO E INSTALACION DE CORTINAS DE AIRE',tipo:'AD'},
+  {mes:'May',cli:'Tal S.A.',zona:'Norte',imp:17671.66,mg:25,desc:'ADICIONAL TUBERIAS Y ASILAMIENTO CONEXION EVAPORADORES',tipo:'AD'},
+  {mes:'Abr',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:17565.18,mg:17.34,desc:'MANTENIMIENTO PANELES PACKING AQU ANQ',tipo:'PR'},
+  {mes:'Abr',cli:'Delice S.A.C',zona:'Centro',imp:17083.21,mg:12.55,desc:'RAMPAS ENCUENTOS Y BOMBA CONDESADO',tipo:'AD'},
+  {mes:'May',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:12000,mg:30,desc:'ANTEPROYECTO DE PLANTA EMPAQUE',tipo:'VSA'},
+  {mes:'May',cli:'Q Pack S.A.C.',zona:'Norte',imp:10183.62,mg:17.29,desc:'ALQUILER DE MONTACARGAS CONTENEDORMONTAJE LINEA',tipo:'AD'},
+  {mes:'Jun',cli:'Vitafoods Peru S.A.C.',zona:'Centro',imp:8470,mg:14.99,desc:'ESTUDIO SISTEMA GESTION AGUA',tipo:'VSI'},
+  {mes:'May',cli:'El Parque Alaya Packing S.A.C.',zona:'Norte',imp:8441.32,mg:12.27,desc:'Ampliación de Planta de Proceso - ESCENARIO 2',tipo:'AD'},
+  {mes:'Jun',cli:'Consorcio Agricola Moquegua S.A.C.',zona:'Sur',imp:8240,mg:25.01,desc:'BATERIAS REPONTENCIACION TUNELES',tipo:'PR'},
+  {mes:'Feb',cli:'El Parque Alaya Packing S.A.C.',zona:'Norte',imp:7500,mg:15,desc:'AMPLIACION PACKING',tipo:'AD'},
+  {mes:'Mar',cli:'Smart Packing S.A.C.',zona:'Norte',imp:6875,mg:14.24,desc:'UNIDAD CONDENSADORA DANFOSS',tipo:'PR'},
+  {mes:'Mar',cli:'Cia. de Exp. y Negocios Grles. S.A. (COEXA)',zona:'Sur',imp:6840.69,mg:8.06,desc:'IMPLEMENTACION DE PACKING',tipo:'PR'},
+  {mes:'Feb',cli:'Agro Floral Peru S.A.C.',zona:'Centro',imp:6690,mg:15,desc:'AMPLIACION DE PLANTA',tipo:'AD'},
+  {mes:'Feb',cli:'Prosembra Sociedad Anonima Cerrada',zona:'Sur',imp:5810,mg:15,desc:'PACKING ARANDANOS',tipo:'AD'},
+  {mes:'May',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:5725.28,mg:15.5,desc:'SUMINISTRO E INSTALACION VENTILADOR',tipo:'AD'},
+  {mes:'May',cli:'Bomarea S.R.L.',zona:'Norte',imp:5368.75,mg:20,desc:'REPARACION PANELES',tipo:'PR'},
+  {mes:'May',cli:'Santa Sofia del Sur S.A.C.',zona:'Sur',imp:5187.52,mg:15,desc:'NIVELADOR HIDRAULICO',tipo:'AD'},
+  {mes:'Feb',cli:'Danper Trujillo S.A.C.',zona:'Norte',imp:5000,mg:30,desc:'ANTEPROYECTO PLANTA CONGELADO MANGO',tipo:'VSA'},
+  {mes:'May',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4306.7,mg:18.2,desc:'SUMINISTRO E INSTALACION PUERTA CORREDERA',tipo:'AD'},
+  {mes:'Mar',cli:'Agro Floral Peru S.A.C.',zona:'Sur',imp:3261,mg:17.93,desc:'SUMINISTRO E INSTALACION DE PUERTA CORREDERA',tipo:'AD'},
+  {mes:'Jun',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:2700,mg:30,desc:'LEVANTAMIENTO INFORMACION ARQUITECTURA',tipo:'VSA'},
+  {mes:'Jun',cli:'Q Pack S.A.C.',zona:'Norte',imp:2700,mg:-82.59,desc:'ESTRUCTURA TUBERIAS NH3 SADEMA',tipo:'AD'},
+  {mes:'May',cli:'Procesadora Torre Blanca S.A.C',zona:'Centro',imp:2658.59,mg:29.47,desc:'FOSA PARA TABLEROS',tipo:'AD'},
+  {mes:'Jun',cli:'Austral Group S.A.A.',zona:'Norte',imp:2310,mg:12.94,desc:'PUESTA EN MARCHA DE COMPRESOR FRICK R',tipo:'AD'},
+  {mes:'Jun',cli:'Agro Floral Peru S.A.C.',zona:'Centro',imp:2130,mg:13.31,desc:'MANTENIMIENTO UCS',tipo:'AD'},
+  {mes:'Jun',cli:'Smart Packing S.A.C.',zona:'Norte',imp:1996.83,mg:17,desc:'SUMINSTRO E INSTALACION VENTILADOR ESCLUSA',tipo:'PR'},
+  {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:1900,mg:13.58,desc:'SUMINISTRO E INSTALACION PUERTA EMERGENCIA',tipo:'AD'},
+  {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:1414.83,mg:17.08,desc:'DESMONTAJE Y MONTAJE PUERTA CORREDERAS',tipo:'AD'},
+  {mes:'Feb',cli:'El Rocio S.A.',zona:'Norte',imp:890,mg:15,desc:'DESMONTAJE Y MONTAJE PANELES',tipo:'AD'},
+  {mes:'Ene',cli:'Uvica S.A.C.',zona:'Sur',imp:798,mg:15,desc:'OFICINAS UVICA',tipo:'AD'},
+  {mes:'Feb',cli:'Agroindustria Frutos de Oro S.A.C.',zona:'Norte',imp:760,mg:15,desc:'INSTALACIÓN DE MOTORES Y MODIFICACION P.CORREDERA',tipo:'AD'},
+  {mes:'Jun',cli:'Sociedad Agricola 3P S.A.C.',zona:'Sur',imp:500,mg:20,desc:'MANTENIMIENTO DE COMPRESOR PACKING',tipo:'AD'},
+  {mes:'Jul',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:435000,mg:16.46,desc:'TÚNELES MP',tipo:'PR'},
+  {mes:'Jun',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:325000,mg:16,desc:'MODIFICACIÓN DE TÚNEL RÁPIDO',tipo:'PR'},
+  {mes:'Jul',cli:'In Vitro Lab Perú S.A.C.',zona:'Centro',imp:57857,mg:26.38,desc:'EXPEDIENTE TECNICO',tipo:'VSA'},
+  {mes:'Jun',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:7488.07,mg:13,desc:'REPARACION JUNTAS LOSA',tipo:'PR'},
+  {mes:'Jul',cli:'Consorcio Agricola Moquegua S.A.C.',zona:'Sur',imp:6016,mg:25,desc:'REPARACIÓN DE FUGA',tipo:'AD'},
+  {mes:'Jul',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:4500,mg:23.33,desc:'MANTENIMIENTO RAMPAS VERTICALES',tipo:'AD'},
+  {mes:'Jun',cli:'Family Farms Perú S.R.L.',zona:'Sur',imp:1550,mg:20,desc:'INSTALACION Y SUMINISTRO PUERTA BATIENTE',tipo:'AD'},
+  {mes:'Ago',cli:'Agroindustrias Aib S.A',zona:'Norte',imp:611603.32,mg:21.85,desc:'AMPLIACIÓN PLANTA DE CONGELADOS',tipo:'PR'},
+  {mes:'Ago',cli:'Agricola Safco Peru S.A.',zona:'Sur',imp:153872.62,mg:24.22,desc:'SUMINISTRO E INSTALACIÓN DE CONDENSAD',tipo:'PR'},
+  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:33994.43,mg:16.31,desc:'SUMINISTRO E INSTALACION CORTINAS',tipo:'PR'},
+  {mes:'Ago',cli:'Uvica S.A.C.',zona:'Sur',imp:33539.69,mg:17.92,desc:'IMPLEMENTACIÓN DE CÁMARA DE GASIFICAD',tipo:'PR'},
+  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:26316.26,mg:19.24,desc:'ADICIONAL MODIFICACION TUBERIA',tipo:'AD'},
+  {mes:'Ago',cli:'El Pedregal S.A.',zona:'Norte',imp:21297,mg:5,desc:'TERMOMETRIA INALAMBRICA P NUEVOS TUN',tipo:'AD'},
+  {mes:'Ago',cli:'Agricola Huarmey S.A.C.',zona:'Norte',imp:14820.87,mg:22.5,desc:'PUERTAS BATIENTE CAMARA GASIFICADO',tipo:'AD'},
+  {mes:'Ago',cli:'Viru Frozen S.A.',zona:'Norte',imp:4612.5,mg:20,desc:'DESMONTAJE DE DESHUMIDIFICADORES',tipo:'PR'},
+  {mes:'Ago',cli:'Q Pack S.A.C.',zona:'Norte',imp:4580,mg:20,desc:'MANTENIMIENTO COMPRESORES',tipo:'AD'},
+  {mes:'Ago',cli:'Q Pack S.A.C.',zona:'Norte',imp:4550,mg:28.9,desc:'SUMINSTRO E INSTALACION ALARMA FUGA NH3',tipo:'AD'},
+  {mes:'Jul',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:4190,mg:16.42,desc:'SISTEMA ENFRIAMIENTO CABEZALES',tipo:'AD'}
 ];
 
 
@@ -1396,6 +1396,45 @@ function _avRowLabels(opt){
   };
 }
 
+/* Porcentaje centrado dentro de cada segmento de una barra 100% apilada
+   (horizontal). Sólo pinta si el segmento tiene ancho suficiente para no
+   saturar la lectura; la tinta se elige automáticamente para contrastar con
+   el color de relleno de cada serie. Puramente visual: no toca datos/escalas. */
+function _avSegPct(opt){
+  opt = opt || {};
+  var FAM = "'Inter','Segoe UI',sans-serif";
+  return {
+    id:'avSegPct'+(opt.id||''),
+    afterDatasetsDraw:function(chart){
+      var ctx = chart.ctx;
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '800 ' + (opt.size || 9) + 'px ' + FAM;
+      chart.data.datasets.forEach(function(ds, di){
+        var meta = chart.getDatasetMeta(di);
+        if (!meta || meta.hidden || !meta.data) return;
+        meta.data.forEach(function(bar, i){
+          var v = ds.data[i];
+          if (v === null || v === undefined) return;
+          var p = bar.getProps(['x','base','y'], true);
+          var segW = Math.abs(p.x - p.base);
+          var txt = v.toFixed(1) + '%';
+          /* Se omite si el texto no cabe en el propio segmento — evita que
+             se salga hacia el segmento vecino o sature una barra angosta. */
+          if (ctx.measureText(txt).width + 6 > segW) return;
+          var fill = typeof ds.backgroundColor === 'function'
+            ? ds.backgroundColor({chart:chart, dataIndex:i, datasetIndex:di})
+            : ds.backgroundColor;
+          ctx.fillStyle = _vtInkOn(fill);
+          ctx.fillText(txt, (p.x + p.base) / 2, p.y);
+        });
+      });
+      ctx.restore();
+    }
+  };
+}
+
 /* === Estacionalidad promedio: barras horizontales === */
 (function(){
   var el = document.getElementById('chSeasAvg');
@@ -1577,7 +1616,10 @@ function _avRowLabels(opt){
         topSize:11.5, topDy:-13
       }),
       _avValueRight({id:'RF', size:12.5, dy:-13, baseline:'alphabetic', right:3,
-        fmt:function(_, i){ return fmtEjecutivo(V_TOTAL[i] * 1e6); }})
+        fmt:function(_, i){ return fmtEjecutivo(V_TOTAL[i] * 1e6); }}),
+      /* Sólo en esta primera vista (front card): % de Freón vs Otros visible
+         directamente sobre cada segmento, sin depender del hover/tooltip. */
+      _avSegPct({id:'RF', size:9})
     ],
     options:{
       indexAxis:'y',
@@ -1991,7 +2033,10 @@ function openAD3Ref() {
 
 /* === Modal: Análisis por Tipo de Venta === */
 function openAD3Tcv() {
-  function _f(v){return v>=1000000?'$'+(v/1000000).toFixed(2)+'MM':v>=1000?'$'+Math.round(v/1000)+'K':'$'+v;}
+  /* Mismo formato que "Análisis por Refrigerante" (_fi): siempre en MM con 2
+     decimales, sin alternar a K para montos menores — evita que 2024/2025
+     se vean con un formato distinto al resto de la tabla. */
+  function _f(v){return '$'+(v/1000000).toFixed(2)+'MM';}
   var head = [{t:'A\xf1o'},{t:'PR US$',r:1},{t:'PR %',r:1},{t:'AD US$',r:1},{t:'AD %',r:1},{t:'VSA US$',r:1},{t:'VSA %',r:1},{t:'VSI US$',r:1},{t:'VSI %',r:1}];
   var yrs  = ['2021','2022','2023','2024','2025','2026'];
   var rows = yrs.map(function(yr,i){
@@ -2539,10 +2584,12 @@ window._animVtHero = function(){
 
   function renderTable(){
     var fq=q.toLowerCase();
-    var filtered=rows.filter(function(r){return r.cli.toLowerCase().includes(fq)||r.mes.toLowerCase().includes(fq)||r.zona.toLowerCase().includes(fq);});
+    var filtered=rows.filter(function(r){
+      return r.cli.toLowerCase().includes(fq)||r.mes.toLowerCase().includes(fq)||r.zona.toLowerCase().includes(fq)||(r.desc||'').toLowerCase().includes(fq);
+    });
     if(sc>=0){
       filtered=[].concat(filtered).sort(function(a,b){
-        var keys=['mes','cli','zona','imp','mg'];
+        var keys=['mes','cli','desc','zona','imp','mg'];
         var k=keys[sc];
         var va=a[k],vb=b[k];
         if(k==='mes'){va=MES_ORD[va]||99;vb=MES_ORD[vb]||99;}
@@ -2558,15 +2605,16 @@ window._animVtHero = function(){
       html+='<tr>'
         +'<td>'+r.mes+'</td>'
         +'<td style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px">'+r.cli+'</td>'
-        +'<td><span style="font-size:10px;padding:2px 7px;border-radius:4px;background:#f0f4f9;color:var(--ts);font-weight:600">'+r.zona+'</span></td>'
+        +'<td title="'+r.desc+'" style="color:var(--tm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px">'+r.desc+'</td>'
+        +'<td><span style="font-size:13px;padding:2px 8px;border-radius:4px;background:#f0f4f9;color:var(--ts);font-weight:600">'+r.zona+'</span></td>'
         +'<td class="r" style="font-weight:700">'+fmt(r.imp)+'</td>'
         +'<td class="r"><span class="'+mgCls(r.mg)+'">'+r.mg.toFixed(2)+'%</span></td>'
         +'</tr>';
     });
-    if(!pr.length)html='<tr><td colspan="5" style="text-align:center;color:var(--ts);padding:20px">Sin resultados</td></tr>';
+    if(!pr.length)html='<tr><td colspan="6" style="text-align:center;color:var(--ts);padding:20px">Sin resultados</td></tr>';
     /* Fila de total — siempre sobre el período completo (83 registros), no sobre el filtro/página actual */
     html += '<tr class="tbl-total-row">'
-      +'<td colspan="3" style="font-weight:800">TOTAL ('+rows.length+' operaciones)</td>'
+      +'<td colspan="4" style="font-weight:800">TOTAL ('+rows.length+' operaciones)</td>'
       +'<td class="r" style="font-weight:900">'+fmtEjecutivo(totalImpAll)+'</td>'
       +'<td class="r" style="font-weight:900">'+totalMgAll.toFixed(2)+'%</td>'
       +'</tr>';
@@ -2583,7 +2631,7 @@ window._animVtHero = function(){
     th.style.cursor='pointer';
     th.addEventListener('click',function(){
       var col=+th.getAttribute('data-col');
-      if(sc===col)sa=!sa; else{sc=col;sa=col===3||col===4?false:true;}
+      if(sc===col)sa=!sa; else{sc=col;sa=col===4||col===5?false:true;}
       document.querySelectorAll('#vt26Tbl th').forEach(function(t){t.classList.remove('sorted');var si=t.querySelector('.sic');if(si)si.textContent='↕';});
       th.classList.add('sorted');var si=th.querySelector('.sic');if(si)si.textContent=sa?'▲':'▼';
       pg=0;renderTable();

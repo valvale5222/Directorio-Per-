@@ -448,7 +448,120 @@
 .org-modal-overlay.open{display:flex;animation:fade .22s ease}
 
 
-.org-modal-box{background:#fff;border-radius:16px;max-width:460px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.28);animation:orgModalIn .25s cubic-bezier(.22,1,.36,1)}
+.org-modal-box{background:#fff;border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.28);animation:orgModalIn .25s cubic-bezier(.22,1,.36,1)}
 
 
 @keyframes orgModalIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+
+/* ── PERFIL · BLOQUE DESEMPEÑO (radar de competencias) ──────────────
+   Vive dentro del modal de persona, debajo de la información personal.
+   Tokens locales: --pf (azul Friopacking) para poder tematizar sin
+   tocar el resto del modal.                                          */
+.org-perf{--pf:#f59e0b;--pf2:#b45309;
+  margin:18px -22px -24px;padding:20px 22px 22px;
+  background:linear-gradient(180deg,#fffdf8 0%,#fbf4e8 100%);
+  border-top:1px solid var(--border);position:relative;overflow:hidden}
+
+.org-perf::before{content:'';position:absolute;top:-60px;right:-50px;width:230px;height:230px;
+  background:radial-gradient(circle,rgba(245,158,11,.17) 0%,transparent 68%);pointer-events:none}
+
+/* Encabezado */
+.org-perf-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;
+  position:relative;z-index:1;animation:orgPerfIn .45s ease both}
+
+.org-perf-tt{min-width:0}
+
+.org-perf-h1{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);line-height:1.1}
+
+/* El emoji abre la línea 2: alineado ópticamente con la altura-x del texto
+   para que no quede caído ni desalineado respecto al subtítulo. */
+.org-perf-h2{display:flex;align-items:center;gap:6px;font-size:9.5px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ts);margin-top:4px}
+
+.org-perf-em{font-size:14px;line-height:1;flex-shrink:0;transform:translateY(-.5px);
+  filter:drop-shadow(0 2px 4px rgba(180,83,9,.3));animation:orgPerfEm 4.2s ease-in-out infinite}
+
+@keyframes orgPerfEm{0%,100%{transform:translateY(-.5px) scale(1)}50%{transform:translateY(-1.5px) scale(1.04)}}
+
+.org-perf-max{display:inline-block;margin-top:5px;font-size:8.5px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--pf2);background:rgba(245,158,11,.15);border-radius:20px;padding:2px 8px}
+
+/* Score /100 */
+.org-perf-score{text-align:right;flex-shrink:0;line-height:1}
+
+.org-perf-score b{font-size:32px;font-weight:900;letter-spacing:-.02em;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--pf2) 100%);-webkit-background-clip:text;
+  background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+
+.org-perf-score i{font-style:normal;font-size:12px;font-weight:700;color:#94a3b8;margin-left:2px}
+
+.org-perf-lvl{display:block;margin-top:6px;font-size:8.5px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--pf2);background:rgba(245,158,11,.15);border-radius:20px;padding:3px 9px}
+
+/* Radar */
+.org-perf-radar{position:relative;z-index:1;height:clamp(232px,32vw,286px);margin:10px 0 4px;
+  animation:orgPerfIn .5s ease .06s both}
+
+.org-perf-radar canvas{cursor:default}
+
+/* Criterios */
+.org-perf-crit{position:relative;z-index:1;margin-top:12px;background:#fff;border:1px solid var(--border);
+  border-radius:13px;padding:11px 12px 9px;box-shadow:0 2px 12px rgba(10,10,30,.06)}
+
+.org-perf-crit-h{font-size:9px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#94a3b8;
+  padding:0 2px 8px;border-bottom:1px solid #f1f5f9;margin-bottom:3px}
+
+.org-crit-row{display:grid;grid-template-columns:20px 1fr auto 34px 32px;align-items:center;gap:9px;
+  padding:7px 6px;border-radius:9px;transition:background .18s,transform .18s;
+  animation:orgPerfIn .4s ease both}
+
+.org-crit-row:hover{background:#fffaf1;transform:translateX(2px)}
+
+.org-crit-ic{font-size:13px;line-height:1;text-align:center}
+
+.org-crit-nm{font-size:11.5px;font-weight:600;color:#3d4a6a;line-height:1.25;min-width:0}
+
+.org-crit-dots{display:flex;gap:3.5px;align-items:center}
+
+.org-crit-dots span{width:7px;height:7px;border-radius:50%;background:#e2e8f0;transition:transform .18s}
+
+.org-crit-dots span.on{background:linear-gradient(135deg,var(--pf) 0%,var(--pf2) 100%);
+  box-shadow:0 1px 4px rgba(245,158,11,.45)}
+
+.org-crit-row:hover .org-crit-dots span.on{transform:scale(1.15)}
+
+.org-crit-val{font-size:13px;font-weight:900;color:var(--navy);text-align:right;font-variant-numeric:tabular-nums}
+
+.org-crit-w{font-size:9px;font-weight:700;letter-spacing:.06em;color:#94a3b8;text-align:right}
+
+/* Estado pendiente */
+.org-perf-empty{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;height:clamp(214px,30vw,258px);margin-top:6px;
+  animation:orgPerfIn .45s ease .06s both}
+
+.org-perf-empty svg{position:absolute;width:min(216px,62%);height:auto;opacity:.5;pointer-events:none}
+
+.org-perf-empty-in{position:relative;z-index:1;padding:0 18px}
+
+.org-perf-empty-dot{width:30px;height:30px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;
+  justify-content:center;font-size:13px;background:#fff;border:1px solid var(--border);
+  box-shadow:0 3px 12px rgba(10,10,30,.08)}
+
+.org-perf-empty-t{font-size:12.5px;font-weight:800;letter-spacing:.02em;color:var(--navy)}
+
+.org-perf-empty-s{font-size:10.5px;font-weight:500;color:var(--ts);margin-top:4px;line-height:1.5;max-width:230px}
+
+@keyframes orgPerfIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+@media(max-width:420px){
+  .org-perf{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+  .org-perf-score b{font-size:27px}
+  .org-crit-row{grid-template-columns:18px 1fr auto 32px;gap:7px}
+  .org-crit-w{display:none}
+  .org-crit-nm{font-size:10.8px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .org-perf-top,.org-perf-radar,.org-perf-empty,.org-crit-row,.org-perf-em{animation:none}
+}

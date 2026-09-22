@@ -1393,3 +1393,153 @@
 @media(prefers-reduced-motion:reduce){
   .o5m-due{animation:none}
 }
+
+
+/* ==========================================================================
+   Avance de plan (Planes de acción 01 / 02) — bloque compacto dentro del
+   detalle desplegable. Muestra el progreso real sin tocar la meta de la card.
+   ========================================================================== */
+.pa-adv{
+  background:var(--pa-bg);border:1px solid var(--pa-bd);border-radius:11px;
+  padding:10px 12px 9px;margin-bottom:12px;
+}
+
+.pa-adv:last-child{margin-bottom:0}
+
+.pa-adv-hd{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  padding-bottom:7px;margin-bottom:7px;border-bottom:1px dashed var(--pa-bd);
+}
+
+.pa-adv-lbl{
+  font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--pa-ts);
+}
+
+.pa-adv-sum{font-size:11px;font-weight:600;color:var(--pa-tm);white-space:nowrap}
+
+.pa-adv-sum b{font-weight:800;color:var(--pa-navy)}
+
+.pa-adv-sum b.is-ok{color:#16a34a}
+
+.pa-adv-sum b.is-wr{color:#ca8a04}
+
+.pa-adv-sum i{font-style:normal;color:var(--pa-ts);margin:0 2px}
+
+.pa-adv-zone{
+  display:flex;align-items:center;gap:7px;margin:7px 0 4px;
+}
+
+.pa-adv-hd + .pa-adv-zone,
+.pa-adv-note + .pa-adv-zone{margin-top:4px}
+
+.pa-adv-zn{
+  font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.9px;color:var(--pa-blue);
+}
+
+.pa-adv-own{
+  font-size:9px;font-weight:700;color:var(--pa-ts);
+  padding:1px 7px;border-radius:20px;background:#fff;border:1px solid var(--pa-bd);
+}
+
+.pa-adv-row{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:4px 0;border-bottom:1px solid rgba(226,232,240,.75);
+}
+
+.pa-adv-row:last-child,
+.pa-adv-row:has(+ .pa-adv-zone),
+.pa-adv-row:has(+ .pa-adv-src){border-bottom:none}
+
+.pa-adv-cli{
+  font-size:11.5px;font-weight:700;color:var(--pa-navy);line-height:1.3;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+
+.pa-adv-val{font-size:11.5px;font-weight:800;color:var(--pa-teal);white-space:nowrap}
+
+.pa-adv-note{font-size:11px;color:var(--pa-tm);line-height:1.5;margin-bottom:2px}
+
+.pa-adv-src{
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--pa-ts);
+  padding-top:7px;margin-top:6px;border-top:1px dashed var(--pa-bd);
+}
+
+/* ==========================================================================
+   8 · Visor ampliado de evidencias SMART (lightbox sobre el modal)
+   ========================================================================== */
+
+/* Pista de "ampliable" sobre la evidencia del modal */
+.pa-ev-stage.is-img{cursor:zoom-in}
+
+.pa-ev-zoom{
+  position:absolute;right:10px;top:10px;
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:clamp(8.5px,.6vw,10.5px);font-weight:800;text-transform:uppercase;letter-spacing:1px;
+  color:#fff;background:rgba(6,14,32,.58);padding:4px 10px;border-radius:20px;
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  opacity:0;transform:translateY(-3px);transition:opacity .24s ease,transform .24s ease;
+  pointer-events:none;
+}
+
+.pa-ev-stage.is-img:hover .pa-ev-zoom{opacity:1;transform:none}
+
+/* Overlay */
+.pa-lb{
+  position:fixed;inset:0;z-index:9500;display:none;
+  align-items:center;justify-content:center;gap:clamp(6px,1vw,18px);
+  padding:clamp(14px,3vw,52px);
+  background:rgba(4,9,22,.9);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+
+.pa-lb.open{display:flex;animation:paEvFade .22s ease both}
+
+.pa-lb-body{
+  flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;
+}
+
+.pa-lb-body img{
+  max-width:100%;max-height:100%;width:auto;height:auto;
+  object-fit:contain;border-radius:14px;background:#fff;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.8);
+  animation:paEvRise .3s cubic-bezier(.22,.7,.3,1) both;
+}
+
+.pa-lb-x{
+  position:absolute;top:clamp(12px,1.4vw,24px);right:clamp(12px,1.4vw,24px);z-index:2;
+  width:38px;height:38px;border-radius:50%;cursor:pointer;
+  border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);
+  color:rgba(255,255,255,.85);font-size:15px;line-height:1;display:grid;place-items:center;
+  transition:background .2s ease,color .2s ease,transform .2s ease;
+}
+
+.pa-lb-x:hover{background:rgba(255,255,255,.22);color:#fff;transform:scale(1.06)}
+
+.pa-lb-nav{
+  flex-shrink:0;width:clamp(38px,3vw,48px);height:clamp(38px,3vw,48px);border-radius:50%;cursor:pointer;
+  border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.82);font-size:clamp(15px,1.2vw,20px);line-height:1;
+  display:grid;place-items:center;
+  transition:background .2s ease,color .2s ease,transform .2s ease;
+}
+
+.pa-lb-nav:hover{background:rgba(58,171,239,.28);border-color:rgba(58,171,239,.5);color:#fff}
+
+.pa-lb-cap{
+  position:absolute;left:0;right:0;bottom:clamp(10px,1.4vw,22px);
+  text-align:center;font-size:clamp(9.5px,.68vw,12px);font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:rgba(255,255,255,.62);pointer-events:none;
+}
+
+@media(max-width:560px){
+  .pa-lb{padding:10px}
+  .pa-lb-nav{position:absolute;bottom:14px;z-index:2}
+  .pa-lb-prev{left:16px}
+  .pa-lb-next{right:16px}
+  .pa-lb-cap{bottom:auto;top:14px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .pa-lb.open,.pa-lb-body img{animation:none}
+  .pa-ev-zoom{transition:none}
+}

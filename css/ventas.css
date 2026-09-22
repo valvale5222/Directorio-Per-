@@ -894,7 +894,18 @@
 #vt26Tbl th.sorted .sic{opacity:1;color:var(--brand-d,#0F6E56)}
 
 
-#vt26Tbl td{padding:8px 14px;border-bottom:1px solid #f1f5f9;font-size:12px;transition:background .16s ease}
+#vt26Tbl td{padding:9px 14px;border-bottom:1px solid #f1f5f9;font-size:15px;transition:background .16s ease}
+
+
+/* Ancho mínimo ajustado a la nueva columna Descripción, con scroll horizontal
+   de respaldo (.vt26-wrap) para que nada se desborde ni colapse */
+#vt26Tbl{min-width:820px}
+
+
+/* Badge de margen — sólo dentro de esta tabla (no toca el Top 20, que comparte .mg-*) */
+#ventas [data-vtview="y2026"] #vt26Tbl .mg-ok,
+#ventas [data-vtview="y2026"] #vt26Tbl .mg-warn,
+#ventas [data-vtview="y2026"] #vt26Tbl .mg-crit{font-size:13px}
 
 
 #vt26Tbl tbody tr{transition:background .16s ease}

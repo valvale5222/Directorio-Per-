@@ -167,3 +167,110 @@ window._triggerSheen = function(chart) {
   requestAnimationFrame(step);
 };
 
+/* ============================================================
+   EXECUTIVE INTRO · Apertura institucional previa al dashboard
+   ------------------------------------------------------------
+   La composición (isotipo rodando → logotipo Friopacking → Revisión
+   Ejecutiva → barra de carga → pie institucional) corre en CSS,
+   declarada en css/portada.css (bloque EXECUTIVE INTRO). Aquí se
+   orquesta únicamente el cierre:
+
+     · esperar a que los logotipos estén decodificados, para que
+       el lockup nunca aparezca a medias ni salte;
+     · esperar a que la composición termine (un único temporizador
+       medido desde el inicio del documento, más un respaldo global);
+     · crossfade continuo: primero se hace visible la plataforma por
+       debajo (tapada aún por la intro, que es opaca) y un frame
+       después la intro empieza a ceder opacidad, de modo que nunca
+       hay pantalla vacía entre ambas. Solo se anima una capa —la
+       intro—, lo que mantiene el paso a la portada a 60 fps;
+     · liberar la aplicación: se retiran las clases de bloqueo, se
+       devuelve el scroll y se elimina la capa del DOM cuando la
+       transición ya terminó (nunca con display:none en pleno paso).
+
+   No inicializa ni altera ningún módulo del dashboard: la app se
+   monta con normalidad detrás de la intro (layout y medidas reales,
+   solo la opacidad está en 0), por lo que ningún listener ni cálculo
+   de los gráficos se ve afectado.
+
+   Respeta prefers-reduced-motion: el CSS muestra la composición ya
+   terminada y aquí solo se acorta la permanencia.
+   ============================================================ */
+(function(){
+  var root  = document.documentElement;
+  var intro = document.getElementById('xIntro');
+
+  /* Una sola ejecución por carga, aunque el script llegase a incluirse dos veces. */
+  if (window.__xIntroDone) return;
+  window.__xIntroDone = true;
+
+  /* Sin capa o sin la marca de arranque: la aplicación queda visible tal cual. */
+  if (!intro || !root.classList.contains('xi-boot')) {
+    if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
+    root.classList.remove('xi-boot', 'xi-reveal');
+    return;
+  }
+
+  var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var HOLD    = REDUCED ? 900  : 850;   /* permanencia tras completarse la composición */
+  var GUARD   = REDUCED ? 1400 : 6500;  /* respaldo global, nunca deja la app bloqueada*/
+  var COMP_END = 4150;                  /* fin de la composición declarada en el CSS   */
+  var HANDOFF = 90;                     /* la app se revela antes de que la intro ceda */
+  var OUT_DUR = REDUCED ? 320  : 870;   /* debe cubrir la transición de .xintro (CSS)  */
+
+  var closing = false, done = false, guardId = null, holdId = null;
+
+  /* ── Salida: crossfade continuo intro → plataforma ───────────────────── */
+  function close(){
+    if (closing) return;
+    closing = true;
+    clearTimeout(guardId); clearTimeout(holdId);
+
+    /* 1) la plataforma entra por debajo (sigue tapada por la intro, opaca) */
+    root.classList.add('xi-reveal');
+
+    /* 2) un instante después la intro cede opacidad sobre la app ya visible */
+    setTimeout(function(){
+      intro.classList.add('is-out');
+      setTimeout(release, OUT_DUR);
+    }, HANDOFF);
+  }
+
+  /* ── Liberación: comportamiento normal de la aplicación ──────────────── */
+  function release(){
+    if (done) return;
+    done = true;
+    if (intro.parentNode) intro.parentNode.removeChild(intro);
+    root.classList.remove('xi-boot', 'xi-reveal');   /* devuelve scroll y estados */
+  }
+
+  /* ── Espera 1: logotipos listos (nunca bloquea si alguno falla) ───────── */
+  function logosReady(cb){
+    var imgs = [].slice.call(intro.querySelectorAll('img'));
+    var pending = imgs.length;
+    var fired = false;
+    function step(){ if (!fired && --pending <= 0){ fired = true; cb(); } }
+    if (!pending) { cb(); return; }
+    imgs.forEach(function(img){
+      if (img.complete) { step(); return; }
+      img.addEventListener('load',  step, {once:true});
+      img.addEventListener('error', step, {once:true});   /* imagen rota: se sigue igual */
+    });
+    /* Respaldo: ninguna imagen puede retrasar la apertura más de 1.2 s. */
+    setTimeout(function(){ if (!fired){ fired = true; pending = 0; cb(); } }, 1200);
+  }
+
+  /* ── Espera 2: fin de la composición ─────────────────────────────────── */
+  /* Un solo temporizador, medido desde el inicio del documento: si el script
+     (defer) se ejecuta tarde, lo que reste de composición se descuenta y la
+     apertura no se alarga. COMP_END = último nivel del CSS (1.3 s + 0.6 s). */
+  function afterComposition(cb){
+    var remaining = REDUCED ? 0 : Math.max(0, COMP_END - performance.now());
+    holdId = setTimeout(cb, remaining + HOLD);
+  }
+
+  logosReady(function(){ afterComposition(close); });
+
+  /* Respaldo global: la intro nunca puede dejar la aplicación bloqueada. */
+  guardId = setTimeout(close, GUARD);
+})();

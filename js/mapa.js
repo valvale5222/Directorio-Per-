@@ -23,12 +23,11 @@
   function zonaColor(z) { return z ? ZONA_COLOR[z] : ALL_COLOR; }
 
   var SECTOR_COLOR = {
-    AGRO:     '#3EC6AC',   // brand
-    FRUVER:   '#3EC6AC',
-    FLORES:   '#0F6E56',   // brand oscuro
-    LACTEOS:  '#4FA8E0',   // azul de analytics
-    CARNICOS: '#D85A30',   // attn
-    OTROS:    '#AAB6C9'    // gris
+    AGRO:         '#3EC6AC',   // brand
+    FRUVER:       '#3EC6AC',
+    FLORES:       '#0F6E56',   // brand oscuro
+    NOAGRO:       '#4FA8E0',   // azul de analytics
+    INTERCOMPANY: '#AAB6C9'    // gris: operación interna, no venta de mercado
   };
 
   /* Umbrales de margen — mismos que la tabla Top 20 de Ventas. */

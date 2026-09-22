@@ -14,13 +14,13 @@
   var PERIODS = [
     { lbl: '2024',  sub: 'Ene–Dic' },
     { lbl: '2025',  sub: 'Ene–Dic' },
-    { lbl: '2026',  sub: 'Ene–Jul' },
+    { lbl: '2026',  sub: 'Ene–Ago' },
     { lbl: '2026',  sub: 'Proyecc.' }
   ];
   var I_2025 = 1, I_YTD = 2, I_PROY = 3;
 
   /* ── Datos por unidad ─────────────────────────────────────────
-     Fuente: cuadro de productividad 2024–2025 · acumulado Jul 2026
+     Fuente: cuadro de productividad 2024–2025 · acumulado Ago 2026
      · proyección de cierre 2026. Los porcentajes de costo sobre
      venta se muestran tal como vienen del cuadro de origen.      */
   var MO_DATA = {
@@ -28,27 +28,29 @@
       name: 'Comercial',
       ico: '💼',
       a: '#3EC6AC', a2: '#0F6E56',
-      venta:      [15450000, 34960000, 29100000, 36580000],
-      margenPct:  [15.30, 15.87, 15.33, 15.60],
-      margenUsd:  [2363110, 5548519, 4460700, 5706480],
+      venta:      [15450000, 34960000, 30010000, 38190000],
+      margenPct:  [15.30, 15.87, 15.55, 15.60],
+      margenUsd:  [2363110, 5548519, 4666555, 5957640],
       team:       [7, 9, 11, 11],
-      costo:      [528886, 668987, 384904, 667785],
-      costoVenta: [3.42, 1.91, null, 1.83],
-      note: 'La venta proyecta <em>+4.63%</em> sobre 2025 y el costo de mano de obra baja a <em>1.83%</em> de la venta. ' +
+      costo:      [795000, 935000, 562000, 934000],
+      otros:      [null, null, 123000, 185000],
+      costoVenta: [5.14, 2.6745, 1.8727, 2.4456],
+      note: 'La venta proyecta <em>+9.24%</em> sobre 2025 y el costo de mano de obra baja a <em>2.45%</em> de la venta. ' +
             'El punto de atención es la productividad: con el equipo de 9 a 11 personas, la venta por colaborador ' +
-            'retrocede de <b>$3.88MM</b> (2025) a <b>$3.33MM</b> proyectado.'
+            'retrocede de <b>$3.88MM</b> (2025) a <b>$3.47MM</b> proyectado.'
     },
     arq: {
       name: 'Arquitectura',
       ico: '📐',
       a: '#5B9DFF', a2: '#1E4FA8',
-      venta:      [0, 306700, 150870, 346110],
+      venta:      [0, 306900, 171000, 346100],
       margenPct:  [0, 30.00, 28.47, 30.00],
-      margenUsd:  [0, 92009, 42953, 103833],
-      team:       [2, 3, 4, 5],
+      margenUsd:  [0, 92009, 48683, 103833],
+      team:       [2, 3, 5, 5],
       costo:      [76804, 123660, 102509, 205627],
+      otros:      [null, null, null, null],
       costoVenta: [null, 74, null, 50],
-      note: 'El área crece en venta <em>+12.85%</em>, pero el costo de mano de obra sube <em>+66%</em> al pasar de 3 a 5 ' +
+      note: 'El área crece en venta <em>+12.8%</em>, pero el costo de mano de obra sube <em>+66%</em> al pasar de 3 a 5 ' +
             'colaboradores. La venta por colaborador cae de <b>$102K</b> a <b>$69K</b> y el costo del área representa ' +
             'el <b>50%</b> de la venta proyectada.'
     }
@@ -89,6 +91,7 @@
     { k: 'margenUsd',  lbl: 'Margen bruto en dólares', fmt: money,    dir: 1,  dot: '#2C6FBF' },
     { k: 'team',       lbl: 'Colaboradores',           fmt: intg,     dir: 1,  dot: '#8B7BE8' },
     { k: 'costo',      lbl: 'Costo de mano de obra',   fmt: money,    dir: -1, dot: '#EFA93B' },
+    { k: 'otros',      lbl: 'Otros gastos del área · Marketing', fmt: money, dir: -1, dot: '#EFA93B', opt: true },
     { k: 'costoVenta', lbl: 'Costo M.O. / Venta',      fmt: pctSmart, dir: -1, dot: '#EFA93B' },
     { k: 'vpc',        lbl: 'Venta por colaborador',   fmt: money,    dir: 1,  dot: 'a', key: true }
   ];
@@ -128,7 +131,7 @@
       {
         acc: u.a, accD: u.a2, ico: '💰', lbl: 'Venta 2026 · Proyectada',
         val: money(u.venta[I_PROY]), bar: avance,
-        ctx: 'Ene–Jul ' + money(u.venta[I_YTD]) + ' · ', d: dVenta
+        ctx: 'Ene–Ago ' + money(u.venta[I_YTD]) + ' · ', d: dVenta
       },
       {
         acc: '#10b981', accD: '#047857', ico: '📈', lbl: 'Margen bruto 2026',
@@ -173,7 +176,7 @@
     var rows = PERIODS.map(function (p, i) {
       var w = (vpc[i] || 0) / max * 100;
       /* La proyección se compara contra el último año cerrado (2025),
-         no contra el acumulado parcial: comparar cierre vs Ene–Jul
+         no contra el acumulado parcial: comparar cierre vs Ene–Ago
          daría una variación falsamente positiva.                    */
       var d;
       if (i === 0) d = { txt: 'base', cls: 'flat' };
@@ -214,7 +217,10 @@
       }).join('') +
       '<th class="mo5-th-hl">Var.<small>2025 → 2026</small></th></tr>';
 
-    var body = ROWS.map(function (r) {
+    var body = ROWS.filter(function (r) {
+      /* Filas opcionales: se omiten en las unidades que no reportan el dato. */
+      return !r.opt || (u[r.k] || []).some(function (v) { return v !== null && v !== undefined; });
+    }).map(function (r) {
       var arr = (r.k === 'vpc') ? vpc : u[r.k];
       var d = delta(arr[I_PROY], arr[I_2025], r.dir);
       var dot = (r.dot === 'a') ? u.a : r.dot;
@@ -278,7 +284,7 @@
 
     elTags.forEach(function (t) { t.textContent = u.name; });
     if (elScope) {
-      elScope.textContent = 'Unidad ' + u.name + ' · 2024–2025 cerrado · acumulado a Julio 2026 · proyección de cierre';
+      elScope.textContent = 'Unidad ' + u.name + ' · 2024–2025 cerrado · acumulado a Agosto 2026 · proyección de cierre';
     }
 
     if (animate) {
