@@ -31,13 +31,13 @@
       venta:      [15450000, 34960000, 30010000, 38190000],
       margenPct:  [15.30, 15.87, 15.55, 15.60],
       margenUsd:  [2363110, 5548519, 4666555, 5957640],
-      team:       [7, 9, 11, 11],
+      team:       [8, 10, 11, 11],
       costo:      [795000, 935000, 562000, 934000],
       otros:      [null, null, 123000, 185000],
-      costoVenta: [5.14, 2.6745, 1.8727, 2.4456],
+      costoVenta: [5.14, 2.6745, 1.8727, 2.4449],
       note: 'La venta proyecta <em>+9.24%</em> sobre 2025 y el costo de mano de obra baja a <em>2.45%</em> de la venta. ' +
-            'El punto de atención es la productividad: con el equipo de 9 a 11 personas, la venta por colaborador ' +
-            'retrocede de <b>$3.88MM</b> (2025) a <b>$3.47MM</b> proyectado.'
+            'El punto de atención es la productividad: con el equipo de 10 a 11 personas, la venta por colaborador ' +
+            'retrocede de <b>$3.50MM</b> (2025) a <b>$3.47MM</b> proyectado.'
     },
     arq: {
       name: 'Arquitectura',
