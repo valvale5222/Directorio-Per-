@@ -6,7 +6,11 @@ function go(s, sub) {
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.getElementById(s).classList.add('active');
   document.querySelector('.tab[data-s="' + s + '"]').classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
+  /* La portada ocupa justo la pantalla y no admite scroll; el resto de vistas sí */
+  document.documentElement.classList.toggle('on-portada', s === 'portada');
+  /* Al volver a la portada, su entrada normal (fadeUp) corre una sola vez */
+  if (s === 'portada') { var cv = document.querySelector('#portada .cover'); if (cv) cv.classList.remove('xi-done'); }
+  window.scrollTo({top:0, behavior: s === 'portada' ? 'auto' : 'smooth'});
   if (sub) {
     if (s === 'ventas' && window._vtSwitchTab) window._vtSwitchTab(sub);
     if (s === 'objetivos') goObjTab(sub);
@@ -148,3 +152,136 @@ function radialGrad(ctx, area, c1, c2){
   return g;
 }
 
+/* Configuración común de las donas de "Composición de Ventas 2026"
+   (Por clientes / Por tipo): mismo grosor de anillo y misma separación en hover. */
+var DONA_CUTOUT = '70%';
+var DONA_HOVER_OFFSET = 12;
+
+/* Centro unificado para donas: % grande · etiqueta uppercase · importe.
+   Todo se dimensiona con el radio interior real del anillo y cada línea se
+   reduce si no cabe, de modo que el texto nunca toca el aro.
+   o = {pct:Number, label:String, sub:String, color:String} */
+function drawDonaCenter(chart, o){
+  var area = chart.chartArea; if(!area || !o) return;
+  var ctx = chart.ctx;
+  var cx = area.left + area.width/2, cy = area.top + area.height/2;
+  var arc = chart.getDatasetMeta(0).data[0];
+  var ir = (arc && arc.innerRadius) ? arc.innerRadius : Math.min(area.width, area.height)*0.35;
+  var maxW = ir*1.5;                 /* ancho útil en la franja central del hueco */
+
+  function fit(weight, size, min, text, width){
+    ctx.font = weight+' '+size+'px Inter,sans-serif';
+    while(size > min && ctx.measureText(text).width > width){
+      size -= 0.5;
+      ctx.font = weight+' '+size+'px Inter,sans-serif';
+    }
+    return size;
+  }
+
+  var pctTxt = o.pct.toFixed(2)+'%';
+  var fPct = fit(900, Math.max(18, Math.min(ir*0.40, 36)), 14, pctTxt, maxW*0.92);
+  var fLbl = Math.max(9.5, Math.min(ir*0.135, 12.5));
+  var fSub = Math.max(10, Math.min(ir*0.14, 12.5));
+
+  /* Etiqueta en mayúsculas, envuelta en máximo 2 líneas */
+  var lblTxt = String(o.label || '').toUpperCase();
+  ctx.font = '700 '+fLbl+'px Inter,sans-serif';
+  var words = lblTxt.split(' '), lines = [], cur = '';
+  words.forEach(function(w){
+    var t = cur ? cur+' '+w : w;
+    if(ctx.measureText(t).width > maxW*0.88 && cur){ lines.push(cur); cur = w; } else cur = t;
+  });
+  if(cur) lines.push(cur);
+  if(lines.length > 2) lines = [lines[0], lines.slice(1).join(' ')];
+  lines.forEach(function(l){ fLbl = Math.min(fLbl, fit(700, fLbl, 8.5, l, maxW*0.88)); });
+
+  var lh = fLbl*1.2, g1 = Math.max(5, ir*0.09), g2 = Math.max(4, ir*0.07);
+  var total = fPct*0.86 + g1 + lines.length*lh + g2 + fSub;
+  var y = cy - total/2;
+
+  ctx.save();
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillStyle = o.color || '#0a0a1e';
+  ctx.font = '900 '+fPct+'px Inter,sans-serif';
+  ctx.fillText(pctTxt, cx, y - fPct*0.07);
+  y += fPct*0.86 + g1;
+  ctx.fillStyle = '#7b8db0';
+  ctx.font = '700 '+fLbl+'px Inter,sans-serif';
+  if('letterSpacing' in ctx) ctx.letterSpacing = '0.8px';
+  lines.forEach(function(l, i){ ctx.fillText(l, cx, y + i*lh); });
+  if('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+  y += lines.length*lh + g2;
+  if(o.sub){
+    /* Ancho disponible = cuerda real del hueco a la altura de esta línea */
+    var dy = Math.max(Math.abs(y - cy), Math.abs(y + fSub - cy));
+    var chord = 2*Math.sqrt(Math.max(ir*ir - dy*dy, 0))*0.86;
+    fSub = fit(600, fSub, 9, o.sub, chord);
+    ctx.fillStyle = '#3d4a6a';
+    ctx.font = '600 '+fSub+'px Inter,sans-serif';
+    ctx.fillText(o.sub, cx, y);
+  }
+  ctx.restore();
+}
+
+
+/* Altura real de la cabecera fija → --hdr-h (la usan las vistas que deben
+   caber en una pantalla sin scroll, p. ej. el mosaico del Resumen). */
+(function(){
+  function setHdr(){
+    var h = document.querySelector('header');
+    if (h) document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px');
+  }
+  setHdr();
+  window.addEventListener('resize', setHdr);
+  window.addEventListener('load', setHdr);
+  /* La cabecera puede cambiar de alto al cargar fuentes o al ajustar tabs */
+  var hdr = document.querySelector('header');
+  if (hdr && window.ResizeObserver) new ResizeObserver(setHdr).observe(hdr);
+})();
+
+/* Arranque en la portada: sin desplazamiento inicial ni restauración de scroll */
+(function(){
+  try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e){}
+  var p = document.getElementById('portada');
+  if (p && p.classList.contains('active')) {
+    document.documentElement.classList.add('on-portada');
+    window.scrollTo(0, 0);
+    window.addEventListener('load', function(){
+      if (p.classList.contains('active')) window.scrollTo(0, 0);
+    });
+  }
+})();
+
+
+/* ============================================================
+   TEMPO DE PRESENTACIÓN — Ventas · Pipeline · Objetivos · Clientes
+   Las animaciones de entrada (fadeUp, apariciones de cards, barras que
+   crecen, cambio de sub-vista…) se reproducen más pausadas para una
+   lectura sutil en sala de directorio. Un solo control para las tres
+   vistas: cada animación finita se estira a TEMPO_MIN–TEMPO_MAX ms.
+   No toca animaciones en bucle (pulsos, brillos) ni las que ya son
+   lentas, y respeta prefers-reduced-motion. Los retrasos escalonados
+   (--i, --d) se mantienen tal cual.
+   ============================================================ */
+(function(){
+  if (!document.getAnimations) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var SCOPE = '#ventas, #pipeline, #objetivos, #clientes';
+  var FACTOR = 1.7, TEMPO_MIN = 600, TEMPO_MAX = 1100;
+
+  document.addEventListener('animationstart', function(e){
+    var el = e.target;
+    if (!el || !el.closest || !el.closest(SCOPE)) return;
+    var pseudo = e.pseudoElement || '';
+    el.getAnimations({subtree:true}).forEach(function(a){
+      if (a.animationName !== e.animationName || a._tempo) return;
+      var fx = a.effect;
+      if (!fx || fx.target !== el || (fx.pseudoElement || '') !== pseudo) return;
+      var t = fx.getTiming();
+      if (t.iterations === Infinity || !(t.duration > 0) || t.duration >= TEMPO_MAX) return;
+      var target = Math.min(Math.max(t.duration * FACTOR, TEMPO_MIN), TEMPO_MAX);
+      a._tempo = true;
+      a.updatePlaybackRate(t.duration / target);
+    });
+  }, true);
+})();

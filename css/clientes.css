@@ -148,3 +148,27 @@
 
 /* ── Pareto clientes ──────────────────────────────────── */
 .pareto-wrap{background:var(--card);border-radius:14px;padding:20px 22px;box-shadow:var(--sh);border:1px solid var(--border);margin-bottom:18px}
+
+/* ==========================================================================
+   CLIENTES · entrada sutil (se relanza en cada visita: .section.active)
+   Bloques en cascada → KPI una a una → barras que crecen desde cero.
+   ========================================================================== */
+@keyframes cliRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes cliBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#clientes.active > *{animation:cliRise .7s cubic-bezier(.22,.7,.28,1) backwards}
+#clientes.active > *:nth-child(1){animation-delay:.05s}
+#clientes.active > *:nth-child(2){animation-delay:.14s}
+#clientes.active > *:nth-child(3){animation-delay:.26s}
+#clientes.active > *:nth-child(4){animation-delay:.36s}
+#clientes.active > *:nth-child(5){animation-delay:.44s}
+#clientes.active > *:nth-child(n+6){animation-delay:.52s}
+#clientes.active #cliKpiGrid{animation:none}
+#clientes.active #cliKpiGrid > .kpi-v3{animation:cliRise .7s cubic-bezier(.22,.7,.28,1) backwards}
+#clientes.active #cliKpiGrid > .kpi-v3:nth-child(1){animation-delay:.16s}
+#clientes.active #cliKpiGrid > .kpi-v3:nth-child(2){animation-delay:.24s}
+#clientes.active #cliKpiGrid > .kpi-v3:nth-child(3){animation-delay:.32s}
+#clientes.active #cliKpiGrid > .kpi-v3:nth-child(4){animation-delay:.40s}
+#clientes.active .kv3-bar-fill{transform-origin:0 50%;animation:cliBar 1.2s cubic-bezier(.4,0,.2,1) .5s backwards}
+@media(prefers-reduced-motion:reduce){
+  #clientes.active > *,#clientes.active #cliKpiGrid > .kpi-v3,#clientes.active .kv3-bar-fill{animation:none}
+}

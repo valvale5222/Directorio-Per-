@@ -1,127 +1,128 @@
 /* ============================================================
-   PIPELINE COMERCIAL — DATOS REALES (Excel "PIPELINE 2026-2027.xlsx", hoja PIPELINE)
+   PIPELINE COMERCIAL — DATOS REALES (Excel "PIPELINE 2026-2027-VF.xlsx", hoja PIPELINE)
    Fila = [Cliente, Importe (col VENTA), Probabilidad de cierre (0–1, desde "% PROBABILIDAD DE ÉXITO"),
            Mes de cierre (1–12, desde "MES ESTIMADO DE CIERRE"), Proyecto/Descripción (col REQUERIMIENTO),
            Estado (col STATUS), Año (col AÑO, 2026 o 2027 — dato real de la hoja, no inferido)]
    Nombres/descripciones normalizados a Title Case desde el valor exacto del Excel (sin inventar contenido).
-   Actualizado Sep 2026: 111 oportunidades (reemplazo completo desde "PIPELINE 2026-2027.xlsx";
-   incluye Q Pack · Ampliación de planta · $700,000 · 12/2026, cargada manualmente y aún no presente en ese Excel).
-   Excluidas del Pipeline las 4 oportunidades con STATUS "Vendido" (ventas realizadas, no forman parte del embudo)
-   y la fila duplicada de Avocado Packing Company · Layout base planta congelado APC Chao (el Excel la trae dos veces,
-   F5 y F95, con el mismo importe; se conserva la de estado más avanzado: "En análisis del cliente", cierre 5/2027).
+   Actualizado 30 Oct 2026: 108 oportunidades (reemplazo completo desde "PIPELINE 2026-2027-VF.xlsx", 109 filas).
+   2 Nov 2026: Inka Select Fruit - Ica (Suministro de sistema de frío, $1.07M) pasa de "Vendido" a "Cancelado"
+   en el VF → se incorpora como fila Cancelado (109 oportunidades).
+   Actualizado 4 Nov 2026 desde el VF: 110 oportunidades (+ Tal S.A. - Salaverry; cierres de oct movidos a nov;
+   Vita Foods y Tricao pasan a 2027). SC Packing venía como texto "$252,060" en VENTA → convertido a número.
+   Mes de cierre 0 (Medlog Ica, Medlog Cayalti, Danper Muchik) y celdas vacías se cargan como null;
+   importe vacío (Grupo Hame, Alpamayo) se carga como 0.
    ============================================================ */
 const PIPE_ROWS = [
-  ['Vitafoods',6304645.35,0.6,2,'Planta de Congelado Multiproposito','En análisis del cliente',2027],
-  ['Frutos Tropicales',5986141.91,0.05,4,'Planta de Congelado de Mango','Postpuesto',2027],
-  ['Medlog Ica',5800000,0,8,'Planta Empacadora de Uva y Arandanos','Perdido',2026],
-  ['Maestranza',5139992,0.05,1,'Equipos de Refrigeracion','Postpuesto',2027],
-  ['Avocado Packing Company (Mission Produce)',4589259,0.2,5,'Layout Base Planta Congelado Apc Chao','En análisis del cliente',2027],
+  ['Frutos Tropicales',5986141.91,0.1,4,'Planta de Congelado de Mango','Postpuesto',2027],
+  ['Medlog Ica',5800000,0,null,'Planta Empacadora de Uva y Arandanos','Perdido',2026],
+  ['Maestranza',5139992,0.05,2,'Equipos de Refrigeracion','Postpuesto',2027],
+  ['Avocado Packing Company (Mission Produce)',4589259,0.2,1,'Layout Base Planta Congelado Apc Chao','En análisis del cliente',2027],
+  ['Vitafoods',4500000,0.6,2,'Planta de Congelado','En análisis del cliente',2027],
   ['Gloria',4000000,0.05,4,'Planta de Congelado Multiproposito','Postpuesto',2027],
-  ['Medlog Cayalti',3580000,0,8,'Planta Empacadora de Arandanos','Perdido',2026],
+  ['Medlog Cayalti',3580000,0,null,'Planta Empacadora de Arandanos','Perdido',2026],
   ['Danper',3500000,0,null,'Ampliación Muchik','Perdido',2026],
-  ['Rapel',3211211,0.4,1,'10/14 Tuneles de Planta de Uva - Piura','En análisis del cliente',2027],
-  ['Hijuelas',3000000,0.6,11,'Laboratorio de Crecimiento de Arandanos','En análisis del cliente',2026],
+  ['Rapel',3211211,0.4,11,'10/14 Tuneles de Planta de Uva - Piura','En análisis del cliente',2026],
   ['Danper',3000000,0.4,12,'Planta de Uva (Olmos)','En proceso de cotización',2026],
-  ['San Fernando',2934737.67,0,null,'Implementación del Sistema de Refrigeracion - PPPC Huaral','Perdido',2026],
-  ['Broom Frio',2850000,0.4,2,'3 Camaras y Pasillo de Despacho','En análisis del cliente',2027],
-  ['Atgro (Piura)',2500000,0.4,1,'Planta de Procesamiento de Arandanos (Piura)','En proceso de cotización',2027],
-  ['Emergent Cold',2096567.37,0.6,10,'Greenfield Ecla Amoniaco/glicol (Sistema de Frio)','En análisis del cliente',2026],
+  ['San Fernando',2923052.67,0,8,'Implementación del Sistema de Refrigeracion - PPPC Huaral','Perdido',2026],
+  ['Broom Frio',2850000,0.4,3,'3 Camaras y Pasillo de Despacho','En análisis del cliente',2027],
+  ['Atgro (Piura)',2500000,0.4,1,'Planta de Procesamiento de Arandanos (Piura)','En análisis del cliente',2027],
+  ['Emergent Cold',2400000,0.8,11,'Greenfield Ecla Amoniaco/Glicol (Sistema de Frio)','Negociación',2026],
+  ['Agro Fruit Export Sac',2222646.27,0.6,11,'Cámara de Congelado','Negociación',2026],
   ['Hass Peru',2000000,0.05,2,'Planta Olmos','Prospecto',2027],
   ['Ransa',1950000,0.05,2,'Planta de Congelado - Callao ó Paita','Prospecto',2027],
+  ['Fruglobe',1805310,0.6,11,'Planta de Palta','Negociación',2026],
+  ['Prosembra',1803126.38,0.8,11,'1 TPT y Pasillo + 01 CMP','Negociación',2026],
   ['Agroextiende',1545500,0,6,'Planta Empacadora de Arandanos','Perdido',2026],
   ['Frozen Processed Fruits Sac',1500000,0.05,5,'Camara de Congelados','Postpuesto',2027],
-  ['Vanguard - Ica',1500000,0.8,1,'Ampliación de Sala de Procesos 3 y 4: 02 Túneles Californianos y 1 de Cámara Terminado','En análisis del cliente',2027],
-  ['Agro Fruit Export Sac',1500000,0.2,10,'Cámara de Congelado','En proceso de cotización',2026],
   ['Savia Corp',1493776.65,0.2,11,'Planta Empacadora de Fruta Multiproposito','En análisis del cliente',2026],
-  ['Prolan',1349027,0.8,10,'Ampliacion de la Planta San Fernando - Chincha','Negociación',2026],
-  ['Proagro Nazca',1325752.5,0.05,1,'Planta Empacadora de Arandanos','Postpuesto',2027],
-  ['Delice',1258345.392,0.8,11,'Planta Procesadora de Lacteos y Derivados (Sistema de Frio)','En proceso de cotización',2026],
+  ['Proagro Nazca',1325752.5,0.1,1,'Planta Empacadora de Arandanos','Postpuesto',2027],
   ['Sur Export',1258000,0,6,'Acopio de Arandanos','Perdido',2026],
-  ['Prosembra (Vanguard) - Pisco',1034092.43,0.6,10,'Ampliacion de Camara de Arandanos','En análisis del cliente',2026],
-  ['Quelen',1024378.89,0.4,2,'Planta Empacadora de Arandanos - 2da Etapa','En análisis del cliente',2027],
+  ['Delice',1228338.27,0.6,11,'Planta Procesadora de Lacteos y Derivados (Sistema de Frio)','Negociación',2026],
+  ['Prolan',1075171.99,0.8,11,'Ampliacion de la Planta San Fernando - Chincha','Negociación',2026],
+  ['Inka Select Fruit - Ica',1070000,0.8,10,'Suministro de Sistema de Frio','Cancelado',2026],
+  ['Productos Naturales de Exportacion S.A. - Pronex S.A.',1052741,0.4,11,'Cámara + Esclusa (Recepción/Despacho)','En análisis del cliente',2026],
+  ['Quelen/Qpack',1022275.76,0.6,12,'Planta Empacadora de Arandanos - 2da Etapa 2027','Negociación',2026],
   ['Axion Log',1004484,0.05,2,'CD Trujillo','Prospecto',2027],
   ['Reiter',1000000,0.4,2,'Ampliación Planta','Prospecto',2027],
-  ['Perupez',1000000,0.4,11,'Ampliación de Planta Pesquera','En análisis del cliente',2026],
-  ['Fruglobe',1000000,0.6,10,'Planta de Palta','En análisis del cliente',2026],
-  ['NGR - Nutra',935527.66,0.4,9,'Implementación de Cámaras de Frio para Planta de Producción Proyecto Chronos (Freon)','En análisis del cliente',2026],
-  ['Inka Select Fruit - Ica',877000,0.05,4,'Suministro de Sistema de Frio','Postpuesto',2027],
-  ['La Grama',856138,0.2,12,'Cámara y Tunel de Congelado (CO2)','En análisis del cliente',2026],
-  ['Pura Fruits',850000,0,4,'Ampliación de Planta de Arandanos','Perdido',2026],
-  ['Pesquera Altair-oceano',840000,0,9,'Camara de Congelado y Anden de Congelado','Perdido',2026],
-  ['Emergent Cold',824838,0.4,12,'Túnel Congelado','En análisis del cliente',2026],
-  ['Frutos de Oro',806804,0.2,12,'Sistema de Frio Iqf','Postpuesto',2027],
-  ['Pampa Baja - Arequipa',800000,0.6,1,'Ampliacion de Planta de Arandanos','Postpuesto',2027],
-  ['Yamboli',789467.95,0.2,3,'Camaras de Congelado de Helado (Sistema de Frio) : C02 y Freon','En proceso de cotización',2027],
-  ['Sociedad Agricola Drokasa S.A.',780000,0.4,10,'Planta Antigua de Esparragos - Mejoras','En análisis del cliente',2026],
-  ['San Efisio Sac',772012.6,0.6,1,'Acopio de Arandanos','En análisis del cliente',2027],
-  ['Emergent Cold',771249.7,0.2,11,'Túnel Congelado','Postpuesto',2027],
+  ['Perupez',1000000,0.4,4,'Ampliación de Planta Pesquera','En análisis del cliente',2027],
+  ['Hijuelas',1000000,0.6,11,'Adicionales de Laboratorio de Crecimiento de Arandanos (LD 24)','En proceso de cotización',2026],
+  ['NGR - Nutra',935527.66,0.4,11,'Implementación de Cámaras de Frio para Planta de Producción Proyecto Chronos (Freon)','Cancelado',2026],
+  ['El Parque Alaya Packing Sac',931218.24,0.4,11,'Ampliación de Packing Palta (Sala de Recepción de MP)','En análisis del cliente',2026],
+  ['Rapel',902727.38,0.4,12,'2 Salas de Procesos','En análisis del cliente',2026],
+  ['Pesquera Altair-Oceano',898320.57,0,9,'Camara de Congelado y Anden de Congelado','Perdido',2026],
+  ['La Grama',856138,0.4,12,'Cámara y Tunel de Congelado (CO2)','En análisis del cliente',2026],
+  ['Pura Fruits',850000,0,4,'Ampliacion de Planta de Arandanos','Perdido',2026],
+  ['Atgro (Ecosac) Piura - Olmos - Ica',817400,0.4,12,'Planta de Procesamiento de Arandanos','En análisis del cliente',2026],
+  ['Frutos de Oro',806804.24,0.2,3,'Sistema de Frio IQF','Postpuesto',2027],
+  ['JRM - Yamboli',789467.95,0.2,3,'Camaras de Congelado de Helado (Sistema de Frio) : C02 y Freon','En proceso de cotización',2027],
+  ['Sociedad Agricola Drokasa S.A.',780000,0.6,12,'Planta Antigua de Esparragos - Mejoras','Postpuesto',2026],
+  ['San Efisio Sac',772012.6,0.4,3,'Acopio de Arandanos','Postpuesto',2027],
+  ['Emergent Cold',771249.7,0.4,12,'Túnel Congelado','Postpuesto',2026],
   ['Sunshine Export S.A.C',760000,0.05,6,'Nueva Cámara de Congelado','Prospecto',2027],
   ['Agrolatina - Nazca',750000,0.4,3,'Climatizacion de Sala de Procesos - Camara de Materia Prima','Prospecto',2027],
-  ['Rapel',718781.85,0.2,9,'2 Salas de Procesos','En proceso de cotización',2026],
-  ['Q Pack',700000,0.6,12,'Ampliación de Planta','En proceso de cotización',2026],
   ['Camposol',700000,0,3,'Acopio Nuevo','Perdido',2026],
-  ['Agricola Chapi',680000,0.4,10,'Ampliacion de Tunel de Materia Prima y Producto Terminado. Camara de Producto Terminado y Sala de Despacho. (Multifruta)','En análisis del cliente',2026],
-  ['Productos Naturales de Exportacion S.A. - Pronex S.A.',620035.84,0.2,11,'Cámara + Esclusa (Recepción/despacho)','En proceso de cotización',2027],
-  ['Frutos de Oro',616364.4,0.2,12,'02 Tuneles de Maduracion','Postpuesto',2027],
+  ['2M',680000,0.4,12,'Ampliacion de Procesos de Arandanos','Postpuesto',2026],
+  ['Smartpacking',632026.6,0.6,11,'Sala de Procesos de Palta','En análisis del cliente',2026],
+  ['Frutos de Oro',616364.4,0.2,3,'02 Tuneles de Maduracion','Postpuesto',2027],
   ['Don Ricardo',580000,0.2,3,'Ampliacion de Planta "Casa Chica" - Procesamiento de Uva','Prospecto',2027],
-  ['Frutos de Oro',542014.85,0.2,12,'Camaras de C02 y Freon','Postpuesto',2027],
-  ['El Parque Alaya Packing Sac',500000,0.05,9,'Implementación de Campamento','Postpuesto',2026],
-  ['El Parque Alaya Packing Sac',500000,0.4,10,'Ampliación de Packing Palta','En proceso de cotización',2026],
-  ['Atgro (Olmos)',500000,0.6,12,'Planta de Procesamiento de Arandanos (Olmos)','En proceso de cotización',2026],
-  ['Blueway',500000,0.6,11,'Cotización de Nave Industrial (Obras Civiles y Metalmecanica) y Sistema de Frio','En proceso de cotización',2026],
-  ['Tababuela',467107.95,0.8,10,'Planta de Arandanos en Ecuador','Negociación',2026],
-  ['Sociedad Agricola Drokasa S.A.',460000,0.4,1,'PV2 - NH3','En análisis del cliente',2027],
-  ['2M',450000,0.6,1,'Ampliacion Recepción, CMP, SP','En análisis del cliente',2027],
-  ['Camsac',450000,0.6,2,'Ampliacion de Planta de Arandanos 2 TMP, 1 CPT, 1 Despacho','Prospecto',2027],
-  ['Torre Blanca',450000,0.4,1,'Proyecto 1 Túnel, Pasillo )','En proceso de cotización',2027],
-  ['3P',450000,0.4,10,'Instalacion y Puesta en Marcha - Chiller','En análisis del cliente',2026],
+  ['Frutos de Oro',542014.85,0.2,3,'Camaras de C02 y Freon','Postpuesto',2027],
+  ['El Parque Alaya Packing Sac',500000,0.1,4,'Implementación de Campamento','Postpuesto',2027],
+  ['Blueway',500000,0.2,5,'Cotización de Nave Industrial (Obras Civiles y Metalmecanica) y Sistema de Frio','Cancelado',2027],
+  ['Agricola Chapi',500000,0.4,2,'Ampliación','Postpuesto',2027],
+  ['Allpa Farms',481052,0.2,12,'Acopio','Postpuesto',2026],
+  ['Tababuela',467107.95,0.4,12,'Planta de Arandanos en Ecuador','En análisis del cliente',2026],
+  ['Sociedad Agricola Drokasa S.A.',460000,0.05,12,'PV2 - NH3','Postpuesto',2026],
+  ['Torre Blanca',450000,0.2,1,'Proyecto 1 Túnel, Pasillo )','En proceso de cotización',2027],
+  ['Camsac',450000,0.4,2,'Ampliacion de Planta de Arandanos 2 TMP, 1 CPT, 1 Despacho','Prospecto',2027],
+  ['3P',450000,0.4,2,'Instalacion y Puesta en Marcha - Chiller','Postpuesto',2027],
   ['Agropecuarios del Sur',421755.7,0,5,'Planta de Embutidos','Perdido',2026],
-  ['Atgro (Ingeniería)',400000,0.2,9,'Arquitectura e Ingeniería','En análisis del cliente',2026],
-  ['Allpa Farms',400000,0.2,12,'Acopio','En proceso de cotización',2026],
-  ['Agrofloral',380000,0.6,11,'Ampliacion de Camara de Producto Terminado','En análisis del cliente',2026],
+  ['Atgro (Ingeniería)',400000,0.2,11,'Arquitectura e Ingeniería','En análisis del cliente',2026],
+  ['Agrofloral',392000,0.8,11,'Ampliación de Cámara y Pasillo','Negociación',2026],
+  ['Gloria - Cusco',386413.66,0.6,11,'Instalación de Almacén Refrigerado – Cámara Cusco.','En análisis del cliente',2026],
   ['Don Packing',372462.18,0,4,'Planta Empacadaora de Fruta Multiproposito','Perdido',2026],
-  ['Gloria',365000,0.8,9,'Cámara y Antecámara de Yogurt','Negociación',2026],
-  ['Prize',329805.2,0.2,2,'Oficinas','Postpuesto',2027],
-  ['Grupo Rocío: Noraves Santa Elena (Virú)',328879.93,0.2,10,'Sistema de Respaldo (Backup) de Refrigeración','En análisis del cliente',2026],
-  ['Tyt',300000,0.2,12,'Proyecto de 03 Tuneles y 01 Camara de Proudcto Terminado','Postpuesto',2026],
+  ['Grupo Rocío: Noraves Santa Elena (Virú)',344919.36,0.2,11,'Sistema de Respaldo (Backup) de Refrigeración','En análisis del cliente',2026],
+  ['Arona',321390.28,0.8,11,'Ampliación de Packing de Citricos y Palta','Negociación',2026],
+  ['Tyt',300000,0.2,3,'Proyecto de 03 Tuneles y 01 Camara de Proudcto Terminado','Postpuesto',2027],
   ['Hayduk',300000,0.2,11,'Suministro e Instalación de Compresor','En proceso de cotización',2026],
-  ['Zedina',274409.85,0,2,'Planta de Carnicos','Cancelado',2027],
+  ['Country Home',293922.11,0.2,3,'Cámara de Almacenamiento de Producto Terminado - Limon','Postpuesto',2027],
+  ['Tal S.A. - Puerto Mori',279922.8,0.4,11,'Ampliación del CAE (Recepción + TN)','En proceso de cotización',2026],
+  ['Zedina',274409.85,0.2,11,'Planta de Carnicos','Cancelado',2026],
   ['Limatambo',259000,0.05,1,'Camara 140 Ps y 1 Tunel de 20 Pallets (Freon)','Postpuesto',2027],
+  ['Gloria - Chincha',257621.88,0.4,11,'Chincha - Cámara y Antecámara de Yogurt','En análisis del cliente',2026],
   ['Pedregal Ica',256000,0,5,'Ampliación de Túneles en PK1 y PK2','Perdido',2026],
-  ['Country Home',250000,0.2,12,'Cámara de Almacenamiento de Producto Terminado - Limon','Postpuesto',2026],
-  ['Prolan',250000,0.4,11,'Camara Frio Materia Prima Envasados','En proceso de cotización',2026],
-  ['Emergent Cold',167000,0.8,9,'Suministro e Instalación de Compresor (3er para Back Up)','Negociación',2026],
-  ['Agro Develop',150000,0.2,3,'Packing de Jengibre','Prospecto',2027],
-  ['Agro Develop',150000,0.2,10,'Packing de Jengibre','En proceso de cotización',2026],
-  ['Cementos Pacasmayo',128992.98,0.1,2,'Instalacion de 2 Chilleres - Ecuador','Postpuesto',2027],
-  ['Hayduk',120000,0.2,10,'Suministro e Instalación de Compresor','En proceso de cotización',2026],
+  ['SC Packing',252060,0.6,11,'Ampliación de Cámara, Pasillo y Despacho','En proceso de cotización',2026],
+  ['Prolan',250000,0.2,2,'Camara Frio Materia Prima Envasados','En análisis del cliente',2027],
+  ['Gloria - Huancayo',247931.74,0.4,11,'Instalación de Almacén Refrigerado','En análisis del cliente',2026],
+  ['Tal S.A. - Salaverry',238525.82,0.4,11,'Repotenciación de Sala de Procesos','En proceso de cotización',2026],
+  ['Emergent Cold',184618.75,0.6,11,'Suministro e Instalación de Compresor (3er para Back Up)','En análisis del cliente',2026],
+  ['Gloria - Lima Este',177110.57,0.4,10,'Suministro de Frio','Perdido',2026],
+  ['Agro Develop',150000,0.2,3,'Packing de Jengibre - Capex 2027','Postpuesto',2027],
+  ['Cementos Pacasmayo',128992.98,0.2,3,'Instalacion de 2 Chilleres - Ecuador','Postpuesto',2027],
   ['Agroberries',103694.6,0.8,1,'Tunel 02 - Adicional para Materia Prima','En análisis del cliente',2027],
-  ['Molitalia',100000,0,1,'Suministro de Chiller','Cancelado',2027],
-  ['Agricola la Joya',98000,0.05,1,'Planta Empacadora de Uva','Postpuesto',2027],
-  ['Vitafoods',90928,0.8,10,'Servicio de Ingeneria','En análisis del cliente',2026],
-  ['2M',78297,0.4,12,'Ampliacion del Despacho (Multifruta)','En análisis del cliente',2026],
-  ['Safco',78000,0.8,8,'Suministros e Instalación de de Condensador Frioraf','En análisis del cliente',2026],
-  ['Agrofutura',75000,0.4,10,'Ampliación de Planta Multiproposito - Uva','En análisis del cliente',2026],
-  ['Aib Chincha',60000,0.6,10,'Evaporador para Tunel Estatico 2 (Chincha)','En análisis del cliente',2026],
-  ['Rinti Sa',60000,0.4,10,'Camara para Alimentos de Mascotas 0 - 8° (Huachipa)','En proceso de cotización',2026],
-  ['Aib Chincha',54334,0.2,10,'Climatización de Prefrio','En análisis del cliente',2026],
-  ['Agrofutura',38534.24,0.4,10,'Inst. Camaras de Gasificado Acopios 1Y2','En análisis del cliente',2026],
-  ['Talma',35000,0,12,'Ingeneria','Perdido',2026],
-  ['Tricao',32000,0.2,12,'Plan de Arquitectura, Diseño de 3 Plantas','En análisis del cliente',2026],
-  ['Kamuk',30939,0.4,9,'Termometria Planta Kamuk','En análisis del cliente',2026],
-  ['Europan - San Antonio',30600,0.1,8,'Expediente Técnico','Postpuesto',2027],
-  ['Agrovisión',28155.56,0.2,9,'Camara de Gasificado','En análisis del cliente',2026],
-  ['Prolan',18733,0.8,9,'Ingeneria de Planta','Negociación',2026],
-  ['Smartpacking',0,0.2,10,'Sala de Procesos de Arandanos y Palta','En proceso de cotización',2026],
-  ['Family Farms',0,0.6,10,'2 Gasificados','En proceso de cotización',2026],
-  ['Frutibien',0,null,null,'Packing de Arandanos','En proceso de cotización',2027],
+  ['Molitalia',100000,0.2,1,'Suministro de Chiller','En proceso de cotización',2027],
+  ['Axion Log',100000,0.4,11,'Cámaras para Congelado','En proceso de cotización',2026],
+  ['Agricola la Joya',98000,0.1,2,'Planta Empacadora de Uva','Postpuesto',2027],
+  ['Vitafoods',90928,0.4,3,'Servicio de Ingeneria','En análisis del cliente',2027],
+  ['Agrofutura',75000,0.4,11,'Ampliación de Planta Multiproposito - Uva','En análisis del cliente',2026],
+  ['Rinti Sa',63878.28,0.2,12,'Camara para Alimentos de Mascotas 0 - 8° (Huachipa)','En análisis del cliente',2026],
+  ['Aib Chincha',60000,0.2,2,'Evaporador para Tunel Estatico 2 (Chincha)','Postpuesto',2027],
+  ['Family Farms',42000,0.4,12,'2 Gasificados','En análisis del cliente',2026],
+  ['Pura Fruits',39500,0.4,11,'Ingeniería - Cambio de Sistema de Freón a NH3','En análisis del cliente',2026],
+  ['Greenbe Peru',35594.03,0.4,11,'Cámara de Conservación (Llave en Mano)','En análisis del cliente',2026],
+  ['Talma',35000,0.2,10,'Ingeneria','Perdido',2026],
+  ['Tricao',32000,0.2,3,'Plan de Arquitectura, Diseño de 3 Plantas','En análisis del cliente',2027],
+  ['Kamuk',30939,0.1,11,'Termometria Planta Kamuk','Postpuesto',2026],
+  ['Europan - San Antonio',30600,0.1,2,'Expediente Técnico','Cancelado',2027],
+  ['Agrovisión',28155.56,0.2,11,'Camara de Gasificado','En análisis del cliente',2026],
+  ['Prolan',18733,0.8,11,'Ingeneria de Planta','Negociación',2026],
+  ['Zedina',0,0.2,12,'Cámara de Congelado 180 Posiciones','Prospecto',2026],
   ['Pomica',0,0.4,11,'Ampliación de Sala de Procesos','En proceso de cotización',2026],
-  ['Mission Produce',0,0.2,10,'Campamento de Operarios','En proceso de cotización',2026],
-  ['Greenbe Peru',0,0.2,11,'Cámara de Conservación (Llave en Mano)','En proceso de cotización',2026],
-  ['Zedina',0,0.2,10,'Cámara de Congelado 180 Posiciones','En proceso de cotización',2026],
-  ['Vanguard',0,0.8,10,'Ampliación Packing 2026 (Ica)','Prospecto',2026],
-  ['JRM - Pesquera Diamante',0,0.4,10,'Ampliación de una Cámara de Congelado','Prospecto',2026],
-  ['Pacasmayo',0,0.2,null,'Planta Multiproposito','En proceso de cotización',2026]
+  ['Pacasmayo',0,0.1,3,'Planta Multiproposito','Postpuesto',2027],
+  ['NGR',0,0.2,3,'Implementación de Cámaras de Frío para Planta de Producción','Prospecto',2027],
+  ['JRM - Pesquera Diamante',0,0.4,11,'Ampliación de una Cámara de Congelado','Prospecto',2026],
+  ['Grupo Hame - Guatemala',0,null,null,'Layout de Planta de Palta','En análisis del cliente',null],
+  ['Frutibien',0,0.1,12,'Packing de Arandanos','Cancelado',2026],
+  ['Alpamayo',0,null,11,'Ampliación de Nave de Proceso de Arándanos','En proceso de cotización',2026]
 ];
 const PIPE_ESTADOS = ['Prospecto','En proceso de cotización','En análisis del cliente','Negociación','Postpuesto','Perdido','Cancelado'];
 const PIPE_ESTADO_COLOR = {
@@ -146,24 +147,26 @@ let _pipeProbSel = new Set(['all']);
 let _pipeEstadoSel = new Set(['all']);
 
 /* Objetivos estratégicos 2026 — datos reales del Excel
-   Obj. 01 actualizado al corte YTD Ene–Ago 2026 desde DATA_PRODUC_25.07.xlsx
-   Obj. 02 y 04 actualizados Sep 2026 desde "Friopacking_Objetivos_2_3_4_5.xlsx"
-   (hojas "Objetivo 2" y "Objetivo4"); Obj. 03 y 05 sin cambios en esa revisión. */
+   Obj. 01 actualizado al corte YTD Ene–Oct 2026 desde DATA_PRODUC_25.07.xlsx
+   Obj. 02 y 04: pipeline revisado 2 Nov 2026 (NGR pasa a 2027; Gloria – Lima Este perdida).
+   Obj. 02, 03 y 04 actualizados Oct 2026 desde "Friopacking_Objetivos_2_3_4_5.xlsx"
+   (hojas "Objetivo 2", "Objetivo 3" y "Objetivo4"); Obj. 05 sin cambios en esa revisión.
+   Obj. 04 incluye a Gloria: es reactivado en la cartera, pero su primera compra 2026 cuenta. */
 const OBJ5 = [
   {id:1, num:'01', cat:'Comercial', name:'Venta Comercial',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Chart%20increasing/3D/chart_increasing_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"📈\"'>",
-   pct:100.04, pctLabel:'100.04', color:'#185fa5', colorBg:'#dbeef9', colorDark:'#0e4a7a',
+   pct:113.96, pctLabel:'113.96', color:'#185fa5', colorBg:'#dbeef9', colorDark:'#0e4a7a',
    status:'ok', stxt:'Meta superada',
    metaLabel:'$30M anual',
    stats:[
-     {lbl:'Acumulado Ene–Ago', val:'$30.01M', cls:'c-ok'},
+     {lbl:'Acumulado Ene–Oct', val:'$34.19M', cls:'c-ok'},
      {lbl:'Meta anual', val:'$30.00M', cls:''},
-     {lbl:'Excedente meta', val:'+$11K', cls:'c-ok'},
-     {lbl:'vs Ene–Ago 2025', val:'+18.78%', cls:'c-ok'}
+     {lbl:'Excedente meta', val:'+$4.19M', cls:'c-ok'},
+     {lbl:'vs Ene–Oct 2025', val:'+9.12%', cls:'c-ok'}
    ],
    minis:[
-     {lbl:'Excedente meta', val:'+$11K'},
-     {lbl:'Margen 2026', val:'15.55%'}
+     {lbl:'Excedente meta', val:'+$4.19M'},
+     {lbl:'Margen 2026', val:'15.59%'}
    ]},
   {id:2, num:'02', cat:'Tecnología CO₂', name:'Proyectos CO₂',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Snowflake/3D/snowflake_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"❄️\"'>",
@@ -172,43 +175,43 @@ const OBJ5 = [
    metaLabel:'2 proyectos',
    stats:[
      {lbl:'Proyectos vendidos', val:'0 / 2', cls:'c-crit'},
-     {lbl:'Pipeline activo', val:'5 oport.', cls:''},
-     {lbl:'Importe pipeline', val:'$5.44M', cls:''},
-     {lbl:'Proyectos vendidos', val:'0/2', cls:''}
+     {lbl:'Pipeline activo', val:'6 oport.', cls:''},
+     {lbl:'Importe pipeline', val:'$8.52M', cls:''},
+     {lbl:'En negociación', val:'3 oport.', cls:''}
    ],
    minis:[
-     {lbl:'Oportunidades', val:'5 activas'},
-     {lbl:'Importe pot.', val:'$5.44M'}
+     {lbl:'Oportunidades', val:'6 activas'},
+     {lbl:'Importe pot.', val:'$8.52M'}
    ]},
   {id:4, num:'03', cat:'Nuevas líneas', name:'Valor Sin Frío',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Building%20construction/3D/building_construction_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"🏗️\"'>",
-   pct:100, pctLabel:'193.80', color:'#0d9488', colorBg:'#ccfbf1', colorDark:'#115e59',
+   pct:100, pctLabel:'312.45', color:'#0d9488', colorBg:'#ccfbf1', colorDark:'#115e59',
    status:'ok', stxt:'Meta superada',
    metaLabel:'$2.8M',
    stats:[
-     {lbl:'OOCC + EEMM logrado', val:'$5,426,217', cls:'c-ok'},
-     {lbl:'EEMM logrado', val:'$2.74M', cls:'c-ok'},
-     {lbl:'Total sin frío', val:'$5.43M', cls:'c-ok'},
+     {lbl:'OOCC + EEMM logrado', val:'$8,748,487', cls:'c-ok'},
+     {lbl:'EEMM logrado', val:'$4.85M', cls:'c-ok'},
+     {lbl:'Total sin frío', val:'$8.75M', cls:'c-ok'},
      {lbl:'Meta', val:'$2.80M', cls:''}
    ],
    minis:[
-     {lbl:'OOCC', val:'$2.69M'},
-     {lbl:'EEMM', val:'$2.74M'}
+     {lbl:'OOCC', val:'$3.90M'},
+     {lbl:'EEMM', val:'$4.85M'}
    ]},
   {id:3, num:'04', cat:'Diversificación', name:'Clientes No Agro',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Factory/3D/factory_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"🏭\"'>",
-   pct:50, pctLabel:'50.00', color:'#0891b2', colorBg:'#e0f7fa', colorDark:'#164e63',
-   status:'warn', stxt:'En seguimiento',
+   pct:100, pctLabel:'100.00', color:'#0891b2', colorBg:'#e0f7fa', colorDark:'#164e63',
+   status:'ok', stxt:'Meta cumplida',
    metaLabel:'4 clientes',
    stats:[
-     {lbl:'Logrados', val:'2 / 4', cls:'c-warn'},
-     {lbl:'Pendiente', val:'2 clientes', cls:''},
-     {lbl:'Pipeline no agro', val:'11 oport.', cls:''},
-     {lbl:'Importe pipeline', val:'$10.57M', cls:''}
+     {lbl:'Logrados', val:'4 / 4', cls:'c-ok'},
+     {lbl:'Importe vendido', val:'$3.74M', cls:'c-ok'},
+     {lbl:'Pipeline no agro', val:'8 oport.', cls:''},
+     {lbl:'Importe pipeline', val:'$5.86M', cls:''}
    ],
    minis:[
-     {lbl:'Logrados', val:'2 de 4'},
-     {lbl:'En pipeline', val:'11 oport.'}
+     {lbl:'Logrados', val:'4 de 4'},
+     {lbl:'En pipeline', val:'8 oport.'}
    ]},
   {id:5, num:'05', cat:'Cross Selling', name:'Cross Selling – Frioteam',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Wrench/3D/wrench_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"🔧\"'>",
@@ -254,7 +257,7 @@ const OBJ5 = [
   var FORECAST_HORIZON_KEYS = FORECAST_HORIZON.map(function(h){ return h.key; });
   var FORECAST_HORIZON_LABELS = FORECAST_HORIZON.map(function(h){ return h.lbl; });
   function horizonIdx(anio, mes) { return FORECAST_HORIZON_KEYS.indexOf(mesKey(anio, mes)); }
-  var PROB_LABELS = [['all','Todas'],['0','0%'],['5','5%'],['20','20%'],['40','40%'],['60','60%'],['80','80%'],['100','100%']];
+  var PROB_LABELS = [['all','Todas'],['0','0%'],['5','5%'],['10','10%'],['20','20%'],['40','40%'],['60','60%'],['80','80%'],['100','100%']];
   /* Años reales presentes en PIPE_ROWS (columna AÑO del Excel), no hardcodeados */
   var PIPE_ANIOS = (function() {
     var seen = {}, list = [];
@@ -716,7 +719,7 @@ const OBJ5 = [
       plugins: [pipeBarSheenPlugin],
       options: {
         responsive: true, maintainAspectRatio: false,
-        animation: {duration:450, easing:'easeInOutQuart', onComplete: function(a) { triggerBarSheen(a.chart); }},
+        animation: {duration:1000, easing:'easeInOutQuart', onComplete: function(a) { triggerBarSheen(a.chart); }},
         interaction: {mode:'index', intersect:false},
         plugins: {
           legend: {display:true, position:'bottom', labels:{boxWidth:9, font:{size:9.5}, padding:10, color:'#7b8db0'}},

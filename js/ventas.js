@@ -10,7 +10,7 @@ const VC = {
   23: [0.67,1.19,3.60,5.33,8.10,9.09,10.60,11.64,11.67,12.26,13.67,15.29],
   24: [0.08,1.25,4.84,6.46,9.58,10.74,12.30,12.88,13.21,14.88,15.35,15.45],
   25: [0.20,1.29,7.91,12.52,14.75,19.02,19.91,25.27,29.34,31.33,33.76,34.77],
-  26: [4.36,7.94,8.42,12.69,25.73,28.59,29.10,30.01,null,null,null,null]
+  26: [4.36,7.94,8.42,12.69,25.73,28.59,29.10,30.01,30.96,34.19,null,null]
 };
 
 /* ── Margen ponderado acumulado (%) — 2021-2026 ── */
@@ -20,7 +20,7 @@ const MCA = {
   23: [17.73,17.78,15.29,16.51,17.68,17.52,17.49,17.58,17.56,17.46,16.90,17.09],
   24: [16.67,16.42,15.36,15.21,15.55,15.83,15.30,15.25,15.26,15.21,15.30,15.30],
   25: [15.20,15.48,15.11,15.82,15.91,15.49,15.40,15.80,15.81,15.92,16.02,15.96],
-  26: [15.10,15.77,15.90,16.69,15.34,15.32,15.37,15.55,null,null,null,null]
+  26: [15.10,15.77,15.90,16.69,15.34,15.32,15.37,15.55,15.54,15.59,null,null]
 };
 
 /* ── Ventas acumuladas — Venta de Servicios (VSA + VSI, US$ MM) ── */
@@ -30,17 +30,17 @@ const VC_SRV = {
   23: [0,0,0,0,0,0,0,0,0,0,0,0],
   24: [0,0,0,0,0,0,0,0,0,0,0,0],
   25: [0,0,0.03,0.05,0.05,0.06,0.11,0.21,0.30,0.32,0.32,0.33],
-  26: [0,0.08,0.08,0.08,0.09,0.10,0.16,0.16,null,null,null,null]
+  26: [0,0.08,0.08,0.08,0.09,0.10,0.16,0.16,0.18,0.18,null,null]
 };
 
 /* ── Ventas acumuladas SIN OO.CC y EE.MM (US$ MM) — cruce por CODIGO PROYECTO
    contra hoja "OO.CC Y EEMM"; reemplaza venta/margen solo en los proyectos
    con código coincidente, resto de la data cruda queda igual ── */
-const VC_OOCC = {21:[1.55,3.22,4.34,6.4,8.91,12.5,14.42,15.56,16.83,16.87,18.01,20.63],22:[0.23,4.1,7.7,13.33,18.47,19.9,23.37,25.24,25.67,25.81,27.12,30.27],23:[0.67,1.19,3.09,4.62,7.39,8.38,9.88,10.92,10.95,11.55,12.96,14.65],24:[0.08,1,4.59,6.15,9.26,10.42,11.98,12.56,12.9,14.34,14.81,14.91],25:[0.2,1.17,6.12,10.73,12.96,16.51,17.4,22.92,26.99,28.98,31.41,32.42],26:[4.25,7.82,8.31,12.57,21.84,24.70,25.21,26.12,null,null,null,null]};
+const VC_OOCC = {21:[1.55,3.22,4.34,6.4,8.91,12.5,14.42,15.56,16.83,16.87,18.01,20.63],22:[0.23,4.1,7.7,13.33,18.47,19.9,23.37,25.24,25.67,25.81,27.12,30.27],23:[0.67,1.19,3.09,4.62,7.39,8.38,9.88,10.92,10.95,11.55,12.96,14.65],24:[0.08,1,4.59,6.15,9.26,10.42,11.98,12.56,12.9,14.34,14.81,14.91],25:[0.2,1.17,6.12,10.73,12.96,16.51,17.4,22.92,26.99,28.98,31.41,32.42],26:[4.25,7.82,8.31,12.57,21.84,24.70,25.21,26.12,27.07,30.30,null,null]};
 
 /* ── Margen ponderado acumulado SIN OO.CC y EE.MM (%) — usa margen frío ajustado
    ponderado por venta ajustada para los proyectos con código coincidente ── */
-const MCA_OOCC = {21:[16.69,13.93,14.81,10.12,11.5,12.86,13.4,12.42,12.69,12.7,13.07,13.38],22:[14.98,13.74,14.94,10.67,12.65,12.96,13.51,13.61,14.21,14.22,14.28,14.48],23:[17.73,17.78,16.27,17.55,18.44,18.18,18.05,18.09,18.07,17.93,17.29,17.56],24:[16.67,17.83,15.62,15.61,15.83,16.08,15.5,15.45,15.45,15.46,15.55,15.54],25:[15.2,16.06,16.43,16.69,16.43,16.06,15.93,16.27,16.22,16.31,16.38,16.31],26:[15.23,15.85,15.98,16.75,16.06,15.95,15.99,16.18,null,null,null,null]};
+const MCA_OOCC = {21:[16.69,13.93,14.81,10.12,11.5,12.86,13.4,12.42,12.69,12.7,13.07,13.38],22:[14.98,13.74,14.94,10.67,12.65,12.96,13.51,13.61,14.21,14.22,14.28,14.48],23:[17.73,17.78,16.27,17.55,18.44,18.18,18.05,18.09,18.07,17.93,17.29,17.56],24:[16.67,17.83,15.62,15.61,15.83,16.08,15.5,15.45,15.45,15.46,15.55,15.54],25:[15.2,16.06,16.43,16.69,16.43,16.06,15.93,16.27,16.22,16.31,16.38,16.31],26:[15.23,15.85,15.98,16.75,16.06,15.95,15.99,16.18,16.15,16.13,null,null]};
 
 /* Alias legacy para compatibilidad con otras secciones */
 const V = { 23:VC[23], 24:VC[24], 25:VC[25], 26:VC[26] };
@@ -60,7 +60,7 @@ const ZMON = {
     23:[673095,516517,2410566,1729389,2771063,993087,1503733,1039788,27778,594477,1413141,1616741],
     24:[77020,1168612,3590757,1626869,3115788,1156829,1562516,578586,334649,1672198,470764,96562],
     25:[197251,1096221,6615418,4607683,2233583,4274626,888259,5353131,4071840,1992459,2432241,1003761],
-    26:[4362016,3578570,481539,4267062,13044891,2860617,507563,909187,0,0,0,0]
+    26:[4362016,3578570,481539,4267062,13044891,2860617,507563,909187,950401,3226974,0,0]
   },
   norte:{
     21:[1073934,257020,379433,2041744,1559152,482827,1024067,488536,150224,20343,312581,1334431],
@@ -68,7 +68,7 @@ const ZMON = {
     23:[388659,11674,2147024,1699794,343575,132426,2925,640313,6251,3357,31021,1559462],
     24:[18480,371629,2331665,1599788,192553,6405,1238261,65145,222056,135702,60851,11261],
     25:[3882,1081789,4713415,3672249,1407724,2139804,412648,1136674,4050638,1446019,2162000,10566],
-    26:[3200000,1837982,292455,187219,11543568,17810,4500,721774,0,0,0,0]
+    26:[3200000,1837982,292455,187219,11543568,17810,4500,721774,745525,0,0,0]
   },
   centro:{
     21:[385223,706847,133807,2826,791516,1851,259402,0,974211,100,569506,664624],
@@ -76,7 +76,7 @@ const ZMON = {
     23:[0,256151,36755,13717,522198,121000,550208,63970,7551,4745,88658,22000],
     24:[3047,505514,6657,5052,1404340,55025,0,205000,79941,0,404267,0],
     25:[0,3092,38670,117308,227378,0,159825,99000,0,514967,0,360886],
-    26:[946218,41690,0,144516,382560,10600,57857,0,0,0,0,0]
+    26:[946218,41690,0,144516,382560,10600,57857,0,23212,0,0,0]
   },
   sur:{
     21:[351236,125365,603630,23923,154473,3104706,633759,651705,151580,13555,266118,616285],
@@ -84,13 +84,13 @@ const ZMON = {
     23:[284436,248692,226787,15878,1905291,739661,950600,335505,13976,586375,1293462,35279],
     24:[55493,291470,1252435,22029,1518895,1095400,324255,308440,32652,1536495,5646,85301],
     25:[193369,11340,1863333,818127,598482,2134822,315785,4117457,21202,31474,270241,632309],
-    26:[215798,1698898,189083,3935327,1118763,2832208,445206,187412,0,0,0,0]
+    26:[215798,1698898,189083,3935327,1118763,2832208,445206,187412,181665,3226974,0,0]
   }
 };
 
 /* Estacionalidad promedio por mes (2021-2026) */
-const SEAS_PCT = [4.9,7.6,12.0,13.8,19.4,9.6,6.6,7.3,4.6,3.0,4.5,6.7];
-const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2383722,1642627,1815191,1153817,739239,1128307,1656682];
+const SEAS_PCT = [4.8,7.4,11.6,13.4,18.9,9.3,6.4,7.1,5.1,5.0,4.4,6.5];
+const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2383722,1642627,1815191,1312217,1277068,1128307,1656682];
 
 
 /* ============================================================
@@ -99,22 +99,22 @@ const SEAS_AVG_M = [1224922,1886831,2969544,3421676,4815567,2383722,1642627,1815
 
 /* Refrigerante: Freón / Amoniaco / Otros (US$ MM) */
 const REF_DATA = {
-  freon:    [9.72,11.78,10.02,6.48,6.47,5.25],
-  amoniaco: [9.84,20.44, 4.06,7.45,21.03,22.45],
-  otros:    [0.75, 0.97, 1.21,1.53, 7.26, 2.31]
+  freon:    [9.72,11.78,10.02,6.48,6.47,5.78],
+  amoniaco: [9.84,20.44, 4.06,7.45,21.03,22.49],
+  otros:    [0.75, 0.97, 1.21,1.53, 7.26, 5.92]
 };
 
 /* Tipo de venta: PR / AD / VSA / VSI (% participación y montos nominales) */
 const TCV_PCT = {
-  PR: [95.3,85.3,93.2,90.8,95.5,95.19],
-  AD: [ 4.1, 3.3, 6.8, 9.2, 3.5, 4.28],
+  PR: [95.3,85.3,93.2,90.8,95.5,95.10],
+  AD: [ 4.1, 3.3, 6.8, 9.2, 3.5, 4.38],
   VSA:[ 0.3, 0.0, 0.0, 0.0, 0.9, 0.50],
-  VSI:[ 0.3, 0.0, 0.0, 0.0, 0.1, 0.03]
+  VSI:[ 0.3, 0.0, 0.0, 0.0, 0.1, 0.02]
 };
 const TCV_MONTO = {
-  PR: [19355389,28303498,14249025,14024848,33216546,28568208],
-  AD: [  832200, 1109472, 1040349, 1426301, 1219229, 1283895],
-  VSA:[   52000,       0,       0,       0,  306698,  150872],
+  PR: [19355389,28303498,14249025,14024848,33216546,32513758],
+  AD: [  832200, 1109472, 1040349, 1426301, 1219229, 1496986],
+  VSA:[   52000,       0,       0,       0,  306698,  169606],
   VSI:[   69252,       0,       0,       0,   24000,    8470]
 };
 
@@ -402,7 +402,7 @@ function vtToggle(seg, el) {
    reacciona a los segmentadores del tab Evolución de Ventas. Reutiliza
    _vtEffMargin()/_vtYearClose() (misma base filtrada que chMargenAcum y
    chMargenAnualProgress); fuera de ese tab conserva el valor global original. */
-var _vtHeroMargenGlobal = { val: 15.55, meta: 18 };
+var _vtHeroMargenGlobal = { val: 15.59, meta: 18 };
 function _vtUpdateHeroMargen() {
   var valEl = document.getElementById('vtHeroMargenVal');
   var subEl = document.getElementById('vtHeroMargenSub');
@@ -413,8 +413,8 @@ function _vtUpdateHeroMargen() {
   if (val === null || val === undefined) val = _vtHeroMargenGlobal.val;
   var diff = val - _vtHeroMargenGlobal.meta;
   var up = diff >= 0;
-  valEl.textContent = val.toFixed(2) + '%';
-  subEl.style.color = up ? '#bbf7d0' : '#fecaca';
+  valEl.innerHTML = val.toFixed(2) + '<span class="vt-kpi-u">%</span>';
+  subEl.style.color = up ? '#16a34a' : '#dc2626';
   subEl.innerHTML = (up ? '&#8593;' : '&#8595;') + ' Meta ' + _vtHeroMargenGlobal.meta + '% &middot; ' +
     (up ? '+' : '&minus;') + Math.abs(diff).toFixed(2) + ' pp';
 }
@@ -460,7 +460,7 @@ function _vtDs(data) {
       /* Cifra mes a mes: 2026 arriba de la línea, 2025 debajo */
       _lbl: is26 || is25,
       _lblUp: is26,
-      _lblSize: is26 ? 9.5 : 9,
+      _lblSize: is26 ? 11.5 : 11,
       _lblColor: is26 ? '#0A1E64' : '#0F6E56',
       borderDash: cfg.d,
       /* Permanent visible markers — size varies by year prominence */
@@ -493,16 +493,16 @@ const Z = {
       s:[0.19,0.01,1.86,0.82,0.60,2.13,0.32,4.12,0.02,0.03,0.27,0.63],
       c:[0,0,0.04,0,0.23,0,0.16,0.10,0,0.51,0,0.36],
       e:[0,0,0,0,0,0,0,0,0,0,0,0]},
-  26:{n:[3.20,1.84,0.29,0.19,11.54,0.02,0,0.72,0,0,0,0],
-      s:[0.22,1.70,0.19,3.94,1.12,2.83,0.45,0.19,0,0,0,0],
-      c:[0.95,0.04,0,0.14,0.38,0.01,0.06,0,0,0,0,0],
+  26:{n:[3.20,1.84,0.29,0.19,11.54,0.02,0,0.72,0.75,0,0,0],
+      s:[0.22,1.70,0.19,3.94,1.12,2.83,0.45,0.19,0.18,3.23,0,0],
+      c:[0.95,0.04,0,0.14,0.38,0.01,0.06,0,0.02,0,0,0],
       e:[0,0,0,0,0,0,0,0,0,0,0,0]}
 };
 
 
 /* ============================================================
    DATA VENTAS 2026 — Fuente única: DATA_PRODUC_25.07.xlsx (hoja "Data Cruda")
-   Filtro aplicado: Año = 2026, Mes = Enero..Agosto → 101 registros reales.
+   Filtro aplicado: Año = 2026, Mes = Enero..Octubre → 124 registros reales (2-nov-2026: se cayó la venta Inka Select Fruit, $1.07M).
    Cada fila = 1 operación real (columna "Importe total" y "Margen Comercial").
    Nombres normalizados a Title Case desde el valor exacto del Excel (sin inventar).
    Se fusionaron 2 pares de variantes de escritura del mismo cliente (mismo
@@ -618,7 +618,30 @@ const ventas2026 = [
   {mes:'Ago',cli:'Viru Frozen S.A.',zona:'Norte',imp:4612.5,mg:20,desc:'DESMONTAJE DE DESHUMIDIFICADORES',tipo:'PR'},
   {mes:'Ago',cli:'Q Pack S.A.C.',zona:'Norte',imp:4580,mg:20,desc:'MANTENIMIENTO COMPRESORES',tipo:'AD'},
   {mes:'Ago',cli:'Q Pack S.A.C.',zona:'Norte',imp:4550,mg:28.9,desc:'SUMINSTRO E INSTALACION ALARMA FUGA NH3',tipo:'AD'},
-  {mes:'Jul',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:4190,mg:16.42,desc:'SISTEMA ENFRIAMIENTO CABEZALES',tipo:'AD'}
+  {mes:'Jul',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:4190,mg:16.42,desc:'SISTEMA ENFRIAMIENTO CABEZALES',tipo:'AD'},
+  {mes:'Sep',cli:'Leche Gloria Sociedad Anonima - Gloria S.A.',zona:'Norte',imp:357354.69,mg:14.43,desc:'AMPLIACIÓN DE CÁMARA Y ANTECÁMARA',tipo:'PR'},
+  {mes:'Sep',cli:'Blueberries Peru S.A.C.',zona:'Norte',imp:180509.27,mg:15,desc:'CAMPAMENTO',tipo:'PR'},
+  {mes:'Sep',cli:'Estanterias Metalicas J.R.M. S.A.C',zona:'Sur',imp:93390.7,mg:17,desc:'CÁMARA DE CONSERVACIÓN A 18°C',tipo:'PR'},
+  {mes:'Sep',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:91000,mg:19,desc:'SISTEMA DE PUESTA A TIERRA - PACKING ARANDANOS',tipo:'AD'},
+  {mes:'Sep',cli:'Agrofutura Company S.A.C.',zona:'Norte',imp:78000,mg:22.28,desc:'GASIFICADO ACOPIO 1 Y 2',tipo:'PR'},
+  {mes:'Sep',cli:'Icapack S.A.C.',zona:'Sur',imp:73500,mg:14,desc:'AMPLIACIÓN DE DESPACHO CON UNA',tipo:'PR'},
+  {mes:'Sep',cli:'Agroindustrias Aib S.A',zona:'Norte',imp:30935.95,mg:-8,desc:'SUMINISTRO E INSTALACION AISLAMIENTO',tipo:'AD'},
+  {mes:'Sep',cli:'Procesadora Laran SAC',zona:'Centro',imp:18733.82,mg:15,desc:'EXPEDIENTE TÉCNICO DEL DISEÑO',tipo:'VSA'},
+  {mes:'Sep',cli:'Agricola Pampa Baja S.A.C.',zona:'Sur',imp:14200,mg:20,desc:'SUMINISTRO DE PUERTAS Y VENTANAS',tipo:'AD'},
+  {mes:'Sep',cli:'Aqu Anqa S.A.C.',zona:'Norte',imp:5600,mg:18,desc:'REUBICACION DE PUERTAS CORREDERAS Y RESANE DE ZOCALOS',tipo:'AD'},
+  {mes:'Sep',cli:'Qali Fruits S.A.C.',zona:'Centro',imp:4477.98,mg:10,desc:'MONTAJE PANELES',tipo:'AD'},
+  {mes:'Sep',cli:'Agroberries Peru S.A.C.',zona:'Norte',imp:2125,mg:20,desc:'FABRICACION DE ESCALERA',tipo:'AD'},
+  {mes:'Sep',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:574,mg:16,desc:'REUBICACIÓN DE LÍNEA DE AIRE COMPRIMIDO',tipo:'AD'},
+  {mes:'Oct',cli:'Inversiones San Juan de la Luz S.A.C.',zona:'Sur',imp:2028678.5,mg:15,desc:'LABORATORIO ESTRUCTURAS',tipo:'PR'},
+  {mes:'Oct',cli:'Inversiones San Juan de la Luz S.A.C.',zona:'Sur',imp:1107902.49,mg:18,desc:'LABORATORIO OBRAS CIVILES',tipo:'PR'},
+  {mes:'Oct',cli:'Procesos Agroindustriales Sociedad Anonima',zona:'Sur',imp:27555.77,mg:12,desc:'PASARELA DE SALA DE PROCESOS',tipo:'AD'},
+  {mes:'Oct',cli:'Agricola Safco Peru S.A.',zona:'Sur',imp:26214.73,mg:17,desc:'REPOTENCIACIÓN DE TÚNELES',tipo:'PR'},
+  {mes:'Oct',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:15566.5,mg:15,desc:'PACKING UVA - SISTEMA DE ILUMINACION ZONA FRIO',tipo:'AD'},
+  {mes:'Oct',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:7960.96,mg:18,desc:'ADICIONAL DE TERMOMETRIA',tipo:'AD'},
+  {mes:'Oct',cli:'Sociedad Agricola Drokasa S.A.',zona:'Sur',imp:7022.01,mg:16,desc:'ADICIONAL PANELES LANA DE ROCA',tipo:'AD'},
+  {mes:'Oct',cli:'Agroindustrias Aib S.A',zona:'Sur',imp:2511.69,mg:20,desc:'TECHO PREDILUVIO',tipo:'AD'},
+  {mes:'Oct',cli:'El Pedregal S.A.',zona:'Sur',imp:2060.94,mg:17,desc:'CAMBIO PUERTA CORREDERA 2.00M X 4.5M',tipo:'AD'},
+  {mes:'Oct',cli:'Agroindustrias Aib S.A',zona:'Sur',imp:1500,mg:20,desc:'CANALETA PLUVIAL',tipo:'AD'}
 ];
 
 
@@ -628,7 +651,7 @@ const ventas2026 = [
 function _seasDsData(zone, yr) {
   var raw = ZMON[zone][yr];
   return raw.map(function(v, i) {
-    if (yr === 26 && i >= 8) return null; /* meses sin datos en 2026 */
+    if (yr === 26 && i >= 10) return null; /* meses sin datos en 2026 */
     return v;
   });
 }
@@ -691,10 +714,10 @@ function _hmTipShow(ev, title) {
     document.body.appendChild(_hmTip);
   }
   var parts = String(title).split('|');
-  _hmTip.innerHTML = '<div style="font-size:9.5px;font-weight:700;letter-spacing:.9px;'
+  _hmTip.innerHTML = '<div style="font-size:11.5px;font-weight:700;letter-spacing:.9px;'
     + 'text-transform:uppercase;color:rgba(255,255,255,.45)">' + parts[0] + '</div>'
     + (parts.length > 1
-        ? '<div style="font-size:13.5px;font-weight:800;color:#fff;margin-top:2px">' + parts[1] + '</div>'
+        ? '<div style="font-size:15.5px;font-weight:800;color:#fff;margin-top:2px">' + parts[1] + '</div>'
         : '');
   _hmTip.style.opacity = '1';
   _hmTip.style.transform = 'none';
@@ -710,6 +733,17 @@ function _hmTipMove(ev) {
   _hmTip.style.left = left + 'px';
   _hmTip.style.top  = (ev.clientY - 40) + 'px';
 }
+
+/* Ola de entrada del mapa de calor: diagonal suave (≈0.75 s de escalonado) que
+   se relanza al entrar a la vista y al cambiar de zona. */
+function _hmapWave() {
+  var tb = document.querySelector("#hmapGrid .hmap-table");
+  if (!tb) return;
+  tb.classList.remove("hm-in");
+  void tb.offsetWidth;
+  tb.classList.add("hm-in");
+}
+window._hmapWave = _hmapWave;
 
 function _hmapRender() {
   var el = document.getElementById('hmapGrid');
@@ -779,10 +813,10 @@ function _hmapRender() {
     h += '<tr><td class="hmap-yr-th">'+yStr+'</td>';
     for(var m=0;m<12;m++){
       var v = yData[m];
-      var isFuture = (yr===26 && m>=8);
+      var isFuture = (yr===26 && m>=10);
       var isEmpty  = (v===null||v===undefined||v===0||isFuture);
       var tipText  = cellTitle(yr,m,isEmpty?0:v);
-      var delay    = 'style="--d:'+((yi*3 + m*9))+'ms;';
+      var delay    = 'style="--d:'+(yi*55 + m*32)+'ms;';
       var evts     = ' onmouseenter="_hmTipShow(event,\''+tipText+'\')"'
                    + ' onmouseleave="_hmTipHide()" onmousemove="_hmTipMove(event)"';
       if(isEmpty){
@@ -807,6 +841,7 @@ function _hmapRender() {
   });
   h += '</tbody></table>';
   el.innerHTML = h;
+  _hmapWave();
 
   /* Scale bar */
   var sb = document.getElementById('hmapScaleBar');
@@ -925,7 +960,7 @@ function _vtBarEnd(chart, di, i){
    opt.min   tamaño mínimo antes de omitir la etiqueta */
 function _vtBarLabels(opt){
   opt = opt || {};
-  var BASE = opt.size || 10.5, MIN = opt.min || 8.5, FAM = "'Inter','Segoe UI',sans-serif";
+  var BASE = opt.size || 12.5, MIN = opt.min || 10.5, FAM = "'Inter','Segoe UI',sans-serif";
   return {
     id: 'vtBarValueLabels',
 
@@ -1066,7 +1101,7 @@ if (_elVA) {
   _chVA = new Chart(_elVA, {type:'line', data:{labels:meses, datasets:_vtDs(VC)},
     plugins:[window._vtLineGlow, window._sheenPlugin, window._vtLineLabels],
     options:{..._vtSharedOpts,
-      animation:{..._vtSharedOpts.animation, duration:650, easing:'easeOutQuart',
+      animation:{..._vtSharedOpts.animation, duration:1100, easing:'easeOutQuart',
         onComplete:function(a){window._triggerSheen(a.chart);}},
       scales:{..._vtSharedOpts.scales,
         y:{..._vtSharedOpts.scales.y, ticks:{..._vtSharedOpts.scales.y.ticks,
@@ -1076,7 +1111,7 @@ if (_elMA) {
   _chMA = new Chart(_elMA, {type:'line', data:{labels:meses, datasets:_vtDs(MCA)},
     plugins:[window._vtLineGlow, window._sheenPlugin, window._vtLineLabels],
     options:{..._vtSharedOpts,
-      animation:{..._vtSharedOpts.animation, duration:650, easing:'easeOutQuart',
+      animation:{..._vtSharedOpts.animation, duration:1100, easing:'easeOutQuart',
         onComplete:function(a){window._triggerSheen(a.chart);}},
       scales:{..._vtSharedOpts.scales,
         y:{..._vtSharedOpts.scales.y, min:8, max:20,
@@ -1108,19 +1143,19 @@ if (_elVAB) {
              _vtBarLabels({outside:true, ink:'#3d4a6a', fmt:function(v){ return fmtEjecutivo(v*1e6); }})],
     options:{
       responsive:true, maintainAspectRatio:false, indexAxis:'y',
-      animation:{duration:650, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      animation:{duration:1100, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       animations:{colors:{duration:0}},
       plugins:{
         legend:{display:false},
         tooltip:{
           backgroundColor:'rgba(9,12,30,.95)', padding:{top:11,bottom:11,left:13,right:13}, cornerRadius:10,
           borderColor:'rgba(62,198,172,.25)', borderWidth:1,
-          titleColor:'rgba(255,255,255,.4)', titleFont:{size:9.5,weight:'700'},
-          bodyColor:'rgba(255,255,255,.85)', bodyFont:{size:12,weight:'600'},
+          titleColor:'rgba(255,255,255,.4)', titleFont:{size:11.5,weight:'700'},
+          bodyColor:'rgba(255,255,255,.85)', bodyFont:{size:14,weight:'600'},
           callbacks:{
             title:function(items){ return items.length ? items[0].label : ''; },
             label:function(ctx){ return 'Ventas acumuladas: ' + fmtMM(ctx.parsed.x); },
-            afterLabel:function(ctx){ return ctx.dataIndex === 5 ? 'YTD Ene–Ago 2026' : null; }
+            afterLabel:function(ctx){ return ctx.dataIndex === 5 ? 'YTD Ene–Oct 2026' : null; }
           }
         }
       },
@@ -1130,10 +1165,10 @@ if (_elVAB) {
            datos y se recalcula al filtrar segmento. */
         x:{grid:{color:'rgba(10,10,30,.04)'}, border:{display:false},
            afterDataLimits:function(sc){ if(sc.max > 0) sc.max = sc.max * 1.16; },
-           ticks:{font:{size:10}, color:'#94a3b8', callback:function(v){return '$'+v+'MM';}}},
+           ticks:{font:{size:12}, color:'#94a3b8', callback:function(v){return '$'+v+'MM';}}},
         y:{grid:{display:false}, border:{display:false},
            ticks:{color:'#94a3b8', padding:4,
-             font:function(c){ return {size:10, weight: c.index === 5 ? '800' : '600'}; }}}
+             font:function(c){ return {size:12, weight: c.index === 5 ? '800' : '600'}; }}}
       }
     }
   });
@@ -1165,15 +1200,15 @@ if (_elMAP) {
     },
     options:{
       responsive:true, maintainAspectRatio:false, indexAxis:'y',
-      animation:{duration:650, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      animation:{duration:1100, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       animations:{colors:{duration:0}},
       plugins:{
         legend:{display:false},
         tooltip:{
           backgroundColor:'rgba(9,12,30,.95)', padding:{top:11,bottom:11,left:13,right:13}, cornerRadius:10,
           borderColor:'rgba(62,198,172,.25)', borderWidth:1,
-          titleColor:'rgba(255,255,255,.4)', titleFont:{size:9.5,weight:'700'},
-          bodyColor:'rgba(255,255,255,.85)', bodyFont:{size:12,weight:'600'},
+          titleColor:'rgba(255,255,255,.4)', titleFont:{size:11.5,weight:'700'},
+          bodyColor:'rgba(255,255,255,.85)', bodyFont:{size:14,weight:'600'},
           callbacks:{
             title:function(items){ return items.length ? items[0].label : ''; },
             label:function(ctx){
@@ -1185,10 +1220,10 @@ if (_elMAP) {
       },
       scales:{
         x:{min:0, max:22, grid:{color:'rgba(10,10,30,.04)'}, border:{display:false},
-           ticks:{font:{size:10}, color:'#94a3b8', callback:function(v){return v+'%';}}},
+           ticks:{font:{size:12}, color:'#94a3b8', callback:function(v){return v+'%';}}},
         y:{grid:{display:false}, border:{display:false},
            ticks:{color:'#94a3b8', padding:4,
-             font:function(c){ return {size:10, weight: c.index === 5 ? '800' : '600'}; }}}
+             font:function(c){ return {size:12, weight: c.index === 5 ? '800' : '600'}; }}}
       }
     },
     plugins:[{
@@ -1226,7 +1261,7 @@ new Chart(document.getElementById('coverRing'), {type:'doughnut',
     data: {labels: meses, datasets: _seasBuildDs('total')},
     options: {
       responsive:true, maintainAspectRatio:false,
-      animation:{duration:450, easing:'easeInOutQuart'},
+      animation:{duration:1000, easing:'easeInOutQuart'},
       interaction:{mode:'index', intersect:false},
       plugins:{
         legend:{display:false},
@@ -1281,9 +1316,9 @@ var _chSeasAvg = null, _chSeasQ = null, _chRef = null, _chTcv = null;
    Barras horizontales finas sobre un track suave, sin rejilla ni ejes: la
    lectura la dan el label (izquierda) y la cifra (derecha). Los helpers de
    abajo son puramente de dibujo; no tocan datos, escalas ni tooltips. */
-var AV_BAR_H   = 9;                       /* grosor de barra (px)            */
+var AV_BAR_H   = 10;                      /* grosor de barra (px)            */
 var AV_TRACK   = 'rgba(10,10,30,.045)';   /* track de fondo                  */
-var AV_LBL_PAD = 46;                      /* carril reservado a la cifra (px)*/
+var AV_LBL_PAD = 54;                      /* carril reservado a la cifra (px)*/
 
 /* Cifra alineada a la derecha del carril, fuera del área del gráfico.
 
@@ -1464,19 +1499,19 @@ function _avSegPct(opt){
     plugins:[
       _vtBarTrack({id:'SA', r:5, color:AV_TRACK}),
       window._sheenPlugin,
-      _avValueRight({id:'SA', fmt:function(v){ return v.toFixed(1)+'%'; }})
+      _avValueRight({id:'SA', size:13.5, fmt:function(v){ return v.toFixed(1)+'%'; }})
     ],
     options:{
       indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
       layout:{padding:{right:AV_LBL_PAD, left:0, top:2, bottom:2}},
-      animation:{duration:820, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      animation:{duration:1200, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:false},
         tooltip:{
           backgroundColor:'rgba(9,12,30,.96)',padding:{top:10,bottom:10,left:13,right:13},
           cornerRadius:10,borderColor:'rgba(79,168,224,.30)',borderWidth:1,
-          titleColor:'rgba(255,255,255,.45)',titleFont:{size:9.5,weight:'700'},
+          titleColor:'rgba(255,255,255,.45)',titleFont:{size:11.5,weight:'700'},
           bodyColor:'rgba(255,255,255,.88)',displayColors:false,
           callbacks:{
             label:function(ctx){
@@ -1492,8 +1527,8 @@ function _avSegPct(opt){
         /* Sin rejilla ni eje: el carril lo define el track de cada barra */
         x:{display:false, grid:{display:false}, border:{display:false}, min:0, max:21},
         y:{grid:{display:false}, border:{display:false},
-           afterFit:function(s){ s.width = 42; },
-           ticks:{font:{size:11,weight:'600'},color:'#3d4a6a',
+           afterFit:function(s){ s.width = 50; },
+           ticks:{font:{size:13,weight:'600'},color:'#3d4a6a',
                   crossAlign:'far',padding:0,autoSkip:false}}
       }
     }
@@ -1531,24 +1566,24 @@ function _avSegPct(opt){
       _avRowLabels({id:'SQ',
         top:function(i){ return 'Q'+(i+1); },
         topColor:function(i){ return qCols[i]; },
-        topSize:13, topDy:-16,
+        topSize:15, topDy:-18,
         sub:function(i){ return qMes[i]; },
-        subSize:10, subDy:13
+        subSize:12, subDy:14
       }),
-      _avValueRight({id:'SQ', size:13, dy:-16, baseline:'alphabetic',
+      _avValueRight({id:'SQ', size:15, dy:-18, baseline:'alphabetic',
         fmt:function(v){ return v.toFixed(1)+'%'; }})
     ],
     options:{
       indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
-      layout:{padding:{top:20, bottom:16, right:0, left:0}},
-      animation:{duration:820, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      layout:{padding:{top:24, bottom:20, right:0, left:0}},
+      animation:{duration:1200, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:false},
         tooltip:{
           backgroundColor:'rgba(9,12,30,.96)',padding:{top:10,bottom:10,left:13,right:13},
           cornerRadius:10,borderColor:'rgba(79,168,224,.30)',borderWidth:1,
-          titleColor:'rgba(255,255,255,.45)',titleFont:{size:9.5,weight:'700'},
+          titleColor:'rgba(255,255,255,.45)',titleFont:{size:11.5,weight:'700'},
           bodyColor:'rgba(255,255,255,.88)',displayColors:false,
           callbacks:{
             title:function(items){
@@ -1598,11 +1633,11 @@ function _avSegPct(opt){
         {label:'Freón', data:V_FREON_PCT, backgroundColor:AV_COLOR.azul,
           hoverBackgroundColor:_vtLighten(AV_COLOR.azul,.12),
           borderRadius:{topLeft:5,bottomLeft:5,topRight:0,bottomRight:0}, stack:'r',
-          borderSkipped:false, barThickness:11, maxBarThickness:11},
+          borderSkipped:false, barThickness:13, maxBarThickness:13},
         {label:'Otros', data:V_OTROS_PCT, backgroundColor:AV_COLOR.turquesa,
           hoverBackgroundColor:_vtLighten(AV_COLOR.turquesa,.12),
           borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'r',
-          borderSkipped:false, barThickness:11, maxBarThickness:11}
+          borderSkipped:false, barThickness:13, maxBarThickness:13}
       ]
     },
     /* Mismo esquema de fila que "Concentración por trimestre": el año a la
@@ -1613,22 +1648,22 @@ function _avSegPct(opt){
       _avRowLabels({id:'RF',
         top:function(i){ return REF_YRS[i]; },
         topColor:function(){ return '#3d4a6a'; },
-        topSize:11.5, topDy:-13
+        topSize:13.5, topDy:-15
       }),
-      _avValueRight({id:'RF', size:12.5, dy:-13, baseline:'alphabetic', right:3,
+      _avValueRight({id:'RF', size:14.5, dy:-15, baseline:'alphabetic', right:3,
         fmt:function(_, i){ return fmtEjecutivo(V_TOTAL[i] * 1e6); }}),
       /* Sólo en esta primera vista (front card): % de Freón vs Otros visible
          directamente sobre cada segmento, sin depender del hover/tooltip. */
-      _avSegPct({id:'RF', size:9})
+      _avSegPct({id:'RF', size:11})
     ],
     options:{
       indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
-      layout:{padding:{right:3, left:0, top:18, bottom:4}},
-      animation:{duration:820, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      layout:{padding:{right:3, left:0, top:22, bottom:4}},
+      animation:{duration:1200, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         legend:{display:true,position:'bottom',
-          labels:{boxWidth:9,boxHeight:9,font:{size:10},padding:14,color:'#94a3b8',
+          labels:{boxWidth:10,boxHeight:10,font:{size:12},padding:16,color:'#94a3b8',
                   usePointStyle:true,pointStyle:'rectRounded'}},
         tooltip:{
           mode:'index',intersect:false,
@@ -1636,7 +1671,7 @@ function _avSegPct(opt){
           padding:{top:11,bottom:11,left:13,right:13},
           cornerRadius:10,
           borderColor:'rgba(79,168,224,.30)',borderWidth:1,
-          titleColor:'rgba(255,255,255,.45)',titleFont:{size:9.5,weight:'700'},
+          titleColor:'rgba(255,255,255,.45)',titleFont:{size:11.5,weight:'700'},
           bodyColor:'rgba(255,255,255,.88)',
           callbacks:{
             label:function(ctx){
@@ -1678,16 +1713,16 @@ function _avSegPct(opt){
       labels:TCV_YRS,
       datasets:[
         {label:'PR',  data:TCV_PCT.PR,  backgroundColor:TCV_COLOR.PR,  hoverBackgroundColor:_vtLighten(TCV_COLOR.PR,.12),
-          borderRadius:{topLeft:5,bottomLeft:5,topRight:0,bottomRight:0}, stack:'t', borderSkipped:false, barThickness:11, maxBarThickness:11},
+          borderRadius:{topLeft:5,bottomLeft:5,topRight:0,bottomRight:0}, stack:'t', borderSkipped:false, barThickness:13, maxBarThickness:13},
         /* El cierre redondeado va en los tres tramos de cola: el último con
            valor > 0 cambia según el año y así el extremo derecho nunca queda
            cortado en recto. */
         {label:'AD',  data:TCV_PCT.AD,  backgroundColor:TCV_COLOR.AD,  hoverBackgroundColor:_vtLighten(TCV_COLOR.AD,.12),
-          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:11, maxBarThickness:11},
+          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:13, maxBarThickness:13},
         {label:'VSA', data:TCV_PCT.VSA, backgroundColor:TCV_COLOR.VSA, hoverBackgroundColor:_vtLighten(TCV_COLOR.VSA,.12),
-          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:11, maxBarThickness:11},
+          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:13, maxBarThickness:13},
         {label:'VSI', data:TCV_PCT.VSI, backgroundColor:TCV_COLOR.VSI, hoverBackgroundColor:_vtLighten(TCV_COLOR.VSI,.12),
-          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:11, maxBarThickness:11}
+          borderRadius:{topRight:5,bottomRight:5,topLeft:0,bottomLeft:0}, stack:'t', borderSkipped:false, barThickness:13, maxBarThickness:13}
       ]
     },
     /* Mismo esquema de fila que "Concentración por trimestre" y Refrigerante:
@@ -1697,20 +1732,20 @@ function _avSegPct(opt){
       _avRowLabels({id:'TC',
         top:function(i){ return TCV_YRS[i]; },
         topColor:function(){ return '#3d4a6a'; },
-        topSize:11.5, topDy:-13
+        topSize:13.5, topDy:-15
       }),
-      _avValueRight({id:'TC', size:12.5, dy:-13, baseline:'alphabetic', right:3,
+      _avValueRight({id:'TC', size:14.5, dy:-15, baseline:'alphabetic', right:3,
         fmt:function(_, i){ return fmtEjecutivo(TCV_TOT[i]); }})
     ],
     options:{
       indexAxis:'y',
       responsive:true, maintainAspectRatio:false,
-      layout:{padding:{right:3, left:0, top:18, bottom:4}},
-      animation:{duration:820, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
+      layout:{padding:{right:3, left:0, top:22, bottom:4}},
+      animation:{duration:1200, easing:'easeOutQuart', onComplete:function(a){window._triggerSheen(a.chart);}},
       plugins:{
         /* Leyenda visible sin abrir modal — nombres completos, compacta y alineada */
         legend:{display:true,position:'bottom',
-          labels:{boxWidth:9,boxHeight:9,font:{size:10},padding:14,color:'#94a3b8',usePointStyle:true,pointStyle:'rectRounded',
+          labels:{boxWidth:10,boxHeight:10,font:{size:12},padding:16,color:'#94a3b8',usePointStyle:true,pointStyle:'rectRounded',
             generateLabels:function(chart){
               var items=Chart.defaults.plugins.legend.labels.generateLabels(chart);
               items.forEach(function(item){item.text=TCV_NAME[item.text]||item.text;});
@@ -1720,7 +1755,7 @@ function _avSegPct(opt){
           mode:'index',intersect:false,
           backgroundColor:'rgba(9,12,30,.96)',padding:{top:11,bottom:11,left:13,right:13},
           cornerRadius:10,borderColor:'rgba(79,168,224,.30)',borderWidth:1,
-          titleColor:'rgba(255,255,255,.45)',titleFont:{size:9.5,weight:'700'},
+          titleColor:'rgba(255,255,255,.45)',titleFont:{size:11.5,weight:'700'},
           bodyColor:'rgba(255,255,255,.88)',
           callbacks:{
             label:function(ctx){
@@ -1877,8 +1912,8 @@ function _vtTableV(data) {
     fmtMM(m21[i]),fmtMM(m22[i]),fmtMM(m23[i]),fmtMM(m24[i]),fmtMM(m25[i]),
     m26[i]!=null?fmtMM(m26[i]):'—'];});
   var foot=['Total año',fmtMM(data[21][11]),fmtMM(data[22][11]),fmtMM(data[23][11]),
-    fmtMM(data[24][11]),fmtMM(data[25][11]),'$30.01MM *'];
-  return tbl(head,rows,foot)+'<div class="mnote">* 2026 enero&ndash;agosto. Valores mensuales de venta. Total = suma del a&ntilde;o.</div>';
+    fmtMM(data[24][11]),fmtMM(data[25][11]),'$34.19MM *'];
+  return tbl(head,rows,foot)+'<div class="mnote">* 2026 enero&ndash;octubre. Valores mensuales de venta. Total = suma del a&ntilde;o.</div>';
 }
 
 /* ── Cumulative table for margen ── */
@@ -1891,7 +1926,7 @@ function _vtTableM(data) {
   var close26 = _vtYearClose(data[26]);
   var foot=['Cierre año',fmtPct(data[21][11]),fmtPct(data[22][11]),fmtPct(data[23][11]),
     fmtPct(data[24][11]),fmtPct(data[25][11]),fmtPct(close26)+' *'];
-  return tbl(head,rows,foot)+'<div class="mnote">* 2026 hasta agosto. Margen ponderado acumulado. Meta: 18.00%.</div>';
+  return tbl(head,rows,foot)+'<div class="mnote">* 2026 hasta octubre. Margen ponderado acumulado. Meta: 18.00%.</div>';
 }
 
 function openVtVentas() {
@@ -1909,7 +1944,7 @@ function openVtVentas() {
       _mci=new Chart(el,{type:'line',data:{labels:meses,datasets:_vtDs(data)},
         plugins:[window._vtLineGlow, window._vtLineLabels],
         options:{..._vtSharedOpts,
-          animation:{duration:650, easing:'easeOutQuart'},
+          animation:{duration:1100, easing:'easeOutQuart'},
           scales:{..._vtSharedOpts.scales,
             y:{..._vtSharedOpts.scales.y, ticks:{..._vtSharedOpts.scales.y.ticks,
               callback:function(v){return '$'+v+'MM';}}}}
@@ -1931,7 +1966,7 @@ function openVtMargen() {
       _mci=new Chart(el,{type:'line',data:{labels:meses,datasets:_vtDs(data)},
         plugins:[window._vtLineGlow, window._vtLineLabels],
         options:{..._vtSharedOpts,
-          animation:{duration:650, easing:'easeOutQuart'},
+          animation:{duration:1100, easing:'easeOutQuart'},
           scales:{..._vtSharedOpts.scales,
             y:{..._vtSharedOpts.scales.y, min:8, max:20,
               ticks:{..._vtSharedOpts.scales.y.ticks, callback:function(v){return v+'%';}}}}
@@ -2008,7 +2043,7 @@ function openAD3Ref() {
           {label:'Otros',   data:V_OTROS_PCT,backgroundColor:AV_COLOR.turquesa,borderRadius:{topLeft:5,topRight:5,bottomLeft:0,bottomRight:0},stack:'r'}
         ]},
         options:{responsive:true,maintainAspectRatio:false,
-          animation:{duration:900,easing:'easeInOutQuart'},
+          animation:{duration:1200,easing:'easeInOutQuart'},
           plugins:{
             legend:{display:true,position:'bottom',labels:{boxWidth:9,font:{size:11},padding:14,color:'#7b8db0'}},
             tooltip:{mode:'index',intersect:false,backgroundColor:'rgba(9,12,30,.95)',
@@ -2077,7 +2112,7 @@ function openAD3Tcv() {
           {label:'VSI',data:TCV_PCT.VSI,backgroundColor:TCV_COLOR.VSI,borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},stack:'t', borderColor:'rgba(255,255,255,.1)', borderWidth:1}
         ]},
         options:{responsive:true,maintainAspectRatio:false,
-          animation:{duration:900,easing:'easeInOutQuart'},
+          animation:{duration:1200,easing:'easeInOutQuart'},
           plugins:{
             legend:{display:true,position:'bottom',
               labels:{boxWidth:9,boxHeight:9,font:{size:11},padding:14,color:'#7b8db0',usePointStyle:true,pointStyle:'rectRounded',
@@ -2383,7 +2418,7 @@ window._animVtHero = function(){
   requestAnimationFrame(function(){
     requestAnimationFrame(function(){
       fill.style.transition = 'width 1.1s cubic-bezier(.4,0,.2,1)';
-      fill.style.width = '100%'; /* avance 100.04% — la barra se muestra completa */
+      fill.style.width = '100%'; /* avance 113.96% — la barra se muestra completa */
     });
   });
 };
@@ -2428,34 +2463,15 @@ window._animVtHero = function(){
   function drawCenterTipo(chart){
     var d = tipoData.filter(function(x){return x.cod===centerState.cod;})[0];
     if(!d) return;
-    var area=chart.chartArea; if(!area) return;
-    var ctx2=chart.ctx, w=area.width, h=area.height;
-    var cx=area.left+w/2, cy=area.top+h/2;
-    var r=Math.min(w,h);
-    var gap=Math.min(r*0.1,12);
-    ctx2.save();
-    ctx2.textAlign='center'; ctx2.textBaseline='middle';
-    /* % de importe — dato principal */
-    ctx2.fillStyle=d.c2;
-    ctx2.font='900 '+Math.min(r*0.205,32)+'px Inter,sans-serif';
-    ctx2.fillText(d.pctImp.toFixed(2)+'%',cx,cy-gap*1.05);
-    /* Nombre completo del tipo — envuelto en hasta 2 líneas si es largo */
-    ctx2.fillStyle='#7b8db0';
-    ctx2.font='700 '+Math.min(r*0.075,11.5)+'px Inter,sans-serif';
-    var words=d.lbl.split(' '), lines=[], cur='';
-    var maxW=w*0.78;
-    words.forEach(function(word){
-      var test=cur?cur+' '+word:word;
-      if(ctx2.measureText(test).width>maxW && cur){ lines.push(cur); cur=word; } else cur=test;
+    /* Centro compartido con "Por clientes" (shared.js) */
+    drawDonaCenter(chart, {
+      pct: d.pctImp,
+      label: d.lbl,
+      sub: fmtEjecutivo(d.imp)+' de '+fmtEjecutivo(totalImpTipo),
+      color: d.c2
     });
-    if(cur) lines.push(cur);
-    lines.forEach(function(line,i){ ctx2.fillText(line,cx,cy+gap*0.65+i*(gap*0.85)); });
-    /* Importe */
-    ctx2.fillStyle='#3d4a6a';
-    ctx2.font='700 '+Math.min(r*0.085,10.5)+'px Inter,sans-serif';
-    ctx2.fillText(fmtEjecutivo(d.imp),cx,cy+gap*0.65+lines.length*(gap*0.85)+gap*0.6);
-    ctx2.restore();
   }
+
 
   function setTipoSelection(cod){
     centerState.cod = cod;
@@ -2484,16 +2500,16 @@ window._animVtHero = function(){
         borderWidth:3,
         spacing:3,
         borderRadius:7,
-        hoverOffset:10,
+        hoverOffset:DONA_HOVER_OFFSET,
         hoverBorderWidth:3
       }]
     },
     options:{
       responsive:true,
       maintainAspectRatio:false,
-      cutout:'70%',
+      cutout:DONA_CUTOUT,
       layout:{padding:{top:6,bottom:6,left:6,right:6}},
-      animation:{animateRotate:true,animateScale:false,duration:450,easing:'easeOutQuart'},
+      animation:{animateRotate:true,animateScale:false,duration:1000,easing:'easeOutQuart'},
       onHover:function(evt, elements, chart){ chart.canvas.style.cursor = elements.length ? 'pointer' : 'default'; },
       onClick:function(evt, elements){
         if(!elements.length) return;
@@ -2508,7 +2524,7 @@ window._animVtHero = function(){
           padding:{top:10,bottom:10,left:13,right:13},
           cornerRadius:10,
           borderColor:'rgba(62,198,172,.25)',borderWidth:1,
-          titleColor:'rgba(255,255,255,.4)',titleFont:{size:9.5,weight:'700'},
+          titleColor:'rgba(255,255,255,.4)',titleFont:{size:11.5,weight:'700'},
           bodyColor:'rgba(255,255,255,.85)',
           callbacks:{
             title:function(items){ return items.length ? tipoData[items[0].dataIndex].lbl : ''; },
@@ -2566,7 +2582,7 @@ window._animVtHero = function(){
   /* Ordenar de mayor a menor por importe */
   var rows=[].concat(ventas2026).sort(function(a,b){return b.imp-a.imp;});
   var PG=15, pg=0, sc=-1, sa=true, q='';
-  var MES_ORD={Ene:1,Feb:2,Mar:3,Abr:4,May:5,Jun:6,Jul:7,Ago:8};
+  var MES_ORD={Ene:1,Feb:2,Mar:3,Abr:4,May:5,Jun:6,Jul:7,Ago:8,Sep:9,Oct:10};
 
   var fmt = fmtEjecutivo;
   function mgCls(v){return v>=18?'mg-ok':v>=12?'mg-warn':'mg-crit';}
@@ -2672,7 +2688,7 @@ window._initVtRitmo = function(){
 
   try {
     var META_ANUAL = 30;                       /* US$ MM — meta anual 2026 */
-    var mensual = ZMON.total[26].map(function(v,i){ return i < 8 ? +(v/1e6).toFixed(4) : null; });
+    var mensual = ZMON.total[26].map(function(v,i){ return i < 10 ? +(v/1e6).toFixed(4) : null; });
     var acum    = VC[26].slice();
     var metaLin = meses.map(function(_,i){ return +(META_ANUAL*(i+1)/12).toFixed(2); });
 
@@ -2721,7 +2737,7 @@ window._initVtRitmo = function(){
           if(t < 1) pending = true;
           var e = 1 - Math.pow(1 - Math.min(1, t), 3);
           var w = bar.width || 30;
-          var fsz = w < 30 ? 8.5 : (w < 40 ? 9.5 : 10.5);
+          var fsz = w < 30 ? 10.5 : (w < 40 ? 11.5 : 12.5);
           var y = Math.max(bar.y - 7 - (1 - e) * 6, a.top + fsz + 2);
           c.globalAlpha = e;
           c.font = '800 ' + fsz + 'px Inter, sans-serif';
@@ -2746,8 +2762,8 @@ window._initVtRitmo = function(){
         var a = chart.chartArea, c = chart.ctx;
         var txt = meses[lastIdx] + '  ·  ' + fMM(acum[lastIdx]);
         c.save();
-        c.font = '800 12px Inter, sans-serif';
-        var w = c.measureText(txt).width + 22, h = 26;
+        c.font = '800 14px Inter, sans-serif';
+        var w = c.measureText(txt).width + 24, h = 30;
         var x = Math.min(Math.max(pt.x - w/2, a.left), a.right - w);
         var y = Math.max(pt.y - h - 16, 2);
         c.beginPath();
@@ -2787,7 +2803,7 @@ window._initVtRitmo = function(){
         var pt = m.data[m.data.length - 1];
         var c = chart.ctx;
         c.save();
-        c.font = '800 9.5px Inter, sans-serif';
+        c.font = '800 11.5px Inter, sans-serif';
         c.textAlign = 'right'; c.textBaseline = 'bottom';
         c.lineWidth = 3; c.lineJoin = 'round';
         c.strokeStyle = 'rgba(255,255,255,.92)';
@@ -2881,7 +2897,7 @@ window._initVtRitmo = function(){
         responsive: true,
         maintainAspectRatio: false,
         animation: {
-          duration: reduce ? 0 : 800,
+          duration: reduce ? 0 : 1200,
           easing: 'easeOutQuart',
           onComplete: function(a){
             var ch = (a && a.chart) || window._vtRitmoChart;
@@ -2899,8 +2915,8 @@ window._initVtRitmo = function(){
             padding: { top: 10, bottom: 10, left: 13, right: 13 },
             cornerRadius: 10,
             borderColor: 'rgba(62,198,172,.25)', borderWidth: 1,
-            titleColor: 'rgba(255,255,255,.45)', titleFont: { size: 9.5, weight: '700' },
-            bodyColor: 'rgba(255,255,255,.88)', bodyFont: { size: 11.5, weight: '600' },
+            titleColor: 'rgba(255,255,255,.45)', titleFont: { size: 11.5, weight: '700' },
+            bodyColor: 'rgba(255,255,255,.88)', bodyFont: { size: 13.5, weight: '600' },
             displayColors: true, boxWidth: 8, boxHeight: 8, boxPadding: 4, usePointStyle: true,
             callbacks: {
               title: function(items){ return (items && items[0] ? items[0].label : '') + ' 2026'; },
@@ -2914,14 +2930,14 @@ window._initVtRitmo = function(){
         scales: {
           x: {
             grid: { display: false },
-            ticks: { color: '#7b8db0', font: { size: 11, weight: '600' }, padding: 6 }
+            ticks: { color: '#7b8db0', font: { size: 13, weight: '600' }, padding: 6 }
           },
           y: {
             position: 'left',
             beginAtZero: true,
             grid: { color: 'rgba(226,232,244,.6)', drawTicks: false, lineWidth: 1 },
-            title: { display: true, text: 'MENSUAL · MM', color: '#b3c0d6', font: { size: 9, weight: '700' } },
-            ticks: { color: '#b3c0d6', font: { size: 10, weight: '600' }, padding: 8, maxTicksLimit: 6,
+            title: { display: true, text: 'MENSUAL · MM', color: '#b3c0d6', font: { size: 11, weight: '700' } },
+            ticks: { color: '#b3c0d6', font: { size: 12, weight: '600' }, padding: 8, maxTicksLimit: 6,
               callback: function(v){ return '$' + v; } }
           },
           y1: {
@@ -2929,8 +2945,8 @@ window._initVtRitmo = function(){
             beginAtZero: true,
             suggestedMax: 32,
             grid: { display: false },
-            title: { display: true, text: 'ACUMULADO · MM', color: '#b3c0d6', font: { size: 9, weight: '700' } },
-            ticks: { color: '#b3c0d6', font: { size: 10, weight: '600' }, padding: 8, maxTicksLimit: 5,
+            title: { display: true, text: 'ACUMULADO · MM', color: '#b3c0d6', font: { size: 11, weight: '700' } },
+            ticks: { color: '#b3c0d6', font: { size: 12, weight: '600' }, padding: 8, maxTicksLimit: 5,
               callback: function(v){ return '$' + v; } }
           }
         }
@@ -3134,7 +3150,7 @@ window._animVtEvolHero = function(){
   if (!view || !sec) return;
 
   var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var CICLO = 1500;               /* duración total de la secuencia (ms) */
+  var CICLO = 2400;               /* duración total de la secuencia (ms) — acorde al tempo de presentación */
   var clearT = 0, lastRun = 0;
 
   function isVisible(){
@@ -3153,6 +3169,8 @@ window._animVtEvolHero = function(){
       void view.offsetWidth;
       view.classList.add('av-in');
     }
+
+    if (typeof _hmapWave === 'function') _hmapWave();
 
     /* Los gráficos vuelven a crecer desde cero, en fase con las cards */
     [_chSeasAvg, _chSeasQ, _chRef, _chTcv].forEach(function(ch){
@@ -3186,4 +3204,75 @@ window._animVtEvolHero = function(){
   new MutationObserver(onMutate).observe(sec,  {attributes:true, attributeFilter:['class']});
 
   onMutate();
+})();
+
+
+
+/* ============================================================
+   KPI COUNT-UP · franja de KPIs de Ventas 2026
+   Los números cuentan desde 0 hasta su valor (mismos decimales y
+   prefijo) cada vez que se entra a Ventas 2026. Solo anima el texto
+   del número; la unidad (<span class="vt-kpi-u">) no se toca.
+   ============================================================ */
+(function(){
+  var row = document.querySelector('#ventas .vt-kpirow');
+  if (!row) return;
+  var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var running = [];
+
+  function textNode(el){
+    for (var n = el.firstChild; n; n = n.nextSibling) if (n.nodeType === 3 && n.nodeValue.trim()) return n;
+    return null;
+  }
+
+  function run(){
+    if (REDUCED) return;
+    running.forEach(cancelAnimationFrame); running = [];
+    [].slice.call(row.querySelectorAll('.vt-kpi-v')).forEach(function(el, i){
+      var tn = textNode(el); if (!tn) return;
+      /* valor final: el guardado si una animación previa quedó a medias */
+      var target = (el.dataset.cuTarget && el.dataset.cuText === tn.nodeValue) ? el.dataset.cuTarget : tn.nodeValue;
+      var m = /^(\D*)([\d,]*\.?\d+)(.*)$/.exec(target.trim());
+      if (!m) return;
+      var pre = m[1], num = parseFloat(m[2].replace(/,/g, '')), post = m[3];
+      var dec = (m[2].split('.')[1] || '').length;
+      el.dataset.cuTarget = target;
+      var DUR = 1100, delay = 120 + i * 60, t0 = null;
+      function frame(ts){
+        if (t0 === null) t0 = ts + delay;
+        var p = Math.max(0, Math.min(1, (ts - t0) / DUR));
+        var e = 1 - Math.pow(1 - p, 3);
+        tn.nodeValue = pre + (num * e).toFixed(dec) + post;
+        el.dataset.cuText = tn.nodeValue;
+        if (p < 1) running[i] = requestAnimationFrame(frame);
+        else { tn.nodeValue = target; delete el.dataset.cuTarget; delete el.dataset.cuText; }
+      }
+      running[i] = requestAnimationFrame(frame);
+      /* Respaldo: si el navegador pausa los frames (pestaña oculta, etc.),
+         el valor final queda escrito igual al terminar el tiempo previsto. */
+      setTimeout(function(){
+        if (el.dataset.cuTarget === target) {
+          cancelAnimationFrame(running[i]);
+          tn.nodeValue = target; delete el.dataset.cuTarget; delete el.dataset.cuText;
+        }
+      }, delay + DUR + 400);
+    });
+  }
+
+  function inY2026(){
+    var sec = document.getElementById('ventas');
+    var v = document.querySelector('#ventas .vt-view[data-vtview="y2026"]');
+    return sec && sec.classList.contains('active') && v && v.classList.contains('active');
+  }
+
+  var prev = window._animVtHero;
+  window._animVtHero = function(){
+    if (typeof prev === 'function') prev();
+    if (inY2026()) run();
+  };
+  var tabs = document.getElementById('vtTabs');
+  if (tabs) tabs.addEventListener('click', function(e){
+    var b = e.target.closest('.vt-tab-btn');
+    if (b && b.getAttribute('data-vtview') === 'y2026') setTimeout(run, 30);
+  });
 })();

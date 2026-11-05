@@ -1989,3 +1989,11 @@ tr.tbl-total-row td{background:#f7faff;font-weight:700;border-top:2px solid #3aa
 
 
 .card-analyt:hover .vt-expand{color:var(--brand);border-color:rgba(62,198,172,.4);background:rgba(62,198,172,.06)}
+
+/* Tablet / móvil: las 9 pestañas no caben → la barra se desplaza en horizontal
+   (sin scroll lateral de toda la página). Escritorio y TV no cambian. */
+@media(max-width:900px){
+  .tabs{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs > .tab{flex:0 0 auto}
+}

@@ -1,16 +1,45 @@
 /* ============================================================
    CAMBIO DE IMAGEN (portada)
    ============================================================ */
+/* La imagen elegida se aplica a la portada y a la intro de apertura, y se guarda en
+   este navegador (comprimida a JPEG ≤ 2400 px para caber en localStorage), de modo que
+   la próxima vez que se abra la presentación la intro arranque ya con esa imagen. */
 (function(){
   const ci = document.getElementById('coverImg');
   if (ci && !ci.style.backgroundImage) {
     ci.style.backgroundImage = "url('img/portada-bg.jpg')";
   }
+  /* La card protagonista del Resumen (01 · Ventas) usa también la foto de portada. */
+  const rp = document.getElementById('rsPhoto');
+  if (ci && rp) rp.style.backgroundImage = ci.style.backgroundImage;
 })();
+function _applyCoverImg(url) {
+  var css = 'url(' + url + ')';
+  var ci = document.getElementById('coverImg'); if (ci) ci.style.backgroundImage = css;
+  var xp = document.getElementById('xiPhoto');  if (xp) xp.style.backgroundImage = css;
+  var rp = document.getElementById('rsPhoto');  if (rp) rp.style.backgroundImage = css;
+}
+function _saveCoverImg(dataUrl) {
+  var img = new Image();
+  img.onload = function() {
+    var MAX = 2400, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, MAX / Math.max(w, h));
+    var cv = document.createElement('canvas');
+    cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+    cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+    var q = [0.85, 0.75, 0.62, 0.5];
+    for (var i = 0; i < q.length; i++) {
+      try { localStorage.setItem('fp_cover_img', cv.toDataURL('image/jpeg', q[i])); return; }
+      catch (e) { /* cuota excedida: se reintenta con menor calidad */ }
+    }
+    try { localStorage.removeItem('fp_cover_img'); } catch (e) {}
+    console.warn('Portada: la imagen es demasiado grande para guardarse; solo se usará en esta sesión.');
+  };
+  img.src = dataUrl;
+}
 document.getElementById('imgInput').onchange = function(e) {
   const f = e.target.files[0]; if (!f) return;
   const rd = new FileReader();
-  rd.onload = ev => document.getElementById('coverImg').style.backgroundImage = 'url(' + ev.target.result + ')';
+  rd.onload = ev => { _applyCoverImg(ev.target.result); _saveCoverImg(ev.target.result); };
   rd.readAsDataURL(f);
 };
 
@@ -101,9 +130,9 @@ var _vtSharedOpts = {
   },
   scales:{
     x:{grid:{display:false}, border:{display:false},
-       ticks:{font:{size:10}, color:'#94a3b8', maxRotation:0}},
+       ticks:{font:{size:12}, color:'#94a3b8', maxRotation:0}},
     y:{grid:{color:'rgba(10,10,30,.05)', lineWidth:1}, border:{display:false},
-       ticks:{font:{size:10}, color:'#94a3b8', padding:6}}
+       ticks:{font:{size:12}, color:'#94a3b8', padding:6}}
   },
   elements:{
     point:{radius:2},            /* fallback default; ventas datasets override via _vtDs() */
@@ -168,109 +197,122 @@ window._triggerSheen = function(chart) {
 };
 
 /* ============================================================
-   EXECUTIVE INTRO · Apertura institucional previa al dashboard
+   EXECUTIVE INTRO · Apertura con foto de marca
    ------------------------------------------------------------
-   La composición (isotipo rodando → logotipo Friopacking → Revisión
-   Ejecutiva → barra de carga → pie institucional) corre en CSS,
-   declarada en css/portada.css (bloque EXECUTIVE INTRO). Aquí se
-   orquesta únicamente el cierre:
+   La composición (foto de portada → isotipo rodando → logotipo →
+   Revisión Ejecutiva / período / Grupo → barra de carga 0-100 %)
+   corre en CSS (css/portada.css, bloque EXECUTIVE INTRO). Aquí se
+   orquesta el cierre:
 
-     · esperar a que los logotipos estén decodificados, para que
-       el lockup nunca aparezca a medias ni salte;
-     · esperar a que la composición termine (un único temporizador
-       medido desde el inicio del documento, más un respaldo global);
-     · crossfade continuo: primero se hace visible la plataforma por
-       debajo (tapada aún por la intro, que es opaca) y un frame
-       después la intro empieza a ceder opacidad, de modo que nunca
-       hay pantalla vacía entre ambas. Solo se anima una capa —la
-       intro—, lo que mantiene el paso a la portada a 60 fps;
-     · liberar la aplicación: se retiran las clases de bloqueo, se
-       devuelve el scroll y se elimina la capa del DOM cuando la
-       transición ya terminó (nunca con display:none en pleno paso).
+     1. cuando la barra de carga termina, la plataforma se revela
+        por debajo y el marco fotográfico se reacomoda (top/left/
+        width/height) hasta el rectángulo exacto de la portada: la
+        cabecera aparece alrededor y la foto termina con el mismo
+        encuadre, opacidad y velo que .cover;
+     2. el marco cede opacidad sobre la portada real y su contenido
+        (título, período, tarjetas) entra con un fadeUp escalonado;
+     3. se retira la capa del DOM y se devuelve el scroll.
 
-   No inicializa ni altera ningún módulo del dashboard: la app se
-   monta con normalidad detrás de la intro (layout y medidas reales,
-   solo la opacidad está en 0), por lo que ningún listener ni cálculo
-   de los gráficos se ve afectado.
-
-   Respeta prefers-reduced-motion: el CSS muestra la composición ya
-   terminada y aquí solo se acorta la permanencia.
+   Si la portada no está visible (p. ej. otra pestaña activa) se
+   hace un fundido simple. Respeta prefers-reduced-motion.
    ============================================================ */
 (function(){
   var root  = document.documentElement;
   var intro = document.getElementById('xIntro');
 
-  /* Una sola ejecución por carga, aunque el script llegase a incluirse dos veces. */
   if (window.__xIntroDone) return;
   window.__xIntroDone = true;
 
-  /* Sin capa o sin la marca de arranque: la aplicación queda visible tal cual. */
   if (!intro || !root.classList.contains('xi-boot')) {
     if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
     root.classList.remove('xi-boot', 'xi-reveal');
     return;
   }
 
-  var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var HOLD    = REDUCED ? 900  : 850;   /* permanencia tras completarse la composición */
-  var GUARD   = REDUCED ? 1400 : 6500;  /* respaldo global, nunca deja la app bloqueada*/
-  var COMP_END = 4150;                  /* fin de la composición declarada en el CSS   */
-  var HANDOFF = 90;                     /* la app se revela antes de que la intro ceda */
-  var OUT_DUR = REDUCED ? 320  : 870;   /* debe cubrir la transición de .xintro (CSS)  */
+  var REDUCED  = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var COMP_END = REDUCED ? 1150 : 3550;  /* fin de la barra de carga: .35 s + --xi-load (3.2 s) */
+  var HOLD     = REDUCED ? 300  : 250;   /* respiro con la barra llena                        */
+  var GUARD    = 7000;                   /* respaldo global: nunca deja la app bloqueada      */
+  var MORPH    = REDUCED ? 20   : 850;   /* = transición de .xi-frame.is-moving               */
+  var OUT_DUR  = 500;                    /* = .xintro.is-out .xi-frame                        */
 
+  var frame = document.getElementById('xiFrame');
   var closing = false, done = false, guardId = null, holdId = null;
 
-  /* ── Salida: crossfade continuo intro → plataforma ───────────────────── */
   function close(){
     if (closing) return;
     closing = true;
     clearTimeout(guardId); clearTimeout(holdId);
 
-    /* 1) la plataforma entra por debajo (sigue tapada por la intro, opaca) */
-    root.classList.add('xi-reveal');
+    var cover = document.querySelector('#portada.active .cover');
+    var r = cover ? cover.getBoundingClientRect() : null;
 
-    /* 2) un instante después la intro cede opacidad sobre la app ya visible */
-    setTimeout(function(){
+    /* La plataforma ya puede verse alrededor del marco. */
+    root.classList.add('xi-reveal');
+    intro.classList.add('is-morph');
+
+    if (!r || !r.width || !r.height || !frame) {
       intro.classList.add('is-out');
       setTimeout(release, OUT_DUR);
-    }, HANDOFF);
+      return;
+    }
+
+    /* 1) Reacomodo del marco hacia el rectángulo de la portada. */
+    var vw = window.innerWidth, vh = window.innerHeight;
+    frame.style.top = '0px'; frame.style.left = '0px';
+    frame.style.width = vw + 'px'; frame.style.height = vh + 'px';
+    void frame.offsetWidth;
+    frame.classList.add('is-moving');
+    frame.style.top    = r.top + 'px';
+    frame.style.left   = r.left + 'px';
+    frame.style.width  = r.width + 'px';
+    frame.style.height = r.height + 'px';
+
+    /* 2) Relevo: el marco cede y el contenido de la portada entra. */
+    setTimeout(function(){
+      cover.classList.remove('xi-done');
+      cover.classList.add('xi-enter');
+      /* Al terminar: xi-done fija el estado final sin animación (no se relanza fadeUp)
+         y se retira xi-enter para no fijar transform y bloquear el hover. */
+      setTimeout(function(){
+        cover.classList.add('xi-done');
+        cover.classList.remove('xi-enter');
+      }, 1400);
+      intro.classList.add('is-out');
+      setTimeout(release, OUT_DUR);
+    }, MORPH);
   }
 
-  /* ── Liberación: comportamiento normal de la aplicación ──────────────── */
   function release(){
     if (done) return;
     done = true;
     if (intro.parentNode) intro.parentNode.removeChild(intro);
-    root.classList.remove('xi-boot', 'xi-reveal');   /* devuelve scroll y estados */
+    root.classList.remove('xi-boot', 'xi-reveal');
   }
 
-  /* ── Espera 1: logotipos listos (nunca bloquea si alguno falla) ───────── */
-  function logosReady(cb){
-    var imgs = [].slice.call(intro.querySelectorAll('img'));
-    var pending = imgs.length;
+  /* Espera a los logotipos y a la foto (máx. 1.2 s), luego al fin de la barra. */
+  function assetsReady(cb){
     var fired = false;
-    function step(){ if (!fired && --pending <= 0){ fired = true; cb(); } }
-    if (!pending) { cb(); return; }
+    function go(){ if (!fired){ fired = true; cb(); } }
+    var imgs = [].slice.call(intro.querySelectorAll('img'));
+    var photo = document.getElementById('xiPhoto');
+    var m = photo && /url\(["']?(.*?)["']?\)/.exec(photo.style.backgroundImage || '');
+    if (m && m[1]) { var pi = new Image(); pi.src = m[1]; imgs.push(pi); }
+    var pending = imgs.length;
+    if (!pending) { go(); return; }
     imgs.forEach(function(img){
-      if (img.complete) { step(); return; }
+      if (img.complete) { if (--pending <= 0) go(); return; }
+      function step(){ if (--pending <= 0) go(); }
       img.addEventListener('load',  step, {once:true});
-      img.addEventListener('error', step, {once:true});   /* imagen rota: se sigue igual */
+      img.addEventListener('error', step, {once:true});
     });
-    /* Respaldo: ninguna imagen puede retrasar la apertura más de 1.2 s. */
-    setTimeout(function(){ if (!fired){ fired = true; pending = 0; cb(); } }, 1200);
+    setTimeout(go, 1200);
   }
 
-  /* ── Espera 2: fin de la composición ─────────────────────────────────── */
-  /* Un solo temporizador, medido desde el inicio del documento: si el script
-     (defer) se ejecuta tarde, lo que reste de composición se descuenta y la
-     apertura no se alarga. COMP_END = último nivel del CSS (1.3 s + 0.6 s). */
-  function afterComposition(cb){
-    var remaining = REDUCED ? 0 : Math.max(0, COMP_END - performance.now());
-    holdId = setTimeout(cb, remaining + HOLD);
-  }
+  assetsReady(function(){
+    var remaining = Math.max(0, COMP_END - performance.now());
+    holdId = setTimeout(close, remaining + HOLD);
+  });
 
-  logosReady(function(){ afterComposition(close); });
-
-  /* Respaldo global: la intro nunca puede dejar la aplicación bloqueada. */
   guardId = setTimeout(close, GUARD);
 })();

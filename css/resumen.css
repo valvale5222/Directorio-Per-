@@ -1,57 +1,59 @@
+/* ============================================================================
+   RESUMEN · Mosaico ejecutivo
+   ----------------------------------------------------------------------------
+   Ventas (01) como protagonista a la izquierda, sobre la foto de portada,
+   y 5 bloques a la derecha:  02 · 04  /  03 (ancho, con estado por objetivo)
+   /  05 · 06. Conserva la identidad de las cards de agenda: acento superior,
+   numeral de fondo, icono en tile, entrada rsIn escalonada y hover elevado.
+   ========================================================================== */
 
-
-/* ── Header — Resumen (repotenciado, integrado con las cards) ── */
 .rs-view{position:relative}
 
-
+/* Halos de color muy tenues detrás del mosaico */
 .rs-view::before{
   content:'';position:absolute;inset:-24px -8px -16px;z-index:-1;pointer-events:none;border-radius:28px;
   background:
     radial-gradient(ellipse 40% 55% at 6% 10%,rgba(62,198,172,.06) 0%,transparent 70%),
-    radial-gradient(ellipse 34% 50% at 30% 96%,rgba(58,171,239,.05) 0%,transparent 70%),
-    radial-gradient(ellipse 34% 55% at 62% 6%,rgba(16,185,129,.05) 0%,transparent 70%),
-    radial-gradient(ellipse 34% 50% at 84% 96%,rgba(139,92,246,.05) 0%,transparent 70%),
-    radial-gradient(ellipse 34% 55% at 96% 10%,rgba(217,119,6,.05) 0%,transparent 70%)
+    radial-gradient(ellipse 34% 50% at 52% 96%,rgba(217,119,6,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 34% 55% at 62% 6%,rgba(58,171,239,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 34% 50% at 94% 96%,rgba(139,92,246,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 34% 55% at 96% 40%,rgba(16,185,129,.05) 0%,transparent 70%)
 }
 
-
-.rs-hero{padding:13px 20px 14px;margin-bottom:14px}
-
-
-.rs-hero .cli-hero-icon{font-size:15px}
-
-
-.rs-hero .cli-hero-eye{font-size:9px;margin-bottom:2px}
-
-
-.rs-hero .cli-hero-ttl{font-size:clamp(14px,1.15vw,17px)}
-
-
-.rs-hero .cli-hero-right{font-size:10.5px;padding:5px 13px}
-
-
-.rs-hero-strip{
-  position:absolute;left:22px;right:22px;bottom:0;height:4px;border-radius:4px 4px 0 0;
-  background:linear-gradient(90deg,#3EC6AC 0%,#3aabef 26%,#10b981 50%,#d97706 74%,#8b5cf6 100%);
-  opacity:.9;z-index:1
+/* ── Mosaico ─────────────────────────────────────────────────────────────── */
+.rs-mosaic{
+  display:grid;
+  grid-template-columns:1.12fr 1fr 1fr;
+  grid-template-rows:1fr 1fr 1fr;
+  grid-template-areas:
+    "hero c02 c04"
+    "hero c03 c03"
+    "hero c05 c06";
+  gap:clamp(10px,1vw,20px);
+  /* Cabe en una pantalla: alto visible − cabecera − padding superior de la sección − aire inferior */
+  height:calc(100vh - var(--hdr-h,118px) - clamp(18px,2.2vw,32px) - clamp(14px,1.3vw,26px));
+  height:calc(100dvh - var(--hdr-h,118px) - clamp(18px,2.2vw,32px) - clamp(14px,1.3vw,26px));
+  min-height:440px;
 }
+.rs-mosaic > [data-num="01"]{grid-area:hero}
+.rs-mosaic > [data-num="02"]{grid-area:c02}
+.rs-mosaic > [data-num="03"]{grid-area:c03}
+.rs-mosaic > [data-num="04"]{grid-area:c04}
+.rs-mosaic > [data-num="05"]{grid-area:c05}
+.rs-mosaic > [data-num="06"]{grid-area:c06}
 
-
-/* ── AGENDA EJECUTIVA (Resumen) — cards repotenciadas, estilo Directorio Colombia ── */
-.rs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.3vw,20px);align-items:stretch}
-
-
+/* ── Card base ───────────────────────────────────────────────────────────── */
 .rs-card{
   --glow:color-mix(in srgb,var(--accent) 34%,transparent);
   --glow-soft:color-mix(in srgb,var(--accent) 13%,transparent);
   --glow-soft2:color-mix(in srgb,var(--accent) 7%,transparent);
   --tint:color-mix(in srgb,var(--accent) 6%,var(--card));
   display:flex;flex-direction:column;
-  min-height:clamp(240px,21vw,296px);
+  min-width:0;
   background:linear-gradient(170deg,var(--card) 0%,var(--tint) 150%);
   border:1px solid var(--border);
   border-radius:16px;
-  padding:clamp(18px,1.6vw,24px) clamp(16px,1.4vw,22px) clamp(14px,1.2vw,18px);
+  padding:clamp(12px,1.1vw,24px) clamp(14px,1.3vw,26px) clamp(10px,.9vw,18px);
   box-shadow:0 4px 16px rgba(10,10,30,.055),0 1px 3px rgba(10,10,30,.04);
   cursor:pointer;
   position:relative;
@@ -61,138 +63,234 @@
   transition:transform .4s cubic-bezier(.19,1,.22,1),box-shadow .42s ease,border-color .35s ease;
   animation:rsIn .55s cubic-bezier(.16,1,.3,1) both
 }
+/* Entrada escalonada en orden de lectura del mosaico */
+.rs-mosaic > [data-num="01"]{animation-delay:.04s}
+.rs-mosaic > [data-num="02"]{animation-delay:.10s}
+.rs-mosaic > [data-num="04"]{animation-delay:.14s}
+.rs-mosaic > [data-num="03"]{animation-delay:.18s}
+.rs-mosaic > [data-num="05"]{animation-delay:.22s}
+.rs-mosaic > [data-num="06"]{animation-delay:.26s}
 
-
-.rs-card:nth-child(1){animation-delay:.05s}
-
-
-.rs-card:nth-child(2){animation-delay:.10s}
-
-
-.rs-card:nth-child(3){animation-delay:.15s}
-
-
-.rs-card:nth-child(4){animation-delay:.20s}
-
-
-.rs-card:nth-child(5){animation-delay:.25s}
-
-
-.rs-card:nth-child(6){animation-delay:.30s}
-
-
-/* línea de acento superior — siempre visible, se intensifica en hover */
+/* Línea de acento superior — siempre visible, se intensifica en hover */
 .rs-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;
   background:linear-gradient(90deg,var(--accent-d),var(--accent));
-  opacity:.75;transition:opacity .4s ease,height .4s ease;z-index:1
+  opacity:.75;transition:opacity .4s ease,height .4s ease;z-index:2
 }
-
-
 .rs-card:hover::before{opacity:1;height:4px}
 
-
-/* numeral gigante de fondo + halos abstractos — llenan el espacio con identidad propia */
+/* Numeral gigante de fondo + halos abstractos */
 .rs-card::after{
   content:attr(data-num);
   position:absolute;inset:0;z-index:0;pointer-events:none;
   display:flex;align-items:flex-end;justify-content:flex-end;
-  padding:0 2px 4px 0;
-  font-size:clamp(56px,5.6vw,84px);font-weight:900;line-height:.8;letter-spacing:-.03em;
-  color:color-mix(in srgb,var(--accent) 11%,transparent);
+  padding:0 4px 4px 0;
+  font-size:clamp(44px,4.4vw,96px);font-weight:900;line-height:.8;letter-spacing:-.03em;
+  color:color-mix(in srgb,var(--accent) 9%,transparent);
   background:
     radial-gradient(circle at 112% -14%,var(--glow-soft) 0%,transparent 55%),
     radial-gradient(circle at -12% 118%,var(--glow-soft2) 0%,transparent 60%);
-  transition:color .4s ease,opacity .4s ease
+  transition:color .4s ease
 }
-
-
-.rs-card:hover::after{color:color-mix(in srgb,var(--accent) 17%,transparent)}
-
+.rs-card:hover::after{color:color-mix(in srgb,var(--accent) 15%,transparent)}
 
 .rs-card:hover{
-  transform:translateY(-6px) scale(1.012);
+  transform:translateY(-5px) scale(1.01);
   box-shadow:0 24px 48px var(--glow),0 8px 22px rgba(10,10,30,.10);
   border-color:color-mix(in srgb,var(--accent) 42%,var(--border))
 }
 
-
-.rs-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(14px,1.4vw,20px)}
-
+/* ── Cabecera de card: numeral + icono ───────────────────────────────────── */
+.rs-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between}
 
 .rs-num{
-  font-size:11px;font-weight:800;letter-spacing:1.6px;color:var(--accent-d);
+  font-size:clamp(10px,.72vw,14px);font-weight:800;letter-spacing:1.6px;color:var(--accent-d);
   background:var(--glow-soft);border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
   border-radius:20px;padding:4px 12px;user-select:none
 }
 
-
 .rs-icon{
-  width:clamp(52px,4.8vw,66px);height:clamp(52px,4.8vw,66px);border-radius:16px;
+  width:clamp(32px,2.6vw,56px);height:clamp(32px,2.6vw,56px);border-radius:12px;
   display:flex;align-items:center;justify-content:center;
-  font-size:clamp(27px,2.5vw,36px);line-height:1;
+  font-size:clamp(16px,1.35vw,30px);line-height:1;
   background:linear-gradient(150deg,color-mix(in srgb,var(--accent) 24%,var(--card)),color-mix(in srgb,var(--accent) 7%,var(--card)));
-  backdrop-filter:blur(6px);
   border:1px solid color-mix(in srgb,var(--accent) 32%,transparent);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 8px 18px var(--glow-soft);
   transition:transform .42s cubic-bezier(.19,1,.22,1),box-shadow .42s ease
 }
-
-
 .rs-card:hover .rs-icon{transform:translateY(-2px) scale(1.08) rotate(-4deg);box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 14px 28px var(--glow)}
 
-
-.rs-metric{position:relative;z-index:1;display:flex;align-items:baseline;gap:7px;line-height:1;flex-wrap:wrap;margin-top:clamp(10px,1vw,16px)}
-
-
-.rs-metric-pre{font-size:16px;font-weight:800;color:var(--accent-d);letter-spacing:.3px}
-
-
+/* ── Métrica + título ────────────────────────────────────────────────────── */
+.rs-metric{
+  position:relative;z-index:1;display:flex;align-items:baseline;gap:7px;line-height:1;flex-wrap:wrap;
+  margin-top:auto;padding-top:clamp(6px,.6vw,14px)
+}
+.rs-metric-pre{font-size:clamp(16px,1.3vw,26px);font-weight:800;color:var(--accent-d);letter-spacing:.3px}
 .rs-metric-num{
-  font-size:clamp(32px,3.4vw,46px);font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(30px,2.9vw,64px);font-weight:900;letter-spacing:-.025em;
   background:linear-gradient(135deg,var(--accent-d),var(--accent));
   -webkit-background-clip:text;background-clip:text;color:transparent
 }
+.rs-metric-suf{font-size:clamp(14px,1.05vw,20px);font-weight:800;color:var(--tm);letter-spacing:.2px}
 
-
-.rs-metric-suf{font-size:15px;font-weight:800;color:var(--tm);letter-spacing:.2px}
-
-
-.rs-title{position:relative;z-index:1;font-size:clamp(15.5px,1.15vw,18.5px);font-weight:800;color:var(--t);margin-top:9px}
-
-
-.rs-ctx{
-  position:relative;z-index:1;font-size:clamp(12px,0.85vw,13.5px);color:var(--ts);line-height:1.5;margin-top:5px;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden
+.rs-title{
+  position:relative;z-index:1;
+  font-size:clamp(13px,.95vw,20px);font-weight:800;color:var(--t);margin-top:clamp(4px,.4vw,10px)
 }
 
-
+/* ── CTA: discreta, aparece en hover ─────────────────────────────────────── */
 .rs-cta{
-  position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;
-  font-size:11.5px;font-weight:800;color:var(--accent-d);
-  margin-top:auto;padding-top:14px;
-  transition:gap .28s ease,color .28s ease
+  position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;align-self:flex-start;
+  font-size:clamp(11px,.72vw,14px);font-weight:800;color:var(--accent-d);
+  margin-top:clamp(4px,.4vw,10px);
+  opacity:0;transform:translateY(4px);
+  transition:opacity .3s ease,transform .3s ease,gap .28s ease
+}
+.rs-card:hover .rs-cta{opacity:1;transform:none;gap:9px}
+@media (hover:none){.rs-cta{opacity:1;transform:none}}
+
+/* ── 01 · Protagonista oscura sobre foto ─────────────────────────────────── */
+.rs-hero-card{
+  background:linear-gradient(160deg,#071026 0%,#0b1d3c 55%,#061430 100%);
+  border-color:rgba(62,198,172,.18);
+  box-shadow:0 8px 32px rgba(10,10,30,.18);
+  padding:clamp(16px,1.6vw,36px)
+}
+.rs-hero-card::after{color:rgba(255,255,255,.035);z-index:1}
+.rs-hero-card:hover::after{color:rgba(255,255,255,.06)}
+.rs-hero-card:hover{box-shadow:0 26px 56px rgba(10,10,30,.32),0 0 0 1px rgba(62,198,172,.3)}
+
+.rs-photo{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-size:cover;background-position:center;
+  opacity:.42;
+  transform:scale(1.04);
+  transition:transform 1.4s cubic-bezier(.19,1,.22,1),opacity .6s ease
+}
+/* Velo para que el número se lea siempre sobre la foto */
+.rs-photo::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(7,16,38,.55) 0%,rgba(7,16,38,.35) 35%,rgba(7,16,38,.88) 72%,rgba(7,16,38,.97) 100%);
+}
+.rs-hero-card:hover .rs-photo{transform:scale(1);opacity:.5}
+
+.rs-hero-card .rs-top,
+.rs-hero-card .rs-hero-body{z-index:2}
+.rs-hero-card .rs-num{color:#3EC6AC;background:rgba(62,198,172,.12);border-color:rgba(62,198,172,.3)}
+.rs-hero-card .rs-icon{
+  background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 22px rgba(0,0,0,.25)
 }
 
+.rs-hero-body{position:relative;margin-top:auto;display:flex;flex-direction:column}
+.rs-hero-card .rs-title{
+  color:#fff;font-size:clamp(18px,1.5vw,34px);font-weight:900;margin:0;
+  text-shadow:0 2px 18px rgba(0,0,0,.35)
+}
+.rs-hero-card .rs-metric{margin:clamp(4px,.5vw,10px) 0 0;padding:0;gap:clamp(6px,.6vw,12px);flex-wrap:nowrap}
+.rs-hero-card .rs-metric-pre{color:#3EC6AC;font-size:clamp(22px,2vw,40px);font-weight:900}
+.rs-hero-card .rs-metric-num{
+  font-size:clamp(50px,5.2vw,128px);letter-spacing:-.04em;
+  background:linear-gradient(180deg,#ffffff 30%,#cfe9ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 24px rgba(0,0,0,.35))
+}
+.rs-hero-card .rs-metric-suf{color:rgba(203,213,225,.6);font-size:clamp(18px,1.6vw,32px);font-weight:800}
 
-.rs-cta::before{content:'';display:block;position:absolute;top:0;left:0;right:0;height:1px;background:var(--border)}
+/* Barra de avance vs meta: se llena al entrar */
+.rs-bar{
+  position:relative;height:clamp(6px,.45vw,10px);border-radius:6px;overflow:hidden;
+  background:rgba(255,255,255,.12);margin-top:clamp(10px,1vw,22px)
+}
+.rs-bar i{
+  position:absolute;inset:0 auto 0 0;width:var(--w,0%);border-radius:6px;
+  background:linear-gradient(90deg,#0F6E56 0%,#3EC6AC 70%,#7fe6d6 100%);
+  box-shadow:0 0 14px rgba(62,198,172,.45);
+  transform-origin:0 50%;
+  animation:rsFill 1.2s .45s cubic-bezier(.4,0,.2,1) both
+}
+.rs-hero-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  margin-top:clamp(8px,.8vw,14px);
+  font-size:clamp(12px,.9vw,17px);font-weight:700
+}
+.rs-meta-ok{color:#3EC6AC}
+.rs-delta{color:#fff}
+.rs-hero-card .rs-cta{color:#3EC6AC}
 
+/* ── 03 · Bloque ancho de objetivos ──────────────────────────────────────── */
+.rs-wide{flex-direction:row;align-items:stretch;gap:clamp(16px,2vw,40px)}
+.rs-wide-left{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;flex:0 0 auto;min-width:clamp(150px,11vw,240px)}
+.rs-wide .rs-metric{margin-top:0}
+.rs-wide .rs-icon{width:auto;height:auto;background:none;border:0;box-shadow:none;font-size:clamp(18px,1.4vw,28px)}
+.rs-wide:hover .rs-icon{box-shadow:none}
+.rs-wide .rs-top{justify-content:flex-start;gap:10px}
 
-.rs-card:hover .rs-cta{gap:9px}
+.rs-objs{
+  position:relative;z-index:1;flex:1;min-width:0;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(8px,.8vw,16px);
+  align-content:center
+}
+.rs-obj{display:flex;flex-direction:column;gap:clamp(5px,.45vw,9px);min-width:0}
+.rs-obj i{
+  display:block;height:clamp(7px,.55vw,11px);border-radius:6px;
+  background:linear-gradient(90deg,var(--c-d),var(--c));
+  transform-origin:0 50%;
+  animation:rsFill .9s cubic-bezier(.4,0,.2,1) both;
+  transition:filter .3s ease,transform .3s ease
+}
+.rs-obj.ok  {--c:#22c55e;--c-d:#16a34a}
+.rs-obj.warn{--c:#eab308;--c-d:#ca8a04}
+.rs-obj.crit{--c:#ef4444;--c-d:#dc2626}
+.rs-obj:nth-child(1) i{animation-delay:.40s}
+.rs-obj:nth-child(2) i{animation-delay:.48s}
+.rs-obj:nth-child(3) i{animation-delay:.56s}
+.rs-obj:nth-child(4) i{animation-delay:.64s}
+.rs-obj:nth-child(5) i{animation-delay:.72s}
+.rs-obj b{font-size:clamp(11px,.8vw,16px);font-weight:900;color:var(--t);letter-spacing:.5px}
+.rs-obj span{font-size:clamp(10px,.68vw,13.5px);font-weight:500;color:var(--ts);line-height:1.3}
+.rs-obj.crit b{color:#dc2626}
+.rs-wide:hover .rs-obj i{filter:saturate(1.15) brightness(1.04)}
 
-
+/* ── Keyframes ───────────────────────────────────────────────────────────── */
 @keyframes rsIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes rsFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-
-@media(prefers-reduced-motion:reduce){.rs-card{animation:none}.rs-card,.rs-icon,.rs-cta{transition:none}}
-
-
-@media(max-width:1150px){
-  .rs-grid{grid-template-columns:repeat(2,1fr)}
+@media(prefers-reduced-motion:reduce){
+  .rs-card,.rs-bar i,.rs-obj i{animation:none}
+  .rs-card,.rs-icon,.rs-cta,.rs-photo{transition:none}
 }
 
-
-@media(max-width:640px){
-  .rs-grid{grid-template-columns:1fr}
-  .rs-card{min-height:0}
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media(max-width:1150px){
+  .rs-mosaic{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto;
+    grid-template-areas:
+      "hero hero"
+      "c02  c04"
+      "c03  c03"
+      "c05  c06";
+    min-height:0;height:auto
+  }
+  .rs-hero-card{min-height:clamp(300px,42vw,420px)}
+  .rs-card:not(.rs-hero-card){min-height:clamp(170px,20vw,220px)}
+}
+@media(max-width:760px){
+  .rs-wide{flex-direction:column}
+  .rs-wide .rs-metric{margin-top:6px}
+}
+@media(max-width:600px){
+  .rs-mosaic{
+    grid-template-columns:1fr;
+    grid-template-areas:"hero" "c02" "c04" "c03" "c05" "c06"
+  }
+  .rs-card:not(.rs-hero-card){min-height:0}
+  .rs-objs{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}
+}
+@media(max-width:400px){
+  .rs-objs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rs-hero-card .rs-metric-num{font-size:52px}
 }

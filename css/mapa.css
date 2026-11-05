@@ -46,7 +46,7 @@
   display: inline-flex; align-items: center; gap: 7px;
   padding: 8px 18px; border: none; border-radius: 18px;
   background: transparent; color: var(--ts);
-  font-family: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: .2px;
+  font-family: inherit; font-size: 14.5px; font-weight: 700; letter-spacing: .2px;
   cursor: pointer; white-space: nowrap;
   transition: background .2s ease, color .2s ease, box-shadow .2s ease;
 }
@@ -80,8 +80,8 @@
   font-family: inherit; transition: border-color .2s ease, opacity .2s ease;
   opacity: .5;
 }
-.mc-year-n { font-size: 13px; font-weight: 700; color: var(--t); letter-spacing: .2px; }
-.mc-year-v { font-size: 10.5px; font-weight: 600; color: var(--ts); }
+.mc-year-n { font-size: 15px; font-weight: 700; color: var(--t); letter-spacing: .2px; }
+.mc-year-v { font-size: 12.5px; font-weight: 600; color: var(--ts); }
 .mc-year:hover { opacity: .85; }
 .mc-year.active { opacity: 1; border-bottom-color: var(--navy); }
 .mc-year.active .mc-year-n { font-weight: 800; }
@@ -124,7 +124,7 @@
 /* Etiquetas de departamento con línea guía */
 .mc-lbl-line { stroke: var(--ts); stroke-width: .9; opacity: .45; }
 .mc-lbl {
-  font-family: inherit; font-size: 11px; font-weight: 700;
+  font-family: inherit; font-size: 13px; font-weight: 700;
   fill: var(--t); paint-order: stroke;
   stroke: #fff; stroke-width: 3.5px; stroke-linejoin: round;
   pointer-events: none;
@@ -140,10 +140,10 @@
 }
 
 /* Participación por zona — abajo izquierda */
-.mc-parts { left: 6px; bottom: 10px; width: 245px; }
+.mc-parts { left: 6px; bottom: 10px; width: 270px; }
 
 .mc-eyebrow {
-  font-size: 9.5px; font-weight: 800; letter-spacing: 1.1px;
+  font-size: 11.5px; font-weight: 800; letter-spacing: 1.1px;
   text-transform: uppercase; color: #94a3b8; margin-bottom: 11px;
 }
 
@@ -157,14 +157,14 @@
 .mc-part-row:hover { opacity: .62; }
 .mc-part-nm {
   display: inline-flex; align-items: center; gap: 7px;
-  font-size: 13px; font-weight: 700; color: var(--t);
+  font-size: 15px; font-weight: 700; color: var(--t);
 }
 .mc-part-nm::before {
   content: ''; width: 7px; height: 7px; border-radius: 50%;
   background: var(--zc); flex-shrink: 0;
 }
-.mc-part-pct { font-size: 13px; font-weight: 800; color: var(--zc); justify-self: end; }
-.mc-part-val { grid-column: 1 / -1; font-size: 10.5px; font-weight: 600; color: var(--ts); margin-top: -3px; }
+.mc-part-pct { font-size: 15px; font-weight: 800; color: var(--zc); justify-self: end; }
+.mc-part-val { grid-column: 1 / -1; font-size: 12.5px; font-weight: 600; color: var(--ts); margin-top: -3px; }
 .mc-part-row.active .mc-part-nm { color: var(--zc); }
 
 /* Totalizador: separado con la regla del Directorio (border-top de acento) */
@@ -176,17 +176,17 @@
 .mc-part-total .mc-part-pct { color: var(--navy); }
 
 /* Detalle de zona / departamento — arriba derecha */
-.mc-detail { right: 6px; top: 8px; width: 355px; }
+.mc-detail { right: 6px; top: 8px; width: 385px; }
 
 .mc-detail-hd { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
 .mc-detail-bar { width: 3px; border-radius: 2px; background: var(--zc); align-self: stretch; flex-shrink: 0; }
 .mc-detail-ttls { flex: 1; min-width: 0; }
 .mc-detail-eye {
-  font-size: 9.5px; font-weight: 800; letter-spacing: 1.1px;
+  font-size: 11.5px; font-weight: 800; letter-spacing: 1.1px;
   text-transform: uppercase; color: var(--zc);
 }
 .mc-detail-ttl {
-  font-size: 19px; font-weight: 800; color: var(--t);
+  font-size: 21px; font-weight: 800; color: var(--t);
   line-height: 1.2; margin-top: 2px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
@@ -194,25 +194,25 @@
 .mc-back {
   display: inline-flex; align-items: center; gap: 4px;
   border: none; background: transparent; padding: 2px 0;
-  color: var(--zc); font-family: inherit; font-size: 11px; font-weight: 700;
+  color: var(--zc); font-family: inherit; font-size: 13px; font-weight: 700;
   cursor: pointer; flex-shrink: 0; transition: opacity .16s ease;
 }
 .mc-back:hover { opacity: .65; }
 
 .mc-detail-val {
-  font-size: clamp(28px, 2.7vw, 38px); font-weight: 900;
+  font-size: clamp(30px,calc(2.7vw + 2px),40px); font-weight: 900;
   color: var(--zc); line-height: 1; letter-spacing: -.5px;
 }
-.mc-detail-sub { font-size: 11.5px; font-weight: 600; color: var(--ts); margin-top: 5px; }
+.mc-detail-sub { font-size: 13.5px; font-weight: 600; color: var(--ts); margin-top: 5px; }
 
 .mc-micros { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin: 13px 0 12px; }
 .mc-micro {
   background: #f7faff; border: .5px solid var(--border);
   border-radius: 10px; padding: 10px 12px;
 }
-.mc-micro-v { font-size: 17px; font-weight: 800; color: var(--t); line-height: 1.1; }
+.mc-micro-v { font-size: 19px; font-weight: 800; color: var(--t); line-height: 1.1; }
 .mc-micro-l {
-  font-size: 9px; font-weight: 700; letter-spacing: .8px;
+  font-size: 11px; font-weight: 700; letter-spacing: .8px;
   text-transform: uppercase; color: #94a3b8; margin-top: 4px;
 }
 
@@ -226,7 +226,7 @@
 .mc-sleg { display: flex; flex-wrap: wrap; gap: 4px 13px; }
 .mc-sleg-i {
   display: inline-flex; align-items: center; gap: 5px;
-  font-size: 10.5px; font-weight: 600; color: var(--tm);
+  font-size: 12.5px; font-weight: 600; color: var(--tm);
 }
 .mc-sleg-i::before {
   content: ''; width: 7px; height: 7px; border-radius: 2px;
@@ -250,7 +250,7 @@
 .mc-sec-row:first-of-type { border-top: none; }
 .mc-sec-nm {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 12.5px; font-weight: 700; color: var(--t);
+  font-size: 14.5px; font-weight: 700; color: var(--t);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .mc-sec-nm::before {
@@ -258,18 +258,18 @@
   background: var(--sc); flex-shrink: 0;
 }
 .mc-sec-row.sub { padding-left: 18px; }
-.mc-sec-row.sub .mc-sec-nm { font-size: 11.5px; font-weight: 600; color: var(--tm); }
+.mc-sec-row.sub .mc-sec-nm { font-size: 13.5px; font-weight: 600; color: var(--tm); }
 .mc-sec-row.sub .mc-sec-nm::before { width: 5px; height: 5px; }
-.mc-sec-pct { font-size: 12.5px; font-weight: 800; color: var(--t); }
-.mc-sec-row.sub .mc-sec-pct { font-size: 11.5px; font-weight: 700; color: var(--tm); }
-.mc-sec-val { font-size: 11.5px; font-weight: 600; color: var(--ts); min-width: 56px; text-align: right; }
+.mc-sec-pct { font-size: 14.5px; font-weight: 800; color: var(--t); }
+.mc-sec-row.sub .mc-sec-pct { font-size: 13.5px; font-weight: 700; color: var(--tm); }
+.mc-sec-val { font-size: 13.5px; font-weight: 600; color: var(--ts); min-width: 64px; text-align: right; }
 
 /* Departamentos — chips.
    En vista nacional son 25: rejilla de dos columnas con scroll acotado, para
    que la card no desborde al resto del grid. */
 .mc-chips {
   display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-  max-height: clamp(250px, 21vw, 340px); overflow-y: auto;
+  max-height: clamp(280px, 23vw, 380px); overflow-y: auto;
   /* El hover levanta el chip 2px: sin este colchón el scroll lo recortaría. */
   padding: 3px 2px 3px 0; margin-top: -3px;
 }
@@ -283,7 +283,7 @@
   transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
 }
 .mc-chip-nm {
-  font-size: 11.5px; font-weight: 700; color: var(--t); white-space: nowrap;
+  font-size: 13.5px; font-weight: 700; color: var(--t); white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis;
 }
 /* En vista nacional cada chip se marca con el color de su zona */
@@ -293,7 +293,7 @@
   background: var(--zc);
 }
 #mapaComercial.mc-all .mc-chip.active .mc-chip-nm::before { background: #fff; }
-.mc-chip-v  { font-size: 11px; font-weight: 600; color: var(--ts); white-space: nowrap; }
+.mc-chip-v  { font-size: 13px; font-weight: 600; color: var(--ts); white-space: nowrap; }
 .mc-chip:hover { border-color: var(--zc); box-shadow: 0 2px 10px rgba(10, 10, 30, .07); }
 .mc-chip.active {
   background: var(--zc); border-color: var(--zc);
@@ -302,7 +302,7 @@
 .mc-chip.active .mc-chip-nm, .mc-chip.active .mc-chip-v { color: #fff; }
 .mc-chip.active .mc-chip-v { opacity: .85; }
 .mc-chip-x {
-  font-size: 13px; font-weight: 700; line-height: 1;
+  font-size: 15px; font-weight: 700; line-height: 1;
   color: #fff; opacity: .8; margin-left: 1px;
 }
 .mc-chip-x:hover { opacity: 1; }
@@ -310,18 +310,18 @@
 /* Top clientes — tabla compacta */
 .mc-cli { width: 100%; border-collapse: collapse; }
 .mc-cli th {
-  font-size: 9px; font-weight: 800; letter-spacing: .8px;
+  font-size: 11px; font-weight: 800; letter-spacing: .8px;
   text-transform: uppercase; color: #94a3b8;
   text-align: left; padding: 0 0 8px; border-bottom: .5px solid var(--border);
 }
 .mc-cli th.r, .mc-cli td.r { text-align: right; padding-left: 9px; }
 .mc-cli td {
-  font-size: 11.5px; padding: 8.5px 0; border-bottom: .5px solid #f1f5f9;
+  font-size: 13.5px; padding: 8.5px 0; border-bottom: .5px solid #f1f5f9;
   color: var(--t);
 }
 .mc-cli tr:last-child td { border-bottom: none; }
 .mc-cli .c-nm {
-  font-weight: 700; max-width: 132px;
+  font-weight: 700; max-width: 150px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .mc-cli .c-dep { color: var(--ts); font-weight: 600; }
@@ -329,7 +329,7 @@
 .mc-cli .c-mg  { font-weight: 800; }
 
 .mc-empty {
-  font-size: 11.5px; color: var(--ts); padding: 14px 0; text-align: center;
+  font-size: 13.5px; color: var(--ts); padding: 14px 0; text-align: center;
 }
 
 /* ── Refrigerante y Tipo de proyecto — rankings con barra ─── */
@@ -341,16 +341,16 @@
 
 .mc-rank {
   display: grid;
-  grid-template-columns: minmax(88px, 132px) 1fr auto auto;
+  grid-template-columns: minmax(96px, 150px) 1fr auto auto;
   align-items: center; gap: 11px;
   padding: 8px 0; border-top: .5px solid #f1f5f9;
 }
 .mc-rank:first-of-type { border-top: none; }
 /* Con la columna extra de proyectos únicos */
-#mcTipo .mc-rank { grid-template-columns: minmax(88px, 132px) 1fr auto auto auto; }
+#mcTipo .mc-rank { grid-template-columns: minmax(96px, 150px) 1fr auto auto auto; }
 
 .mc-rank-nm {
-  font-size: 12px; font-weight: 700; color: var(--t);
+  font-size: 14px; font-weight: 700; color: var(--t);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .mc-rank-bar {
@@ -362,9 +362,9 @@
   background: var(--zc);
   transition: width .9s cubic-bezier(.4, 0, .2, 1);
 }
-.mc-rank-v { font-size: 11.5px; font-weight: 700; color: var(--t); min-width: 54px; text-align: right; }
-.mc-rank-p { font-size: 11.5px; font-weight: 800; color: var(--zc); min-width: 38px; text-align: right; }
-.mc-rank-n { font-size: 10px; font-weight: 600; color: var(--ts); min-width: 46px; text-align: right; }
+.mc-rank-v { font-size: 13.5px; font-weight: 700; color: var(--t); min-width: 62px; text-align: right; }
+.mc-rank-p { font-size: 13.5px; font-weight: 800; color: var(--zc); min-width: 44px; text-align: right; }
+.mc-rank-n { font-size: 12px; font-weight: 600; color: var(--ts); min-width: 52px; text-align: right; }
 
 /* ── Tooltip del mapa ─────────────────────────────────────── */
 .mc-tip {
@@ -374,25 +374,25 @@
   background: var(--navy); color: #fff;
   border-radius: 10px; padding: 10px 13px;
   box-shadow: 0 10px 30px rgba(10, 10, 30, .34);
-  min-width: 150px;
+  min-width: 170px;
 }
 .mc-tip.show { opacity: 1; }
 .mc-tip-ttl {
-  font-size: 12px; font-weight: 800; letter-spacing: .2px;
+  font-size: 14px; font-weight: 800; letter-spacing: .2px;
   padding-bottom: 7px; margin-bottom: 7px;
   border-bottom: 1px solid rgba(255, 255, 255, .16);
 }
 .mc-tip-r {
   display: flex; justify-content: space-between; gap: 14px;
-  font-size: 10.5px; line-height: 1.7;
+  font-size: 12.5px; line-height: 1.7;
 }
 .mc-tip-k { color: rgba(255, 255, 255, .58); font-weight: 600; }
 .mc-tip-v { font-weight: 700; }
 
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 1280px) {
-  .mc-detail { width: 310px; }
-  .mc-parts  { width: 215px; }
+  .mc-detail { width: 340px; }
+  .mc-parts  { width: 240px; }
 }
 
 @media (max-width: 1100px) {
@@ -423,21 +423,21 @@
   .mc-year { min-height: 44px; padding: 6px 12px; }
   .mc-chips { grid-template-columns: 1fr; }
   .mc-shell { padding: 10px; border-radius: 14px; }
-  .mc-lbl { font-size: 13px; }
+  .mc-lbl { font-size: 15px; }
 }
 
 @media (max-width: 420px) {
-  .mc-zone { font-size: 11px; padding: 9px 6px; gap: 5px; }
+  .mc-zone { font-size: 13px; padding: 9px 6px; gap: 5px; }
   .mc-micros { grid-template-columns: 1fr; }
-  .mc-detail-val { font-size: 30px; }
+  .mc-detail-val { font-size: 32px; }
 }
 
 /* TV / 4K */
 @media (min-width: 2400px) {
-  .mc-detail { width: 460px; }
-  .mc-parts  { width: 320px; }
-  .mc-detail-ttl { font-size: 24px; }
-  .mc-lbl { font-size: 9.5px; }
+  .mc-detail { width: 490px; }
+  .mc-parts  { width: 345px; }
+  .mc-detail-ttl { font-size: 26px; }
+  .mc-lbl { font-size: 11.5px; }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -630,3 +630,7 @@
     transition: none !important;
   }
 }
+
+/* Título de la vista Mapa Comercial · +2px */
+#ventas [data-vtview="mapa"] .sec-head h1{font-size:22px}
+#ventas [data-vtview="mapa"] .sec-head .sub{font-size:14px}

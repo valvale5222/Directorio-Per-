@@ -186,196 +186,169 @@ function partRenderHeroKpis(){
   }).join('');
 }
 
-/* ── TAB 1: Evolución competitiva ───────────────────────── */
-function partEvolSeriesNames(){
-  if(PART_STATE.evolMode==='lider') return partTopCompetitors(1);
-  if(PART_STATE.evolMode==='top5') return partTopCompetitors(4);
-  return partAllCompetitorNames();
+/* ── TAB 1: Evolución competitiva — mercado al 100% + composición ──
+   Todo se calcula del periodo seleccionado en el selector de periodos:
+   · Barra única al 100%: Friopacking + 4 principales competidores + "Otros (n)".
+   · Por refrigerante: tamaño de cada mercado y participación de Friopacking en él.
+   · Por sector: composición del mercado (bloque consolidado del Excel).
+   · Friopacking por periodo: histórico de participación; clic en una barra
+     cambia el periodo de toda la vista.
+   Las barras transicionan de un periodo a otro (no se re-crean de cero). */
+var PEV_COLORS = ['#3EC6AC','#2F6FD6','#3A55A8','#7B8DB0','#A9B6CC'];
+var PEV_OTHERS = '#D5DCE8';
+var PEV_MONTHS = {enero:'Ene',febrero:'Feb',marzo:'Mar',abril:'Abr',mayo:'May',junio:'Jun',julio:'Jul',
+                  agosto:'Ago',septiembre:'Set',setiembre:'Set',octubre:'Oct',noviembre:'Nov',diciembre:'Dic'};
+
+function pevPct(v){ return (v*100).toFixed(1)+'%'; }
+function pevShortPeriod(txt){
+  return (txt||'').replace(/[A-Za-zÁÉÍÓÚáéíóú]+/g, function(w){ return PEV_MONTHS[w.toLowerCase()] || w; });
 }
-function partRenderEvolLegend(datasets){
-  var hl = PART_STATE.evolHighlight;
-  document.getElementById('partEvolLegend').innerHTML = datasets.map(function(ds){
-    var isFp = ds.key==='Friopacking';
-    var active = hl===ds.key;
-    return '<div class="part-h-legend-item'+(active?' active':'')+(isFp?' is-fp':'')+'" data-name="'+ds.key.replace(/"/g,'&quot;')+'">'
-      +'<i class="part-h-dot" style="background:'+ds._trueColor+'"></i>'+ds.label+'</div>';
-  }).join('');
-}
-function partRenderEvolChart(){
-  var el = document.getElementById('chPartEvol'); if(!el||typeof Chart==='undefined') return;
-  var activeIdx = partPeriodIdx(PART_STATE.period);
-  var names = partEvolSeriesNames();
-  var labels = PART_DATA.map(function(p){ return p.label; });
-  var fpData = PART_DATA.map(function(p){
-    var c=p.companies.find(function(x){ return x.name==='Friopacking'; });
-    return c? +(c.share*100).toFixed(2):0;
-  });
-  var fpRadius = labels.map(function(_,i){ return i===activeIdx?7:4; });
-  var datasets = [{
-    key:'Friopacking', label:'Friopacking', data:fpData, borderColor:'#3EC6AC', backgroundColor:'rgba(62,198,172,.12)',
-    borderWidth:3, pointRadius:fpRadius, pointHoverRadius:8, pointHoverBorderWidth:2, pointBackgroundColor:'#3EC6AC',
-    pointBorderColor:'#fff', pointBorderWidth:1.5, tension:.35, fill:false, order:0, _trueColor:'#3EC6AC'
-  }];
-  var hl = PART_STATE.evolHighlight;
-  names.forEach(function(nm,i){
-    var data = PART_DATA.map(function(p){
-      var c=p.companies.find(function(x){ return x.name===nm; });
-      return c? +(c.share*100).toFixed(2):0;
+function pevSegments(period){
+  var ranked = period.companies.filter(function(c){ return c.billing>0; })
+    .slice().sort(function(a,b){ return b.share-a.share; });
+  var fp = ranked.find(function(c){ return c.name==='Friopacking'; });
+  var rest = ranked.filter(function(c){ return c.name!=='Friopacking'; });
+  var top = rest.slice(0,4), others = rest.slice(4);
+  var segs = [{name:'Friopacking', share:fp?fp.share:0, billing:fp?fp.billing:0, color:PEV_COLORS[0], fp:true}];
+  top.forEach(function(c,i){ segs.push({name:c.name, share:c.share, billing:c.billing, color:PEV_COLORS[i+1]}); });
+  if(others.length){
+    segs.push({
+      name:'Otros ('+others.length+')', share:others.reduce(function(s,c){ return s+c.share; },0),
+      billing:others.reduce(function(s,c){ return s+c.billing; },0), color:PEV_OTHERS, others:true,
+      list:others.map(function(c){ return c.name; })
     });
-    var color = i===0? '#1a8fd1' : partNeutralColor(i-1);
-    var isHl = hl===nm, dim = hl && !isHl;
-    var radius = labels.map(function(_,j){ return j===activeIdx?(isHl?6:2.5):(isHl?4:2); });
-    datasets.push({
-      key:nm, label:partDisplayName(nm), data:data,
-      borderColor: dim? partWithAlpha(color,.22) : color,
-      backgroundColor:'transparent',
-      borderWidth: isHl?2.5:(i===0?2:1.5),
-      borderDash: isHl?[]:(i===0?[]:[4,3]),
-      pointRadius:radius, pointBackgroundColor: dim? partWithAlpha(color,.22):color,
-      tension:.35, fill:false, order:i+1, _trueColor:color
-    });
-  });
-  if(Chart.getChart(el)) Chart.getChart(el).destroy();
-  new Chart(el,{
-    type:'line',
-    data:{labels:labels, datasets:datasets},
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      animation:{duration:900, easing:'easeInOutQuart'},
-      plugins:{
-        legend:{display:false},
-        tooltip:{
-          mode:'index', intersect:false, backgroundColor:'rgba(9,12,30,.95)', padding:12, cornerRadius:12,
-          borderColor:'rgba(62,198,172,.3)', borderWidth:1, titleColor:'rgba(255,255,255,.6)', bodyColor:'rgba(255,255,255,.92)',
-          titleFont:{size:11,weight:'700'}, bodyFont:{size:12,weight:'600'}, boxPadding:4,
-          callbacks:{ label:function(ctx){ return ctx.dataset.label+': '+ctx.parsed.y.toFixed(2)+'%'; } }
-        }
-      },
-      scales:{
-        x:{grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'600'},color:'#0a0a1e'}},
-        y:{grid:{color:'rgba(10,10,30,.05)'}, border:{display:false}, min:0, ticks:{font:{size:11},color:'#94a3b8', callback:function(v){ return v+'%'; }}}
-      }
-    }
-  });
-  partRenderEvolLegend(datasets);
+  }
+  return segs;
 }
+
 function partRenderEvolPane(){
   var period = partPeriod(PART_STATE.period);
-  var ranked = partSegByRefr(period,'global');
-  var fp = ranked.find(function(c){ return c.name==='Friopacking'; });
-  var fpIdx = ranked.indexOf(fp);
+  var idx = partPeriodIdx(PART_STATE.period);
+  var prev = idx>0 ? PART_DATA[idx-1] : null;
+  var segs = pevSegments(period);
+  var fpShare = period.meta.fpShare;
 
-  /* Ranking sincronizado: mismo grupo de empresas que el gráfico según el toggle activo,
-     ordenado por su participación real en el periodo seleccionado. */
-  var mode = PART_STATE.evolMode;
-  var namesInView = partEvolSeriesNames();
-  var allowed = {}; namesInView.forEach(function(nm){ allowed[nm]=true; });
-  var rankList = ranked.filter(function(c){ return c.name==='Friopacking' || allowed[c.name]; })
-                        .filter(function(c){ return c.name==='Friopacking' || c.billing>0; });
-
-  var subTxt = mode==='lider' ? 'Friopacking vs líder' : mode==='top5' ? 'Top 5 empresas' : partPlural(rankList.length,'empresa')+' con información en el periodo';
-  document.getElementById('partEvolRankSub').textContent = period.label+' · '+subTxt;
-
-  var listEl = document.getElementById('partEvolRankList');
-  listEl.className = mode==='todos' ? 'part-rank-scroll' : '';
-
-  var maxShare = rankList[0].segShare||1;
-  var html='';
-  rankList.forEach(function(c,i){
-    var isFp = c.name==='Friopacking';
-    html += '<div class="part-rank-row'+(isFp?' is-fp':'')+'">'
-      +'<div class="part-rank-pos">#'+(i+1)+'</div>'
-      +'<div class="part-rank-name">'+partDisplayName(c.name)+'</div>'
-      +'<div class="part-rank-bar-cell"><div class="part-rank-bar"><div class="part-rank-bar-fill" style="width:'+Math.round(c.segShare/maxShare*100)+'%"></div></div></div>'
-      +'<div class="part-rank-val">'+partPct(c.segShare)+'</div>'
-      +'</div>';
-  });
-  listEl.innerHTML = html;
-
-  var second = ranked[1];
-  var gap = fp.segShare - second.segShare;
-  document.getElementById('partEvolMicro').innerHTML = '<strong>Friopacking</strong> ocupa la posición <strong>#'+(fpIdx+1)+'</strong> en '+period.label+' con una participación estimada de <strong>'+partPct(fp.segShare)+'</strong>, con una ventaja de <strong>'+partPPTxt(gap)+'</strong> sobre '+partDisplayName(second.name)+' (2.º lugar).';
-
-  partRenderHeroKpis(fp, ranked, period, {});
-}
-
-/* ── Evolución del mercado de refrigeración (barras apiladas Friopacking vs Resto + tendencia total) ── */
-function partRenderMarketChart(){
-  var el = document.getElementById('chPartMarket'); if(!el||typeof Chart==='undefined') return;
-  var labels = PART_DATA.map(function(p){ return p.label; });
-  var values = PART_DATA.map(function(p){ return p.meta.mercadoTotal; });
-  var fpValues = PART_DATA.map(function(p){
-    var fp = p.companies.find(function(c){ return c.name==='Friopacking'; });
-    return fp ? fp.billing : 0;
-  });
-  var restValues = values.map(function(v,i){ return v-fpValues[i]; });
-  var variations = values.map(function(v,i){ return i===0? null : (v-values[i-1])/values[i-1]; });
-  var FP_COLOR = '#3EC6AC', REST_COLOR = '#94a3b8';
-
-  var legendEl = document.getElementById('partMarketLegend');
-  if(legendEl) legendEl.innerHTML =
-      '<div class="part-mkt-legend-item"><i class="part-mkt-legend-dot" style="background:'+FP_COLOR+'"></i>Friopacking</div>'
-    +'<div class="part-mkt-legend-item"><i class="part-mkt-legend-dot" style="background:'+REST_COLOR+'"></i>Resto del mercado</div>';
-
-  if(Chart.getChart(el)) Chart.getChart(el).destroy();
-  new Chart(el,{
-    type:'bar',
-    data:{
-      labels:labels,
-      datasets:[
-        {
-          type:'bar', label:'Friopacking', data:fpValues, stack:'mkt',
-          backgroundColor:FP_COLOR, borderColor:FP_COLOR, borderWidth:1,
-          borderRadius:{topLeft:0,topRight:0,bottomLeft:6,bottomRight:6}, maxBarThickness:64, order:3
-        },
-        {
-          type:'bar', label:'Resto del mercado', data:restValues, stack:'mkt',
-          backgroundColor:REST_COLOR, borderColor:REST_COLOR, borderWidth:1,
-          borderRadius:{topLeft:6,topRight:6,bottomLeft:0,bottomRight:0}, maxBarThickness:64, order:2
-        },
-        {
-          type:'line', label:'Tendencia', data:values,
-          borderColor:'#0a0a1e', backgroundColor:'#0a0a1e', borderWidth:3, tension:.35,
-          pointRadius:5, pointBackgroundColor:'#0a0a1e', pointBorderColor:'#fff', pointBorderWidth:1.5,
-          pointHoverRadius:7, fill:false, order:1
-        }
-      ]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      animation:{duration:1000, easing:'easeOutQuart'},
-      interaction:{mode:'index', intersect:false},
-      plugins:{
-        legend:{display:false},
-        tooltip:{
-          backgroundColor:'rgba(9,12,30,.95)', padding:12, cornerRadius:12,
-          borderColor:'rgba(62,198,172,.3)', borderWidth:1, titleColor:'rgba(255,255,255,.6)', bodyColor:'rgba(255,255,255,.92)',
-          titleFont:{size:11,weight:'700'}, bodyFont:{size:12,weight:'600'}, boxPadding:4,
-          filter:function(ctx){ return ctx.datasetIndex===0 || ctx.datasetIndex===1; },
-          callbacks:{
-            label:function(ctx){
-              var total = values[ctx.dataIndex];
-              var val = ctx.parsed.y;
-              var pct = total>0 ? (val/total*100) : 0;
-              return ctx.dataset.label+'  ·  Importe: '+fmtEjecutivo(val)+'  ·  Participación: '+pct.toFixed(2)+'%';
-            },
-            footer:function(items){
-              var idx = items[0].dataIndex;
-              var v = variations[idx];
-              var lines = ['Mercado total: '+fmtEjecutivo(values[idx])];
-              lines.push(v==null ? 'Sin periodo anterior comparable' : 'Variación: '+partPctTxt(v*100));
-              return lines;
-            }
-          }
-        }
-      },
-      scales:{
-        x:{stacked:true, grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'600'},color:'#0a0a1e'}},
-        y:{stacked:true, grid:{color:'rgba(10,10,30,.05)'}, border:{display:false}, ticks:{font:{size:11},color:'#94a3b8', callback:function(v){ return fmtEjecutivo(v); }}}
-      }
+  /* Chip de periodo + cabecera */
+  var chip = document.getElementById('partPeriodChip');
+  if(chip) chip.textContent = pevShortPeriod(period.meta.importPeriodo);
+  var total = document.getElementById('pevMkTotal');
+  if(total) total.innerHTML = '$'+(period.meta.mercadoTotal/1e6).toFixed(2)+'<small>MM</small>';
+  var sub = document.getElementById('pevMkSub');
+  if(sub){
+    var ranked = period.companies.filter(function(c){ return c.billing>0; }).sort(function(a,b){ return b.share-a.share; });
+    var pos = ranked.findIndex(function(c){ return c.name==='Friopacking'; })+1;
+    var txt = 'Friopacking <b>#'+pos+'</b> de '+ranked.length+' empresas';
+    if(prev){
+      var d = (fpShare - prev.meta.fpShare)*100;
+      txt += ' <span class="pev-delta '+(d>=0?'up':'dn')+'">'+(d>=0?'&#8593; +':'&#8595; &minus;')+Math.abs(d).toFixed(1)+' pp vs '+prev.label+'</span>';
     }
+    sub.innerHTML = txt;
+  }
+
+  /* Barra al 100% — se reutilizan los segmentos para que el ancho transicione */
+  var bar = document.getElementById('pevBar');
+  var legend = document.getElementById('pevLegend');
+  if(bar){
+    var nodes = bar.children;
+    segs.forEach(function(s,i){
+      var el = nodes[i];
+      if(!el){
+        el = document.createElement('div');
+        el.className = 'pev-seg';
+        el.style.flexGrow = '0';
+        el.innerHTML = '<span></span>';
+        el.addEventListener('mouseenter', function(){ pevHover(+el.dataset.i, true); });
+        el.addEventListener('mouseleave', function(){ pevHover(+el.dataset.i, false); });
+        bar.appendChild(el);
+      }
+      el.dataset.i = i;
+      el.classList.toggle('is-fp', !!s.fp);
+      el.classList.toggle('is-others', !!s.others);
+      el.style.setProperty('--c', s.color);
+      el.title = s.name+' · '+pevPct(s.share)+' · '+fmtEjecutivo(s.billing)+(s.list?'\n'+s.list.join(', '):'');
+      var lbl = s.fp ? 'Friopacking '+pevPct(s.share) : pevPct(s.share);
+      el.firstChild.textContent = s.share>=0.05 ? lbl : '';
+    });
+    while(bar.children.length>segs.length) bar.removeChild(bar.lastChild);
+    /* doble rAF: el ancho anima desde el valor anterior (o desde 0 al entrar) */
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      segs.forEach(function(s,i){ if(bar.children[i]) bar.children[i].style.flexGrow = String(Math.max(s.share,0.004)); });
+    }); });
+  }
+  if(legend){
+    legend.innerHTML = segs.map(function(s,i){
+      return '<div class="pev-lg'+(s.fp?' is-fp':'')+'" data-i="'+i+'" style="--c:'+s.color+';--d:'+(0.1+i*0.05).toFixed(2)+'s">'
+        +'<div class="pev-lg-nm"><i></i>'+s.name+'</div>'
+        +'<div class="pev-lg-v">'+pevPct(s.share)+'</div>'
+        +'<div class="pev-lg-s">'+fmtEjecutivo(s.billing)+'</div></div>';
+    }).join('');
+    [].slice.call(legend.children).forEach(function(el){
+      el.addEventListener('mouseenter', function(){ pevHover(+el.dataset.i, true); });
+      el.addEventListener('mouseleave', function(){ pevHover(+el.dataset.i, false); });
+    });
+  }
+
+  /* Por refrigerante */
+  var refr = document.getElementById('pevRefr');
+  if(refr){
+    var fpCo = period.companies.find(function(c){ return c.name==='Friopacking'; }) || {};
+    var mkt = (period.refrTotal.amoniaco||0)+(period.refrTotal.freon||0);
+    refr.innerHTML = ['amoniaco','freon'].map(function(k){
+      var t = period.refrTotal[k]||0;
+      var fpv = k==='amoniaco' ? (fpCo.billAmon||0) : (fpCo.billFreon||0);
+      var sh = t>0 ? fpv/t : 0;
+      return '<div class="pev-rf">'
+        +'<div class="pev-rf-top"><b>'+partRefrLabel(k)+'</b><span>'+fmtEjecutivo(t)+' &middot; '+pevPct(mkt?t/mkt:0)+'</span></div>'
+        +'<div class="pev-track"><i style="--w:'+(sh*100).toFixed(1)+'%"></i></div>'
+        +'<div class="pev-rf-fp">Friopacking <b>'+pevPct(sh)+'</b></div></div>';
+    }).join('');
+  }
+
+  /* Por sector */
+  var sec = document.getElementById('pevSector');
+  if(sec){
+    var SC = {multisector:'#3A55A8', agroexportacion:'#3EC6AC', pesca:'#7B8DB0', retail:'#EFA93B'};
+    var rows = PART_SECTOR_KEYS.map(function(k){ return {k:k, v:period.sectorBlock[k]||0}; })
+      .sort(function(a,b){ return b.v-a.v; });
+    var max = rows[0].v || 1;
+    sec.innerHTML = rows.map(function(r){
+      return '<div class="pev-sc">'
+        +'<span class="pev-sc-nm">'+partSectorLabel(r.k)+'</span>'
+        +'<div class="pev-track sm"><i style="--w:'+(r.v/max*100).toFixed(1)+'%;--c:'+SC[r.k]+'"></i></div>'
+        +'<b>'+pevPct(r.v)+'</b></div>';
+    }).join('');
+  }
+
+  /* Friopacking por periodo */
+  var hist = document.getElementById('pevHist');
+  if(hist){
+    var mx = Math.max.apply(null, PART_DATA.map(function(p){ return p.meta.fpShare; }));
+    hist.innerHTML = PART_DATA.map(function(p,i){
+      var on = p.key===PART_STATE.period;
+      return '<button type="button" class="pev-hb'+(on?' is-on':'')+'" data-pkey="'+p.key+'" style="--d:'+(0.1+i*0.05).toFixed(2)+'s">'
+        +'<b>'+(p.meta.fpShare*100).toFixed(1)+'</b>'
+        +'<div class="pev-hb-col"><i style="--h:'+(p.meta.fpShare/mx*100).toFixed(1)+'%"></i></div>'
+        +'<span>'+p.label.replace(/20(\d\d)/g,'$1')+'</span></button>';
+    }).join('');
+    [].slice.call(hist.querySelectorAll('.pev-hb')).forEach(function(b){
+      b.addEventListener('click', function(){ partSetPeriod(b.dataset.pkey); });
+    });
+  }
+
+  /* Reproduce el llenado de barras pequeñas (entrada / cambio de periodo) */
+  var pane = document.getElementById('partPane-evol');
+  if(pane){ pane.classList.remove('pev-in'); void pane.offsetWidth; pane.classList.add('pev-in'); }
+}
+
+function pevHover(i, on){
+  var bar = document.getElementById('pevBar'), legend = document.getElementById('pevLegend');
+  [bar, legend].forEach(function(box){
+    if(!box) return;
+    box.classList.toggle('has-hover', on);
+    [].slice.call(box.children).forEach(function(el){ el.classList.toggle('is-hover', on && +el.dataset.i===i); });
   });
 }
+
 
 /* ── TAB 2 & 3: Por refrigerante / Por sector económico — módulo de inteligencia de mercado ── */
 var PART_REFR_SEL = { period:null, cat:null };
@@ -765,8 +738,10 @@ function partSwitchTab(tab, btn){
   btn.classList.add('active');
   document.querySelectorAll('#participacion .part-pane').forEach(function(p){ p.classList.remove('active'); });
   document.getElementById('partPane-'+tab).classList.add('active');
-  var ptabs = document.getElementById('partPeriodTabs');
-  if(ptabs) ptabs.style.display = (tab==='evol') ? '' : 'none';
+  /* El hero y el selector de periodo dependen de la pestaña: Evolución usa
+     su propia lectura (barra de mercado + chip de periodo), sin hero. */
+  var sec = document.getElementById('participacion');
+  if(sec) sec.classList.toggle('part-on-evol', tab==='evol');
   if(tab==='refr') partResetRefrSel();
   if(tab==='sector') partResetSectorSel();
   partRenderActivePane();
@@ -774,7 +749,7 @@ function partSwitchTab(tab, btn){
 }
 function partRenderPeriodTabs(){
   var wrap = document.getElementById('partPeriodTabs');
-  wrap.innerHTML = PART_DATA.map(function(p){
+  wrap.innerHTML = '<span class="part-ptabs-lbl">Periodo</span>' + PART_DATA.map(function(p){
     return '<button class="part-ptab'+(p.key===PART_STATE.period?' active':'')+'" data-pkey="'+p.key+'" onclick="partSetPeriod(\''+p.key+'\')">'+p.label+'</button>';
   }).join('');
 }
@@ -784,17 +759,9 @@ function partSetPeriod(key){
   partRenderActivePane();
 }
 function partRenderActivePane(){
-  if(PART_STATE.tab==='evol'){ partRenderEvolChart(); partRenderEvolPane(); partRenderMarketChart(); }
+  if(PART_STATE.tab==='evol'){ partRenderEvolPane(); }
   else if(PART_STATE.tab==='refr'){ partRenderRefrPane(); }
   else if(PART_STATE.tab==='sector'){ partRenderSectorPane(); }
-}
-function partEvolSetMode(mode, btn){
-  PART_STATE.evolMode = mode;
-  PART_STATE.evolHighlight = null;
-  document.querySelectorAll('#partEvolToggle .tm-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  partRenderEvolChart();
-  partRenderEvolPane();
 }
 
 var _partInited = false;
@@ -802,15 +769,7 @@ window._initPartCharts = function(){
   if(_partInited) return;
   _partInited = true;
   partRenderPeriodTabs();
-  document.querySelectorAll('#partEvolToggle .tm-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){ partEvolSetMode(btn.dataset.ev, btn); });
-  });
-  document.getElementById('partEvolLegend').addEventListener('click', function(e){
-    var item = e.target.closest('.part-h-legend-item'); if(!item) return;
-    var nm = item.dataset.name;
-    PART_STATE.evolHighlight = (PART_STATE.evolHighlight===nm) ? null : nm;
-    partRenderEvolChart();
-  });
+  partRenderHeroKpis();
   document.getElementById('pmsRefrLegend').addEventListener('click', function(e){
     var item = e.target.closest('.pms-legend-item'); if(!item) return;
     PART_REFR_SEL.cat = item.dataset.cat;

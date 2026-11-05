@@ -10,38 +10,44 @@
   var root = document.getElementById('moventas');
   if (!root) return;
 
-  /* ── Periodos fijos de la vista ───────────────────────────── */
-  var PERIODS = [
-    { lbl: '2024',  sub: 'Ene–Dic' },
-    { lbl: '2025',  sub: 'Ene–Dic' },
-    { lbl: '2026',  sub: 'Ene–Ago' },
-    { lbl: '2026',  sub: 'Proyecc.' }
-  ];
+  /* ── Periodos de la vista ─────────────────────────────────────
+     El acumulado 2026 depende del corte de cada unidad (ytd).    */
+  function periodsOf(u) {
+    return [
+      { lbl: '2024',  sub: 'Ene–Dic' },
+      { lbl: '2025',  sub: 'Ene–Dic' },
+      { lbl: '2026',  sub: u.ytd },
+      { lbl: '2026',  sub: 'Proy. Ene–Dic' }
+    ];
+  }
   var I_2025 = 1, I_YTD = 2, I_PROY = 3;
 
   /* ── Datos por unidad ─────────────────────────────────────────
-     Fuente: cuadro de productividad 2024–2025 · acumulado Ago 2026
-     · proyección de cierre 2026. Los porcentajes de costo sobre
-     venta se muestran tal como vienen del cuadro de origen.      */
+     Fuente: cuadro de productividad 2024–2025 · acumulado 2026 al
+     corte de cada unidad · proyección de cierre 2026. Los
+     porcentajes de costo sobre venta se muestran tal como vienen
+     del cuadro de origen.                                        */
   var MO_DATA = {
     com: {
       name: 'Comercial',
       ico: '💼',
       a: '#3EC6AC', a2: '#0F6E56',
-      venta:      [15450000, 34960000, 30010000, 38190000],
+      ytd: 'Ene–Oct', ytdMes: 'Octubre',
+      venta:      [15450000, 34960000, 35260000, 42000000],
       margenPct:  [15.30, 15.87, 15.55, 15.60],
-      margenUsd:  [2363110, 5548519, 4666555, 5957640],
+      margenUsd:  [2363110, 5548519, 5482930, 6552000],
       team:       [8, 10, 11, 11],
-      costo:      [795000, 935000, 562000, 934000],
-      otros:      [null, null, 123000, 185000],
-      costoVenta: [5.14, 2.6745, 1.8727, 2.4449],
-      note: 'La venta proyecta <em>+9.24%</em> sobre 2025 y el costo de mano de obra baja a <em>2.45%</em> de la venta. ' +
-            'El punto de atención es la productividad: con el equipo de 10 a 11 personas, la venta por colaborador ' +
-            'retrocede de <b>$3.50MM</b> (2025) a <b>$3.47MM</b> proyectado.'
+      costo:      [795000, 935000, 748000, 934000],
+      otros:      [null, null, 154000, 185000],
+      costoVenta: [5.14, 2.6745, 2.1214, 2.2238],
+      note: 'La venta proyecta <em>+20.1%</em> sobre 2025 y el costo de mano de obra baja a <em>2.22%</em> de la venta. ' +
+            'Con el equipo de 10 a 11 personas, la venta por colaborador sube de <b>$3.50MM</b> (2025) a ' +
+            '<b>$3.82MM</b> proyectado, con un costo de mano de obra prácticamente estable.'
     },
     arq: {
       name: 'Arquitectura',
       ico: '📐',
+      ytd: 'Ene–Oct', ytdMes: 'Octubre',
       a: '#5B9DFF', a2: '#1E4FA8',
       venta:      [0, 306900, 171000, 346100],
       margenPct:  [0, 30.00, 28.47, 30.00],
@@ -131,7 +137,7 @@
       {
         acc: u.a, accD: u.a2, ico: '💰', lbl: 'Venta 2026 · Proyectada',
         val: money(u.venta[I_PROY]), bar: avance,
-        ctx: 'Ene–Ago ' + money(u.venta[I_YTD]) + ' · ', d: dVenta
+        ctx: u.ytd + ' ' + money(u.venta[I_YTD]) + ' · ', d: dVenta
       },
       {
         acc: '#10b981', accD: '#047857', ico: '📈', lbl: 'Margen bruto 2026',
@@ -173,10 +179,10 @@
     var max = Math.max.apply(null, vpc.map(function (v) { return v || 0; })) || 1;
     var best = vpc.indexOf(Math.max.apply(null, vpc.map(function (v) { return v || 0; })));
 
-    var rows = PERIODS.map(function (p, i) {
+    var rows = periodsOf(u).map(function (p, i) {
       var w = (vpc[i] || 0) / max * 100;
       /* La proyección se compara contra el último año cerrado (2025),
-         no contra el acumulado parcial: comparar cierre vs Ene–Ago
+         no contra el acumulado parcial: comparar cierre vs acumulado
          daría una variación falsamente positiva.                    */
       var d;
       if (i === 0) d = { txt: 'base', cls: 'flat' };
@@ -211,7 +217,7 @@
      ════════════════════════════════════════════════════════════ */
   function renderTable(u, vpc) {
     var head = '<tr><th>Indicador</th>' +
-      PERIODS.map(function (p, i) {
+      periodsOf(u).map(function (p, i) {
         var hl = (i >= I_YTD) ? ' class="mo5-th-hl"' : '';
         return '<th' + hl + '>' + p.lbl + '<small>' + p.sub + '</small></th>';
       }).join('') +
@@ -284,7 +290,7 @@
 
     elTags.forEach(function (t) { t.textContent = u.name; });
     if (elScope) {
-      elScope.textContent = 'Unidad ' + u.name + ' · 2024–2025 cerrado · acumulado a Agosto 2026 · proyección de cierre';
+      elScope.textContent = 'Unidad ' + u.name + ' · 2024–2025 cerrado · acumulado a ' + u.ytdMes + ' 2026 · proyección de cierre';
     }
 
     if (animate) {

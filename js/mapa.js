@@ -358,7 +358,7 @@
     var colX = Math.max(px(minCx) - 26, 6);
 
     /* Anti-colisión vertical */
-    var GAP = 22;
+    var GAP = 25;
     var items = activeLabels.map(function (l) { return { l: l, y: py(l.cy) }; })
       .sort(function (a, b) { return a.y - b.y; });
     for (var i = 1; i < items.length; i++) {
@@ -374,7 +374,7 @@
       var dl = ' style="animation-delay:' + ((it.l.i || 0) * stagger + 120) + 'ms"';
       return '<line class="mc-lbl-line" x1="' + (colX + 4).toFixed(1) + '" y1="' + it.y.toFixed(1) +
              '" x2="' + tx.toFixed(1) + '" y2="' + ty.toFixed(1) + '"' + dl + '></line>' +
-             '<text class="mc-lbl" x="' + colX.toFixed(1) + '" y="' + (it.y + 4).toFixed(1) +
+             '<text class="mc-lbl" x="' + colX.toFixed(1) + '" y="' + (it.y + 5).toFixed(1) +
              '" text-anchor="end"' + dl + '>' + esc(it.l.label) + '</text>';
     }).join('');
   }

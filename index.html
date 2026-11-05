@@ -25,30 +25,34 @@
 <!-- Apertura institucional (executive-intro): se marca el documento antes del primer pintado
      para que el dashboard no alcance a verse bajo la intro. Si JS está deshabilitado la clase
      nunca se agrega y la aplicación se muestra normalmente, sin intro. -->
-<script>document.documentElement.classList.add('xi-boot');</script>
+<script>document.documentElement.classList.add('xi-boot','on-portada');</script>
 </head>
 <body>
 
 <!-- ============ EXECUTIVE INTRO · apertura institucional ============ -->
 <div class="xintro" id="xIntro" role="presentation" aria-hidden="true">
-  <div class="xi-grid"></div>
-  <div class="xi-amb"></div>
+  <!-- Marco fotográfico: usa la MISMA imagen que la portada. Al terminar la carga se
+       reacomoda hasta ocupar exactamente el lugar de la portada. -->
+  <div class="xi-frame" id="xiFrame">
+    <div class="xi-photo" id="xiPhoto"></div>
+    <div class="xi-shade"></div>
+    <div class="xi-shade-cover"></div>
+  </div>
   <div class="xi-stage">
     <div class="xi-lockup">
-      <span class="xi-halo" aria-hidden="true"></span>
       <img class="xi-iso"  src="img/brand-isotipo.png" alt="" aria-hidden="true">
       <img class="xi-word" src="img/brand-wordmark-white.png" alt="Friopacking">
     </div>
-    <div class="xi-title">Revisi&oacute;n Ejecutiva</div>
-    <div class="xi-sub">Directorio Comercial &middot;</div>
-    <div class="xi-bar"><i></i></div>
-    <div class="xi-note">Cargando panel ejecutivo<span class="xi-dots"><i></i><i></i><i></i></span></div>
   </div>
-  <!-- Pie institucional: firma corporativa, al final de la secuencia -->
-  <div class="xi-foot">
-    <span class="xi-foot-txt">Una empresa perteneciente al</span>
+  <div class="xi-bottom">
+    <div class="xi-caption">
+      <div class="xi-title">Revisi&oacute;n Ejecutiva</div>
+      <div class="xi-period" id="xiPeriod">Ene &ndash; Oct 2026</div>
+    </div>
     <img class="xi-group" src="img/brand-grupo-white.png" alt="Grupo Friopacking">
   </div>
+  <!-- Barra de carga: recorre todo el borde inferior -->
+  <div class="xi-progress"><i></i></div>
 </div>
 
 <div class="app">
@@ -91,30 +95,30 @@
     <div class="cover-inner">
       <div class="cover-eyebrow">FrioPacking · Gerencia Comercial</div>
       <div class="cover-title">Gerencia Comercial - <span class="ct-peru">Perú</span></div>
-      <div class="cover-period">Enero – Agosto 2026</div>
+      <div class="cover-period">Enero – Octubre 2026</div>
       <div class="cover-cards">
         <div class="ccard" onclick="go('ventas')">
           <div class="cc-lbl">💰 Ventas acum. 2026</div>
-          <div class="cc-val">$30.01<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">MM</span></div>
-          <div class="cc-sub">100.04% de meta $30MM · +18.78% vs 2025</div>
+          <div class="cc-val">$34.19<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">MM</span></div>
+          <div class="cc-sub">113.96% de meta $30MM · +9.12% vs 2025</div>
           <div class="cc-go">Ver ventas <svg class="svgic"><use href="#i-arr"/></svg></div>
         </div>
         <div class="ccard" onclick="go('clientes')">
           <div class="cc-lbl">👥 Clientes activos</div>
-          <div class="cc-val">73</div>
-          <div class="cc-sub">34 clientes nuevos · Período 2025–2026</div>
+          <div class="cc-val">76</div>
+          <div class="cc-sub">33 clientes nuevos · Período 2025–2026</div>
           <div class="cc-go">Ver cartera <svg class="svgic"><use href="#i-arr"/></svg></div>
         </div>
         <div class="ccard" onclick="go('pipeline')">
           <div class="cc-lbl">🎯 Win Rate</div>
-          <div class="cc-val">56.39% <span style="font-size:clamp(13px,1.2vw,17px);font-weight:600;opacity:.7">PR 2026</span></div>
+          <div class="cc-val">59.30% <span style="font-size:clamp(13px,1.2vw,17px);font-weight:600;opacity:.7">PR 2026</span></div>
           <div class="cc-sub"><span id="coverPipeCount">&mdash;</span> <span >oportunidades activas</span></div>
           <div class="cc-go">Ver pipeline <svg class="svgic"><use href="#i-arr"/></svg></div>
         </div>
         <div class="ccard obj-card" onclick="go('objetivos','o2026')">
           <div class="cc-lbl">🏆 Objetivos estratégicos</div>
-          <div class="cc-val">3<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">/5 cumplido</span></div>
-          <div class="cc-sub">2 en seguimiento · Objetivo 01 al corte Ene–Ago 2026</div>
+          <div class="cc-val">4<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">/5 cumplidos</span></div>
+          <div class="cc-sub">Atención en el objetivo 02 · Proyectos CO₂</div>
           <div class="cc-go">Ver detalle <svg class="svgic"><use href="#i-arr"/></svg></div>
           <canvas id="coverRing" width="64" height="64" style="display:none"></canvas>
         </div>
@@ -124,58 +128,58 @@
     </div>
   </div>
 </section>
+<!-- Imagen de portada compartida con la intro: si se cargó una imagen propia (guardada en
+     el navegador) se usa en ambas; si no, la imagen por defecto. También se copia el período. -->
+<script>
+(function(){
+  var src = "url('img/portada-bg.jpg')";
+  try { var s = localStorage.getItem('fp_cover_img'); if (s) src = 'url(' + s + ')'; } catch(e){}
+  var ci = document.getElementById('coverImg'), xp = document.getElementById('xiPhoto');
+  if (ci) ci.style.backgroundImage = src;
+  if (xp) xp.style.backgroundImage = src;
+  var cp = document.querySelector('#portada .cover-period'), xpd = document.getElementById('xiPeriod');
+  if (cp && xpd) xpd.textContent = cp.textContent.replace(/[A-Za-zÁÉÍÓÚáéíóúñÑ]{4,}/g, function(w){ return /^\d/.test(w) ? w : w.slice(0,3); });
+})();
+</script>
 
 <!-- ============ RESUMEN (AGENDA) ============ -->
 <section class="section" id="resumen">
   <div class="rs-view">
 
-  <div class="cli-hero rs-hero">
-    <div class="cli-hero-left">
-      <span class="cli-hero-icon">📋</span>
-      <div>
-        <div class="cli-hero-eye">Directorio Ejecutivo &middot; Resumen</div>
-        <div class="cli-hero-ttl">Agenda de Revisi&oacute;n</div>
-      </div>
-    </div>
-    <div class="cli-hero-right">6 frentes clave &middot; 2026</div>
-    <div class="rs-hero-strip"></div>
-  </div>
+  <!-- Mosaico: Ventas protagonista (izq.) + 5 bloques (der.) -->
+  <div class="rs-mosaic">
 
-  <div class="rs-grid">
-
-    <div class="rs-card" data-num="01" style="--accent:#3EC6AC;--accent-d:#0F6E56" onclick="go('ventas','y2026')">
+    <!-- 01 · Ventas actuales — protagonista, sobre la foto de portada -->
+    <div class="rs-card rs-hero-card" data-num="01" style="--accent:#3EC6AC;--accent-d:#0F6E56" onclick="go('ventas','y2026')">
+      <div class="rs-photo" id="rsPhoto"></div>
       <div class="rs-top">
         <span class="rs-num">01</span>
         <div class="rs-icon">💰</div>
       </div>
-      <div class="rs-metric"><span class="rs-metric-pre">$</span><span class="rs-metric-num">30.01</span><span class="rs-metric-suf">MM</span></div>
-      <div class="rs-title">Ventas Actuales</div>
-      <div class="rs-ctx">Estado real de ventas a agosto 2026 · 100.04% de la meta anual</div>
-      <div class="rs-cta">Abrir Ventas 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
+      <div class="rs-hero-body">
+        <div class="rs-title">Ventas Actuales</div>
+        <div class="rs-metric"><span class="rs-metric-pre">$</span><span class="rs-metric-num">34.19</span><span class="rs-metric-suf">MM</span></div>
+        <div class="rs-bar"><i style="--w:100%"></i></div>
+        <div class="rs-hero-foot">
+          <span class="rs-meta-ok">113.96% de la meta</span>
+          <span class="rs-delta">&uarr; +9.12% vs 2025</span>
+        </div>
+        <div class="rs-cta">Abrir Ventas 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
+      </div>
     </div>
 
+    <!-- 02 · Ventas & Márgenes -->
     <div class="rs-card" data-num="02" style="--accent:#3aabef;--accent-d:#1a8fd1" onclick="go('ventas','evol')">
       <div class="rs-top">
         <span class="rs-num">02</span>
         <div class="rs-icon">📈</div>
       </div>
-      <div class="rs-metric"><span class="rs-metric-num">15.55</span><span class="rs-metric-suf">%</span></div>
+      <div class="rs-metric"><span class="rs-metric-num">15.59</span><span class="rs-metric-suf">%</span></div>
       <div class="rs-title">Ventas &amp; Márgenes</div>
-      <div class="rs-ctx">Evolución acumulada de ventas y márgenes, 2026 vs 2025 y 2024</div>
       <div class="rs-cta">Abrir Evolución <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
-    <div class="rs-card" data-num="03" style="--accent:#10b981;--accent-d:#047857" onclick="go('objetivos','o2026')">
-      <div class="rs-top">
-        <span class="rs-num">03</span>
-        <div class="rs-icon">🏆</div>
-      </div>
-      <div class="rs-metric"><span class="rs-metric-num">3</span><span class="rs-metric-suf">/ 5 cumplidos</span></div>
-      <div class="rs-title">Objetivos / KPIs</div>
-      <div class="rs-ctx">Cumplimiento a julio y avance de objetivos estratégicos 2026</div>
-      <div class="rs-cta">Abrir Objetivos 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
-    </div>
-
+    <!-- 04 · Costo comercial / venta -->
     <div class="rs-card" data-num="04" style="--accent:#64748b;--accent-d:#334155" onclick="go('moventas')">
       <div class="rs-top">
         <span class="rs-num">04</span>
@@ -183,10 +187,29 @@
       </div>
       <div class="rs-metric"><span class="rs-metric-num">1.75</span><span class="rs-metric-suf">%</span></div>
       <div class="rs-title">Costo Comercial / Venta</div>
-      <div class="rs-ctx">Mano de obra y productividad · Costo del área de arquitectura: 50%</div>
       <div class="rs-cta">Abrir Mano de Obra <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
+    <!-- 03 · Objetivos / KPIs — bloque ancho con estado de cada objetivo -->
+    <div class="rs-card rs-wide" data-num="03" style="--accent:#10b981;--accent-d:#047857" onclick="go('objetivos','o2026')">
+      <div class="rs-wide-left">
+        <div class="rs-top">
+          <span class="rs-num">03</span>
+          <div class="rs-icon">🏆</div>
+        </div>
+        <div class="rs-metric"><span class="rs-metric-num">4</span><span class="rs-metric-suf">/ 5</span></div>
+        <div class="rs-title">Objetivos / KPIs</div>
+      </div>
+      <div class="rs-objs">
+        <div class="rs-obj ok"><i></i><b>01</b><span>Venta Comercial</span></div>
+        <div class="rs-obj crit"><i></i><b>02</b><span>Proyectos CO&#8322;</span></div>
+        <div class="rs-obj ok"><i></i><b>03</b><span>Valor Sin Fr&iacute;o</span></div>
+        <div class="rs-obj ok"><i></i><b>04</b><span>Clientes No Agro</span></div>
+        <div class="rs-obj ok"><i></i><b>05</b><span>Cross Selling &ndash; Frioteam</span></div>
+      </div>
+    </div>
+
+    <!-- 05 · Plan de acción -->
     <div class="rs-card" data-num="05" style="--accent:#d97706;--accent-d:#92400e" onclick="go('objetivos','plan')">
       <div class="rs-top">
         <span class="rs-num">05</span>
@@ -194,18 +217,17 @@
       </div>
       <div class="rs-metric"><span class="rs-metric-num">3</span><span class="rs-metric-suf">SMART</span></div>
       <div class="rs-title">Plan de Acción Ago&ndash;Oct</div>
-      <div class="rs-ctx">Mejoramiento continuo e iniciativas comerciales para agosto&ndash;octubre</div>
       <div class="rs-cta">Abrir Plan de Acción <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
+    <!-- 06 · Contingencia El Niño -->
     <div class="rs-card" data-num="06" style="--accent:#8b5cf6;--accent-d:#5b21b6" onclick="go('objetivos','nino')">
       <div class="rs-top">
         <span class="rs-num">06</span>
         <div class="rs-icon">🌊</div>
       </div>
-      <div class="rs-metric"><span class="rs-metric-num">7</span><span class="rs-metric-suf">Planes</span></div>
+      <div class="rs-metric"><span class="rs-metric-num">7</span><span class="rs-metric-suf">planes</span></div>
       <div class="rs-title">Contingencia · El Niño</div>
-      <div class="rs-ctx">Frentes de mitigación ante el fenómeno El Niño</div>
       <div class="rs-cta">Abrir Planes de Contingencia <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
@@ -217,7 +239,6 @@
       </div>
       <div class="rs-metric"><span class="rs-metric-num">44.98</span><span class="rs-metric-suf">%</span></div>
       <div class="rs-title">Tamaño del mercado de la refrigeración</div>
-      <div class="rs-ctx">Friopacking lidera el periodo 2025–2026, posición #1, +24.92 pp sobre Energy Project Group</div>
       <div class="rs-cta">Abrir Participación <svg class="svgic"><use href="#i-arr"/></svg></div>
     </div>
 
@@ -228,23 +249,6 @@
 
 <!-- ============ VENTAS ============ -->
 <section class="section" id="ventas">
-
-  <!-- HERO VENTAS — encabezado de contexto compacto (los KPIs viven bajo los tabs) -->
-  <div class="vt-hero vt-hero--slim">
-    <div class="vt-hero-glow" aria-hidden="true"></div>
-    <div class="vt-hero-deco" aria-hidden="true"></div>
-    <div class="vt-hero-inner">
-      <div class="vt-hero-left">
-        <div class="vt-hero-ttl">Direcci&oacute;n comercial &middot; Directorio 2026</div>
-        <div class="vt-hero-h">Evoluci&oacute;n de ventas</div>
-        <div class="vt-hero-scope">Proyectos &middot; Adicionales &middot; Servicios de arquitectura e ingenier&iacute;a</div>
-      </div>
-      <div class="vt-hero-side">
-        <span class="vt-hchip"><i class="vt-hchip-dot"></i>Ene&ndash;Ago 2026</span>
-        <span class="vt-hchip vt-hchip--ghost">Meta anual $30MM</span>
-      </div>
-    </div>
-  </div>
 
   <!-- Tabs internos de Ventas -->
   <div class="vt-tabs" id="vtTabs">
@@ -257,63 +261,39 @@
   <!-- TAB 1 · VENTAS 2026 — KPIs + Ritmo + Top 10 clientes + Composición -->
   <div class="vt-view active" data-vtview="y2026">
 
-  <!-- KPIs de alto impacto — fila única bajo los tabs -->
+  <!-- KPIs — franja única, lectura limpia (sin hero) -->
   <div class="vt-kpirow">
     <div class="vt-kpi" data-acc="cyan">
-      <span class="vt-kpi-ico" aria-hidden="true">&#128200;</span>
       <div class="vt-kpi-l">Ventas YTD</div>
-      <div class="vt-kpi-v">$30.01<span class="vt-kpi-u">MM</span></div>
-      <div class="vt-kpi-s vt-kpi-ok">&#8593; +18.78% vs 2025</div>
+      <div class="vt-kpi-v">$34.19<span class="vt-kpi-u">MM</span></div>
+      <div class="vt-kpi-s vt-kpi-ok">&#8593; +9.12% vs 2025</div>
     </div>
     <div class="vt-kpi" data-acc="teal">
-      <span class="vt-kpi-ico" aria-hidden="true">&#127919;</span>
-      <div class="vt-kpi-l">Avance de meta</div>
-      <div class="vt-kpi-v">100.04%</div>
-      <div class="vt-kpi-bar"><span class="vt-kpi-bar-fill" id="vtHeroFill" style="width:0%"></span></div>
+      <div class="vt-kpi-l">Avance meta</div>
+      <div class="vt-kpi-v">113.96<span class="vt-kpi-u">%</span></div>
       <div class="vt-kpi-s">Meta $30MM</div>
     </div>
     <div class="vt-kpi" data-acc="amber">
-      <span class="vt-kpi-ico" aria-hidden="true">&#128208;</span>
-      <div class="vt-kpi-l">Margen ponderado</div>
-      <div class="vt-kpi-v" id="vtHeroMargenVal">15.55%</div>
-      <div class="vt-kpi-s vt-kpi-err" id="vtHeroMargenSub">&#8595; Meta 18% &middot; &minus;2.45 pp</div>
+      <div class="vt-kpi-l">Margen</div>
+      <div class="vt-kpi-v" id="vtHeroMargenVal">15.59<span class="vt-kpi-u">%</span></div>
+      <div class="vt-kpi-s vt-kpi-err" id="vtHeroMargenSub">&#8595; Meta 18% &middot; &minus;2.41 pp</div>
     </div>
     <div class="vt-kpi" data-acc="blue">
-      <span class="vt-kpi-ico" aria-hidden="true">&#127959;</span>
-      <div class="vt-kpi-l">Proyectos adjudicados</div>
-      <div class="vt-kpi-v">49</div>
-      <div class="vt-kpi-s vt-kpi-err">&#8595; &minus;2.00% vs Ene&ndash;Ago 2025 (50)</div>
+      <div class="vt-kpi-l">Proyectos</div>
+      <div class="vt-kpi-v">57</div>
+      <div class="vt-kpi-s vt-kpi-ok">&#8593; +3.64% vs Ene&ndash;Oct 2025 (55)</div>
     </div>
     <!-- Win Rate PR 2026 (económico): Importe PR adjudicado / (adjudicado + perdido).
-         Adjudicado: $28,568,207.61 en 49 proyectos (tipoAgg.PR sobre ventas2026, js/ventas.js — misma base que la dona "Por Tipo de Venta").
-         Perdido 2026: 13 oportunidades, $22,093,455.55 (fuente: Excel "PIPELINE 2026-2027.xlsx", hoja PIPELINE, STATUS=Perdido;
-         las 2 oportunidades con STATUS=Cancelado NO entran en el cálculo, ni ninguna etapa activa).
-         28568207.61 / (28568207.61 + 22093455.55) = 56.39%
+         Adjudicado: $32,513,757.99 en 57 proyectos (corte Ene–Oct 2026; 2-nov-2026 se cayó Inka Select Fruit, $1.07M — en el pipeline VF figura como Cancelado) (tipoAgg.PR sobre ventas2026, js/ventas.js — misma base que la dona "Por Tipo de Venta").
+         Perdido 2026: 14 oportunidades, $22,317,201.69 (fuente: Excel "PIPELINE 2026-2027-VF.xlsx", hoja PIPELINE, STATUS=Perdido;
+         las 5 oportunidades con STATUS=Cancelado NO entran en el cálculo, ni ninguna etapa activa).
+         32513757.99 / (32513757.99 + 22317201.69) = 59.30%
          El mismo valor se muestra en la card "Win Rate" de Portada. -->
     <div class="vt-kpi" data-acc="violet">
-      <span class="vt-kpi-ico" aria-hidden="true">&#127942;</span>
       <div class="vt-kpi-l">Win Rate PR</div>
-      <div class="vt-kpi-v">56.39%</div>
-      <div class="vt-kpi-s">49 ganados &middot; 13 perdidos</div>
+      <div class="vt-kpi-v">59.30<span class="vt-kpi-u">%</span></div>
+      <div class="vt-kpi-s">$32.51M ganados &middot; $22.32M perdidos</div>
     </div>
-  </div>
-
-  <!-- RITMO DE VENTAS 2026 — gráfico protagonista -->
-  <div class="card vt-ritmo">
-    <div class="vt-ritmo-head">
-      <div class="vt-ritmo-ttlbox">
-        <div>
-          <div class="vt-ritmo-ttl">Ritmo de ventas 2026</div>
-          <div class="vt-ritmo-sub">Facturaci&oacute;n mensual, acumulado y trayectoria hacia la meta anual de $30MM</div>
-        </div>
-      </div>
-      <div class="vt-ritmo-leg">
-        <span class="vt-rl"><i class="vt-rl-bar"></i>Facturado mensual</span>
-        <span class="vt-rl"><i class="vt-rl-line"></i>Acumulado (eje der.)</span>
-        <span class="vt-rl"><i class="vt-rl-dash"></i>Meta lineal (eje der.)</span>
-      </div>
-    </div>
-    <div class="vt-ritmo-canvas"><canvas id="chRitmo26"></canvas></div>
   </div>
 
   <div class="vt-top10-grid">
@@ -322,7 +302,7 @@
     <div class="card vt-t20-card" style="padding:0;overflow:hidden">
       <div class="vt-t20-head">
         <div class="vt-card-ttl">Top 20 Clientes &middot; 2026</div>
-        <div class="vt-card-sub">Por importe facturado Ene&ndash;Ago 2026</div>
+        <div class="vt-card-sub">Por importe facturado Ene&ndash;Oct 2026</div>
       </div>
       <div class="vt-t20-tblwrap">
         <table class="top10-tbl" id="top10Tbl">
@@ -343,7 +323,7 @@
         <span class="pgi" id="top10PageInfo"></span>
         <button id="top10Next">&#8594;</button>
       </div>
-      <div class="vt-t20-leg" style="padding:8px 14px;font-size:10px;color:var(--ts);border-top:1px solid var(--border);display:flex;gap:14px;flex-wrap:wrap">
+      <div class="vt-t20-leg" style="padding:9px 16px;font-size:12px;color:var(--ts);border-top:1px solid var(--border);display:flex;gap:14px;flex-wrap:wrap">
         <span><span style="color:#16a34a;font-weight:700">■</span> &ge;18% Saludable</span>
         <span><span style="color:#d97706;font-weight:700">■</span> 12–18% Alerta</span>
         <span><span style="color:#dc2626;font-weight:700">■</span> &lt;12% Cr&iacute;tico</span>
@@ -354,7 +334,7 @@
     <div class="card vt-comp-card" style="padding:0;overflow:hidden">
       <div class="vt-comp-head">
         <div class="vt-card-ttl">Composici&oacute;n de ventas 2026</div>
-        <div class="vt-card-sub">Participaci&oacute;n por importe facturado &middot; Ene&ndash;Ago 2026</div>
+        <div class="vt-card-sub">Participaci&oacute;n por importe facturado &middot; Ene&ndash;Oct 2026</div>
       </div>
       <div class="vt-comp-tabs" id="vtCompTabs">
         <button type="button" class="vt-comp-tab active" data-comp="cli">Por clientes</button>
@@ -390,6 +370,24 @@
         <div class="vt-tipo-total" id="vtTipoTotal"></div>
       </div>
     </div>
+  </div>
+
+  <!-- RITMO DE VENTAS 2026 — gráfico protagonista -->
+  <div class="card vt-ritmo">
+    <div class="vt-ritmo-head">
+      <div class="vt-ritmo-ttlbox">
+        <div>
+          <div class="vt-ritmo-ttl">Ritmo de ventas 2026</div>
+          <div class="vt-ritmo-sub">Facturaci&oacute;n mensual, acumulado y trayectoria hacia la meta anual de $30MM</div>
+        </div>
+      </div>
+      <div class="vt-ritmo-leg">
+        <span class="vt-rl"><i class="vt-rl-bar"></i>Facturado mensual</span>
+        <span class="vt-rl"><i class="vt-rl-line"></i>Acumulado (eje der.)</span>
+        <span class="vt-rl"><i class="vt-rl-dash"></i>Meta lineal (eje der.)</span>
+      </div>
+    </div>
+    <div class="vt-ritmo-canvas"><canvas id="chRitmo26"></canvas></div>
   </div>
   </div>
 
@@ -459,7 +457,7 @@
       <div class="vt-card-head">
         <div>
           <div class="vt-card-ttl">Cierre anual &middot; 2021&ndash;2026</div>
-          <div class="vt-card-sub">Venta acumulada de cierre por a&ntilde;o &middot; 2026 YTD Ene&ndash;Ago</div>
+          <div class="vt-card-sub">Venta acumulada de cierre por a&ntilde;o &middot; 2026 YTD Ene&ndash;Oct</div>
         </div>
       </div>
       <div class="vt-ev-spacer"></div>
@@ -480,7 +478,7 @@
       <div class="vt-card-head">
         <div>
           <div class="vt-card-ttl">Margen de cierre &middot; 2021&ndash;2026</div>
-          <div class="vt-card-sub">Margen ponderado de cierre anual &middot; 2026 YTD Ene&ndash;Ago</div>
+          <div class="vt-card-sub">Margen ponderado de cierre anual &middot; 2026 YTD Ene&ndash;Oct</div>
         </div>
         <span class="vt-ev-meta-chip">&#9472; Meta 18%</span>
       </div>
@@ -585,7 +583,7 @@
     <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
       <div>
         <div class="vt-card-ttl">Operaciones comerciales 2026</div>
-        <div class="vt-card-sub" id="vt26Info">101 operaciones &middot; Total: $30.01MM &middot; 15 por p&aacute;gina</div>
+        <div class="vt-card-sub" id="vt26Info">124 operaciones &middot; Total: $34.19MM &middot; 15 por p&aacute;gina</div>
       </div>
       <input class="vt26-search" id="vt26Search" placeholder="Buscar por cliente…" style="max-width:260px;border-radius:8px;margin:0;padding:7px 12px">
     </div>
@@ -940,9 +938,9 @@
     <div class="kpi-v3" onclick="openCliModal('activos')" style="--accent:#3EC6AC">
       <div class="kv3-icon" style="font-size:20px">👥</div>
       <div class="kv3-lbl">Clientes activos 2025&ndash;2026</div>
-      <div class="kv3-val" style="color:#0F6E56">73</div>
-      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:28.7%;background:#3EC6AC"></div></div>
-      <div class="kv3-ctx">28.74% de la cartera hist&oacute;rica &middot; 254 clientes totales</div>
+      <div class="kv3-val" style="color:#0F6E56">76</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:29.9%;background:#3EC6AC"></div></div>
+      <div class="kv3-ctx">29.92% de la cartera hist&oacute;rica &middot; 254 clientes totales</div>
       <div class="kv3-delta" style="color:#0F6E56">&#8599; Ver top 20 por facturaci&oacute;n</div>
     </div>
 
@@ -951,8 +949,8 @@
       <div class="kv3-icon" style="font-size:20px">✨</div>
       <div class="kv3-lbl">Clientes nuevos 2025&ndash;2026</div>
       <div class="kv3-val" style="color:#16a34a">33</div>
-      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:45.2%;background:#16a34a"></div></div>
-      <div class="kv3-ctx">45.21% de activos son nuevos &middot; 12.99% hist&oacute;rico</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:43.4%;background:#16a34a"></div></div>
+      <div class="kv3-ctx">43.42% de activos son nuevos &middot; 12.99% hist&oacute;rico</div>
       <div class="kv3-delta" style="color:#16a34a">&#8599; Ver top 20 nuevos</div>
     </div>
 
@@ -963,18 +961,18 @@
       <div class="kv3-val" style="color:#185FA5">254</div>
       <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:100%;background:#185FA5"></div></div>
       <div class="kv3-ctx">Clientes &uacute;nicos 2014&ndash;2026</div>
-      <div class="kv3-delta" style="color:var(--ts)">181 inactivos &middot; 73 activos 25&ndash;26</div>
+      <div class="kv3-delta" style="color:var(--ts)">178 inactivos &middot; 76 activos 25&ndash;26</div>
     </div>
 
     <!-- KPI 4: Valor generado YTD — comparativo correcto -->
     <div class="kpi-v3" style="cursor:default">
       <div class="kv3-icon" style="font-size:20px">💰</div>
       <div class="kv3-lbl">Valor generado 2025&ndash;2026 YTD</div>
-      <div class="kv3-val" style="color:#d97706">$64.78MM</div>
+      <div class="kv3-val" style="color:#d97706">$68.96MM</div>
       <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:100%;background:#d97706"></div></div>
-      <!-- Nota: Valor calculado como SUM(Ene 2025–Ago 2026), fuente Data Cruda. Comparativo contra SUM(Ene 2023–Ago 2024), mismo largo de periodo (20 meses) -->
-      <div class="kv3-ctx">Acumulado Ene 2025 &ndash; Ago 2026 (20 meses)</div>
-      <div class="kv3-delta" style="color:#16a34a">&#8593; +129.98% vs per&iacute;odo Ene 2023 &ndash; Ago 2024</div>
+      <!-- Nota: Valor calculado como SUM(Ene 2025–Oct 2026), fuente Data Cruda. Comparativo contra SUM(Ene 2023–Oct 2024), mismo largo de periodo (22 meses) -->
+      <div class="kv3-ctx">Acumulado Ene 2025 &ndash; Oct 2026 (22 meses)</div>
+      <div class="kv3-delta" style="color:#16a34a">&#8593; +128.53% vs per&iacute;odo Ene 2023 &ndash; Oct 2024</div>
     </div>
   </div>
 
@@ -1047,7 +1045,7 @@
         <tbody id="segBody"></tbody>
       </table>
     </div>
-    <div class="insight" style="margin-top:12px">Segmentos <strong>Nuevo + Reactivado</strong> generan el <strong>59.95%</strong> de las ventas 2025&ndash;2026 con solo 44 clientes.</div>
+    <div class="insight" style="margin-top:12px">Segmentos <strong>Nuevo + Reactivado</strong> generan el <strong>62.12%</strong> de las ventas 2025&ndash;2026 con solo 46 clientes.</div>
   </div>
 
   <!-- Ticket promedio por cliente (histórico + 2025-26 + 2026 YTD) + evolución 2021-2026 -->
@@ -1057,7 +1055,7 @@
   </div>
   <div class="cli-evol-wrap" id="cliTicketEvolCard">
     <div class="card-h" style="margin-bottom:2px">Evoluci&oacute;n del Ticket Promedio</div>
-    <div style="font-size:11px;color:var(--ts);margin-bottom:14px">Ventas del a&ntilde;o &divide; clientes &uacute;nicos con facturaci&oacute;n &middot; 2021&ndash;2026 (2026 = YTD Ene&ndash;Ago)</div>
+    <div style="font-size:11px;color:var(--ts);margin-bottom:14px">Ventas del a&ntilde;o &divide; clientes &uacute;nicos con facturaci&oacute;n &middot; 2021&ndash;2026 (2026 = YTD Ene&ndash;Oct)</div>
     <div class="chart-wrap" style="height:clamp(240px,20vw,360px)"><canvas id="chTicketEvol"></canvas></div>
     <div class="insight" style="margin-top:14px" id="ticketEvolInsight"></div>
   </div>
@@ -1071,7 +1069,7 @@
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap">
       <div>
         <div class="card-h" style="font-size:14px;font-weight:700">Clientes atendidos vs Clientes nuevos por a&ntilde;o</div>
-        <div style="font-size:11px;color:var(--ts);margin-top:2px">Activo = factur&oacute; en el a&ntilde;o &gt; 0. Nuevo = primera factura hist&oacute;rica en ese a&ntilde;o</div>
+        <div style="font-size:11px;color:var(--ts);margin-top:2px">Atendido = factur&oacute; en el a&ntilde;o. Nuevo = primera factura hist&oacute;rica en ese a&ntilde;o &middot; <strong style="color:#185FA5">Clic en la barra azul para ver los clientes nuevos</strong></div>
       </div>
       <div id="cliEvolLegend" style="display:flex;gap:14px;font-size:11px;color:var(--ts);align-items:center;flex-wrap:wrap"></div>
     </div>
@@ -1117,7 +1115,7 @@
 </section>
 
 <!-- ============ PARTICIPACIÓN ============ -->
-<section class="section" id="participacion">
+<section class="section part-on-evol" id="participacion">
   <div class="part-hero" id="partHero">
     <div class="part-hero-left">
       <div class="part-hero-eye">Directorio Ejecutivo &middot; Participación</div>
@@ -1127,49 +1125,48 @@
     <div class="part-hero-kpis" id="partHeroKpis"></div>
   </div>
 
-  <div class="part-tabs" id="partTabs">
-    <button class="part-tab active" data-ptab="evol" onclick="partSwitchTab('evol',this)">Evolución competitiva</button>
-    <button class="part-tab" data-ptab="refr" onclick="partSwitchTab('refr',this)">Por refrigerante</button>
-    <button class="part-tab" data-ptab="sector" onclick="partSwitchTab('sector',this)">Por sector económico</button>
+  <div class="part-toolbar">
+    <div class="part-tabs" id="partTabs">
+      <button class="part-tab active" data-ptab="evol" onclick="partSwitchTab('evol',this)"><span class="part-tab-ico">&#128200;</span>Evolución competitiva</button>
+      <button class="part-tab" data-ptab="refr" onclick="partSwitchTab('refr',this)"><span class="part-tab-ico">&#10052;&#65039;</span>Por refrigerante</button>
+      <button class="part-tab" data-ptab="sector" onclick="partSwitchTab('sector',this)"><span class="part-tab-ico">&#127981;</span>Por sector económico</button>
+    </div>
+    <div class="part-period-chip" id="partPeriodChip">&mdash;</div>
   </div>
 
+  <!-- Selector de periodo (solo Evolución) -->
   <div class="part-ptabs" id="partPeriodTabs"></div>
 
-  <!-- ===== TAB: Evolución competitiva ===== -->
+  <!-- ===== TAB: Evolución competitiva — mercado al 100% + composición ===== -->
   <div class="part-pane active" id="partPane-evol">
-    <div class="part-split">
-      <div class="card part-chart-card">
-        <div class="part-card-head">
-          <div>
-            <div class="card-h">Evolución de participación de mercado</div>
-            <div class="part-card-sub">2021&ndash;2026 &middot; Participación estimada por periodo</div>
-          </div>
-          <div class="tm-toggle" id="partEvolToggle" style="margin-left:auto">
-            <div class="tm-btn active" data-ev="lider">Friopacking vs líder</div>
-            <div class="tm-btn" data-ev="top5">Top 5</div>
-            <div class="tm-btn" data-ev="todos">Todos los competidores</div>
-          </div>
+
+    <!-- Mercado de refrigeración: una barra al 100% -->
+    <div class="pev-market">
+      <div class="pev-mk-head">
+        <div>
+          <div class="pev-ttl">Mercado de refrigeraci&oacute;n</div>
+          <div class="pev-sub" id="pevMkSub">&mdash;</div>
         </div>
-        <div class="chart-wrap" style="height:clamp(340px,32vw,480px)"><canvas id="chPartEvol"></canvas></div>
-        <div class="part-h-legend" id="partEvolLegend"></div>
-        <div class="insight" id="partEvolMicro"></div>
+        <div class="pev-total"><span>Total</span><b id="pevMkTotal">&mdash;</b></div>
       </div>
-      <div class="card part-rank-card">
-        <div class="card-h">Ranking del periodo</div>
-        <div class="part-card-sub" id="partEvolRankSub"></div>
-        <div id="partEvolRankList"></div>
-      </div>
+      <div class="pev-bar" id="pevBar"></div>
+      <div class="pev-legend" id="pevLegend"></div>
     </div>
 
-    <div class="part-mkt-card">
-      <div class="part-card-head">
-        <div>
-          <div class="card-h">Evolución del mercado de refrigeración</div>
-          <div class="part-card-sub">Facturación total del mercado por periodo y tendencia histórica</div>
-        </div>
+    <!-- Composición -->
+    <div class="pev-grid">
+      <div class="pev-card" style="--d:.12s">
+        <div class="pev-card-ttl"><span>&#10052;&#65039;</span>Por refrigerante</div>
+        <div id="pevRefr"></div>
       </div>
-      <div class="chart-wrap" style="height:clamp(260px,22vw,360px)"><canvas id="chPartMarket"></canvas></div>
-      <div class="part-mkt-legend" id="partMarketLegend"></div>
+      <div class="pev-card" style="--d:.18s">
+        <div class="pev-card-ttl"><span>&#127981;</span>Por sector</div>
+        <div id="pevSector"></div>
+      </div>
+      <div class="pev-card" style="--d:.24s">
+        <div class="pev-card-ttl"><span>&#128200;</span>Friopacking por periodo</div>
+        <div class="pev-hist" id="pevHist"></div>
+      </div>
     </div>
   </div>
 
@@ -1221,229 +1218,139 @@
 
 <!-- ============ OBJETIVOS ============ -->
 <section class="section" id="objetivos">
-  <div class="obj-tabs">
-    <div class="obj-tab active" data-otab="o2026" onclick="objTab('o2026',this)">Objetivos 2026</div>
-    <div class="obj-tab" data-otab="plan" onclick="objTab('plan',this)">Plan de Acci&oacute;n Agosto &ndash; Octubre</div>
-    <div class="obj-tab" data-otab="nino" onclick="objTab('nino',this)">Planes de contingencia</div>
-  </div>
+  <!-- Navegación discreta de un solo nivel: reemplaza los tabs internos y el
+       selector SMART / Planes (que se conserva oculto en el pane). -->
+  <nav class="obj-tabs" aria-label="Secciones de Objetivos y Planes">
+    <div class="obj-tab active" data-otab="o2026" tabindex="0" onclick="objTab('o2026',this)" onkeydown="paKey(event,this)">Objetivos 2026</div>
+    <div class="obj-tab" data-otab="plan" data-pnv="smart" tabindex="0" onclick="objTab('plan',this)" onkeydown="paKey(event,this)">Objetivos SMART</div>
+    <div class="obj-tab" data-otab="plan" data-pnv="plan" tabindex="0" onclick="objTab('plan',this)" onkeydown="paKey(event,this)">Plan de acci&oacute;n</div>
+    <div class="obj-tab" data-otab="nino" tabindex="0" onclick="objTab('nino',this)" onkeydown="paKey(event,this)">Contingencia Nov&ndash;Dic</div>
+  </nav>
 
-  <!-- ====== PANE · PLAN DE ACCIÓN AGO–OCT ====== -->
+  <!-- ====== PANE · OBJETIVOS SMART Y PLANES DE ACCIÓN — NOV–DIC 2026 ======
+       Dos vistas: 3 objetivos SMART · 2 planes de acción. Render: js/objetivos.js (PLAN ND). -->
   <div class="obj-pane" id="objPane-plan">
+    <div class="pn">
+      <div class="pn-bar">
+        <div class="pn-seg" role="tablist">
+          <button type="button" class="pn-seg-b active" data-pnv="smart" onclick="pnView('smart',this)">Objetivos SMART</button>
+          <button type="button" class="pn-seg-b" data-pnv="plan" onclick="pnView('plan',this)">Planes de acci&oacute;n</button>
+        </div>
+        <div class="pn-period"><i></i>Noviembre &ndash; Diciembre 2026</div>
+      </div>
 
-    <div class="o5m-eyebrow">Objetivos SMART</div>
-    <div class="o5m-grid o5m-grid-3">
+      <!-- VISTA 1 · OBJETIVOS SMART -->
+      <div class="pn-view active" data-pnv="smart">
+        <div class="pn-ttl">Consolidaci&oacute;n de procesos comerciales</div>
+        <div class="pn-smart" id="pnSmart"></div>
+        <div class="pn-legend">
+          <span><i class="lg-done"></i>Completado</span>
+          <span><i class="lg-prog"></i>En curso</span>
+          <span><i class="lg-pend"></i>Pendiente</span>
+        </div>
+      </div>
 
-      <div class="o5m o5m-smart is-over" style="--c:#185fa5;--cd:#0e4a7a;--i:0" role="button" tabindex="0"
-           data-ev="1" onclick="paEvOpen(this)" onkeydown="paKey(event,this)">
-        <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Link/3D/link_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🔗"'></span>
-        <span class="o5m-head">
-          <span class="o5m-num">01</span>
-        </span>
-        <span class="o5m-name">Flujo comercial integrado y trazable</span>
-        <span class="o5m-ringwrap">
-          <svg class="o5m-ring" viewBox="0 0 120 120" aria-hidden="true">
-            <circle class="o5m-ring-t" cx="60" cy="60" r="52"></circle>
-            <circle class="o5m-ring-f" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="326.73" data-off="0"></circle>
-          </svg>
-          <span class="o5m-ring-c"><span class="o5m-pct">100<i>%</i></span><span class="o5m-pct-lbl">avance</span></span>
-          <span class="o5m-crown" title="Logrado">&#10003;</span>
-        </span>
-        <span class="o5m-state" style="color:#16a34a"><span class="o5m-dot" style="background:#16a34a"></span>Logrado</span>
-        <span class="o5m-resp"><i>Responsable</i>Valeria Rodr&iacute;guez</span>
-        <span class="o5m-due"><i aria-hidden="true">&#128197;</i>30 Sep 2026</span>
-        <span class="o5m-go">Ver evidencia <i>&#8594;</i></span>
-        <div class="pa-sc-body pa-detail" hidden>
-          <div class="pa-sc-full">Flujo comercial integrado y trazable</div>
-          <div class="pa-sc-desc">Formalizar y consolidar el flujo comercial que conecta Comercial, Arquitectura y Presupuestos/Ingenier&iacute;a, integrando los flujogramas operativos definidos con la plataforma de seguimiento y control de oportunidades, para asegurar una gesti&oacute;n ordenada, trazable y actualizada de las oportunidades activas.</div>
-          <div class="pa-chips">
-            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">% de oportunidades activas con etapa, responsable, prioridad, pr&oacute;xima acci&oacute;n y fecha actualizadas en la plataforma</span></div>
-            <div class="pa-chip-row">
-              <div class="pa-chip"><span class="pa-chip-l">Responsable</span><span class="pa-chip-v">Valeria Rodr&iacute;guez</span></div>
-              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Fecha l&iacute;mite</span><span class="pa-chip-v">30 septiembre 2026</span></div>
+      <!-- VISTA 2 · PLANES DE ACCIÓN — composición de "decisiones": plan principal con
+           módulos integrados + plan secundario en columna. Plegables para desglose y pasos. -->
+      <div class="pn-view" data-pnv="plan">
+        <div class="pd">
+
+          <!-- PLAN 01 -->
+          <article class="pd-main" style="--c:#3aabef;--cd:#185fa5">
+            <div class="pd-head">
+              <span class="pd-ico" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Bar%20chart/3D/bar_chart_3d.png" alt="" loading="lazy" onerror='this.outerHTML="📊"'></span>
+              <div class="pd-hd">
+                <div class="pd-eye">Plan de acci&oacute;n 01 &middot; Planificaci&oacute;n y control de la gesti&oacute;n comercial 2027</div>
+                <h3 class="pd-act">Definir cuotas de venta por vendedor y zona</h3>
+                <p class="pd-sub">Ligadas a cobertura de clientes, actividad comercial y conversi&oacute;n.</p>
+              </div>
+              <span class="pd-pill is-warn"><i></i>Metas por definir</span>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="o5m o5m-smart is-over" style="--c:#0d9488;--cd:#115e59;--i:1" role="button" tabindex="0"
-           data-ev="2" onclick="paEvOpen(this)" onkeydown="paKey(event,this)">
-        <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Memo/3D/memo_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="📝"'></span>
-        <span class="o5m-head">
-          <span class="o5m-num">02</span>
-        </span>
-        <span class="o5m-name">Estandarizaci&oacute;n de la propuesta comercial</span>
-        <span class="o5m-ringwrap">
-          <svg class="o5m-ring" viewBox="0 0 120 120" aria-hidden="true">
-            <circle class="o5m-ring-t" cx="60" cy="60" r="52"></circle>
-            <circle class="o5m-ring-f" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="326.73" data-off="0"></circle>
-          </svg>
-          <span class="o5m-ring-c"><span class="o5m-pct">100<i>%</i></span><span class="o5m-pct-lbl">avance</span></span>
-          <span class="o5m-crown" title="Logrado">&#10003;</span>
-        </span>
-        <span class="o5m-state" style="color:#16a34a"><span class="o5m-dot" style="background:#16a34a"></span>Logrado</span>
-        <span class="o5m-resp"><i>Responsable</i>Jes&uacute;s Ch&aacute;vez</span>
-        <span class="o5m-due"><i aria-hidden="true">&#128197;</i>30 Sep 2026</span>
-        <span class="o5m-go">Ver evidencia <i>&#8594;</i></span>
-        <div class="pa-sc-body pa-detail" hidden>
-          <div class="pa-sc-full">Estandarizaci&oacute;n de la propuesta comercial</div>
-          <div class="pa-sc-desc">Transformar la presentaci&oacute;n de los presupuestos t&eacute;cnicos en una propuesta comercial estandarizada, visualmente m&aacute;s clara, profesional y atractiva, asegurando que el 100% de los presupuestos emitidos se entregue bajo la nueva plantilla comercial definida.</div>
-          <div class="pa-chips">
-            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">% de presupuestos emitidos con la nueva plantilla comercial</span></div>
-            <div class="pa-chip-row">
-              <div class="pa-chip"><span class="pa-chip-l">Responsable</span><span class="pa-chip-v">Jes&uacute;s Ch&aacute;vez</span></div>
-              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Fecha l&iacute;mite</span><span class="pa-chip-v">30 septiembre 2026</span></div>
+            <div class="pd-meta">
+              <div class="pd-mm"><span class="pd-ml">Responsable</span><b>Equipo comercial</b></div>
+              <div class="pd-mm"><span class="pd-ml">Situaci&oacute;n actual</span><b>Metas a definir con el equipo comercial</b></div>
+              <div class="pd-mm"><span class="pd-ml">Resultado esperado</span><b>Modelo de cuotas por zona y seguimiento comercial 2027</b></div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="o5m o5m-smart" style="--c:#0891b2;--cd:#164e63;--i:2" role="button" tabindex="0"
-           data-ev="3" data-noev="1" onclick="paEvOpen(this)" onkeydown="paKey(event,this)">
-        <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Chart%20increasing/3D/chart_increasing_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="📈"'></span>
-        <span class="o5m-head">
-          <span class="o5m-num">03</span>
-        </span>
-        <span class="o5m-name">Cierre de proyectos y mejora continua del presupuesto</span>
-        <span class="o5m-ringwrap">
-          <svg class="o5m-ring" viewBox="0 0 120 120" aria-hidden="true">
-            <circle class="o5m-ring-t" cx="60" cy="60" r="52"></circle>
-            <circle class="o5m-ring-f" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="326.73" data-off="261.38"></circle>
-          </svg>
-          <span class="o5m-ring-c"><span class="o5m-pct">20<i>%</i></span><span class="o5m-pct-lbl">avance</span></span>
-        </span>
-        <span class="o5m-state" style="color:#ca8a04"><span class="o5m-dot" style="background:#ca8a04"></span>En proceso</span>
-        <span class="o5m-resp"><i>Responsables</i>Valeria Rodr&iacute;guez + Giuliana Pareja</span>
-        <span class="o5m-due"><i aria-hidden="true">&#128197;</i>31 Oct 2026</span>
-        <span class="o5m-go">Ver detalle <i>&#8594;</i></span>
-        <div class="pa-sc-body pa-detail" hidden>
-          <div class="pa-sc-full">Cierre de proyectos y mejora continua del presupuesto</div>
-          <div class="pa-sc-desc">Consolidar un proceso estandarizado de cierre de proyectos mediante el an&aacute;lisis comparativo entre presupuesto, gasto real y margen obtenido, identificando desviaciones y sus causas junto con Ingenier&iacute;a y Comercial, para convertir las lecciones aprendidas en ajustes concretos que mejoren la precisi&oacute;n de futuros presupuestos y la comprensi&oacute;n comercial del margen.</div>
-          <div class="pa-action"><span class="pa-action-lbl">Hito actual</span><span class="pa-action-txt">Reuniones de coordinaci&oacute;n programadas y an&aacute;lisis en curso del presupuesto actual para avanzar en su estandarizaci&oacute;n y establecer la base del proceso de cierre y lecciones aprendidas.</span></div>
-          <div class="pa-chips">
-            <div class="pa-chip"><span class="pa-chip-l">KPI</span><span class="pa-chip-v">% de proyectos cerrados con an&aacute;lisis de desviaciones, margen y lecciones aprendidas documentadas</span></div>
-            <div class="pa-chip-row">
-              <div class="pa-chip"><span class="pa-chip-l">Responsables</span><span class="pa-chip-v">Valeria Rodr&iacute;guez + Giuliana Pareja</span></div>
-              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Fecha l&iacute;mite</span><span class="pa-chip-v">31 octubre 2026</span></div>
+            <div class="pd-box">
+              <div class="pd-kpi">
+                <div class="pd-kpi-l">Participaci&oacute;n de ventas por zona</div>
+                <div class="pn-zbar" id="pnZBar"></div>
+                <div class="pn-zgrid" id="pnZones"></div>
+              </div>
+              <div class="pd-kpi">
+                <div class="pd-kpi-l">Cartera de clientes por zona <b id="pnCartTot"></b></div>
+                <div class="pn-cgrid" id="pnCartera"></div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-    </div>
-
-    <div class="o5m-eyebrow">Planes de acci&oacute;n</div>
-    <div class="o5m-grid o5m-grid-sub">
-
-      <div class="o5m o5m-sub" style="--c:#1a8fd1;--cd:#0e4a7a;--i:0" role="button" tabindex="0"
-           onclick="paSmartToggle(this)" onkeydown="paKey(event,this)">
-        <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Counterclockwise%20arrows%20button/3D/counterclockwise_arrows_button_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🔄"'></span>
-        <span class="o5m-head"><span class="o5m-num">01</span></span>
-        <span class="o5m-name">Reactivaci&oacute;n de clientes</span>
-        <span class="o5m-seq"><b>182</b><i>&#8594;</i><b>20</b><i>&#8594;</i><b>2</b></span>
-        <span class="o5m-desc">Inactivos &middot; Recontactar &middot; Vender</span>
-        <span class="o5m-go">Detalle <i>&#8594;</i></span>
-        <div class="pa-sc-body pa-detail">
-          <div class="pa-sc-full">Reactivaci&oacute;n de clientes desactivados</div>
-          <div class="pa-sc-desc">Identificar y priorizar clientes sin compras en los &uacute;ltimos 24 meses, revisar su historial comercial y ejecutar llamadas, correos y reuniones con una propuesta de reactivaci&oacute;n.</div>
-          <div class="pa-pc-metrics">
-            <div class="pa-pm"><span class="pa-pm-v">182</span><span class="pa-pm-l">Inactivos</span></div>
-            <div class="pa-pm"><span class="pa-pm-v">20</span><span class="pa-pm-l">Recontactar</span></div>
-            <div class="pa-pm"><span class="pa-pm-v">2</span><span class="pa-pm-l">Vender</span></div>
-          </div>
-          <div class="pa-adv">
-            <div class="pa-adv-hd">
-              <span class="pa-adv-lbl">Avance actual</span>
-              <span class="pa-adv-sum"><b>5</b> gestionados <i>&middot;</i> <b class="is-ok">3</b> reactivados <i>&middot;</i> <b class="is-wr">2</b> en proceso</span>
+            <div class="pd-sec">Acciones a ejecutar</div>
+            <div class="pd-steps">
+              <div class="pd-step" style="--d:.08s">
+                <div class="pd-step-hd"><span class="pd-step-ico">&#127919;</span><b>Cuotas</b><em>01</em></div>
+                <p>Asignar metas por vendedor y zona, seg&uacute;n cartera activa e hist&oacute;rico. Registrar aparte las ventas de gerencia y otros responsables.</p>
+              </div>
+              <div class="pd-step" style="--d:.14s">
+                <div class="pd-step-hd"><span class="pd-step-ico">&#128205;</span><b>Visitas</b><em>02</em></div>
+                <p>Fijar una meta mensual por ejecutivo seg&uacute;n clientes activos, inactivos y potencial de prospecci&oacute;n.</p>
+              </div>
+              <div class="pd-step" style="--d:.2s">
+                <div class="pd-step-hd"><span class="pd-step-ico">&#128260;</span><b>Conversi&oacute;n</b><em>03</em></div>
+                <p>Dar seguimiento a visitas realizadas &rarr; cotizaciones generadas &rarr; ventas cerradas.</p>
+              </div>
             </div>
-            <div class="pa-adv-zone"><span class="pa-adv-zn">Zona Sur</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">P&oacute;mica</span><span class="sb-ok">Reactivado</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">IQF</span><span class="sb-warn">En proceso</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">Don Ricardo</span><span class="sb-warn">En proceso</span></div>
-            <div class="pa-adv-zone"><span class="pa-adv-zn">Zona Centro</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">Axiolong / Emergent Cold</span><span class="sb-ok">Reactivado</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">Oregon Foods</span><span class="sb-ok">Reactivado</span></div>
-          </div>
-        </div>
-      </div>
 
-      <div class="o5m o5m-sub" style="--c:#0d9488;--cd:#115e59;--i:1" role="button" tabindex="0"
-           onclick="paSmartToggle(this)" onkeydown="paKey(event,this)">
-        <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Magnifying%20glass%20tilted%20left/3D/magnifying_glass_tilted_left_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🔍"'></span>
-        <span class="o5m-head"><span class="o5m-num">02</span></span>
-        <span class="o5m-name">Prospecci&oacute;n y diversificaci&oacute;n</span>
-        <span class="o5m-seq"><b>54</b><i>&#8594;</i><b>13</b><i>&#8594;</i><b>US$6.50MM</b></span>
-        <span class="o5m-desc">Visitas &middot; Cotizaciones &middot; Cotizado</span>
-        <span class="o5m-go">Detalle <i>&#8594;</i></span>
-        <div class="pa-sc-body pa-detail">
-          <div class="pa-sc-full">Prospecci&oacute;n y diversificaci&oacute;n sectorial</div>
-          <div class="pa-sc-desc">Ejecutar prospecci&oacute;n y visitas comerciales en operadores log&iacute;sticos, industria general, pesca, l&aacute;cteos y c&aacute;rnicos mediante propuestas diferenciadas por sector.</div>
-          <div class="pa-pc-metrics">
-            <div class="pa-pm"><span class="pa-pm-v">54</span><span class="pa-pm-l">Visitas</span></div>
-            <div class="pa-pm"><span class="pa-pm-v">13</span><span class="pa-pm-l">Cotizaciones</span></div>
-            <div class="pa-pm"><span class="pa-pm-v">US$6.50MM</span><span class="pa-pm-l">Cotizados</span></div>
-          </div>
-          <div class="pa-adv">
-            <div class="pa-adv-hd">
-              <span class="pa-adv-lbl">Avance &middot; Pipeline NO AGRO</span>
-              <span class="pa-adv-sum"><b>11</b> oport. <i>&middot;</i> <b>US$10.57MM</b></span>
+            <div class="pd-band">
+              <div class="pd-band-row">
+                <div class="pn-read" id="pnRead"></div>
+                <button type="button" class="pd-btn" onclick="pnDesglose()">Ver desglose <i aria-hidden="true">&#8250;</i></button>
+              </div>
+              <!-- Fuente del desglose: se muestra en el modal (no se despliega en la card) -->
+              <div class="pn-more-body" id="pnMore" hidden></div>
             </div>
-            <div class="pa-adv-note">La gesti&oacute;n de prospecci&oacute;n y diversificaci&oacute;n mantiene 11 oportunidades activas fuera del sector Agro por US$10.57MM.</div>
-            <div class="pa-adv-zone"><span class="pa-adv-zn">Deals destacados</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">Hijuelas</span><span class="pa-adv-val">US$3.00MM</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">Emergent Cold &mdash; Greenfield ECLA</span><span class="pa-adv-val">US$2.10MM</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">Delice</span><span class="pa-adv-val">US$1.26MM</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">Perupez</span><span class="pa-adv-val">US$1.00MM</span></div>
-            <div class="pa-adv-row"><span class="pa-adv-cli">NGR &ndash; Nutra</span><span class="pa-adv-val">US$0.94MM</span></div>
-            <div class="pa-adv-src">Fuente: Objetivo 04 &middot; Clientes Nuevos Fuera del Sector Agro</div>
-          </div>
-        </div>
-      </div>
+          </article>
 
-      <div class="o5m o5m-sub" style="--c:#3d4a6a;--cd:#20283f;--i:2" role="button" tabindex="0"
-           onclick="paSmartToggle(this)" onkeydown="paKey(event,this)">
-        <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Bar%20chart/3D/bar_chart_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="📊"'></span>
-        <span class="o5m-head"><span class="o5m-num">03</span></span>
-        <span class="o5m-name">Gesti&oacute;n del funnel</span>
-        <span class="o5m-seq"><b>100%</b></span>
-        <span class="o5m-desc">Funnel actualizado &middot; agenda y reporte semanal</span>
-        <span class="o5m-go">Detalle <i>&#8594;</i></span>
-        <div class="pa-sc-body pa-detail">
-          <div class="pa-sc-full">Gesti&oacute;n y seguimiento del funnel comercial</div>
-          <div class="pa-sc-desc">Registrar y actualizar agendas, contactos, visitas, cotizaciones, probabilidades y pr&oacute;ximas acciones; consolidar el seguimiento semanal y emitir el reporte de avance comercial.</div>
-          <div class="pa-pc-metrics">
-            <div class="pa-pm"><span class="pa-pm-v">100%</span><span class="pa-pm-l">Actualizado</span></div>
-            <div class="pa-pm"><span class="pa-pm-v">Semanal</span><span class="pa-pm-l">Agenda</span></div>
-            <div class="pa-pm"><span class="pa-pm-v">Semanal</span><span class="pa-pm-l">Reporte</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="o5m o5m-sub" style="--c:#7c5cd6;--cd:#4c3496;--i:3" role="button" tabindex="0"
-           onclick="paSmartToggle(this)" onkeydown="paKey(event,this)">
-        <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Puzzle%20piece/3D/puzzle_piece_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🧩"'></span>
-        <span class="o5m-head"><span class="o5m-num">04</span></span>
-        <span class="o5m-name">Calidad del traspaso de informaci&oacute;n</span>
-        <span class="o5m-seq"><b>3</b><i>&#8594;</i><b>1</b><i>&#8594;</i><b>100%</b></span>
-        <span class="o5m-desc">Sub&aacute;reas &middot; Taller colaborativo &middot; Traspasos con est&aacute;ndar</span>
-        <span class="o5m-go">Detalle <i>&#8594;</i></span>
-        <div class="pa-sc-body pa-detail">
-          <div class="pa-sc-full">Claridad y calidad entre sub&aacute;reas</div>
-          <div class="pa-sc-desc">Realizar un taller colaborativo entre Comercial, Arquitectura y Presupuestos/Ingenier&iacute;a para definir en conjunto la informaci&oacute;n m&iacute;nima, criterios y formatos necesarios en cada traspaso. La din&aacute;mica buscar&aacute; identificar qu&eacute; necesita recibir cada &aacute;rea para trabajar correctamente y establecer un est&aacute;ndar consensuado que mejore la claridad, calidad y consistencia de la informaci&oacute;n.</div>
-          <div class="pa-pc-metrics">
-            <div class="pa-pm"><span class="pa-pm-v">3</span><span class="pa-pm-l">Sub&aacute;reas</span></div>
-            <div class="pa-pm"><span class="pa-pm-v">1</span><span class="pa-pm-l">Taller</span></div>
-            <div class="pa-pm"><span class="pa-pm-v">100%</span><span class="pa-pm-l">Traspasos estandarizados</span></div>
-          </div>
-          <div class="pa-chips">
-            <div class="pa-chip"><span class="pa-chip-l">Cruces principales</span><span class="pa-chip-v">Ejecutivo &#8594; Arquitectura &middot; Arquitectura &#8594; Presupuestos &middot; Ejecutivo &#8594; Presupuestos/Ingenier&iacute;a</span></div>
-            <div class="pa-chip-row">
-              <div class="pa-chip"><span class="pa-chip-l">Resultado</span><span class="pa-chip-v">Matriz de traspaso + informaci&oacute;n m&iacute;nima requerida + formatos/checklist consensuados por el equipo</span></div>
-              <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Fecha</span><span class="pa-chip-v">Fin de octubre 2026</span></div>
+          <!-- PLAN 02 -->
+          <article class="pd-side" style="--c:#7c5cd6;--cd:#4c3496">
+            <div class="pd-side-top">
+              <span class="pd-num">02</span>
+              <span class="pd-ico" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Puzzle%20piece/3D/puzzle_piece_3d.png" alt="" loading="lazy" onerror='this.outerHTML="🧩"'></span>
             </div>
-          </div>
+            <div class="pd-eye">Plan de acci&oacute;n &middot; Estandarizaci&oacute;n del traspaso de informaci&oacute;n</div>
+            <h3 class="pd-act pd-act--sm">Estandarizar el traspaso de informaci&oacute;n entre &aacute;reas</h3>
+
+            <div class="pd-adv">
+              <div class="pn-mini" id="pnP2Ring"></div>
+              <div class="pd-adv-tx">
+                <span class="pd-ml">Pr&oacute;ximo hito</span>
+                <b>Taller &middot; fines de noviembre</b>
+                <span class="pd-pill is-warn"><i></i>En curso</span>
+              </div>
+            </div>
+
+            <div class="pd-coord">
+              <span class="pd-ml">Coordinaci&oacute;n entre &aacute;reas</span>
+              <div class="pd-areas"><i>Comercial</i><i>Arquitectura</i><i>Presupuestos e Ingenier&iacute;a</i></div>
+            </div>
+
+            <div class="pd-ops">
+              <span class="pd-ml">Pasos operativos</span>
+              <ol class="pd-ol">
+                <li style="--d:.16s"><span>1</span>Definir los requisitos m&iacute;nimos y criterios de aceptaci&oacute;n</li>
+                <li style="--d:.22s"><span>2</span>Estandarizar las actas y documentos de entrada / salida</li>
+                <li style="--d:.28s"><span>3</span>Definir responsables y validaciones, y asegurar el cumplimiento del flujo en plataforma</li>
+              </ol>
+            </div>
+
+            <div class="pd-foot">
+              <span class="pd-ml">Resultado esperado</span>
+              <b>Flujo documental acordado y aplicaci&oacute;n progresiva en la plataforma existente</b>
+            </div>
+          </article>
+
         </div>
       </div>
-
     </div>
   </div>
 
@@ -1456,7 +1363,7 @@
         <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Package/3D/package_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="📦"'></span>
         <span class="o5m-head"><span class="o5m-num">01</span></span>
         <span class="o5m-name">Coldtainer zonas norte</span>
-        <span class="o5m-ctx">Piura &middot; Lambayeque &middot; La Libertad &mdash; Set&ndash;Oct 2026</span>
+        <span class="o5m-ctx">Piura &middot; Lambayeque &middot; La Libertad &mdash; Nov&ndash;Dic 2026</span>
         <span class="o5m-go">Detalle <i>&#8594;</i></span>
         <div class="pa-sc-body pa-detail">
           <div class="pa-sc-full">Coldtainer para zonas norte incomunicadas</div>
@@ -1464,7 +1371,7 @@
           <div class="pa-action"><span class="pa-action-lbl">Acci&oacute;n</span><span class="pa-action-txt">Top 20 clientes mapeados. Stock de 10 unidades reservadas en Piura antes de temporada.</span></div>
           <div class="pa-chip-row">
             <div class="pa-chip"><span class="pa-chip-l">Modalidad</span><span class="pa-chip-v">Fabricar stock &middot; Leasing / Venta</span></div>
-            <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Periodo</span><span class="pa-chip-v">Set&ndash;Oct 2026</span></div>
+            <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Periodo</span><span class="pa-chip-v">Nov&ndash;Dic 2026</span></div>
           </div>
         </div>
       </div>
@@ -1474,7 +1381,7 @@
         <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Handshake/3D/handshake_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🤝"'></span>
         <span class="o5m-head"><span class="o5m-num">02</span></span>
         <span class="o5m-name">Diversificaci&oacute;n NO AGRO</span>
-        <span class="o5m-ctx">Vitivin&iacute;cola e industria general &mdash; Q4 2026</span>
+        <span class="o5m-ctx">Vitivin&iacute;cola e industria general &mdash; Nov&ndash;Dic 2026</span>
         <span class="o5m-go">Detalle <i>&#8594;</i></span>
         <div class="pa-sc-body pa-detail">
           <div class="pa-sc-full">Diversificaci&oacute;n NO AGRO &mdash; Sinergia Frioteam</div>
@@ -1482,7 +1389,7 @@
           <div class="pa-action"><span class="pa-action-lbl">Acci&oacute;n</span><span class="pa-action-txt">Acuerdo marco de co-ejecuci&oacute;n a definir en setiembre.</span></div>
           <div class="pa-chip-row">
             <div class="pa-chip"><span class="pa-chip-l">Clientes objetivo</span><span class="pa-chip-v">Tacama &middot; Queirolo &middot; Vi&ntilde;as de Oro</span></div>
-            <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Periodo</span><span class="pa-chip-v">Q4 2026</span></div>
+            <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Periodo</span><span class="pa-chip-v">Nov&ndash;Dic 2026</span></div>
           </div>
         </div>
       </div>
@@ -1492,7 +1399,7 @@
         <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Building%20construction/3D/building_construction_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🏗️"'></span>
         <span class="o5m-head"><span class="o5m-num">03</span></span>
         <span class="o5m-name">Infraestructura y campamentos</span>
-        <span class="o5m-ctx">OO.CC EE.MM &middot; antic&iacute;clico al FEN &mdash; Oct 2026</span>
+        <span class="o5m-ctx">OO.CC EE.MM &middot; antic&iacute;clico al FEN &mdash; Nov&ndash;Dic 2026</span>
         <span class="o5m-go">Detalle <i>&#8594;</i></span>
         <div class="pa-sc-body pa-detail">
           <div class="pa-sc-full">Infraestructura, OO.CC EE.MM y campamentos de campo</div>
@@ -1500,7 +1407,7 @@
           <div class="pa-action"><span class="pa-action-lbl">Acci&oacute;n</span><span class="pa-action-txt">Acelerar Prolan. Prospectar Hass Per&uacute; y Mission para campamentos con cadena de fr&iacute;o integrada.</span></div>
           <div class="pa-chip-row">
             <div class="pa-chip"><span class="pa-chip-l">Clientes objetivo</span><span class="pa-chip-v">Prolan &middot; Hass Per&uacute; &middot; Mission</span></div>
-            <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Periodo</span><span class="pa-chip-v">Oct 2026</span></div>
+            <div class="pa-chip pa-chip-date"><span class="pa-chip-l">Periodo</span><span class="pa-chip-v">Nov&ndash;Dic 2026</span></div>
           </div>
         </div>
       </div>
@@ -1510,11 +1417,11 @@
         <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Snowflake/3D/snowflake_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="❄️"'></span>
         <span class="o5m-head"><span class="o5m-num">04</span></span>
         <span class="o5m-name">Foco en Congelado</span>
-        <span class="o5m-ctx">7 cuentas activas &middot; 1 venta cerrada &mdash; Q4 2026</span>
+        <span class="o5m-ctx">7 cuentas activas &middot; 1 venta cerrada &mdash; Nov&ndash;Dic 2026</span>
         <span class="o5m-go">Detalle <i>&#8594;</i></span>
         <div class="pa-sc-body pa-detail">
           <div class="pa-sc-full">Foco en el segmento Congelado</div>
-          <div class="pa-sc-desc">Crecimiento estructural independiente del FEN. Demanda internacional estable. 7 cuentas en expansi&oacute;n activa con proyectos confirmables en Q4 2026.</div>
+          <div class="pa-sc-desc">Crecimiento estructural independiente del FEN. Demanda internacional estable. 7 cuentas en expansi&oacute;n activa con proyectos confirmables en noviembre y diciembre 2026.</div>
           <div class="pa-adv">
             <div class="pa-adv-hd">
               <span class="pa-adv-lbl">Avance actual</span>
@@ -1533,7 +1440,7 @@
         <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Bank/3D/bank_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🏦"'></span>
         <span class="o5m-head"><span class="o5m-num">05</span></span>
         <span class="o5m-name">Financiamiento a clientes</span>
-        <span class="o5m-ctx">Cuatro mecanismos &middot; 2 clientes en curso &mdash; temporada FEN</span>
+        <span class="o5m-ctx">Cuatro mecanismos &middot; 2 clientes en curso &mdash; Nov&ndash;Dic 2026</span>
         <span class="o5m-go">Detalle <i>&#8594;</i></span>
         <div class="pa-sc-body pa-detail">
           <div class="pa-sc-full">Financiamiento a clientes estrat&eacute;gicos</div>
@@ -1556,7 +1463,7 @@
         <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Chequered%20flag/3D/chequered_flag_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🏁"'></span>
         <span class="o5m-head"><span class="o5m-num">06</span></span>
         <span class="o5m-name">Obras norte antes de lluvias</span>
-        <span class="o5m-ctx">Olmos &middot; 2 clientes en cotizaci&oacute;n &mdash; ventana Ene&ndash;Feb 2027</span>
+        <span class="o5m-ctx">Olmos &middot; 2 clientes en cotizaci&oacute;n &mdash; Nov&ndash;Dic 2026</span>
         <span class="o5m-go">Detalle <i>&#8594;</i></span>
         <div class="pa-sc-body pa-detail">
           <div class="pa-sc-full">Culminar obras zona norte antes de lluvias</div>
@@ -1579,7 +1486,7 @@
         <span class="o5m-badge" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Shield/3D/shield_3d.png" alt="" loading="lazy" onerror='this.parentNode.classList.add("is-txt");this.outerHTML="🛡️"'></span>
         <span class="o5m-head"><span class="o5m-num">07</span></span>
         <span class="o5m-name">Infraestructura autoportante</span>
-        <span class="o5m-ctx">Techos autoportantes &middot; revisi&oacute;n preventiva</span>
+        <span class="o5m-ctx">Techos autoportantes &middot; revisi&oacute;n preventiva &mdash; Nov&ndash;Dic 2026</span>
         <span class="o5m-go">Detalle <i>&#8594;</i></span>
         <div class="pa-sc-body pa-detail">
           <div class="pa-sc-full">Protecci&oacute;n de infraestructura cr&iacute;tica autoportante</div>
@@ -1996,14 +1903,14 @@
   <div class="od-tb">
     <button class="od-back" onclick="odClose()" style="color:#185fa5;border-color:#185fa5">&#8592; Volver</button>
     <span class="od-tb-title">Objetivo 01 &mdash; Venta Comercial</span>
-    <span class="od-tb-chip" style="background:#dbeef9;color:#0e4a7a">Meta superada &middot; 100.04%</span>
+    <span class="od-tb-chip" style="background:#dbeef9;color:#0e4a7a">Meta superada &middot; 113.96%</span>
   </div>
   <div class="od-body">
     <div class="od-hero" style="background:linear-gradient(135deg,#071430 0%,#0d2a56 60%,#071430 100%)">
-      <div class="od-kpi"><span class="od-kl">Acumulado Ene&ndash;Ago 2026</span><span class="od-kv">$30.01M</span><span class="od-ks">Vendido 2026</span></div>
+      <div class="od-kpi"><span class="od-kl">Acumulado Ene&ndash;Oct 2026</span><span class="od-kv">$34.19M</span><span class="od-ks">Vendido 2026</span></div>
       <div class="od-kpi"><span class="od-kl">Meta anual</span><span class="od-kv">$30.00M</span><span class="od-ks">Objetivo 2026</span></div>
-      <div class="od-kpi"><span class="od-kl">Crecimiento vs 2025</span><span class="od-kv">+18.78%</span><span class="od-ks">Mismo per&iacute;odo</span></div>
-      <div class="od-kpi"><span class="od-kl">Margen comercial 2026</span><span class="od-kv">15.55%</span><span class="od-ks">Promedio ponderado</span></div>
+      <div class="od-kpi"><span class="od-kl">Crecimiento vs 2025</span><span class="od-kv">+9.12%</span><span class="od-ks">Mismo per&iacute;odo</span></div>
+      <div class="od-kpi"><span class="od-kl">Margen comercial 2026</span><span class="od-kv">15.59%</span><span class="od-ks">Promedio ponderado</span></div>
     </div>
     <div class="od-pane active" id="od1-a">
       <table class="sc">
@@ -2017,10 +1924,12 @@
           <tr><td>Junio</td><td class="r">$2.86M</td><td class="r">15.17%</td><td class="r">$4.27M</td><td class="r"><span class="sb-warn">-$1.41M</span></td></tr>
           <tr><td>Julio</td><td class="r">$508K</td><td class="r">17.75%</td><td class="r">$888K</td><td class="r"><span class="sb-warn">-$381K</span></td></tr>
           <tr><td>Agosto</td><td class="r">$909K</td><td class="r">21.46%</td><td class="r">$5.35M</td><td class="r"><span class="sb-crit">-$4.44M</span></td></tr>
-          <tr style="background:#f7fafc;border-top:2px solid #3aabef"><td><strong>TOTAL Ene&ndash;Ago</strong></td><td class="r"><strong>$30.01M</strong></td><td class="r"><strong>15.55%</strong></td><td class="r"><strong>$25.27M</strong></td><td class="r"><strong><span class="sb-ok">+$4.75M</span></strong></td></tr>
+          <tr><td>Setiembre</td><td class="r">$950K</td><td class="r">15.22%</td><td class="r">$4.07M</td><td class="r"><span class="sb-crit">-$3.12M</span></td></tr>
+          <tr><td>Octubre</td><td class="r">$3.23M</td><td class="r">16.04%</td><td class="r">$1.99M</td><td class="r"><span class="sb-ok">+$1.23M</span></td></tr>
+          <tr style="background:#f7fafc;border-top:2px solid #3aabef"><td><strong>TOTAL Ene&ndash;Oct</strong></td><td class="r"><strong>$34.19M</strong></td><td class="r"><strong>15.59%</strong></td><td class="r"><strong>$31.33M</strong></td><td class="r"><strong><span class="sb-ok">+$2.86M</span></strong></td></tr>
         </tbody>
       </table>
-      <div class="od-note">Acumulado enero&ndash;agosto: <strong>$30.01M</strong> &mdash; Meta anual de $30.00M alcanzada y superada en <strong>$11K</strong> (quedan septiembre&ndash;diciembre 2026).</div>
+      <div class="od-note">Acumulado enero&ndash;octubre: <strong>$34.19M</strong> &mdash; Meta anual de $30.00M alcanzada y superada en <strong>$4.19M</strong> (quedan noviembre&ndash;diciembre 2026).</div>
     </div>
   </div>
 </div>
@@ -2036,7 +1945,7 @@
     <div class="od-hero" style="background:linear-gradient(135deg,#052b1a 0%,#0a4d30 60%,#052b1a 100%)">
       <div class="od-kpi"><span class="od-kl">Proyectos CO&#8322; vendidos</span><span class="od-kv">0 / 2</span><span class="od-ks">Avance 2026</span></div>
       <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">0.00%</span><span class="od-ks">Meta: 2 proyectos</span></div>
-      <div class="od-kpi"><span class="od-kl">Importe pipeline CO&#8322;</span><span class="od-kv">$5,444,543</span><span class="od-ks">5 oportunidades activas</span></div>
+      <div class="od-kpi"><span class="od-kl">Importe pipeline CO&#8322;</span><span class="od-kv">$8,521,454</span><span class="od-ks">6 oportunidades activas</span></div>
     </div>
     <div class="od-pane active" id="od2-a">
 
@@ -2045,15 +1954,16 @@
         <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
           <thead><tr><th>Cliente</th><th>Requerimiento</th><th class="r">Importe ($)</th><th class="r">Prob.</th><th>Estado</th></tr></thead>
           <tbody>
-            <tr><td><strong>Emergent Cold</strong></td><td>Greenfield ECLA Amoniaco/Glicol (sistema de fr&iacute;o)</td><td class="r">$2,096,567</td><td class="r">60.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
-            <tr><td><strong>Agro Fruit Export SAC</strong></td><td>C&aacute;mara de congelado</td><td class="r">$1,500,000</td><td class="r">20.00%</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
-            <tr><td><strong>La Grama</strong></td><td>C&aacute;mara y t&uacute;nel de congelado (CO&#8322;)</td><td class="r">$856,138</td><td class="r">20.00%</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
-            <tr><td><strong>Emergent Cold</strong></td><td>T&uacute;nel congelado</td><td class="r">$824,838</td><td class="r">40.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
-            <tr><td><strong>Emergent Cold</strong></td><td>Suministro e instalaci&oacute;n de compresor (3er para back up)</td><td class="r">$167,000</td><td class="r">80.00%</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
-            <tr style="background:#f7fafc;border-top:2px solid #10b981"><td><strong>TOTAL</strong></td><td><strong>5 oportunidades</strong></td><td class="r"><strong>$5,444,543</strong></td><td class="r"><strong>&mdash;</strong></td><td class="r"></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>Greenfield ECLA Amoniaco/Glicol (sistema de fr&iacute;o)</td><td class="r">$2,400,000</td><td class="r">80.00%</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr><td><strong>Agro Fruit Export SAC</strong></td><td>C&aacute;mara de congelado</td><td class="r">$2,222,646</td><td class="r">60.00%</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr><td><strong>Fruglobe</strong></td><td>Packing de lim&oacute;n y palta</td><td class="r">$1,805,310</td><td class="r">60.00%</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr><td><strong>Pronex (Prod. Naturales)</strong></td><td>Almacenamiento de huito</td><td class="r">$1,052,741</td><td class="r">40.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
+            <tr><td><strong>La Grama</strong></td><td>C&aacute;mara y t&uacute;nel de congelado (CO&#8322;)</td><td class="r">$856,138</td><td class="r">40.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>Suministro e instalaci&oacute;n de compresor (3er para back up)</td><td class="r">$184,619</td><td class="r">60.00%</td><td><span class="sb-warn">En an&aacute;lisis</span></td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #10b981"><td><strong>TOTAL</strong></td><td><strong>6 oportunidades</strong></td><td class="r"><strong>$8,521,454</strong></td><td class="r"><strong>&mdash;</strong></td><td class="r"></td></tr>
           </tbody>
         </table>
-        <div class="od-note" style="margin-top:10px">Las 5 oportunidades requieren cierre antes de fin de a&ntilde;o. Acelerar decisiones comerciales para cumplir la meta de 2 proyectos CO&#8322;.</div>
+        <div class="od-note" style="margin-top:10px">3 oportunidades en negociaci&oacute;n: Emergent Cold (Greenfield ECLA, 80.00%), Agro Fruit Export y Fruglobe (60.00% cada una). Cerrar dos de ellas cumplir&iacute;a la meta de 2 proyectos CO&#8322;. Pipeline ponderado por probabilidad: $5.21M. NGR sale del seguimiento 2026: su cierre est&aacute; previsto para 2027.</div>
       </div>
     </div>
   </div>
@@ -2064,14 +1974,14 @@
   <div class="od-tb">
     <button class="od-back" onclick="odClose()" style="color:#0891b2;border-color:#0891b2">&#8592; Volver</button>
     <span class="od-tb-title">Objetivo 04 &mdash; Clientes Nuevos Fuera del Sector Agro</span>
-    <span class="od-tb-chip" style="background:#e0f7fa;color:#164e63">En seguimiento &middot; 50.00%</span>
+    <span class="od-tb-chip" style="background:#dcfce7;color:#16a34a">Meta cumplida &middot; 100.00%</span>
   </div>
   <div class="od-body">
     <div class="od-hero" style="background:linear-gradient(135deg,#0a2428 0%,#0c3d52 60%,#0a2428 100%)">
-      <div class="od-kpi"><span class="od-kl">Clientes nuevos logrados</span><span class="od-kv">2 / 4</span><span class="od-ks">Fuera del sector agro</span></div>
-      <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">50.00%</span><span class="od-ks">Meta: 4 clientes</span></div>
-      <div class="od-kpi"><span class="od-kl">Pendiente</span><span class="od-kv">2 clientes</span><span class="od-ks">Para cumplir meta</span></div>
-      <div class="od-kpi"><span class="od-kl">Pipeline no agro activo</span><span class="od-kv">11 oport.</span><span class="od-ks">Valor estimado $10.57M</span></div>
+      <div class="od-kpi"><span class="od-kl">Clientes nuevos logrados</span><span class="od-kv">4 / 4</span><span class="od-ks">Fuera del sector agro</span></div>
+      <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">100.00%</span><span class="od-ks">Meta: 4 clientes</span></div>
+      <div class="od-kpi"><span class="od-kl">Importe vendido</span><span class="od-kv">$3.74M</span><span class="od-ks">6 proyectos</span></div>
+      <div class="od-kpi"><span class="od-kl">Pipeline no agro activo</span><span class="od-kv">8 oport.</span><span class="od-ks">Valor estimado $5.86M</span></div>
     </div>
     <div class="od-pane active" id="od3-a">
       <div class="od-card" style="margin-bottom:14px">
@@ -2082,31 +1992,31 @@
             <tr><td><strong>Arca Continental Lindley S.A.</strong></td><td>Suministro e instalaci&oacute;n de serpent&iacute;n</td><td class="r">$203,678</td><td class="r">21.30%</td></tr>
             <tr><td><strong>Delice S.A.C.</strong></td><td>Suministro e instalaci&oacute;n racks</td><td class="r">$25,500</td><td class="r">23.00%</td></tr>
             <tr><td><strong>Delice S.A.C.</strong></td><td>Rampas encuentros y bomba de condensado</td><td class="r">$17,083</td><td class="r">13.00%</td></tr>
-            <tr style="background:#f7fafc;border-top:2px solid #0891b2"><td><strong>TOTAL</strong></td><td><strong>2 clientes &middot; 3 proyectos</strong></td><td class="r"><strong>$246,262</strong></td><td class="r"><strong>20.90%</strong></td></tr>
+            <tr><td><strong>Gloria S.A.</strong> <span class="sb-info">Reactivado</span></td><td>C&aacute;mara y antec&aacute;mara de yogurt</td><td class="r">$357,355</td><td class="r">14.43%</td></tr>
+            <tr><td><strong>Inversiones San Juan de la Luz S.A.C.</strong></td><td>Laboratorio &mdash; estructuras</td><td class="r">$2,028,679</td><td class="r">15.00%</td></tr>
+            <tr><td><strong>Inversiones San Juan de la Luz S.A.C.</strong></td><td>Laboratorio &mdash; obras civiles</td><td class="r">$1,107,902</td><td class="r">18.00%</td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #0891b2"><td><strong>TOTAL</strong></td><td><strong>4 clientes &middot; 6 proyectos</strong></td><td class="r"><strong>$3,740,197</strong></td><td class="r"><strong>16.22%</strong></td></tr>
           </tbody>
         </table>
-        <div class="od-note" style="margin-top:10px">2 clientes &uacute;nicos fuera del sector agro con status &ldquo;Vendido&rdquo; en 2026 &mdash; 3 proyectos en total. Meta: 4 clientes. Pendiente: 2 clientes adicionales.</div>
+        <div class="od-note" style="margin-top:10px">4 clientes &uacute;nicos fuera del sector agro con status &ldquo;Vendido&rdquo; en 2026 &mdash; 6 proyectos en total. Meta anual de 4 clientes cumplida: en setiembre se sum&oacute; Gloria (cliente reactivado en la cartera, primera compra del a&ntilde;o) y en octubre, Inversiones San Juan de la Luz.</div>
       </div>
       <div class="od-card">
         <h4>Pipeline no agro &mdash; Oportunidades en seguimiento</h4>
         <table class="sc" style="border-radius:0;box-shadow:none;border:none;margin-bottom:0">
           <thead><tr><th>Cliente</th><th>Proyecto</th><th class="r">Importe ($)</th><th>Estado</th></tr></thead>
           <tbody>
-            <tr><td><strong>Hijuelas</strong></td><td>Laboratorio de crecimiento de Ar&aacute;ndanos</td><td class="r">$3,000,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Emergent Cold</strong></td><td>Greenfield ECLA Amoniaco/Glicol (sistema de fr&iacute;o)</td><td class="r">$2,096,567</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Delice</strong></td><td>Planta procesadora de l&aacute;cteos y derivados (sistema de fr&iacute;o)</td><td class="r">$1,258,345</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
-            <tr><td><strong>Perupez</strong></td><td>Ampliaci&oacute;n de planta pesquera</td><td class="r">$1,000,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>NGR &ndash; Nutra</strong></td><td>Implementaci&oacute;n de c&aacute;maras de fr&iacute;o &mdash; Proyecto Chronos (fre&oacute;n)</td><td class="r">$935,528</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Emergent Cold</strong></td><td>T&uacute;nel congelado</td><td class="r">$824,838</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Pronex (Prod. Naturales)</strong></td><td>C&aacute;mara + esclusa recepci&oacute;n/despacho</td><td class="r">$620,036</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
-            <tr><td><strong>Gloria</strong></td><td>C&aacute;mara y antec&aacute;mara de yogurt</td><td class="r">$365,000</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
-            <tr><td><strong>Hayduk</strong></td><td>Suministro e instalaci&oacute;n de compresor</td><td class="r">$300,000</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr><td><strong>Emergent Cold</strong></td><td>Suministro e instalaci&oacute;n de compresor (3er para back up)</td><td class="r">$167,000</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
-            <tr><td><strong>Zedina</strong></td><td>C&aacute;mara de congelado 180 posiciones</td><td class="r">&mdash;</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
-            <tr style="background:#f7fafc;border-top:2px solid #0891b2"><td><strong>TOTAL ACTIVO</strong></td><td><strong>11 oportunidades</strong></td><td class="r"><strong>$10,567,314</strong></td><td></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>Greenfield ECLA Amoniaco/Glicol (sistema de fr&iacute;o)</td><td class="r">$2,400,000</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr><td><strong>Delice</strong></td><td>Planta procesadora de l&aacute;cteos y derivados (sistema de fr&iacute;o)</td><td class="r">$1,228,338</td><td><span class="sb-warn">Negociaci&oacute;n</span></td></tr>
+            <tr><td><strong>Pronex (Prod. Naturales)</strong></td><td>Almacenamiento de huito</td><td class="r">$1,052,741</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Gloria &ndash; Cusco</strong></td><td>Instalaci&oacute;n de almac&eacute;n refrigerado &ndash; c&aacute;mara Cusco</td><td class="r">$386,414</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Gloria &ndash; Chincha</strong></td><td>C&aacute;mara y prec&aacute;mara refrigerada</td><td class="r">$257,622</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Gloria &ndash; Huancayo</strong></td><td>Instalaci&oacute;n de almac&eacute;n refrigerado</td><td class="r">$247,932</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Emergent Cold</strong></td><td>Suministro e instalaci&oacute;n de compresor (3er para back up)</td><td class="r">$184,619</td><td><span class="sb-info">An&aacute;lisis de cliente</span></td></tr>
+            <tr><td><strong>Axion Log</strong></td><td>C&aacute;maras para congelado</td><td class="r">$100,000</td><td><span class="sb-info">En proceso de cotizaci&oacute;n</span></td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #0891b2"><td><strong>TOTAL ACTIVO</strong></td><td><strong>8 oportunidades</strong></td><td class="r"><strong>$5,857,666</strong></td><td></td></tr>
           </tbody>
         </table>
-        <div class="od-note" style="margin-top:10px">Pipeline no agro activo: $10.57M en 11 oportunidades. Cerrar 2 clientes m&aacute;s como &ldquo;Vendido&rdquo; completa la meta anual. Zedina &mdash; C&aacute;mara de congelado 180 posiciones a&uacute;n no tiene importe cotizado en el Excel.</div>
+        <div class="od-note" style="margin-top:10px">Pipeline no agro activo: $5.86M en 8 oportunidades. Gloria concentra 3 sedes por $892K (Lima Este se perdi&oacute;). NGR sale del seguimiento 2026: su cierre est&aacute; previsto para 2027.</div>
       </div>
     </div>
   </div>
@@ -2117,14 +2027,14 @@
   <div class="od-tb">
     <button class="od-back" onclick="odClose()" style="color:#0d9488;border-color:#0d9488">&#8592; Volver</button>
     <span class="od-tb-title">Objetivo 03 &mdash; Incrementar Valor Sin Fr&iacute;o (OOCC + EEMM)</span>
-    <span class="od-tb-chip" style="background:#dcfce7;color:#16a34a">Meta superada &middot; 193.80%</span>
+    <span class="od-tb-chip" style="background:#dcfce7;color:#16a34a">Meta superada &middot; 312.45%</span>
   </div>
   <div class="od-body">
     <div class="od-hero" style="background:linear-gradient(135deg,#031f1b 0%,#0a4a40 60%,#031f1b 100%)">
-      <div class="od-kpi"><span class="od-kl">Total sin fr&iacute;o vendido</span><span class="od-kv">$5,426,217</span><span class="od-ks">OOCC + EEMM</span></div>
+      <div class="od-kpi"><span class="od-kl">Total sin fr&iacute;o vendido</span><span class="od-kv">$8,748,487</span><span class="od-ks">OOCC + EEMM</span></div>
       <div class="od-kpi"><span class="od-kl">Meta anual</span><span class="od-kv">$2,800,000</span><span class="od-ks">Objetivo 2026</span></div>
-      <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">193.80%</span><span class="od-ks">Objetivo cumplido</span></div>
-      <div class="od-kpi"><span class="od-kl">Proyectos con sin fr&iacute;o</span><span class="od-kv">8</span><span class="od-ks">OOCC y/o EEMM</span></div>
+      <div class="od-kpi"><span class="od-kl">Avance vs meta</span><span class="od-kv">312.45%</span><span class="od-ks">Objetivo cumplido</span></div>
+      <div class="od-kpi"><span class="od-kl">Proyectos con sin fr&iacute;o</span><span class="od-kv">12</span><span class="od-ks">OOCC y/o EEMM</span></div>
     </div>
     <div class="od-pane active" id="od4-a">
       <div class="od-g2" style="margin-bottom:14px">
@@ -2132,13 +2042,13 @@
           <div class="od-metric-ico">&#127959;&#65039;</div>
           <div class="od-metric-title">OOCC &mdash; Obras Civiles y de Construcci&oacute;n</div>
           <div class="od-metric-lbl">Importe logrado</div>
-          <div class="od-metric-val">$2,691,054</div>
+          <div class="od-metric-val">$3,895,867</div>
         </div>
         <div class="od-metric-card">
           <div class="od-metric-ico">&#9881;&#65039;</div>
-          <div class="od-metric-title">EEMM &mdash; Equipamiento Electromec&aacute;nico</div>
+          <div class="od-metric-title">EEMM &mdash; Estructuras Met&aacute;licas</div>
           <div class="od-metric-lbl">Importe logrado</div>
-          <div class="od-metric-val">$2,735,162</div>
+          <div class="od-metric-val">$4,852,621</div>
         </div>
       </div>
       <div class="od-card">
@@ -2147,17 +2057,21 @@
           <thead><tr><th>Cliente</th><th>Proyecto</th><th class="r">OOCC ($)</th><th class="r">EEMM ($)</th><th class="r">Total sin fr&iacute;o ($)</th><th class="r">Margen</th></tr></thead>
           <tbody>
             <tr><td>Agroberries Per&uacute;</td><td>Nueva planta ar&aacute;ndanos + EEMM</td><td class="r">$2,270,743</td><td class="r">$2,475,725</td><td class="r"><strong>$4,746,468</strong></td><td class="r">18.00%</td></tr>
+            <tr><td>Inversiones San Juan de la Luz</td><td>Laboratorio de ar&aacute;ndanos &mdash; estructuras</td><td class="r">$0</td><td class="r">$2,028,679</td><td class="r"><strong>$2,028,679</strong></td><td class="r">15.00%</td></tr>
+            <tr><td>Inversiones San Juan de la Luz</td><td>Laboratorio de ar&aacute;ndanos &mdash; obras civiles</td><td class="r">$1,107,902</td><td class="r">$0</td><td class="r"><strong>$1,107,902</strong></td><td class="r">18.00%</td></tr>
             <tr><td>Qali Fruits S.A.C.</td><td>Ampliaci&oacute;n packing</td><td class="r">$105,148</td><td class="r">$84,519</td><td class="r"><strong>$189,667</strong></td><td class="r">18.00%</td></tr>
+            <tr><td>Gloria S.A.</td><td>Ampliaci&oacute;n de planta Chimbote</td><td class="r">$83,655</td><td class="r">$88,780</td><td class="r"><strong>$172,435</strong></td><td class="r">14.43%</td></tr>
             <tr><td>Agroberries Per&uacute;</td><td>Construcci&oacute;n acopio ar&aacute;ndanos</td><td class="r">$115,434</td><td class="r">$50,836</td><td class="r"><strong>$166,270</strong></td><td class="r">15.00%</td></tr>
             <tr><td>Procesadora Torre Blanca</td><td>Ampliaci&oacute;n de planta</td><td class="r">$99,840</td><td class="r">$26,235</td><td class="r"><strong>$126,075</strong></td><td class="r">19.00%</td></tr>
             <tr><td>Berry Harvest S.A.</td><td>Reforzamiento estructural puertas</td><td class="r">$0</td><td class="r">$97,847</td><td class="r"><strong>$97,847</strong></td><td class="r">15.00%</td></tr>
             <tr><td>Agroberries Per&uacute;</td><td>Construcci&oacute;n acopio</td><td class="r">$50,865</td><td class="r">$0</td><td class="r"><strong>$50,865</strong></td><td class="r">15.00%</td></tr>
             <tr><td>Agroberries Per&uacute;</td><td>Anteproyecto planta empacadora</td><td class="r">$38,315</td><td class="r">$0</td><td class="r"><strong>$38,315</strong></td><td class="r">15.00%</td></tr>
+            <tr><td>Blueberries Per&uacute; S.A.C.</td><td>Campamento</td><td class="r">$13,255</td><td class="r">$0</td><td class="r"><strong>$13,255</strong></td><td class="r">15.00%</td></tr>
             <tr><td>Reiter Peruvian Berry</td><td>Ampliaci&oacute;n planta</td><td class="r">$10,710</td><td class="r">$0</td><td class="r"><strong>$10,710</strong></td><td class="r">14.00%</td></tr>
-            <tr style="background:#f7fafc;border-top:2px solid #0d9488"><td colspan="4" style="font-weight:700">TOTAL</td><td class="r" style="font-weight:900;color:#0d9488">$5,426,217</td><td class="r" style="font-weight:700">193.80%</td></tr>
+            <tr style="background:#f7fafc;border-top:2px solid #0d9488"><td colspan="2" style="font-weight:700">TOTAL</td><td class="r" style="font-weight:700">$3,895,867</td><td class="r" style="font-weight:700">$4,852,621</td><td class="r" style="font-weight:900;color:#0d9488">$8,748,487</td><td class="r" style="font-weight:700">17.12%</td></tr>
           </tbody>
         </table>
-        <div class="od-note" style="margin-top:10px">8 proyectos vendidos con componente sin fr&iacute;o. Pipeline sin fr&iacute;o adicional disponible: $647,109.</div>
+        <div class="od-note" style="margin-top:10px">12 proyectos vendidos con componente sin fr&iacute;o. En setiembre y octubre se sumaron Inversiones San Juan de la Luz ($3.14M), Gloria ($172K) y Blueberries Per&uacute; ($13K). Margen total ponderado por el valor sin fr&iacute;o.</div>
       </div>
     </div>
   </div>
@@ -2180,13 +2094,13 @@
       </div>
       <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:14px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <span style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.9px;font-weight:600">Avance vs meta anual 2026</span>
-          <span style="font-size:clamp(14px,1.1vw,18px);font-weight:900;color:#a9b6dd">132.03%</span>
+          <span style="font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.9px;font-weight:600">Avance vs meta anual 2026</span>
+          <span style="font-size:clamp(16px,calc(1.1vw + 2px),20px);font-weight:900;color:#a9b6dd">132.03%</span>
         </div>
         <div style="height:8px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden">
           <div class="od-hero-prog-fill" style="height:100%;border-radius:6px;background:linear-gradient(90deg,#20283f,#8a9bc7);width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)" data-w="132.03%"></div>
         </div>
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.4);margin-top:5px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.4);margin-top:5px">
           <span>$0</span>
           <span style="color:rgba(255,255,255,.55)">Vendido: $330,083</span>
           <span>Meta: $250,000</span>

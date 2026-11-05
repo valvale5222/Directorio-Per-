@@ -1,12 +1,15 @@
 
 
 /* PORTADA */
-#portada{padding:0;margin-bottom:-60px}
+#portada{padding:0;margin:0}
 
 
 .cover{
   position:relative;
-  min-height:calc(100vh - 106px);
+  /* Alto exacto del viewport menos la cabecera real (--hdr-h, medido en JS) */
+  height:calc(100vh - var(--hdr-h,106px));
+  height:calc(100dvh - var(--hdr-h,106px));
+  min-height:0;
   border-radius:0;
   overflow:hidden;
   display:flex;
@@ -59,7 +62,8 @@
 .cover-inner{
   position:relative;
   z-index:2;
-  padding:clamp(22px,2.8vw,48px) clamp(28px,4vw,72px) clamp(22px,2.8vw,48px);
+  padding:clamp(16px,min(2.8vw,4vh),48px) clamp(16px,4vw,72px);
+  min-height:0;
   display:flex;
   justify-content:center;
   flex-direction:column;
@@ -132,7 +136,7 @@
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:clamp(12px,1.2vw,20px);
-  margin-top:clamp(18px,2.0vw,32px);
+  margin-top:clamp(14px,min(2vw,3.2vh),32px);
   width:100%;
   max-width:clamp(720px,78vw,1380px)
 }
@@ -288,109 +292,105 @@
 
 
 @media(max-width:600px){
-  .cover-cards{grid-template-columns:1fr}
+  .cover-cards{grid-template-columns:1fr 1fr;gap:10px}
+  .ccard{padding:12px 12px 11px}
+  .ccard .cc-go{margin-top:8px}
   .cover-title{letter-spacing:0}
+  .changeimg{top:10px;right:10px;padding:6px 10px}
+}
+
+/* La portada ocupa exactamente la pantalla: sin scroll vertical ni horizontal.
+   Solo mientras la portada está activa (html.on-portada lo fija js/shared.js). */
+html.on-portada,
+html.on-portada body{overflow:hidden;overscroll-behavior:none}
+
+/* Pantallas bajas (laptops con zoom, landscape): se comprimen aires, no el texto */
+@media(max-height:620px){
+  .cover-title{margin-top:8px}
+  .cover-period{margin-top:6px}
+  .ccard .cc-go{margin-top:8px}
 }
 
 
 /* ============================================================================
-   EXECUTIVE INTRO · Apertura institucional previa al dashboard
+   EXECUTIVE INTRO · Apertura con foto de marca
    ----------------------------------------------------------------------------
-   Secuencia:  el isotipo entra centrado y rueda hasta su posición
-               →  el logotipo «Friopacking» se descubre tras él, con halo suave
-               →  Revisión Ejecutiva  →  Directorio Comercial ·
-               →  barra de carga + aviso de carga
-               →  pie institucional: «Una empresa perteneciente al» + Grupo Friopacking.
+   Composición limpia sobre la MISMA imagen de la portada (si se cambia la imagen
+   de portada, cambia también aquí):
+     · lockup centrado: isotipo rueda a su sitio → logotipo «Friopacking» se descubre;
+     · esquina inferior izquierda: REVISIÓN EJECUTIVA + período (acento frío);
+     · esquina inferior derecha: firma Grupo Friopacking;
+     · borde inferior: barra de carga que se llena de 0 a 100 %.
+   Al completarse la carga, el marco fotográfico se reacomoda hasta ocupar el lugar
+   exacto de la portada (la cabecera aparece alrededor), el texto se retira y la
+   portada habitual toma el relevo con su contenido.
 
-   La marca protagonista es Friopacking; la firma de grupo cierra la composición
-   en el pie, subordinada en escala y en peso visual.
-
-   Todos los logotipos son los archivos oficiales de marca
-   (img/brand-isotipo.png · img/brand-wordmark-white.png · img/brand-grupo-white.png):
-   no se recrean con tipografía.
-
-   Activación: <html class="xi-boot"> (se agrega inline en el <head>), de modo que
-               el dashboard nunca llega a verse bajo la apertura. Sin esa clase la
-               intro no existe y la aplicación se muestra normalmente.
-   Lógica:     js/portada.js  (bloque EXECUTIVE INTRO).
+   Activación: <html class="xi-boot"> (inline en el <head>).
+   Lógica:     js/portada.js (bloque EXECUTIVE INTRO).
    ========================================================================== */
 
 .xintro{
-  /* Geometría del lockup, derivada de las proporciones reales del artwork:
-     isotipo 235×248 · separación 71 · logotipo 1120×199 (desfase vertical 44).
-     Todo se expresa en función del ancho del logotipo para escalar de móvil a TV. */
-  --xi-word:  clamp(230px, 33vw, 840px);                  /* ancho del logotipo     */
-  --xi-iso:   calc(var(--xi-word) * 235 / 1120);          /* ancho del isotipo      */
-  --xi-gap:   calc(var(--xi-word) * 71 / 1120);           /* aire entre ambos       */
-  --xi-shift: calc((var(--xi-word) + var(--xi-gap)) / 2); /* recorrido del rodado   */
-  --xi-cyan:  #3fd0b4;                                    /* acento frío institucional */
+  --xi-word:  clamp(230px, 36vw, 900px);
+  --xi-iso:   calc(var(--xi-word) * 235 / 1120);
+  --xi-gap:   calc(var(--xi-word) * 71 / 1120);
+  --xi-shift: calc((var(--xi-word) + var(--xi-gap)) / 2);
+  --xi-cyan:  #3fd0b4;
+  --xi-load:  3.2s;                 /* duración de la barra de carga (ver COMP_END en JS) */
+  --xi-pad:   clamp(20px, 3.2vw, 64px);
 
   position:fixed; inset:0;
   width:100%; height:100dvh; min-height:100vh;
   z-index:9999;
-  display:flex; align-items:center; justify-content:center;
   overflow:hidden;
+}
+
+/* ── Marco fotográfico ────────────────────────────────────────────────────── */
+/* Mismo fondo base que .cover: cuando el marco llega a su sitio, ES la portada. */
+.xi-frame{
+  position:fixed; top:0; left:0; width:100vw; height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,#050b1a 0%,#091b36 35%,#0a2a3a 65%,#061a2a 100%);
+}
+.xi-frame.is-moving{
+  transition:top .85s cubic-bezier(.65,0,.25,1), left .85s cubic-bezier(.65,0,.25,1),
+             width .85s cubic-bezier(.65,0,.25,1), height .85s cubic-bezier(.65,0,.25,1);
+}
+.xi-photo{
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  opacity:.55;
+  animation:xiPhotoIn 4.2s cubic-bezier(.22,.7,.28,1) both;
+  transition:opacity .85s ease;
+}
+.xi-shade,
+.xi-shade-cover{position:absolute; inset:0; transition:opacity .85s ease}
+.xi-shade{
   background:
-    radial-gradient(120% 90% at 8% 6%,   rgba(63,208,180,.14) 0%, transparent 52%),
-    radial-gradient(100% 80% at 96% 92%, rgba(58,171,239,.10) 0%, transparent 55%),
-    linear-gradient(160deg,#071026 0%,#081936 48%,#060d1f 100%);
+    radial-gradient(ellipse 60% 50% at 50% 48%, rgba(5,11,26,.18) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(5,11,26,.42) 0%, rgba(5,11,26,.30) 45%, rgba(5,11,26,.82) 100%);
 }
-/* El fondo es sólido desde el primer frame (sin fundido de entrada): lo que
-   aparece progresivamente es el grid, la luz ambiental y el contenido. Así no
-   existe ningún instante en que se trasluzca el fondo claro de la aplicación. */
-
-/* Grid técnico: prácticamente estático, solo respira en opacidad al entrar. */
-.xintro .xi-grid{
-  position:absolute; inset:-2px; pointer-events:none;
-  background-image:
-    linear-gradient(rgba(120,220,215,.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(120,220,215,.055) 1px, transparent 1px);
-  background-size:clamp(48px,4.4vw,88px) clamp(48px,4.4vw,88px);
-  -webkit-mask-image:radial-gradient(130% 110% at 50% 46%,#000 42%,rgba(0,0,0,.35) 76%,transparent 100%);
-          mask-image:radial-gradient(130% 110% at 50% 46%,#000 42%,rgba(0,0,0,.35) 76%,transparent 100%);
+/* Velo idéntico a .cover-overlay: se enciende durante el reacomodo. */
+.xi-shade-cover{
   opacity:0;
-  animation:xiGridIn 1.6s .3s ease both;
+  background:linear-gradient(180deg,rgba(5,11,26,.38) 0%,rgba(5,11,26,.55) 55%,rgba(5,11,26,.88) 100%);
 }
+.xintro.is-morph .xi-photo{opacity:.32}
+.xintro.is-morph .xi-shade{opacity:0}
+.xintro.is-morph .xi-shade-cover{opacity:1}
 
-/* Luz ambiental: desplazamiento casi imperceptible detrás del lockup. */
-.xintro .xi-amb{
-  position:absolute; left:50%; top:48%; pointer-events:none;
-  width:min(150vw,1900px); height:min(110vh,1200px);
-  transform:translate(-50%,-50%);
-  background:radial-gradient(ellipse at center,rgba(63,208,180,.13) 0%,rgba(58,171,239,.05) 38%,transparent 70%);
-  animation:xiAmb 11s .2s ease-in-out infinite alternate;
-}
-
+/* ── Lockup centrado ──────────────────────────────────────────────────────── */
 .xintro .xi-stage{
-  position:relative;
-  display:flex; flex-direction:column; align-items:center;
-  width:min(92vw,1180px);
-  padding:0 clamp(16px,3vw,48px);
-  text-align:center;
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  padding:0 var(--xi-pad);
+  transition:opacity .45s ease, transform .6s cubic-bezier(.4,0,.2,1);
 }
-
-/* ── Lockup de marca: isotipo + logotipo ──────────────────────────────────── */
-/* align-items:flex-start + el desfase del logotipo reproducen la alineación
-   original del lockup, que no es un centrado simple entre ambas piezas. */
 .xintro .xi-lockup{
   position:relative;
   display:flex; align-items:flex-start;
   gap:var(--xi-gap);
+  filter:drop-shadow(0 12px 36px rgba(0,0,0,.45));
 }
-
-/* Halo: luz cálida-fría muy tenue que nace bajo el conjunto una vez asentado. */
-.xintro .xi-halo{
-  position:absolute; left:50%; top:52%;
-  width:calc(var(--xi-word) * 1.55); height:calc(var(--xi-word) * .78);
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-  background:radial-gradient(ellipse at center,
-    rgba(120,236,214,.20) 0%, rgba(63,208,180,.10) 32%, rgba(58,171,239,.05) 54%, transparent 74%);
-  opacity:0;
-  animation:xiHalo 2.6s 1.3s cubic-bezier(.4,0,.2,1) both;
-}
-
-/* Fase 1: entra centrado · Fase 2: rueda hasta su sitio (giro completo). */
 .xintro .xi-iso{
   position:relative;
   width:var(--xi-iso);
@@ -398,14 +398,9 @@
   display:block; flex:0 0 auto;
   transform-origin:50% 50%;
   opacity:0;
-  filter:drop-shadow(0 10px 28px rgba(16,120,100,.22));
-  animation:xiIso 1.5s .35s both;
-  /* Capa propia: el rodado se compone fuera del hilo principal, de modo que el
-     montaje del dashboard (que ocurre detrás) no puede entrecortarlo. */
+  animation:xiIso 1.5s .3s both;
   will-change:transform,opacity;
 }
-
-/* Fase 3: el logotipo se descubre por detrás del isotipo, sin aparecer de golpe. */
 .xintro .xi-word{
   position:relative;
   width:var(--xi-word);
@@ -414,108 +409,68 @@
   display:block; flex:0 0 auto;
   clip-path:inset(0 100% 0 0);
   opacity:0;
-  animation:xiWord .95s 1.75s cubic-bezier(.5,.02,.2,1) both;
+  animation:xiWord .95s 1.7s cubic-bezier(.5,.02,.2,1) both;
   will-change:clip-path,opacity;
 }
 
-/* ── Niveles tipográficos ─────────────────────────────────────────────────── */
+/* ── Pie: título + período (izq.) · firma de grupo (der.) ─────────────────── */
+.xintro .xi-bottom{
+  position:absolute; left:0; right:0;
+  bottom:calc(var(--xi-pad) * .9 + 3px);
+  padding:0 var(--xi-pad);
+  display:flex; align-items:flex-end; justify-content:space-between; gap:20px;
+  opacity:0;
+  animation:xiRiseIn .7s .9s cubic-bezier(.22,.7,.28,1) both;
+}
 .xintro .xi-title{
-  margin-top:clamp(26px,3vw,58px);
-  font-size:clamp(13px,1.35vw,26px);
-  font-weight:600;
-  letter-spacing:.3em;
+  font-size:clamp(12px,1.05vw,22px);
+  font-weight:800;
+  letter-spacing:.32em;
   text-transform:uppercase;
-  color:#eaf3ff;
-  opacity:0;
-  animation:xiRiseIn .6s 2.8s cubic-bezier(.22,.7,.28,1) both;
+  color:#fff;
+}
+.xintro .xi-period{
+  margin-top:clamp(5px,.45vw,10px);
+  font-size:clamp(10px,.72vw,15px);
+  font-weight:700;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--xi-cyan);
+}
+.xintro .xi-group{
+  width:clamp(92px,7.4vw,170px);
+  height:auto; display:block;
+  opacity:.92;
 }
 
-.xintro .xi-sub{
-  margin-top:clamp(10px,1.1vw,20px);
-  font-size:clamp(10.5px,.82vw,16px);
-  font-weight:400;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:rgba(197,216,240,.62);
-  opacity:0;
-  animation:xiRiseIn .6s 2.97s cubic-bezier(.22,.7,.28,1) both;
+/* ── Barra de carga (borde inferior, determinada 0 → 100 %) ───────────────── */
+.xintro .xi-progress{
+  position:absolute; left:0; right:0; bottom:0;
+  height:3px;
+  background:rgba(180,210,240,.10);
+  overflow:hidden;
+  transition:opacity .35s ease;
 }
-
-/* ── Barra de carga: línea fina, recorrido continuo, sin porcentaje ───────── */
-.xintro .xi-bar{
-  position:relative; overflow:hidden;
-  margin-top:clamp(26px,2.8vw,52px);
-  width:clamp(160px,17vw,340px);
-  height:2px; border-radius:2px;
-  background:rgba(180,210,240,.12);
-  opacity:0;
-  animation:xiRiseIn .5s 3.11s ease both;
-}
-.xintro .xi-bar i{
-  position:absolute; top:0; bottom:0; left:0;
-  width:42%; border-radius:2px;
-  background:linear-gradient(90deg,transparent 0%,var(--xi-cyan) 45%,#7fe6d6 100%);
-  /* Recorrido por transform (no por 'left'): se compone en la GPU y no provoca
-     recálculos de layout en cada frame mientras el dashboard se monta detrás. */
-  animation:xiBarRun 1.6s 3.11s cubic-bezier(.55,0,.45,1) infinite;
+.xintro .xi-progress i{
+  position:absolute; inset:0;
+  transform-origin:0 50%;
+  transform:scaleX(0);
+  background:linear-gradient(90deg,#1a8fd1 0%,var(--xi-cyan) 70%,#7fe6d6 100%);
+  box-shadow:0 0 12px rgba(63,208,180,.7);
+  animation:xiLoad var(--xi-load) .35s cubic-bezier(.45,.05,.3,1) both;
   will-change:transform;
 }
 
-/* ── Aviso de carga ───────────────────────────────────────────────────────── */
-.xintro .xi-note{
-  margin-top:clamp(12px,1.2vw,22px);
-  font-size:clamp(9.5px,.7vw,14px);
-  font-weight:500;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:rgba(163,190,220,.55);
-  opacity:0;
-  animation:xiRiseIn .6s 3.25s cubic-bezier(.22,.7,.28,1) both;
-}
-.xintro .xi-dots{display:inline-flex; align-items:center; gap:3px; margin-left:8px}
-.xintro .xi-dots i{
-  width:3px; height:3px; border-radius:50%;
-  background:currentColor; opacity:.25;
-  animation:xiDot 1.5s infinite;
-}
-.xintro .xi-dots i:nth-child(2){animation-delay:.2s}
-.xintro .xi-dots i:nth-child(3){animation-delay:.4s}
-
-/* ── Pie institucional ────────────────────────────────────────────────────── */
-/* Cierra la secuencia como firma corporativa: separado del bloque de marca,
-   anclado al borde inferior y claramente subordinado en escala. */
-.xintro .xi-foot{
-  position:absolute; left:50%; bottom:clamp(52px,7.4vh,116px);
-  transform:translateX(-50%);
-  display:flex; flex-direction:row; align-items:center;
-  gap:clamp(12px,1.1vw,22px);
-  white-space:nowrap;
-  opacity:0;
-  animation:xiRiseIn .7s 3.45s cubic-bezier(.22,.7,.28,1) both;
-  will-change:transform,opacity;
-}
-.xintro .xi-foot-txt{
-  font-size:clamp(10.5px,.72vw,13.5px);
-  font-weight:500;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:rgba(150,178,210,.46);
-}
-.xintro .xi-group{
-  width:clamp(118px,9.7vw,198px);
-  height:auto; display:block;
-  opacity:.8;
-}
+/* ── Salida: el texto se retira mientras el marco se reacomoda ────────────── */
+.xintro.is-morph{pointer-events:none}
+.xintro.is-morph .xi-stage{opacity:0; transform:scale(.94)}
+.xintro.is-morph .xi-bottom{animation:none; opacity:0; transition:opacity .35s ease}
+.xintro.is-morph .xi-progress{opacity:0}
+/* Relevo final: el marco ya coincide con la portada y cede su lugar. */
+.xintro.is-out .xi-frame{opacity:0; transition:opacity .5s ease}
 
 /* ── Keyframes ────────────────────────────────────────────────────────────── */
-@keyframes xiGridIn{from{opacity:0} to{opacity:1}}
-@keyframes xiAmb{
-  from{transform:translate(-50%,-50%) scale(1)}
-  to  {transform:translate(-50%,-52%) scale(1.05)}
-}
-
-/* Rodado del isotipo: aparece centrado, se asienta y rueda hacia su posición.
-   El giro es completo (-360°), de modo que cierra en la orientación original. */
+@keyframes xiPhotoIn{from{transform:scale(1.07)} to{transform:scale(1)}}
 @keyframes xiIso{
   0%   {opacity:0; transform:translateX(var(--xi-shift)) scale(.92) rotate(0deg);
         animation-timing-function:cubic-bezier(.22,.7,.28,1)}
@@ -524,104 +479,66 @@
         animation-timing-function:cubic-bezier(.58,.04,.24,1)}
   100% {opacity:1; transform:translateX(0) scale(1) rotate(-360deg)}
 }
-
-/* El logotipo se descubre de izquierda a derecha, siguiendo al isotipo. */
 @keyframes xiWord{
   0%  {opacity:0; clip-path:inset(0 100% 0 0)}
   12% {opacity:1}
   100%{opacity:1; clip-path:inset(0 0 0 0)}
 }
-
-/* Halo: entra con la marca ya asentada y se estabiliza en una luz mínima. */
-@keyframes xiHalo{
-  0%  {opacity:0;  transform:translate(-50%,-50%) scale(.86)}
-  55% {opacity:1;  transform:translate(-50%,-50%) scale(1.02)}
-  100%{opacity:.78;transform:translate(-50%,-50%) scale(1)}
-}
-
 @keyframes xiRiseIn{from{opacity:0; transform:translateY(9px)} to{opacity:1; transform:none}}
-@keyframes xiBarRun{from{transform:translateX(-110%)} to{transform:translateX(248%)}}
-@keyframes xiDot   {0%,100%{opacity:.22} 50%{opacity:.9}}
+@keyframes xiLoad{from{transform:scaleX(0)} to{transform:scaleX(1)}}
+@keyframes xiCoverIn{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
 
-/* El pie usa translateX para centrarse: su entrada necesita su propio keyframe. */
-.xintro .xi-foot{animation-name:xiFootIn}
-@keyframes xiFootIn{
-  from{opacity:0; transform:translate(-50%,10px)}
-  to  {opacity:1; transform:translate(-50%,0)}
+/* Entrada única del contenido de la portada.
+   1) Mientras la intro está activa, el contenido espera oculto (sin animar detrás).
+   2) Cuando el marco cede, entra una sola vez (xi-enter).
+   3) Al terminar queda fijo (xi-done): retirar xi-enter no relanza fadeUp,
+      que era lo que hacía "refrescar" la portada dos veces. */
+html.xi-boot .cover:not(.xi-enter):not(.xi-done) :is(.cover-eyebrow,.cover-title,.cover-period,.ccard,.changeimg){
+  animation:none;opacity:0
 }
-
-/* ── Salida: crossfade continuo hacia la plataforma ───────────────────────── */
-/* Cuando esto ocurre la aplicación ya está montada y revelándose debajo; la intro
-   solo cede opacidad. Sin display:none y sin cambios de layout: la capa se retira
-   del DOM únicamente cuando la transición ha terminado (js/portada.js). */
-.xintro{
-  opacity:1;
-  transition:opacity .85s cubic-bezier(.4,0,.2,1);
-  will-change:opacity;
-}
-.xintro.is-out{
-  pointer-events:none;
-  opacity:0;
-}
+.cover.xi-enter .cover-eyebrow{animation:xiCoverIn .7s cubic-bezier(.22,.7,.28,1) both}
+.cover.xi-enter .cover-title  {animation:xiCoverIn .7s .08s cubic-bezier(.22,.7,.28,1) both}
+.cover.xi-enter .cover-period {animation:xiCoverIn .7s .16s cubic-bezier(.22,.7,.28,1) both}
+.cover.xi-enter .ccard        {animation:xiCoverIn .75s cubic-bezier(.22,.7,.28,1) both}
+.cover.xi-enter .ccard:nth-child(1){animation-delay:.24s}
+.cover.xi-enter .ccard:nth-child(2){animation-delay:.32s}
+.cover.xi-enter .ccard:nth-child(3){animation-delay:.40s}
+.cover.xi-enter .ccard:nth-child(4){animation-delay:.48s}
+.cover.xi-enter .changeimg    {animation:xiCoverIn .7s .4s cubic-bezier(.22,.7,.28,1) both}
+.cover.xi-done :is(.cover-eyebrow,.cover-title,.cover-period,.ccard,.changeimg){animation:none}
 
 /* ── Bloqueo de la aplicación mientras la intro está activa ───────────────── */
-/* Fondo del documento en navy desde el primer pintado: ni destello blanco ni
-   frame negro si la composición tarda un instante en pintarse. */
 html.xi-boot,
 html.xi-boot body{background:#071026}
 html.xi-boot,
 html.xi-boot body{overflow:hidden}
-/* El fondo claro de la aplicación solo vuelve cuando la intro ya se retiró. */
 html.xi-boot.xi-reveal body{background:var(--bg)}
-
-/* La aplicación se monta y se pinta con total normalidad detrás de la intro, que
-   es opaca y la tapa por completo: cuando llega el crossfade, la portada ya está
-   rasterizada y el paso no tiene que pintar nada. Antes se animaba la opacidad de
-   esta capa enorme —con backdrop-filter en las tarjetas de portada— y ese era el
-   origen del corte al entrar al dashboard. Ahora solo se desvanece la intro.
-   Únicamente se neutralizan los clics mientras la apertura está en marcha. */
 html.xi-boot .app{pointer-events:none}
 html.xi-boot.xi-reveal .app{pointer-events:auto}
 
 /* ── Accesibilidad: sin movimiento ────────────────────────────────────────── */
 @media (prefers-reduced-motion:reduce){
-  .xintro .xi-grid,
-  .xintro .xi-halo,
+  .xi-photo,
   .xintro .xi-iso,
   .xintro .xi-word,
-  .xintro .xi-title,
-  .xintro .xi-sub,
-  .xintro .xi-bar,
-  .xintro .xi-note,
-  .xintro .xi-dots i{animation:none; opacity:1; transform:none}
+  .xintro .xi-bottom{animation:none; opacity:1; transform:none}
+  .xi-photo{opacity:.55}
   .xintro .xi-word{clip-path:none}
-  .xintro .xi-halo{opacity:.7; transform:translate(-50%,-50%)}
-  .xintro .xi-amb{animation:none; transform:translate(-50%,-50%)}
-  .xintro .xi-bar i{animation:none; left:0; width:100%; transform:none}
-  .xintro .xi-foot{animation:none; opacity:1; transform:translateX(-50%)}
-  .xintro{transition:opacity .3s linear}
+  .xintro .xi-progress i{animation-duration:.8s}
+  .xi-frame.is-moving{transition-duration:.01s}
+  .cover.xi-enter *{animation:none !important}
 }
 
-/* ── Responsive: el conjunto respira menos, nunca se empequeñece ──────────── */
+/* ── Responsive ───────────────────────────────────────────────────────────── */
 @media(max-width:900px){
-  .xintro{--xi-word:clamp(240px,54vw,430px)}
-  .xintro .xi-group{width:clamp(96px,17vw,150px)}
+  .xintro{--xi-word:clamp(240px,58vw,460px)}
 }
 @media(max-width:600px){
-  .xintro{--xi-word:clamp(200px,62vw,330px)}
-  .xintro .xi-title{letter-spacing:.22em}
-  .xintro .xi-sub,
-  .xintro .xi-note{letter-spacing:.14em}
-  .xintro .xi-foot{gap:9px; bottom:clamp(34px,6vh,64px)}
-  .xintro .xi-foot-txt{font-size:10px; letter-spacing:.14em}
-  .xintro .xi-group{width:clamp(104px,29vw,136px)}
+  .xintro{--xi-word:clamp(200px,66vw,340px)}
+  .xintro .xi-title{letter-spacing:.2em}
+  .xintro .xi-period{letter-spacing:.14em}
+  .xintro .xi-group{width:clamp(78px,22vw,110px)}
 }
-/* Pantallas muy estrechas: el pie pasa a dos líneas antes que desbordar. */
-@media(max-width:420px){
-  .xintro .xi-foot{flex-direction:column; gap:7px; white-space:normal}
-}
-/* Pantallas muy bajas: el pie no debe pelear con el bloque de marca. */
-@media(max-height:560px){
-  .xintro .xi-foot{bottom:18px; gap:10px}
-  .xintro .xi-group{width:clamp(96px,14vw,124px)}
+@media(max-width:380px){
+  .xintro .xi-bottom{flex-direction:column; align-items:flex-start; gap:14px}
 }
