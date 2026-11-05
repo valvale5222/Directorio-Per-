@@ -285,3 +285,38 @@ function drawDonaCenter(chart, o){
     });
   }, true);
 })();
+
+
+/* ============================================================
+   BARRAS DE SUB-PESTAÑAS EN TABLET / MÓVIL
+   Indicio de "hay más" (desvanecido, ver responsive.css) que se retira al
+   llegar al final, y la pestaña activa siempre a la vista al cambiar.
+   ============================================================ */
+(function(){
+  var SEL = '.vt-tabs, .obj-tabs, .part-tabs, .org-tabs';
+  function upd(bar){
+    var more = bar.scrollWidth - bar.clientWidth - bar.scrollLeft > 4;
+    bar.classList.toggle('rs-more', more);
+  }
+  function showActive(bar){
+    var a = bar.querySelector('.active');
+    if (!a || bar.scrollWidth <= bar.clientWidth) return;
+    var l = a.offsetLeft - bar.offsetLeft, r = l + a.offsetWidth;
+    if (l < bar.scrollLeft || r > bar.scrollLeft + bar.clientWidth) {
+      bar.scrollTo({left: Math.max(0, l - 24), behavior: 'smooth'});
+    }
+  }
+  function init(){
+    document.querySelectorAll(SEL).forEach(function(bar){
+      upd(bar);
+      bar.addEventListener('scroll', function(){ upd(bar); }, {passive: true});
+      bar.addEventListener('click', function(){ setTimeout(function(){ showActive(bar); upd(bar); }, 60); });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  window.addEventListener('resize', function(){ document.querySelectorAll(SEL).forEach(upd); });
+  /* Al cambiar de sección las barras pasan de ocultas (ancho 0) a visibles */
+  document.addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('.tab')) setTimeout(function(){ document.querySelectorAll(SEL).forEach(upd); }, 120);
+  });
+})();

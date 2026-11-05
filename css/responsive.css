@@ -1,0 +1,111 @@
+/* ==========================================================================
+   RESPONSIVE · capa final (tablet ≤900px · mobile ≤600px · XS ≤400px)
+   Se carga DESPUÉS de los CSS de cada vista: varias reglas responsive de
+   base.css quedaban anuladas porque el CSS de la vista (cargado después)
+   reescribía la regla de escritorio. Aquí solo hay reglas dentro de @media:
+   escritorio y TV no cambian.
+   ========================================================================== */
+
+/* ── 1 · Barras de sub-pestañas: desplazamiento lateral con indicio visual ──
+   Ventas, Objetivos, Participación y Organigrama ya permitían scroll, pero
+   nada indicaba que había más pestañas. Desvanecido en el borde derecho
+   (se retira al llegar al final, ver shared.js) y sin barra de scroll. */
+@media (max-width: 900px) {
+  .vt-tabs, .obj-tabs, .part-tabs, .org-tabs {
+    overflow-x: auto; overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    overscroll-behavior-x: contain; scroll-behavior: smooth;
+  }
+  .vt-tabs::-webkit-scrollbar, .obj-tabs::-webkit-scrollbar,
+  .part-tabs::-webkit-scrollbar, .org-tabs::-webkit-scrollbar { display: none; }
+  .vt-tabs > *, .obj-tabs > *, .part-tabs > *, .org-tabs > * { flex: 0 0 auto; }
+  :is(.vt-tabs, .obj-tabs, .part-tabs, .org-tabs).rs-more {
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent);
+            mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent);
+  }
+}
+
+/* ── 2 · Ventas ── */
+@media (max-width: 600px) {
+  /* KPI: el contexto bajo el número se lee completo (sin "…") */
+  #ventas .vt-kpi-s { white-space: normal; text-overflow: clip; line-height: 1.35; }
+
+  /* Leyenda del ritmo: los chips bajan de línea en vez de salirse */
+  .vt-ritmo-leg { flex-wrap: wrap; gap: 6px; }
+  .vt-ritmo-leg .vt-rl { white-space: nowrap; }
+
+  /* Top 20: nombre, importe y margen visibles sin desplazar (zona se omite) */
+  .top10-tbl { min-width: 0 !important; width: 100%; table-layout: auto; }
+  .top10-tbl th:nth-child(5), .top10-tbl td:nth-child(5) { display: none; }
+  .top10-tbl td:nth-child(2) { white-space: normal; min-width: 0; max-width: 36vw; }
+  .top10-tbl td:nth-child(2) * { white-space: normal; }
+  .top10-tbl th, .top10-tbl td { padding-left: 7px !important; padding-right: 7px !important; }
+  /* El nombre del cliente pasa a dos líneas en vez de cortarse con "…" */
+  .top10-bar-cell > span { white-space: normal !important; max-width: none !important; line-height: 1.25; }
+
+  /* Mapa de calor: 12 meses legibles con desplazamiento lateral propio */
+  #hmapGrid { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px 6px; }
+  #hmapGrid .hmap-table { min-width: 660px; }
+}
+
+/* ── 3 · Mapa comercial ── */
+@media (max-width: 700px) {
+  /* Las filas no fuerzan el ancho de la card (nombres con "…" si no caben) */
+  .mc-sec-row { grid-template-columns: minmax(0, 1fr) auto auto; }
+  .mc-grid > *, .mc-grid2 > *, .mc-chip { min-width: 0; }
+}
+@media (max-width: 600px) {
+  /* Columna de etiquetas del mapa dentro de la pantalla: el mapa y su capa
+     de etiquetas se desplazan juntos y dejan margen a la izquierda */
+  .mc-mapwrap { margin-left: 64px; }
+  .mc-lbl { font-size: 12px; }
+  /* Top clientes del mapa: la tabla se desplaza dentro de su card */
+  #mcCli { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* ── 4 · Pipeline ── */
+@media (max-width: 700px) {
+  /* Embudo + detalle de etapa y Forecast + resumen: uno debajo del otro */
+  .pipe-fs-grid { grid-template-columns: minmax(0, 1fr); }
+  .pipe-fs-grid > * { min-width: 0; }
+}
+@media (max-width: 600px) {
+  /* KPI del hero en rejilla: sin textos montados entre sí */
+  .pipe-hero-right { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+  .pipe-hero-right .pipe-hkpi { border-right: none; margin-right: 0; padding-right: 0; min-width: 0; }
+  .pipe-hero-right .pipe-hkpi:first-child { grid-column: 1 / -1; }
+
+  /* Embudo: etapa e importe arriba, barra a todo el ancho debajo
+     (en 3 columnas el nombre de la etapa se montaba sobre la barra) */
+  .fstage-v2 {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "lbl meta" "bar bar";
+    row-gap: 7px;
+  }
+  .fstage-v2 > .fv2-label-wrap { grid-area: lbl; }
+  .fstage-v2 > .fv2-bar-wrap { grid-area: bar; }
+  .fstage-v2 > .fv2-meta { grid-area: meta; }
+  .fstage-v2 .fv2-label { white-space: normal; }
+}
+
+/* ── 5 · Objetivos · Plan de acción ── */
+@media (max-width: 600px) {
+  /* Cabecera del Plan 01: el estado pasa a su propia línea y el título
+     recupera el ancho (antes quedaba una palabra por línea) */
+  .pd-head { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 10px; }
+  .pd-head .pd-pill { grid-column: 1 / -1; justify-self: start; }
+  .pd-meta { grid-template-columns: 1fr; }
+  .pd-meta .pd-mm + .pd-mm { border-left: none; border-top: 1px solid #eef2f8; }
+  .pd-box { grid-template-columns: 1fr; }
+  .pd-box .pd-kpi + .pd-kpi { border-left: none; border-top: 1px dashed #dbe5f1; }
+  .pd-steps { grid-template-columns: 1fr; }
+  .pd-band-row { flex-direction: column; align-items: stretch; }
+}
+
+/* ── 6 · Organigrama ── (re-aplica la regla de base.css que organigrama.css anulaba) */
+@media (max-width: 900px) {
+  .org-hero-anchor { display: flex; flex-direction: column; align-items: center; }
+  .org-staff-branch { position: static; width: 2px; height: 22px; border-top: none; border-left: 2px dashed rgba(15, 110, 86, .55); }
+  .org-staff-slot { position: static; transform: none; margin-top: 2px; }
+  .org-staff-slot .org-hero-card { width: min(420px, 92vw); }
+}
