@@ -33,16 +33,16 @@
       ico: '💼',
       a: '#3EC6AC', a2: '#0F6E56',
       ytd: 'Ene–Oct', ytdMes: 'Octubre',
-      venta:      [15450000, 34960000, 35260000, 42000000],
+      venta:      [15450000, 34960000, 35258819.83, 39000000],
       margenPct:  [15.30, 15.87, 15.55, 15.60],
-      margenUsd:  [2363110, 5548519, 5482930, 6552000],
+      margenUsd:  [2363850, 5548152, 5482746.48, 6084000],
       team:       [8, 10, 11, 11],
-      costo:      [795000, 935000, 748000, 934000],
-      otros:      [null, null, 154000, 185000],
-      costoVenta: [5.14, 2.6745, 2.1214, 2.2238],
-      note: 'La venta proyecta <em>+20.1%</em> sobre 2025 y el costo de mano de obra baja a <em>2.22%</em> de la venta. ' +
+      costo:      [794650.71, 934751.71, 747970.59, 933764.71],
+      otros:      [null, null, 154166.67, 185000],
+      costoVenta: [5.14, 2.67, 2.12, 2.39],
+      note: 'La venta proyecta <em>+11.6%</em> sobre 2025 y el costo de mano de obra baja a <em>2.39%</em> de la venta. ' +
             'Con el equipo de 10 a 11 personas, la venta por colaborador sube de <b>$3.50MM</b> (2025) a ' +
-            '<b>$3.82MM</b> proyectado, con un costo de mano de obra prácticamente estable.'
+            '<b>$3.55MM</b> proyectado, con un costo de mano de obra prácticamente estable.'
     },
     arq: {
       name: 'Arquitectura',
