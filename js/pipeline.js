@@ -11,6 +11,8 @@
    Vita Foods y Tricao pasan a 2027). SC Packing venía como texto "$252,060" en VENTA → convertido a número.
    Mes de cierre 0 (Medlog Ica, Medlog Cayalti, Danper Muchik) y celdas vacías se cargan como null;
    importe vacío (Grupo Hame, Alpamayo) se carga como 0.
+   Actualizado 5 Nov 2026 desde el VF: Atgro (3 oport.), Smartpacking y Agro Fruit Export pasan a 2027;
+   Prolan $384K; El Parque $940K; Gloria - Cusco 40%; Gloria - Lima Este sin mes de cierre.
    ============================================================ */
 const PIPE_ROWS = [
   ['Frutos Tropicales',5986141.91,0.1,4,'Planta de Congelado de Mango','Postpuesto',2027],
@@ -25,9 +27,9 @@ const PIPE_ROWS = [
   ['Danper',3000000,0.4,12,'Planta de Uva (Olmos)','En proceso de cotización',2026],
   ['San Fernando',2923052.67,0,8,'Implementación del Sistema de Refrigeracion - PPPC Huaral','Perdido',2026],
   ['Broom Frio',2850000,0.4,3,'3 Camaras y Pasillo de Despacho','En análisis del cliente',2027],
-  ['Atgro (Piura)',2500000,0.4,1,'Planta de Procesamiento de Arandanos (Piura)','En análisis del cliente',2027],
+  ['Atgro (Piura)',2500000,0.4,7,'Planta de Procesamiento de Arandanos (Piura)','En análisis del cliente',2027],
   ['Emergent Cold',2400000,0.8,11,'Greenfield Ecla Amoniaco/Glicol (Sistema de Frio)','Negociación',2026],
-  ['Agro Fruit Export Sac',2222646.27,0.6,11,'Cámara de Congelado','Negociación',2026],
+  ['Agro Fruit Export Sac',2222646.27,0.4,11,'Cámara de Congelado','En análisis del cliente',2027],
   ['Hass Peru',2000000,0.05,2,'Planta Olmos','Prospecto',2027],
   ['Ransa',1950000,0.05,2,'Planta de Congelado - Callao ó Paita','Prospecto',2027],
   ['Fruglobe',1805310,0.6,11,'Planta de Palta','Negociación',2026],
@@ -46,13 +48,13 @@ const PIPE_ROWS = [
   ['Reiter',1000000,0.4,2,'Ampliación Planta','Prospecto',2027],
   ['Perupez',1000000,0.4,4,'Ampliación de Planta Pesquera','En análisis del cliente',2027],
   ['Hijuelas',1000000,0.6,11,'Adicionales de Laboratorio de Crecimiento de Arandanos (LD 24)','En proceso de cotización',2026],
+  ['El Parque Alaya Packing Sac',940246.71,0.4,11,'Ampliación de Packing Palta (Sala de Recepción de MP)','En análisis del cliente',2026],
   ['NGR - Nutra',935527.66,0.4,11,'Implementación de Cámaras de Frio para Planta de Producción Proyecto Chronos (Freon)','Cancelado',2026],
-  ['El Parque Alaya Packing Sac',931218.24,0.4,11,'Ampliación de Packing Palta (Sala de Recepción de MP)','En análisis del cliente',2026],
   ['Rapel',902727.38,0.4,12,'2 Salas de Procesos','En análisis del cliente',2026],
   ['Pesquera Altair-Oceano',898320.57,0,9,'Camara de Congelado y Anden de Congelado','Perdido',2026],
   ['La Grama',856138,0.4,12,'Cámara y Tunel de Congelado (CO2)','En análisis del cliente',2026],
   ['Pura Fruits',850000,0,4,'Ampliacion de Planta de Arandanos','Perdido',2026],
-  ['Atgro (Ecosac) Piura - Olmos - Ica',817400,0.4,12,'Planta de Procesamiento de Arandanos','En análisis del cliente',2026],
+  ['Atgro (Ecosac) Piura - Olmos - Ica',817400,0.4,7,'Planta de Procesamiento de Arandanos','En análisis del cliente',2027],
   ['Frutos de Oro',806804.24,0.2,3,'Sistema de Frio IQF','Postpuesto',2027],
   ['JRM - Yamboli',789467.95,0.2,3,'Camaras de Congelado de Helado (Sistema de Frio) : C02 y Freon','En proceso de cotización',2027],
   ['Sociedad Agricola Drokasa S.A.',780000,0.6,12,'Planta Antigua de Esparragos - Mejoras','Postpuesto',2026],
@@ -62,7 +64,7 @@ const PIPE_ROWS = [
   ['Agrolatina - Nazca',750000,0.4,3,'Climatizacion de Sala de Procesos - Camara de Materia Prima','Prospecto',2027],
   ['Camposol',700000,0,3,'Acopio Nuevo','Perdido',2026],
   ['2M',680000,0.4,12,'Ampliacion de Procesos de Arandanos','Postpuesto',2026],
-  ['Smartpacking',632026.6,0.6,11,'Sala de Procesos de Palta','En análisis del cliente',2026],
+  ['Smartpacking',632026.6,0.6,11,'Sala de Procesos de Palta','En análisis del cliente',2027],
   ['Frutos de Oro',616364.4,0.2,3,'02 Tuneles de Maduracion','Postpuesto',2027],
   ['Don Ricardo',580000,0.2,3,'Ampliacion de Planta "Casa Chica" - Procesamiento de Uva','Prospecto',2027],
   ['Frutos de Oro',542014.85,0.2,3,'Camaras de C02 y Freon','Postpuesto',2027],
@@ -76,9 +78,10 @@ const PIPE_ROWS = [
   ['Camsac',450000,0.4,2,'Ampliacion de Planta de Arandanos 2 TMP, 1 CPT, 1 Despacho','Prospecto',2027],
   ['3P',450000,0.4,2,'Instalacion y Puesta en Marcha - Chiller','Postpuesto',2027],
   ['Agropecuarios del Sur',421755.7,0,5,'Planta de Embutidos','Perdido',2026],
-  ['Atgro (Ingeniería)',400000,0.2,11,'Arquitectura e Ingeniería','En análisis del cliente',2026],
+  ['Atgro (Ingeniería)',400000,0.2,7,'Arquitectura e Ingeniería','En análisis del cliente',2027],
   ['Agrofloral',392000,0.8,11,'Ampliación de Cámara y Pasillo','Negociación',2026],
-  ['Gloria - Cusco',386413.66,0.6,11,'Instalación de Almacén Refrigerado – Cámara Cusco.','En análisis del cliente',2026],
+  ['Gloria - Cusco',386413.66,0.4,11,'Instalación de Almacén Refrigerado – Cámara Cusco.','En análisis del cliente',2026],
+  ['Prolan',383670.78,0.2,2,'Camara Frio Materia Prima Envasados','En análisis del cliente',2027],
   ['Don Packing',372462.18,0,4,'Planta Empacadaora de Fruta Multiproposito','Perdido',2026],
   ['Grupo Rocío: Noraves Santa Elena (Virú)',344919.36,0.2,11,'Sistema de Respaldo (Backup) de Refrigeración','En análisis del cliente',2026],
   ['Arona',321390.28,0.8,11,'Ampliación de Packing de Citricos y Palta','Negociación',2026],
@@ -91,11 +94,10 @@ const PIPE_ROWS = [
   ['Gloria - Chincha',257621.88,0.4,11,'Chincha - Cámara y Antecámara de Yogurt','En análisis del cliente',2026],
   ['Pedregal Ica',256000,0,5,'Ampliación de Túneles en PK1 y PK2','Perdido',2026],
   ['SC Packing',252060,0.6,11,'Ampliación de Cámara, Pasillo y Despacho','En proceso de cotización',2026],
-  ['Prolan',250000,0.2,2,'Camara Frio Materia Prima Envasados','En análisis del cliente',2027],
   ['Gloria - Huancayo',247931.74,0.4,11,'Instalación de Almacén Refrigerado','En análisis del cliente',2026],
   ['Tal S.A. - Salaverry',238525.82,0.4,11,'Repotenciación de Sala de Procesos','En proceso de cotización',2026],
   ['Emergent Cold',184618.75,0.6,11,'Suministro e Instalación de Compresor (3er para Back Up)','En análisis del cliente',2026],
-  ['Gloria - Lima Este',177110.57,0.4,10,'Suministro de Frio','Perdido',2026],
+  ['Gloria - Lima Este',177110.57,0.4,null,'Suministro de Frio','Perdido',2026],
   ['Agro Develop',150000,0.2,3,'Packing de Jengibre - Capex 2027','Postpuesto',2027],
   ['Cementos Pacasmayo',128992.98,0.2,3,'Instalacion de 2 Chilleres - Ecuador','Postpuesto',2027],
   ['Agroberries',103694.6,0.8,1,'Tunel 02 - Adicional para Materia Prima','En análisis del cliente',2027],
@@ -590,7 +592,7 @@ const OBJ5 = [
     clearAllForecastFilters();
   });
 
-  /* "Importe ponderado" = Σ(importe × probabilidad) de las oportunidades que cumplen los
+  /* "Pipeline ponderado" = Σ(importe × probabilidad) de las oportunidades que cumplen los
      filtros activos de Forecast (probabilidad / estado / mes — mismo universo que forecastRows(),
      igual que las tarjetas "Forecast" y "Oportunidades" de esta misma fila). Ponderación exclusiva
      de esta KPI: no toca importes nominales, gráficos, tablas ni el resto de tarjetas. */
@@ -602,6 +604,38 @@ const OBJ5 = [
   function anioSelLabel() {
     if (_pipeAnioSel.has('all')) return '';
     return PIPE_ANIOS.filter(function(y){ return _pipeAnioSel.has(String(y)); }).join(' + ');
+  }
+
+  /* Años del horizonte que cubre el filtro de Año ("Todos" = todos los años del pipeline). */
+  function forecastAnios() {
+    return _pipeAnioSel.has('all') ? PIPE_ANIOS.slice() : PIPE_ANIOS.filter(function(y){ return _pipeAnioSel.has(String(y)); });
+  }
+  function forecastAnioLabel(anios) {
+    if (!anios.length) return '';
+    if (_pipeAnioSel.has('all') && anios.length > 1) return anios[0] + '&ndash;' + anios[anios.length - 1];
+    return anios.join(' + ');
+  }
+
+  /* Ventas reales acumuladas del/los año(s) — consolidado oficial VC (ventas.js, US$ MM,
+     último mes con dato). Un año sin registro en VC aporta 0 y se informa como tal:
+     nunca se reemplaza por importes del pipeline. Solo depende del filtro de Año. */
+  function ventasRealesAnios(anios) {
+    var total = 0, conDato = 0;
+    anios.forEach(function(y) {
+      var serie = (typeof VC !== 'undefined') ? VC[y % 100] : null;
+      if (!serie) return;
+      for (var i = serie.length - 1; i >= 0; i--) {
+        if (serie[i] != null) { total += serie[i] * 1000000; conDato++; break; }
+      }
+    });
+    return {importe: total, conDato: conDato};
+  }
+
+  /* Componente pendiente del Forecast: Σ(importe × probabilidad) de las oportunidades
+     filtradas (probabilidad / estado / año / mes) que siguen abiertas — excluye vendidas,
+     perdidas y canceladas para no duplicar la venta real ni sumar negocio caído. */
+  function pendienteRows(rows) {
+    return rows.filter(function(r){ return r[5] !== 'Vendido' && r[5] !== 'Perdido' && r[5] !== 'Cancelado'; });
   }
 
   function renderForecastKpis() {
@@ -616,11 +650,18 @@ const OBJ5 = [
       ? ('Oportunidades activas ' + anioLbl + ' &middot; ' + fixedA.count + ' oport.')
       : ('Importe de todas las oportunidades activas &middot; ' + fixedA.count + ' oport.');
     var weighted = weightedImporte(rows);
+    /* Forecast de cierre = ventas reales acumuladas + pipeline ponderado pendiente de cierre */
+    var fcAnios = forecastAnios();
+    var vReal = ventasRealesAnios(fcAnios);
+    var pendiente = weightedImporte(pendienteRows(rows));
+    var fcLabel = 'Forecast de Cierre' + (fcAnios.length ? ' ' + forecastAnioLabel(fcAnios) : '');
+    var fcCtx = (vReal.conDato ? (fmtEjecutivo(vReal.importe) + ' vendidos') : 'Sin ventas reales registradas')
+      + ' + ' + fmtEjecutivo(pendiente) + ' ponderados por cerrar';
     var html = ''
       + kpiCard('#1E3A5F', 'Pipeline Bruto Total', fmtEjecutivo(fixedA.importe), brutoCtx, null)
-      + kpiCard('#0F6E56', 'Forecast', fmtEjecutivo(a.importe), a.count + ' oportunidades seg&uacute;n filtro', null)
+      + kpiCard('#0F6E56', fcLabel, fmtEjecutivo(vReal.importe + pendiente), fcCtx, null)
       + kpiCard('#3EC6AC', 'Oportunidades', String(a.count), 'N&uacute;mero de oportunidades filtradas', null)
-      + kpiCard('#D97706', 'Importe ponderado', fmtEjecutivo(weighted), 'Suma de (importe &times; probabilidad) seg&uacute;n filtro', null);
+      + kpiCard('#D97706', 'Pipeline Ponderado', fmtEjecutivo(weighted), 'Suma de (importe &times; probabilidad) seg&uacute;n filtro', null);
     var el = document.getElementById('pipeKpiForecast');
     if (el) el.innerHTML = html;
   }
