@@ -2,7 +2,8 @@
    MAPA COMERCIAL · DATA
    Fuente única: DATA_PRODUC_25.07.xlsx — hoja "Data Cruda"
    Años analizados: 2024, 2025 y 2026 (cualquier otro año se ignora).
-   Registros: 369  ·  Ventas: 2024 $15451149.33 · 2025 $34766472.66 · 2026 $34188819.83 (YTD Ene–Oct)
+   Registros: 371  ·  Ventas: 2024 $15451149.33 · 2025 $34766472.66 · 2026 $36986522.24 (YTD Ene–Oct
+   + 2 ventas de noviembre cargadas el 5-nov-2026: Prosembra y Procesadora Laran, código provisional hasta tener el CODIGO PROYECTO real)
 
    Este archivo NO contiene datos de demostración: RAW es un volcado
    literal de la hoja "Data Cruda" (columnas Año, Mes, Cliente, ZONA,
@@ -390,7 +391,9 @@
     [2026, 10, "INVERSIONES SAN JUAN DE LA LUZ S.A.C.", "SUR", "ICA", "Otros", "Otros", 2028678.5, 304301.77, "PR", "PRY 2026-0000058", "LABORATORIO ESTRUCTURAS"],
     [2026, 10, "INVERSIONES SAN JUAN DE LA LUZ S.A.C.", "SUR", "ICA", "Otros", "Otros", 1107902.49, 199422.45, "PR", "PRY 2026-0000059", "LABORATORIO OBRAS CIVILES"],
     [2026, 10, "AGROINDUSTRIAS AIB S.A", "SUR", "ICA", "FRUTA CONGELADA", "Otros", 2511.69, 502.34, "AD", "PRD 2026-0000055", "TECHO PREDILUVIO"],
-    [2026, 10, "AGROINDUSTRIAS AIB S.A", "SUR", "ICA", "FRUTA CONGELADA", "Otros", 1500, 300, "AD", "PRD 2026-0000056", "CANALETA FLUVIAL"]
+    [2026, 10, "AGROINDUSTRIAS AIB S.A", "SUR", "ICA", "FRUTA CONGELADA", "Otros", 1500, 300, "AD", "PRD 2026-0000056", "CANALETA FLUVIAL"],
+    [2026, 11, "PROSEMBRA SOCIEDAD ANONIMA CERRADA", "SUR", "ICA", "ARANDANOS", "Amoniaco/Glicol", 1722530.42, 328831.06, "PR", "PRY 2026-NOV-PROSEMBRA (provisional)", "AMPLIACIÓN DE PLANTA"],
+    [2026, 11, "PROCESADORA LARAN SAC", "SUR", "ICA", "ARANDANOS", "Amoniaco", 1075171.99, 215034.40, "PR", "PRY 2026-NOV-LARAN (provisional)", "AMPLIACIÓN 4° ETAPA"]
   ];
 
   /* ── 2 · NORMALIZACIÓN ───────────────────────────────────────
