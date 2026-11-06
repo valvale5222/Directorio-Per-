@@ -1,8 +1,6 @@
 /* ============================================================
    DATA CLIENTES — Fuente: DATA_PRODUC_25.07.xlsx (2014–oct 2026)
    Alcance clientes: histórico completo 2014–2026 (2026 = YTD Ene–Oct)
-   Incluye además las 2 ventas de noviembre (5-nov-2026): Prosembra S.A.C. ($1,722,530 ·
-   Ampliación de Planta) y Procesadora Larán ($1,075,172 · Ampliación 4° Etapa) = +$2,797,702.
    Las razones sociales que solo difieren en puntos se tratan como un mismo cliente
    (p. ej. "EL PEDREGAL S.A" = "EL PEDREGAL S.A."): 4 pares fusionados.
    Alias por cambio de razón social (confirmado por el usuario, no es variante de puntos):
@@ -11,116 +9,116 @@
 
 /* Treemap top 20 — histórico 2014-2026 */
 const cliTmHist = [
-  {n:'Corp. Agrolatina', v:14074374, p:5.34, s:'retenido'},
-  {n:'Agrovision Peru', v:12027997, p:4.57, s:'retenido'},
-  {n:'Danper Trujillo', v:11318013, p:4.30, s:'retenido'},
-  {n:'Soc. Agrícola Drokasa', v:10838640, p:4.12, s:'retenido'},
-  {n:'Agroberries Peru', v:10234685, p:3.89, s:'nuevo'},
-  {n:'Viru S.A.', v:10204953, p:3.87, s:'retenido'},
-  {n:'TAL S.A.', v:7610132, p:2.89, s:'reactivado'},
-  {n:'AQU ANQA S.A.C.', v:7512254, p:2.85, s:'retenido'},
-  {n:'Los Olivos de Villacuri', v:6191501, p:2.35, s:'retenido'},
-  {n:'Agrícola Alaya', v:5993441, p:2.28, s:'retenido'},
-  {n:'Bomarea S.R.L.', v:5621736, p:2.13, s:'reactivado'},
-  {n:'Prosembra S.A.C.', v:5354772, p:2.03, s:'nuevo'},
-  {n:'Agroindustrias AIB', v:5284237, p:2.01, s:'retenido'},
-  {n:'Agrocasagrande', v:5187382, p:1.97, s:'retenido'},
-  {n:'Hortifrut-TAL', v:5033323, p:1.91, s:'sinactividad'},
-  {n:'Medlog Piura SAC', v:4364402, p:1.66, s:'sinactividad'},
-  {n:'Agrícola Huarmey', v:4328513, p:1.64, s:'reactivado'},
-  {n:'El Pedregal S.A.', v:4183844, p:1.59, s:'retenido'},
-  {n:'Camposol S.A.', v:4010895, p:1.52, s:'retenido'},
-  {n:'Sun Fruits Exports', v:3930940, p:1.49, s:'retenido'}
+  {n:'Corp. Agrolatina', v:14074374, p:5.40, s:'retenido'},
+  {n:'Agrovision Peru', v:12027997, p:4.62, s:'retenido'},
+  {n:'Danper Trujillo', v:11318013, p:4.34, s:'retenido'},
+  {n:'Soc. Agrícola Drokasa', v:10838640, p:4.16, s:'retenido'},
+  {n:'Agroberries Peru', v:10234685, p:3.93, s:'nuevo'},
+  {n:'Viru S.A.', v:10204953, p:3.92, s:'retenido'},
+  {n:'TAL S.A.', v:7610132, p:2.92, s:'reactivado'},
+  {n:'AQU ANQA S.A.C.', v:7512254, p:2.88, s:'retenido'},
+  {n:'Los Olivos de Villacuri', v:6191501, p:2.38, s:'retenido'},
+  {n:'Agrícola Alaya', v:5993441, p:2.30, s:'retenido'},
+  {n:'Bomarea S.R.L.', v:5621736, p:2.16, s:'reactivado'},
+  {n:'Agroindustrias AIB', v:5284237, p:2.03, s:'retenido'},
+  {n:'Agrocasagrande', v:5187382, p:1.99, s:'retenido'},
+  {n:'Hortifrut-TAL', v:5033323, p:1.93, s:'sinactividad'},
+  {n:'Medlog Piura SAC', v:4364402, p:1.67, s:'sinactividad'},
+  {n:'Agrícola Huarmey', v:4328513, p:1.66, s:'reactivado'},
+  {n:'El Pedregal S.A.', v:4183844, p:1.61, s:'retenido'},
+  {n:'Camposol S.A.', v:4010895, p:1.54, s:'retenido'},
+  {n:'Sun Fruits Exports', v:3930940, p:1.51, s:'retenido'},
+  {n:'Prosembra S.A.C.', v:3632242, p:1.39, s:'nuevo'}
 ];
 
 /* Treemap top 20 — período 2025–2026 */
 const cliTmCurr = [
-  {n:'Agroberries Peru', v:10234685, p:14.26, s:'nuevo'},
-  {n:'Prosembra S.A.C.', v:5354772, p:7.46, s:'nuevo'},
-  {n:'Danper Trujillo', v:4485901, p:6.25, s:'retenido'},
-  {n:'Corp. Agrolatina', v:4450000, p:6.20, s:'retenido'},
-  {n:'Agrícola Huarmey', v:4190176, p:5.84, s:'reactivado'},
-  {n:'AQU ANQA S.A.C.', v:3373589, p:4.70, s:'retenido'},
-  {n:'Bomarea S.R.L.', v:3162369, p:4.41, s:'reactivado'},
-  {n:'Inv. San Juan de la Luz S.A.C.', v:3136581, p:4.37, s:'nuevo'},
-  {n:'Q Pack S.A.C.', v:2958266, p:4.12, s:'nuevo'},
-  {n:'Soc. Agrícola Drokasa', v:2420726, p:3.37, s:'retenido'},
-  {n:'TAL S.A.', v:2090404, p:2.91, s:'reactivado'},
-  {n:'Proc. Agroindustr.', v:2061656, p:2.87, s:'nuevo'},
-  {n:'Procesadora Larán', v:2004809, p:2.79, s:'retenido'},
-  {n:'Agroindustrias AIB', v:1734608, p:2.42, s:'retenido'},
-  {n:'Agrícola Alaya', v:1490361, p:2.08, s:'retenido'},
-  {n:'TA Export S.A.C.', v:1460000, p:2.03, s:'nuevo'},
-  {n:'Agrícola Pampa Baja', v:1243276, p:1.73, s:'reactivado'},
-  {n:'El Pedregal S.A.', v:978089, p:1.36, s:'retenido'},
-  {n:'Ara Foods Industry', v:905597, p:1.26, s:'nuevo'},
-  {n:'Imbarex S.A.', v:853450, p:1.19, s:'nuevo'}
+  {n:'Agroberries Peru', v:10234685, p:14.84, s:'nuevo'},
+  {n:'Danper Trujillo', v:4485901, p:6.51, s:'retenido'},
+  {n:'Corp. Agrolatina', v:4450000, p:6.45, s:'retenido'},
+  {n:'Agrícola Huarmey', v:4190176, p:6.08, s:'reactivado'},
+  {n:'Prosembra S.A.C.', v:3632242, p:5.27, s:'nuevo'},
+  {n:'AQU ANQA S.A.C.', v:3373589, p:4.89, s:'retenido'},
+  {n:'Bomarea S.R.L.', v:3162369, p:4.59, s:'reactivado'},
+  {n:'Inv. San Juan de la Luz S.A.C.', v:3136581, p:4.55, s:'nuevo'},
+  {n:'Q Pack S.A.C.', v:2958266, p:4.29, s:'nuevo'},
+  {n:'Soc. Agrícola Drokasa', v:2420726, p:3.51, s:'retenido'},
+  {n:'TAL S.A.', v:2090404, p:3.03, s:'reactivado'},
+  {n:'Proc. Agroindustr.', v:2061656, p:2.99, s:'nuevo'},
+  {n:'Agroindustrias AIB', v:1734608, p:2.52, s:'retenido'},
+  {n:'Agrícola Alaya', v:1490361, p:2.16, s:'retenido'},
+  {n:'TA Export S.A.C.', v:1460000, p:2.12, s:'nuevo'},
+  {n:'Agrícola Pampa Baja', v:1243276, p:1.80, s:'reactivado'},
+  {n:'El Pedregal S.A.', v:978089, p:1.42, s:'retenido'},
+  {n:'Procesadora Larán', v:929637, p:1.35, s:'retenido'},
+  {n:'Ara Foods Industry', v:905597, p:1.31, s:'nuevo'},
+  {n:'Imbarex S.A.', v:853450, p:1.24, s:'nuevo'}
 ];
 
 /* Modal: activos top 20 — [nombre, val25-26, pct, segmento, primerAño, ultimoAño] */
 const cliActTop20 = [
-  ['Agroberries Peru',10234685,14.26,'nuevo',2026,2026],
-  ['Prosembra S.A.C.',5354772,7.46,'nuevo',2025,2026],
-  ['Danper Trujillo',4485901,6.25,'retenido',2014,2026],
-  ['Corp. Agrolatina',4450000,6.20,'retenido',2014,2026],
-  ['Agrícola Huarmey',4190176,5.84,'reactivado',2014,2026],
-  ['AQU ANQA S.A.C.',3373589,4.70,'retenido',2022,2026],
-  ['Bomarea S.R.L.',3162369,4.41,'reactivado',2022,2026],
-  ['Inv. San Juan de la Luz S.A.C.',3136581,4.37,'nuevo',2026,2026],
-  ['Q Pack S.A.C.',2958266,4.12,'nuevo',2025,2026],
-  ['Soc. Agrícola Drokasa',2420726,3.37,'retenido',2014,2026],
-  ['TAL S.A.',2090404,2.91,'reactivado',2014,2026],
-  ['Proc. Agroindustr.',2061656,2.87,'nuevo',2026,2026],
-  ['Procesadora Larán',2004809,2.79,'retenido',2015,2026],
-  ['Agroindustrias AIB',1734608,2.42,'retenido',2014,2026],
-  ['Agrícola Alaya',1490361,2.08,'retenido',2022,2025],
-  ['TA Export S.A.C.',1460000,2.03,'nuevo',2026,2026],
-  ['Agrícola Pampa Baja',1243276,1.73,'reactivado',2014,2026],
-  ['El Pedregal S.A.',978089,1.36,'retenido',2020,2026],
-  ['Ara Foods Industry',905597,1.26,'nuevo',2025,2026],
-  ['Imbarex S.A.',853450,1.19,'nuevo',2025,2026]
+  ['Agroberries Peru',10234685,14.84,'nuevo',2026,2026],
+  ['Danper Trujillo',4485901,6.51,'retenido',2014,2026],
+  ['Corp. Agrolatina',4450000,6.45,'retenido',2014,2026],
+  ['Agrícola Huarmey',4190176,6.08,'reactivado',2014,2026],
+  ['Prosembra S.A.C.',3632242,5.27,'nuevo',2025,2026],
+  ['AQU ANQA S.A.C.',3373589,4.89,'retenido',2022,2026],
+  ['Bomarea S.R.L.',3162369,4.59,'reactivado',2022,2026],
+  ['Inv. San Juan de la Luz S.A.C.',3136581,4.55,'nuevo',2026,2026],
+  ['Q Pack S.A.C.',2958266,4.29,'nuevo',2025,2026],
+  ['Soc. Agrícola Drokasa',2420726,3.51,'retenido',2014,2026],
+  ['TAL S.A.',2090404,3.03,'reactivado',2014,2026],
+  ['Proc. Agroindustr.',2061656,2.99,'nuevo',2026,2026],
+  ['Agroindustrias AIB',1734608,2.52,'retenido',2014,2026],
+  ['Agrícola Alaya',1490361,2.16,'retenido',2022,2025],
+  ['TA Export S.A.C.',1460000,2.12,'nuevo',2026,2026],
+  ['Agrícola Pampa Baja',1243276,1.80,'reactivado',2014,2026],
+  ['El Pedregal S.A.',978089,1.42,'retenido',2020,2026],
+  ['Procesadora Larán',929637,1.35,'retenido',2015,2026],
+  ['Ara Foods Industry',905597,1.31,'nuevo',2025,2026],
+  ['Imbarex S.A.',853450,1.24,'nuevo',2025,2026]
 ];
 
 /* Modal: nuevos top 20 — [nombre, val, pct, primerAño] */
 const cliNewTop20 = [
-  ['Agroberries Peru',10234685,14.26,2026],
-  ['Prosembra S.A.C.',5354772,7.46,2025],
-  ['Inv. San Juan de la Luz S.A.C.',3136581,4.37,2026],
-  ['Q Pack S.A.C.',2958266,4.12,2025],
-  ['Proc. Agroindustr.',2061656,2.87,2026],
-  ['TA Export S.A.C.',1460000,2.03,2026],
-  ['Ara Foods Industry',905597,1.26,2025],
-  ['Imbarex S.A.',853450,1.19,2025],
-  ['Estanterías Metálicas JRM',548391,0.76,2026],
-  ['Agroindustria Frutos de Oro',508072,0.71,2025],
-  ['Delice S.A.C',427469,0.60,2025],
-  ['Berry Harvest S.A.',402751,0.56,2025],
-  ['Diamond Bridge SAC',321860,0.45,2025],
-  ['Limones Piuranos S.A.C.',317797,0.44,2025],
-  ['Agríc. Ganadera Las Canelas',256513,0.36,2025],
-  ['San Efisio S.A.C.',226880,0.32,2025],
-  ['Cerv. Backus y Johnston SAC',222254,0.31,2025],
-  ['Univ. Federico Henríquez',206090,0.29,2026],
-  ['Arca Continental Lindley',203678,0.28,2026],
-  ['Agrícola Safco Perú S.A.',180087,0.25,2026]
+  ['Agroberries Peru',10234685,14.84,2026],
+  ['Prosembra S.A.C.',3632242,5.27,2025],
+  ['Inv. San Juan de la Luz S.A.C.',3136581,4.55,2026],
+  ['Q Pack S.A.C.',2958266,4.29,2025],
+  ['Proc. Agroindustr.',2061656,2.99,2026],
+  ['TA Export S.A.C.',1460000,2.12,2026],
+  ['Ara Foods Industry',905597,1.31,2025],
+  ['Imbarex S.A.',853450,1.24,2025],
+  ['Estanterías Metálicas JRM',548391,0.80,2026],
+  ['Agroindustria Frutos de Oro',508072,0.74,2025],
+  ['Delice S.A.C',427469,0.62,2025],
+  ['Berry Harvest S.A.',402751,0.58,2025],
+  ['Diamond Bridge SAC',321860,0.47,2025],
+  ['Limones Piuranos S.A.C.',317797,0.46,2025],
+  ['Agríc. Ganadera Las Canelas',256513,0.37,2025],
+  ['San Efisio S.A.C.',226880,0.33,2025],
+  ['Cerv. Backus y Johnston SAC',222254,0.32,2025],
+  ['Univ. Federico Henríquez',206090,0.30,2026],
+  ['Arca Continental Lindley',203678,0.30,2026],
+  ['Agrícola Safco Perú S.A.',180087,0.26,2026]
 ];
 
 /* Categorías */
 const cliCat = {
   hist:{
-    classic:{n:91,val:245265351,pct:93.1,top:[
-      ['Corp. Agrolatina',14074374,5.74],['Agrovision Peru',12027997,4.90],
-      ['Danper Trujillo',11318013,4.61],['Soc. Agrícola Drokasa',10838640,4.42],
-      ['Agroberries Peru',10234685,4.17],['Viru S.A.',10204953,4.16],
-      ['TAL S.A.',7610132,3.10],['AQU ANQA S.A.C.',7512254,3.06],
-      ['Los Olivos de Villacuri',6191501,2.52],['Agrícola Alaya',5993441,2.44],
-      ['Bomarea S.R.L.',5621736,2.29],['Prosembra S.A.C.',5354772,2.18],
-      ['Agroindustrias AIB',5284237,2.15],['Agrocasagrande',5187382,2.12],
-      ['Hortifrut-TAL',5033323,2.05],['Medlog Piura SAC',4364402,1.78],
-      ['Agrícola Huarmey',4328513,1.76],['El Pedregal S.A.',4183844,1.71],
-      ['Camposol S.A.',4010895,1.64],['Sun Fruits Exports',3930940,1.60]
+    classic:{n:91,val:242467649,pct:93.1,top:[
+      ['Corp. Agrolatina',14074374,5.80],['Agrovision Peru',12027997,4.96],
+      ['Danper Trujillo',11318013,4.67],['Soc. Agrícola Drokasa',10838640,4.47],
+      ['Agroberries Peru',10234685,4.22],['Viru S.A.',10204953,4.21],
+      ['TAL S.A.',7610132,3.14],['AQU ANQA S.A.C.',7512254,3.10],
+      ['Los Olivos de Villacuri',6191501,2.55],['Agrícola Alaya',5993441,2.47],
+      ['Bomarea S.R.L.',5621736,2.32],['Agroindustrias AIB',5284237,2.18],
+      ['Agrocasagrande',5187382,2.14],['Hortifrut-TAL',5033323,2.08],
+      ['Medlog Piura SAC',4364402,1.80],['Agrícola Huarmey',4328513,1.79],
+      ['El Pedregal S.A.',4183844,1.73],['Camposol S.A.',4010895,1.65],
+      ['Sun Fruits Exports',3930940,1.62],['Prosembra S.A.C.',3632242,1.50]
     ]},
-    platinum:{n:64,val:15574495,pct:5.9,top:[
+    platinum:{n:64,val:15574495,pct:6.0,top:[
       ['Blueberries Peru S.A.C.',485764,3.12],['HFE Berries Peru S.A.C.',484148,3.11],
       ['Trapani Cultivares Perú',444506,2.85],['Asoc. Productores Palta Hass',442274,2.84],
       ['T & T Fruits S.A.',441999,2.84],['Delice S.A.C',427469,2.74],
@@ -146,19 +144,19 @@ const cliCat = {
     ]}
   },
   curr:{
-    classic:{n:28,val:63660705,pct:88.7,top:[
-      ['Agroberries Peru',10234685,16.08],['Prosembra S.A.C.',5354772,8.41],
-      ['Danper Trujillo',4485901,7.05],['Corp. Agrolatina',4450000,6.99],
-      ['Agrícola Huarmey',4190176,6.58],['AQU ANQA S.A.C.',3373589,5.30],
-      ['Bomarea S.R.L.',3162369,4.97],['Inv. San Juan de la Luz S.A.C.',3136581,4.93],
-      ['Q Pack S.A.C.',2958266,4.65],['Soc. Agrícola Drokasa',2420726,3.80],
-      ['TAL S.A.',2090404,3.28],['Proc. Agroindustr.',2061656,3.24],
-      ['Procesadora Larán',2004809,3.15],['Agroindustrias AIB',1734608,2.72],
-      ['Agrícola Alaya',1490361,2.34],['TA Export S.A.C.',1460000,2.29],
-      ['Agrícola Pampa Baja',1243276,1.95],['El Pedregal S.A.',978089,1.54],
-      ['Ara Foods Industry',905597,1.42],['Imbarex S.A.',853450,1.34]
+    classic:{n:28,val:60863003,pct:88.3,top:[
+      ['Agroberries Peru',10234685,16.82],['Danper Trujillo',4485901,7.37],
+      ['Corp. Agrolatina',4450000,7.31],['Agrícola Huarmey',4190176,6.88],
+      ['Prosembra S.A.C.',3632242,5.97],['AQU ANQA S.A.C.',3373589,5.54],
+      ['Bomarea S.R.L.',3162369,5.20],['Inv. San Juan de la Luz S.A.C.',3136581,5.15],
+      ['Q Pack S.A.C.',2958266,4.86],['Soc. Agrícola Drokasa',2420726,3.98],
+      ['TAL S.A.',2090404,3.43],['Proc. Agroindustr.',2061656,3.39],
+      ['Agroindustrias AIB',1734608,2.85],['Agrícola Alaya',1490361,2.45],
+      ['TA Export S.A.C.',1460000,2.40],['Agrícola Pampa Baja',1243276,2.04],
+      ['El Pedregal S.A.',978089,1.61],['Procesadora Larán',929637,1.53],
+      ['Ara Foods Industry',905597,1.49],['Imbarex S.A.',853450,1.40]
     ]},
-    platinum:{n:27,val:7267340,pct:10.1,top:[
+    platinum:{n:27,val:7267340,pct:10.5,top:[
       ['Camposol S.A.',497385,6.84],['Sun Fruits Exports',460117,6.33],
       ['Delice S.A.C',427469,5.88],['Viru S.A.',407040,5.60],
       ['Berry Harvest S.A.',402751,5.54],['Agrícola 2M S.A.C.',390951,5.38],
@@ -170,7 +168,7 @@ const cliCat = {
       ['Viveros El Tambo',216755,2.98],['Univ. Federico Henríquez',206090,2.84],
       ['Arca Continental Lindley',203678,2.80],['Empresa Agrícola San Juan',194359,2.67]
     ]},
-    gold:{n:21,val:824950,pct:1.1,top:[
+    gold:{n:21,val:824950,pct:1.2,top:[
       ['Qberries SAC',96847,11.74],['Agrofutura Company S.A.C.',78000,9.46],
       ['Smart Packing S.A.C.',77697,9.42],['Icapack S.A.C.',73500,8.91],
       ['Uvica S.A.C.',67138,8.14],['Florisert S.A.C.',61716,7.48],
@@ -189,16 +187,16 @@ const cliCat = {
 const cliSegs = [
   {id:'retenido',   lbl:'Retenidos',
    note:'Activos 25–26 · presentes en 2023 o 2024 · clientes leales',
-   n:30, pc:11.8, vh:124356918, pvh:47.2, vc:27196658, pvc:37.9,
+   n:30, pc:11.8, vh:123281746, pvh:47.3, vc:26121486, pvc:37.9,
    det:[
     ['Danper Trujillo',4485901,11318013,2026,12],
     ['Corp. Agrolatina',4450000,14074374,2026,10],
     ['AQU ANQA S.A.C.',3373589,7512254,2026,5],
     ['Soc. Agrícola Drokasa',2420726,10838640,2026,12],
-    ['Procesadora Larán',2004809,2860019,2026,7],
     ['Agroindustrias AIB',1734608,5284237,2026,10],
     ['Agrícola Alaya',1490361,5993441,2025,4],
     ['El Pedregal S.A.',978089,4183844,2026,7],
+    ['Procesadora Larán',929637,1784847,2026,7],
     ['Agrovision Peru',817031,12027997,2025,9],
     ['Agrocasagrande',785288,5187382,2025,6],
     ['Procesadora Torre Blanca',721157,1973732,2026,5],
@@ -214,7 +212,7 @@ const cliSegs = [
    ]},
   {id:'reactivado',   lbl:'Reactivados',
    note:'Activos 25–26 · sin compras en 2023–2024 · recuperados',
-   n:13, pc:5.1, vh:27285646, pvh:10.4, vc:12788130, pvc:17.8,
+   n:13, pc:5.1, vh:27285646, pvh:10.5, vc:12788130, pvc:18.5,
    det:[
     ['Agrícola Huarmey',4190176,4328513,2026,8],
     ['Bomarea S.R.L.',3162369,5621736,2026,2],
@@ -232,10 +230,10 @@ const cliSegs = [
    ]},
   {id:'nuevo',   lbl:'Nuevos',
    note:'Primera compra en 2025 o 2026 · captación reciente',
-   n:33, pc:13.0, vh:31768207, pvh:12.1, vc:31768207, pvc:44.3,
+   n:33, pc:13.0, vh:30045677, pvh:11.5, vc:30045677, pvc:43.6,
    det:[
     ['Agroberries Peru',10234685,10234685,2026,1],
-    ['Prosembra S.A.C.',5354772,5354772,2026,2],
+    ['Prosembra S.A.C.',3632242,3632242,2026,2],
     ['Inv. San Juan de la Luz S.A.C.',3136581,3136581,2026,1],
     ['Q Pack S.A.C.',2958266,2958266,2026,2],
     ['Proc. Agroindustr.',2061656,2061656,2026,1],
@@ -257,7 +255,7 @@ const cliSegs = [
    ]},
   {id:'sinactividad',   lbl:'Sin actividad',
    note:'Última compra en 2024 o antes · riesgo comercial',
-   n:178, pc:70.1, vh:79952855, pvh:30.4, vc:0, pvc:0.0,
+   n:178, pc:70.1, vh:79952855, pvh:30.7, vc:0, pvc:0.0,
    det:[
     ['Hortifrut-TAL',0,5033323,2021,7],
     ['Medlog Piura SAC',0,4364402,2024,4],
@@ -357,9 +355,9 @@ const paretoData = (function(){
    ============================================================ */
 const cliTicketEvol = {
   years:    [2021, 2022, 2023, 2024, 2025, 2026],
-  ventas:   [20310541, 33199765, 15289375, 15451149, 34766473, 36986522],
+  ventas:   [20310541, 33199765, 15289375, 15451149, 34766473, 34188820],
   clientes: [55, 51, 41, 46, 48, 54],
-  avgTicket:[369283, 650976, 372912, 335895, 724302, 684936]
+  avgTicket:[369283, 650976, 372912, 335895, 724302, 633126]
 };
 
 
@@ -375,7 +373,7 @@ const cliTicketEvol = {
 const agroNoAgroYear = {
   years:  [2021, 2022, 2023, 2024, 2025, 2026],
   agroN:    [44, 43, 35, 35, 42, 44],
-  agroV:    [19069613, 32200684, 14125312, 14055896, 33904143, 32328854],
+  agroV:    [19069613, 32200684, 14125312, 14055896, 33904143, 29531152],
   noagroN:  [11, 8, 6, 10, 6, 10],
   noagroV:  [1240928, 999081, 1164063, 1394813, 862329, 4657668]
 };
@@ -383,7 +381,7 @@ const agroNoAgroYear = {
 /* Detalle por cliente/año: [año, cliente, 'Agro'|'No agro', importe, descripción|null]
    Agregado por cliente dentro de cada año · ordenado por año asc, importe desc.
    Descripción tomada de "Data Cruda"; null → sin dato registrado (no se inventa contenido). */
-const agroNoAgroDetail = [[2021,"Corporacion Agrolatina S.A.C.","Agro",2479279.67,null],[2021,"Ecosac Agricola S.A.C.","Agro",1594499.4,null],[2021,"Broom Frio Holding Morrope S.A.","Agro",1162751.06,null],[2021,"Consorcio Carsol - Jrm S.A.C.","Agro",984777.26,null],[2021,"Qali Fruits S.A.C.","Agro",957633.03,null],[2021,"Viru S.A.","Agro",937869.95,null],[2021,"Westfalia Fruit Peru S.A.C.","Agro",937357,null],[2021,"Zedina Alimentos S.A.C.","No agro",923017.35,null],[2021,"Los Olivos de Villacuri S.A.C.","Agro",862458.79,null],[2021,"Pachamama Farms S.A.C.","Agro",834146.96,"Venta e instalación de puerta y nivelador"],[2021,"Procesadora Torre Blanca S.A.C.","Agro",834032.28,null],[2021,"Procesos Agroindustriales S.A.","Agro",703433.5,null],[2021,"El Pedregal S.A.","Agro",682417.77,null],[2021,"Sociedad Agricola Drokasa S.A.","Agro",651393.74,null],[2021,"Green Peru S.A.","Agro",540000,null],[2021,"Lt Multi Services S.A.C.","Agro",452677.97,null],[2021,"Agrovision Peru S.A.C.","Agro",447601.8,null],[2021,"Danper Trujillo S.A.C.","Agro",417928.08,null],[2021,"Ara Export S.A.C.","Agro",399497.37,null],[2021,"Caynarachi S.A.","Agro",396722.58,null],[2021,"Agricola 2M S.A.C.","Agro",377617.74,null],[2021,"Smart Packing S.A.C.","Agro",333098.02,null],[2021,"Corporacion Agricola Viñasol S.A.C.","Agro",332173,null],[2021,"Corporacion Fruticola de Chincha S.A.C.","Agro",197982.79,null],[2021,"Agricola Cerro Prieto S.A.","Agro",189247.65,null],[2021,"Inka Crops S.A.","Agro",180575.62,null],[2021,"Tal S.A.","Agro",152639.95,null],[2021,"Ega Agroindustrial S.A.C.","Agro",144930.01,null],[2021,"Empresa Agro Export Ica S.A.C.","Agro",135861.38,"Hidrocooler de 40 HP (traslado e instalación)"],[2021,"Agro Ism S.A.C.","Agro",126851.08,null],[2021,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",119057.01,null],[2021,"Qs Refrigeracion y Proyectos S.A.C.","No agro",87898.61,null],[2021,"Sc Packing S.A.C.","Agro",87585.08,null],[2021,"Larama Berries S.A.C.","Agro",84469.7,null],[2021,"Ingenieria en Cartones y Papeles S.A.C.","No agro",80000,null],[2021,"Agropiura S.A.C.","Agro",79278.64,null],[2021,"Puquial Sociedad Anonima","No agro",61856.91,null],[2021,"Hfe Berries Peru S.A.C.","Agro",50803.5,null],[2021,"Megabusiness Perú S.A.C.","No agro",38777.59,null],[2021,"Hortifrut - Perú S.A.C.","Agro",38444.32,null],[2021,"Agricola Andrea S.A.C.","Agro",31333.83,null],[2021,"Camposol S.A.","Agro",28720,null],[2021,"Hortifrut-tal S.A.C.","Agro",26970,null],[2021,"Procesadora Laran S.A.C.","Agro",25981.5,null],[2021,"Medlog Piura S.A.C.","No agro",23404.58,null],[2021,"Inka Gold Farms S.A.C.","Agro",17000,null],[2021,"Blueberries Peru S.A.C.","Agro",15913.14,null],[2021,"Apm Terminals Inland Services S.A.","No agro",15000,null],[2021,"Agricola Pampa Baja S.A.C.","Agro",7900,null],[2021,"Varayoc Inversiones S.A.C.","No agro",5593.42,null],[2021,"Agro Aei S.A.C.","Agro",4777.66,null],[2021,"Ozblu Peru S.A.C.","Agro",3923.4,null],[2021,"Oregon Foods S.A.C.","No agro",2640.5,null],[2021,"Innovar 3A S.A.C.","No agro",2439.02,null],[2021,"Eco - Acuicola Sociedad Anonima Cerrada","No agro",300,null],[2022,"Sociedad Agricola Drokasa S.A.","Agro",6063019.22,null],[2022,"Agricola Alaya Sociedad Anonima Cerrada","Agro",4202839.57,null],[2022,"Corporacion Agrolatina S.A.C.","Agro",3182861.8,null],[2022,"Bomarea S.R.L.","Agro",2459367.64,null],[2022,"Viru S.A.","Agro",1857452.58,null],[2022,"Ara Export S.A.C.","Agro",1636826.66,null],[2022,"Aqu Anqa S.A.C.","Agro",1346642.42,null],[2022,"Agrocasagrande S.A.C.","Agro",1234956.99,null],[2022,"Broom Frio Holding Morrope S.A.","Agro",1123854.28,null],[2022,"El Pedregal S.A.","Agro",1081789.32,null],[2022,"Qali Fruits S.A.C.","Agro",1019504.26,null],[2022,"Agricola Cerro Prieto S.A.","Agro",946953.05,null],[2022,"Lt Multi Services S.A.C.","Agro",889830.86,null],[2022,"Agricola Chapi S.A.","Agro",820017.71,null],[2022,"Sun Fruits Exports S.A.","Agro",530086.22,null],[2022,"Sunshine Export S.A.C.","Agro",515927.26,null],[2022,"Medlog Piura S.A.C.","No agro",446482.58,null],[2022,"Trapani Cultivares Peru S.A.C.","Agro",444506.02,null],[2022,"Agrovision Peru S.A.C.","Agro",420199.99,null],[2022,"Consorcio Agricola Moquegua S.A.C.","Agro",324989,null],[2022,"Agro Floral Peru S.A.C.","Agro",292200,null],[2022,"Family Farms Perú S.R.L.","Agro",280493.85,null],[2022,"Panificadora Bimbo del Peru S.A.","No agro",270069.9,null],[2022,"Procesadora Torre Blanca S.A.C.","Agro",235342.88,null],[2022,"Agropiura S.A.C.","Agro",189793.09,null],[2022,"Medifarma S.A.","No agro",183306.42,null],[2022,"Agricola Santa Azul S.A.C.","Agro",174294.91,null],[2022,"Procesos Agroindustriales S.A.","Agro",155429.87,null],[2022,"Desarrollo Agricola S.A.C.","Agro",100668,null],[2022,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",97960.41,null],[2022,"Hortifrut - Perú S.A.C.","Agro",83832.34,null],[2022,"Ega Agroindustrial S.A.C.","Agro",79990.98,null],[2022,"Agro Paracas S.A.","Agro",74323,null],[2022,"Andean Natural Products Export Import S.A.C.","Agro",70669.58,null],[2022,"Agro-empaques Safco S.A.C.","Agro",67205.13,null],[2022,"Inka Crops S.A.","Agro",57293.57,null],[2022,"Delcor Fabricaciones S.A.C.","No agro",43555.1,null],[2022,"R Coorp E.I.R.L.","No agro",35313.87,null],[2022,"Danper Trujillo S.A.C.","Agro",33909.01,null],[2022,"Agricola Huarmey S.A.","Agro",26969,null],[2022,"Procesadora Laran S.A.C.","Agro",23777.3,null],[2022,"Agricola los Buenos Muchachos de Pisco S.A.C.","Agro",19140,null],[2022,"Los Olivos de Villacuri S.A.C.","Agro",17464.03,null],[2022,"Zedina Alimentos S.A.C.","No agro",17249.59,null],[2022,"Agricola Andrea S.A.C.","Agro",14000,null],[2022,"Oregon Foods S.A.C.","No agro",1712.75,null],[2022,"Pachamama Farms S.A.C.","Agro",1616,null],[2022,"Smartcold S.A.C.","No agro",1390.89,null],[2022,"Tal S.A.","Agro",1150,null],[2022,"Westfalia Fruit Peru S.A.C.","Agro",1137.1,null],[2022,"Compañía Agricola Pisco S.A.C.","Agro",398.6,null],[2023,"Aqu Anqa S.A.C.","Agro",2114972.6,"Memoria descriptiva"],[2023,"Sun Fruits Exports S.A.","Agro",1951327.48,"Ampliacion planta de procesos"],[2023,"El Pedregal S.A.","Agro",1410017.35,"Ampliacion planta"],[2023,"Agrofutura Company S.A.C.","Agro",1306880.1,"Acopio arandano 01 y 02"],[2023,"Agricola Don Ricardo S.A.C.","Agro",1277343.53,"Ampliacion centro planta arandanos"],[2023,"Agrobusiness International Peru S.A.C.","Agro",788484.02,"Planta de proceso de arandano"],[2023,"Agroindustrial Estanislao del Chimu S.A.C.","Agro",770978.42,"Construccion planta para paltas freon"],[2023,"Los Olivos de Villacuri S.A.C.","Agro",631780.93,"Desarrollo sistema termometria"],[2023,"Avocado Packing Company S.A.C.","Agro",616341.69,"Implementacion de acopio - freon"],[2023,"Megacentro Lurin S.A.C.","No agro",571698.25,"Suministro e instalaciones paneles antecamara y camara de frio"],[2023,"Axionlog Peru S.A.C.","No agro",517370,"Almacen de congelado"],[2023,"Family Farms Perú S.R.L.","Agro",478498.76,"Ampliacion packing arandano"],[2023,"Agricola Chapi S.A.","Agro",451574.47,"Ampliacion de packing 2023"],[2023,"Viru S.A.","Agro",443441.54,"Suministro e instalacion condensadores Gunter"],[2023,"Agrocasagrande S.A.C.","Agro",406673.85,"Ampliacion de planta de proceso arandano"],[2023,"Sociedad Agricola Drokasa S.A.","Agro",291680.79,"Sala procesos palta"],[2023,"Agricola Alaya Sociedad Anonima Cerrada","Agro",281760.57,"Planta de procesos arandano 1era etapa fase 1 - f.s 100%"],[2023,"Smart Packing S.A.C.","Agro",227316.1,"Ampliacion packing"],[2023,"Procesadora Torre Blanca S.A.C.","Agro",175230.29,"Reemplazo racks acumulativos camara 5"],[2023,"Agrovision Peru S.A.C.","Agro",150415.1,"Amoniaco sala de proceso para uva glicol"],[2023,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",87331.49,"Ampliacion de camaras"],[2023,"Danper Trujillo S.A.C.","Agro",86675.43,"Reemplazo parte superior condensador"],[2023,"Agro Floral Peru S.A.C.","Agro",66913.27,"Climatizacion CPT"],[2023,"Novagri S.A.C.","No agro",40120.24,"Laboratorio-salas de inspeccion"],[2023,"Panificadora Bimbo del Peru S.A.","No agro",27776.82,"Sistema chiller CO2"],[2023,"Pachamama Farms S.A.C.","Agro",25117.56,"Ampliacion sistema de refrigeracion despacho"],[2023,"Qali Fruits S.A.C.","Agro",22000,"Reparacion 2 variadores"],[2023,"Agricola Cerro Prieto S.A.","Agro",17534.3,"Suministro e instalacion paneles"],[2023,"Agricola Miranda S.A.C.","Agro",17106.07,"Oficinas"],[2023,"Broom Frio Holding Morrope S.A.","Agro",10750,"Packing BFHM"],[2023,"Alicorp S.A.A.","No agro",6782.81,"Suministro e instalacion nivelador"],[2023,"Corporacion Agrolatina S.A.C.","Agro",5748,"Termometria"],[2023,"Packing del Carmen S.A.C.","Agro",2374.76,"Suministro de paneles"],[2023,"Agricola los Buenos Muchachos de Pisco S.A.C.","Agro",2170,"Suministro e instalacion enfriadores"],[2023,"Agricola 2M S.A.C.","Agro",1728.25,"Suministro e instalacion paneles"],[2023,"Agroindustrias Aib S.A.","Agro",1485,"Reparacion de fuga"],[2023,"Agricola la Guerrero S.A.C.","Agro",1250,"Estudio de suelo"],[2023,"Agro-empaques Safco S.A.C.","Agro",970,"Integracion termometria ERP"],[2023,"Exotic's Producers & Packers S.A.C.","Agro",900,"Reinstalacion sistema termometria"],[2023,"Procesos Agroindustriales S.A.","Agro",540,"Suministro e instalacion puerta"],[2023,"Proyectos y Soluciones Electricas E.I.R.L.","No agro",315,"Reinstalacion termometria"],[2024,"Sunshine Export S.A.C.","Agro",1786003.51,"Sistema de frio packing de frescos"],[2024,"Corporacion Agrolatina S.A.C.","Agro",1782686.53,"Actualizacion sistema termometria"],[2024,"Sociedad Agricola 3P S.A.C.","Agro",1473522.8,"Packing de uva"],[2024,"Family Farms Perú S.R.L.","Agro",1185464.34,"Suministro e instalacion de sistema de frio con chiller"],[2024,"El Rocio S.A.","No agro",1164769.68,"Ingenieria de frio packing aves"],[2024,"Los Olivos de Villacuri S.A.C.","Agro",985084.35,"Instalacion termometria"],[2024,"Procesadora Laran S.A.C.","Agro",783475.6,"Planta arandano 1era etapa"],[2024,"Agricola Don Ricardo S.A.C.","Agro",741510.62,"Suministro e instalacion niveladores"],[2024,"Aqu Anqa S.A.C.","Agro",677049.99,"Ampliacion de planta procesarora de arandano / CPT-SP / modulos de enfriamiento."],[2024,"Agrocasagrande S.A.C.","Agro",669107.15,"Ampliacion planta procesos arandano"],[2024,"Agrovision Peru S.A.C.","Agro",658743.34,"Suministro instalacion enfriadores"],[2024,"Qali Fruits S.A.C.","Agro",505788.57,"Ampliacion planta arandanos"],[2024,"Agroindustrias Huaral Sociedad Anonima Cerrada","Agro",399766.95,"Tuneles"],[2024,"Agroindustrial Estanislao del Chimu S.A.C.","Agro",365844.3,"Construccion planta para paltas freon"],[2024,"Agrobusiness International Peru S.A.C.","Agro",328957.92,"Planta de proceso de arandano"],[2024,"Pacific Ocean Berries S.A.C.","Agro",294669.9,"Acopio para arandanos"],[2024,"Manuelita Fyh S.A.C.","Agro",219792,"Suministro e instalacion luminaria"],[2024,"Sociedad Agricola Drokasa S.A.","Agro",215829.34,"Termometria"],[2024,"Medlog Piura S.A.C.","No agro",209899.57,"Reubicacion tuneles PT"],[2024,"Seed Food Sociedad Anonima Cerrada","Agro",205000,"Camara conservacion papas"],[2024,"Agricola Blue Gold S.A.C.","Agro",153090.84,"Acopio arandano"],[2024,"Branchout Food - Sucursal Peru","Agro",141328.98,"Sistema chiller"],[2024,"Smart Packing S.A.C.","Agro",115818.75,"Ampliacion packing 2024"],[2024,"Agricola Chapi S.A.","Agro",86789.14,"Ampliacion de packing 2023"],[2024,"Camposol S.A.","Agro",79248.74,"Suministro e instalacion condensador"],[2024,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",52591.76,"Camara de conservacion"],[2024,"Passion Fresh S.A.C.","Agro",49535.28,"Cámara de conservación"],[2024,"El Pedregal S.A.","Agro",29091,"Termometria tuneles materia prima"],[2024,"Agricola Alaya Sociedad Anonima Cerrada","Agro",18480,"Planta de procesos arandano 1era etapa fase 1 - f.s 100%"],[2024,"El Parque Alaya Packing S.A.C.","Agro",13482.5,"Suministro e instalacion equipos"],[2024,"Agro Floral Peru S.A.C.","Agro",8369.6,"Climatizacion CPT"],[2024,"Procesadora Torre Blanca S.A.C.","Agro",7970,"Migracion termometria para uso Gateway"],[2024,"Viru S.A.","Agro",7638,"Revision calibracion sensores"],[2024,"Packing del Carmen S.A.C.","Agro",5457.13,"Suministro e instalacion detectores"],[2024,"Megacentro Lurin S.A.C.","No agro",5052,"Instalacion suples PIR"],[2024,"Avocado Packing Company S.A.C.","Agro",4717,"Implementacion de acopio - freon"],[2024,"Gate Catering And Retail Solutions S.R.L.","No agro",4163,"Termometria 3 camaras"],[2024,"Compañia Minera Antapaccay S.A.","No agro",3101,"Evaluacion diagnostico camaras refrig"],[2024,"Westfalia Fruit Peru S.A.C.","Agro",3046.68,"Repracion compresor Dorin 50hp"],[2024,"Zedina Alimentos S.A.C.","No agro",2513.81,"Termometria"],[2024,"Apoyo Consultoria S.A.C.","No agro",2500,"Inspeccion planta"],[2024,"Panificadora Bimbo del Peru S.A.","No agro",1276.84,"CO2 inspeccion rack"],[2024,"Smartcold S.A.C.","No agro",1200,"Configuracion compresores"],[2024,"Agrofutura Company S.A.C.","Agro",943.33,"Topes de gome y reparacion paneles"],[2024,"Proyectos y Soluciones Electricas E.I.R.L.","No agro",337.5,"Reinstalacion termometria"],[2025,"Danper Trujillo S.A.C.","Agro",4480901.01,"Incremento de capacidad nave 12 - arándanos"],[2025,"Agricola Huarmey S.A.","Agro",3839343.44,"1° etapa planta proceso arandano"],[2025,"Prosembra Sociedad Anonima Cerrada","Agro",3374482.49,"Packing de arandanos"],[2025,"Aqu Anqa S.A.C.","Agro",3325088.73,"Camara PT OOCC EEMM"],[2025,"Q Pack S.A.C.","Agro",2825478.47,"Ingenieria planta empacadora arandano"],[2025,"Corporacion Agrolatina S.A.C.","Agro",2130000,"Servicio ampliacion SP3 TF 17 y 18 y sala de embarque (10 rampas) y conversion a 2 niveles en 3 TF"],[2025,"Agricola Alaya Sociedad Anonima Cerrada","Agro",1490360.72,"Ampliación de planta de proceso"],[2025,"Sociedad Agricola Drokasa S.A.","Agro",1421017.12,"Packing uva"],[2025,"El Pedregal S.A.","Agro",954731.07,"Proyecto de frio packing 3"],[2025,"Agrovision Peru S.A.C.","Agro",817031.34,"Ampliacion acopio arandanos"],[2025,"Ara Foods Industry S.A.C.","Agro",805597.47,"Ampliación de planta de congelado"],[2025,"Agrocasagrande S.A.C.","Agro",785287.51,"Modif camara e inst valvulas equipos"],[2025,"Agroindustrias Aib S.A.","Agro",693362.39,"Ampliacion packing mango-palta"],[2025,"Agrobusiness International Peru S.A.C.","Agro",602333.49,"Ampliacion packing"],[2025,"Agricola Pampa Baja S.A.C.","Agro",596173.6,"Ampliacion de planta de procesos - 03 túneles californianos"],[2025,"Imbarex S.A.","Agro",584350,"Planta procesos citricos y arandanos"],[2025,"Santa Sofia del Sur S.A.C.","Agro",545000,"Camara refrigeracion citricos y palta"],[2025,"Agroindustria Frutos de Oro S.A.C.","Agro",507312.36,"Camara de congelados"],[2025,"Agro Floral Peru S.A.C.","Agro",506966.62,"Suministro e inst rack para almacen"],[2025,"Viru S.A.","Agro",407039.67,"Ampliacion packing"],[2025,"Agricola 2M S.A.C.","Agro",390950.55,"Ampliacion y repotenciacion packing"],[2025,"Delice S.A.C.","No agro",384886.11,"Ingenieria detalle planta nueva y nuevos almacenes de delice"],[2025,"Diamond Bridge S.A.C.","Agro",321860.28,"Servicio de construccion de almacen de frio"],[2025,"Limones Piuranos Sociedad Anonima Cerrada","Agro",317796.61,"Camara de congelado"],[2025,"Sociedad Agricola 3P S.A.C.","Agro",281500.85,"Kit de embarque #3"],[2025,"Agricola Ganadera las Canelas S.A.C.","Agro",256513.28,"Venta paneles y puertas"],[2025,"Berry Harvest S.A.","Agro",256080.11,"Construccion campamento operarios"],[2025,"San Efisio S.A.C.","Agro",226880.03,"Acopio etapa i"],[2025,"Consorcio Agricola Moquegua S.A.C.","Agro",224427.9,"Ampliacion de packing de arandanos"],[2025,"Unión de Cervecerías Peruanas Backus y Johnston S.A.C.","No agro",222254,"Venta compresor Frick"],[2025,"Procesadora Laran S.A.C.","Agro",195018.42,"Ampliacion sistema de frio - tunel y camaras"],[2025,"Empresa Agricola San Juan S.A.","Agro",194358.88,"Ampliacion sala procesos palta"],[2025,"Fusion Foods S.A.C.","Agro",175587.99,"Mejoras tunel congelado"],[2025,"Austral Group S.A.A.","No agro",117308,"Compresor de amoniaco, tipo:tornillo, marca: Frick, modelo:rxf-85h"],[2025,"In Vitro Lab Peru S.A.C.","No agro",99000,"Elaboracion expediente tecnico"],[2025,"Qberries S.A.C.","Agro",96847.02,"Expediente tecnico proyecto quelen"],[2025,"Los Olivos de Villacuri S.A.C.","Agro",50827.6,"Elaboracion expediente frio"],[2025,"Family Farms Perú S.R.L.","Agro",48530.23,"Camara conservacion y congelados"],[2025,"Alza Peru Packing S.A.C.","Agro",43600.44,"Ampliacion packing"],[2025,"El Rocio S.A.","No agro",36681.15,"Suministro e instalacion sist frio"],[2025,"Ara Export S.A.C.","Agro",34403.05,"Cerramiento con panel en recepcion"],[2025,"Uvica S.A.C.","Agro",32800.01,"Oficinas uvica"],[2025,"Quelen Fruit Peru S.A.C.","Agro",25500,"Anteproyecto planta empac arandanos"],[2025,"Tal S.A.","Agro",20145,"Ingenieria de refrigeracion"],[2025,"Westfalia Fruit Peru S.A.C.","Agro",10000,"Anteproyecto arquitectura"],[2025,"Avocado Packing Company S.A.C.","Agro",4392.39,"Suministro e instalacion drenajes"],[2025,"Agricola Blue Gold S.A.C.","Agro",4265.26,"Cambio puerta"],[2025,"Steelser S.A.C.","No agro",2200,"Desmontaje y montaje equipos"],[2026,"Agroberries Peru S.A.C.","Agro",10234685.13,"Planta arandano"],[2026,"Bomarea S.R.L.","Agro",3162368.75,"Planta arandano - 2 etapa amoniaco"],[2026,"Inversiones San Juan de la Luz S.A.C.","No agro",3136580.99,"Laboratorio estructuras"],[2026,"Corporacion Agrolatina S.A.C.","Agro",2320000,"Planta uva"],[2026,"Tal S.A.","Agro",2070259.46,"Adicional tuberias y asilamiento conexion evaporadores"],[2026,"Procesos Agroindustriales Sociedad Anonima","Agro",2061656.34,"Planta de proceso de uva"],[2026,"Prosembra Sociedad Anonima Cerrada","Agro",1980290.16,"Ampliación de Planta"],[2026,"Procesadora Laran S.A.C.","Agro",1809790.86,"Ampliación 4° Etapa"],[2026,"Ta Export S.A.C.","Agro",1460000,"Packing para arandanos"],[2026,"Agroindustrias Aib S.A.","Agro",1041245.77,"Cámara de congelados"],[2026,"Sociedad Agricola Drokasa S.A.","Agro",999708.68,"Túneles MP"],[2026,"Procesadora Torre Blanca S.A.C.","Agro",721156.89,"Ampliacion de planta"],[2026,"Agricola Pampa Baja S.A.C.","Agro",647102.2,"Ampliación packing de uva"],[2026,"Estanterias Metalicas J.r.m. S.A.C.","No agro",548390.7,"Cámara de congelado y ambientes"],[2026,"Camposol S.A.","Agro",497385.27,"Nave producto terminado"],[2026,"Sun Fruits Exports S.A.","Agro",460117.04,"Repotenciacion compresor"],[2026,"Qali Fruits S.A.C.","Agro",384379.81,"Ampliacion CPT"],[2026,"Leche Gloria S.A.","No agro",357354.69,"Ampliación de cámara y antecámara"],[2026,"Agricola Huarmey S.A.","Agro",350832.34,"1° etapa planta proceso arandano - adicional"],[2026,"Imbarex S.A.","Agro",269100,"Planta procesos citricos y arandanos"],[2026,"T & T Fruits S.A.","Agro",227719.49,"Suministro e instalacion de servicio de sistema de enfriamiento para camara de frio"],[2026,"Viveros El Tambo S.A.C.","Agro",216754.9,"Proyecto viveros tambo"],[2026,"Universidad Federico Henriquez y Carvajal","No agro",206089.67,"Packing de uva"],[2026,"Arca Continental Lindley S.A.","No agro",203678.39,"Suministro e instalación de serpentin"],[2026,"Blueberries Peru S.A.C.","Agro",180509.27,"Campamento"],[2026,"Agricola Safco Peru S.A.","Agro",180087.35,"Suministro e instalación de condensadores"],[2026,"Berry Harvest S.A.","Agro",146670.61,"Reforzamiento estructural soldadura y ensamble puertas"],[2026,"Q Pack S.A.C.","Agro",132787.16,"Ampliación sala de procesos"],[2026,"Reiter Peruvian Berry S.A.","Agro",110710,"Ampliacion planta"],[2026,"Ingenieria en Cartones y Papeles S.A.C.","No agro",101933.16,"ICYP - suministro e instalación"],[2026,"Ara Foods Industry S.A.C.","Agro",100000,"Túnel congelado"],[2026,"Agrofutura Company S.A.C.","Agro",78000,"Gasificado acopio 1 y 2"],[2026,"Smart Packing S.A.C.","Agro",77696.99,"Climatización pre-túneles"],[2026,"Icapack S.A.C.","Agro",73500,"Ampliación de despacho"],[2026,"Florisert S.A.C.","Agro",61715.57,"Ampliacion procesadora flores"],[2026,"In Vitro Lab Perú S.A.C.","No agro",57857,"Expediente técnico"],[2026,"Aqu Anqa S.A.C.","Agro",48500.06,"Mantenimiento paneles packing AQU ANQ"],[2026,"Vitafoods Peru S.A.C.","Agro",43470,"Servicio arquitectura"],[2026,"Delice S.A.C.","No agro",42583.21,"Suministro e instalacion racks"],[2026,"Packing del Carmen S.A.C.","Agro",36347.87,"Suministro de materiales para túnele"],[2026,"Uvica S.A.C.","Agro",34337.69,"Oficinas uvica"],[2026,"Agro Floral Peru S.A.C.","Agro",31962.8,"Suministro e instalacion de cortinas de aire"],[2026,"El Pedregal S.A.","Agro",23357.94,"Termometría inalámbrica para nuevos túneles"],[2026,"El Parque Alaya Packing S.A.C.","Agro",15941.32,"Ampliación de planta de proceso - escenario 2"],[2026,"Consorcio Agricola Moquegua S.A.C.","Agro",14256,"Baterias repontenciacion tuneles"],[2026,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",6840.69,"Implementacion de packing"],[2026,"Santa Sofia del Sur S.A.C.","Agro",5187.52,"Nivelador hidraulico"],[2026,"Danper Trujillo S.A.C.","Agro",5000,"Anteproyecto planta congelado mango"],[2026,"Viru Frozen S.A.","Agro",4612.5,"Desmontaje de deshumidificadores"],[2026,"Austral Group S.A.A.","No agro",2310,"Puesta en marcha de compresor Frick r"],[2026,"Family Farms Perú S.R.L.","Agro",1550,"Instalación y suministro puerta batiente"],[2026,"El Rocio S.A.","No agro",890,"Desmontaje y montaje paneles"],[2026,"Agroindustria Frutos de Oro S.A.C.","Agro",760,"Instalación de motores y modificacion p.corredera"],[2026,"Sociedad Agricola 3P S.A.C.","Agro",500,"Mantenimiento de compresor packing"]];
+const agroNoAgroDetail = [[2021,"Corporacion Agrolatina S.A.C.","Agro",2479279.67,null],[2021,"Ecosac Agricola S.A.C.","Agro",1594499.4,null],[2021,"Broom Frio Holding Morrope S.A.","Agro",1162751.06,null],[2021,"Consorcio Carsol - Jrm S.A.C.","Agro",984777.26,null],[2021,"Qali Fruits S.A.C.","Agro",957633.03,null],[2021,"Viru S.A.","Agro",937869.95,null],[2021,"Westfalia Fruit Peru S.A.C.","Agro",937357,null],[2021,"Zedina Alimentos S.A.C.","No agro",923017.35,null],[2021,"Los Olivos de Villacuri S.A.C.","Agro",862458.79,null],[2021,"Pachamama Farms S.A.C.","Agro",834146.96,"Venta e instalación de puerta y nivelador"],[2021,"Procesadora Torre Blanca S.A.C.","Agro",834032.28,null],[2021,"Procesos Agroindustriales S.A.","Agro",703433.5,null],[2021,"El Pedregal S.A.","Agro",682417.77,null],[2021,"Sociedad Agricola Drokasa S.A.","Agro",651393.74,null],[2021,"Green Peru S.A.","Agro",540000,null],[2021,"Lt Multi Services S.A.C.","Agro",452677.97,null],[2021,"Agrovision Peru S.A.C.","Agro",447601.8,null],[2021,"Danper Trujillo S.A.C.","Agro",417928.08,null],[2021,"Ara Export S.A.C.","Agro",399497.37,null],[2021,"Caynarachi S.A.","Agro",396722.58,null],[2021,"Agricola 2M S.A.C.","Agro",377617.74,null],[2021,"Smart Packing S.A.C.","Agro",333098.02,null],[2021,"Corporacion Agricola Viñasol S.A.C.","Agro",332173,null],[2021,"Corporacion Fruticola de Chincha S.A.C.","Agro",197982.79,null],[2021,"Agricola Cerro Prieto S.A.","Agro",189247.65,null],[2021,"Inka Crops S.A.","Agro",180575.62,null],[2021,"Tal S.A.","Agro",152639.95,null],[2021,"Ega Agroindustrial S.A.C.","Agro",144930.01,null],[2021,"Empresa Agro Export Ica S.A.C.","Agro",135861.38,"Hidrocooler de 40 HP (traslado e instalación)"],[2021,"Agro Ism S.A.C.","Agro",126851.08,null],[2021,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",119057.01,null],[2021,"Qs Refrigeracion y Proyectos S.A.C.","No agro",87898.61,null],[2021,"Sc Packing S.A.C.","Agro",87585.08,null],[2021,"Larama Berries S.A.C.","Agro",84469.7,null],[2021,"Ingenieria en Cartones y Papeles S.A.C.","No agro",80000,null],[2021,"Agropiura S.A.C.","Agro",79278.64,null],[2021,"Puquial Sociedad Anonima","No agro",61856.91,null],[2021,"Hfe Berries Peru S.A.C.","Agro",50803.5,null],[2021,"Megabusiness Perú S.A.C.","No agro",38777.59,null],[2021,"Hortifrut - Perú S.A.C.","Agro",38444.32,null],[2021,"Agricola Andrea S.A.C.","Agro",31333.83,null],[2021,"Camposol S.A.","Agro",28720,null],[2021,"Hortifrut-tal S.A.C.","Agro",26970,null],[2021,"Procesadora Laran S.A.C.","Agro",25981.5,null],[2021,"Medlog Piura S.A.C.","No agro",23404.58,null],[2021,"Inka Gold Farms S.A.C.","Agro",17000,null],[2021,"Blueberries Peru S.A.C.","Agro",15913.14,null],[2021,"Apm Terminals Inland Services S.A.","No agro",15000,null],[2021,"Agricola Pampa Baja S.A.C.","Agro",7900,null],[2021,"Varayoc Inversiones S.A.C.","No agro",5593.42,null],[2021,"Agro Aei S.A.C.","Agro",4777.66,null],[2021,"Ozblu Peru S.A.C.","Agro",3923.4,null],[2021,"Oregon Foods S.A.C.","No agro",2640.5,null],[2021,"Innovar 3A S.A.C.","No agro",2439.02,null],[2021,"Eco - Acuicola Sociedad Anonima Cerrada","No agro",300,null],[2022,"Sociedad Agricola Drokasa S.A.","Agro",6063019.22,null],[2022,"Agricola Alaya Sociedad Anonima Cerrada","Agro",4202839.57,null],[2022,"Corporacion Agrolatina S.A.C.","Agro",3182861.8,null],[2022,"Bomarea S.R.L.","Agro",2459367.64,null],[2022,"Viru S.A.","Agro",1857452.58,null],[2022,"Ara Export S.A.C.","Agro",1636826.66,null],[2022,"Aqu Anqa S.A.C.","Agro",1346642.42,null],[2022,"Agrocasagrande S.A.C.","Agro",1234956.99,null],[2022,"Broom Frio Holding Morrope S.A.","Agro",1123854.28,null],[2022,"El Pedregal S.A.","Agro",1081789.32,null],[2022,"Qali Fruits S.A.C.","Agro",1019504.26,null],[2022,"Agricola Cerro Prieto S.A.","Agro",946953.05,null],[2022,"Lt Multi Services S.A.C.","Agro",889830.86,null],[2022,"Agricola Chapi S.A.","Agro",820017.71,null],[2022,"Sun Fruits Exports S.A.","Agro",530086.22,null],[2022,"Sunshine Export S.A.C.","Agro",515927.26,null],[2022,"Medlog Piura S.A.C.","No agro",446482.58,null],[2022,"Trapani Cultivares Peru S.A.C.","Agro",444506.02,null],[2022,"Agrovision Peru S.A.C.","Agro",420199.99,null],[2022,"Consorcio Agricola Moquegua S.A.C.","Agro",324989,null],[2022,"Agro Floral Peru S.A.C.","Agro",292200,null],[2022,"Family Farms Perú S.R.L.","Agro",280493.85,null],[2022,"Panificadora Bimbo del Peru S.A.","No agro",270069.9,null],[2022,"Procesadora Torre Blanca S.A.C.","Agro",235342.88,null],[2022,"Agropiura S.A.C.","Agro",189793.09,null],[2022,"Medifarma S.A.","No agro",183306.42,null],[2022,"Agricola Santa Azul S.A.C.","Agro",174294.91,null],[2022,"Procesos Agroindustriales S.A.","Agro",155429.87,null],[2022,"Desarrollo Agricola S.A.C.","Agro",100668,null],[2022,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",97960.41,null],[2022,"Hortifrut - Perú S.A.C.","Agro",83832.34,null],[2022,"Ega Agroindustrial S.A.C.","Agro",79990.98,null],[2022,"Agro Paracas S.A.","Agro",74323,null],[2022,"Andean Natural Products Export Import S.A.C.","Agro",70669.58,null],[2022,"Agro-empaques Safco S.A.C.","Agro",67205.13,null],[2022,"Inka Crops S.A.","Agro",57293.57,null],[2022,"Delcor Fabricaciones S.A.C.","No agro",43555.1,null],[2022,"R Coorp E.I.R.L.","No agro",35313.87,null],[2022,"Danper Trujillo S.A.C.","Agro",33909.01,null],[2022,"Agricola Huarmey S.A.","Agro",26969,null],[2022,"Procesadora Laran S.A.C.","Agro",23777.3,null],[2022,"Agricola los Buenos Muchachos de Pisco S.A.C.","Agro",19140,null],[2022,"Los Olivos de Villacuri S.A.C.","Agro",17464.03,null],[2022,"Zedina Alimentos S.A.C.","No agro",17249.59,null],[2022,"Agricola Andrea S.A.C.","Agro",14000,null],[2022,"Oregon Foods S.A.C.","No agro",1712.75,null],[2022,"Pachamama Farms S.A.C.","Agro",1616,null],[2022,"Smartcold S.A.C.","No agro",1390.89,null],[2022,"Tal S.A.","Agro",1150,null],[2022,"Westfalia Fruit Peru S.A.C.","Agro",1137.1,null],[2022,"Compañía Agricola Pisco S.A.C.","Agro",398.6,null],[2023,"Aqu Anqa S.A.C.","Agro",2114972.6,"Memoria descriptiva"],[2023,"Sun Fruits Exports S.A.","Agro",1951327.48,"Ampliacion planta de procesos"],[2023,"El Pedregal S.A.","Agro",1410017.35,"Ampliacion planta"],[2023,"Agrofutura Company S.A.C.","Agro",1306880.1,"Acopio arandano 01 y 02"],[2023,"Agricola Don Ricardo S.A.C.","Agro",1277343.53,"Ampliacion centro planta arandanos"],[2023,"Agrobusiness International Peru S.A.C.","Agro",788484.02,"Planta de proceso de arandano"],[2023,"Agroindustrial Estanislao del Chimu S.A.C.","Agro",770978.42,"Construccion planta para paltas freon"],[2023,"Los Olivos de Villacuri S.A.C.","Agro",631780.93,"Desarrollo sistema termometria"],[2023,"Avocado Packing Company S.A.C.","Agro",616341.69,"Implementacion de acopio - freon"],[2023,"Megacentro Lurin S.A.C.","No agro",571698.25,"Suministro e instalaciones paneles antecamara y camara de frio"],[2023,"Axionlog Peru S.A.C.","No agro",517370,"Almacen de congelado"],[2023,"Family Farms Perú S.R.L.","Agro",478498.76,"Ampliacion packing arandano"],[2023,"Agricola Chapi S.A.","Agro",451574.47,"Ampliacion de packing 2023"],[2023,"Viru S.A.","Agro",443441.54,"Suministro e instalacion condensadores Gunter"],[2023,"Agrocasagrande S.A.C.","Agro",406673.85,"Ampliacion de planta de proceso arandano"],[2023,"Sociedad Agricola Drokasa S.A.","Agro",291680.79,"Sala procesos palta"],[2023,"Agricola Alaya Sociedad Anonima Cerrada","Agro",281760.57,"Planta de procesos arandano 1era etapa fase 1 - f.s 100%"],[2023,"Smart Packing S.A.C.","Agro",227316.1,"Ampliacion packing"],[2023,"Procesadora Torre Blanca S.A.C.","Agro",175230.29,"Reemplazo racks acumulativos camara 5"],[2023,"Agrovision Peru S.A.C.","Agro",150415.1,"Amoniaco sala de proceso para uva glicol"],[2023,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",87331.49,"Ampliacion de camaras"],[2023,"Danper Trujillo S.A.C.","Agro",86675.43,"Reemplazo parte superior condensador"],[2023,"Agro Floral Peru S.A.C.","Agro",66913.27,"Climatizacion CPT"],[2023,"Novagri S.A.C.","No agro",40120.24,"Laboratorio-salas de inspeccion"],[2023,"Panificadora Bimbo del Peru S.A.","No agro",27776.82,"Sistema chiller CO2"],[2023,"Pachamama Farms S.A.C.","Agro",25117.56,"Ampliacion sistema de refrigeracion despacho"],[2023,"Qali Fruits S.A.C.","Agro",22000,"Reparacion 2 variadores"],[2023,"Agricola Cerro Prieto S.A.","Agro",17534.3,"Suministro e instalacion paneles"],[2023,"Agricola Miranda S.A.C.","Agro",17106.07,"Oficinas"],[2023,"Broom Frio Holding Morrope S.A.","Agro",10750,"Packing BFHM"],[2023,"Alicorp S.A.A.","No agro",6782.81,"Suministro e instalacion nivelador"],[2023,"Corporacion Agrolatina S.A.C.","Agro",5748,"Termometria"],[2023,"Packing del Carmen S.A.C.","Agro",2374.76,"Suministro de paneles"],[2023,"Agricola los Buenos Muchachos de Pisco S.A.C.","Agro",2170,"Suministro e instalacion enfriadores"],[2023,"Agricola 2M S.A.C.","Agro",1728.25,"Suministro e instalacion paneles"],[2023,"Agroindustrias Aib S.A.","Agro",1485,"Reparacion de fuga"],[2023,"Agricola la Guerrero S.A.C.","Agro",1250,"Estudio de suelo"],[2023,"Agro-empaques Safco S.A.C.","Agro",970,"Integracion termometria ERP"],[2023,"Exotic's Producers & Packers S.A.C.","Agro",900,"Reinstalacion sistema termometria"],[2023,"Procesos Agroindustriales S.A.","Agro",540,"Suministro e instalacion puerta"],[2023,"Proyectos y Soluciones Electricas E.I.R.L.","No agro",315,"Reinstalacion termometria"],[2024,"Sunshine Export S.A.C.","Agro",1786003.51,"Sistema de frio packing de frescos"],[2024,"Corporacion Agrolatina S.A.C.","Agro",1782686.53,"Actualizacion sistema termometria"],[2024,"Sociedad Agricola 3P S.A.C.","Agro",1473522.8,"Packing de uva"],[2024,"Family Farms Perú S.R.L.","Agro",1185464.34,"Suministro e instalacion de sistema de frio con chiller"],[2024,"El Rocio S.A.","No agro",1164769.68,"Ingenieria de frio packing aves"],[2024,"Los Olivos de Villacuri S.A.C.","Agro",985084.35,"Instalacion termometria"],[2024,"Procesadora Laran S.A.C.","Agro",783475.6,"Planta arandano 1era etapa"],[2024,"Agricola Don Ricardo S.A.C.","Agro",741510.62,"Suministro e instalacion niveladores"],[2024,"Aqu Anqa S.A.C.","Agro",677049.99,"Ampliacion de planta procesarora de arandano / CPT-SP / modulos de enfriamiento."],[2024,"Agrocasagrande S.A.C.","Agro",669107.15,"Ampliacion planta procesos arandano"],[2024,"Agrovision Peru S.A.C.","Agro",658743.34,"Suministro instalacion enfriadores"],[2024,"Qali Fruits S.A.C.","Agro",505788.57,"Ampliacion planta arandanos"],[2024,"Agroindustrias Huaral Sociedad Anonima Cerrada","Agro",399766.95,"Tuneles"],[2024,"Agroindustrial Estanislao del Chimu S.A.C.","Agro",365844.3,"Construccion planta para paltas freon"],[2024,"Agrobusiness International Peru S.A.C.","Agro",328957.92,"Planta de proceso de arandano"],[2024,"Pacific Ocean Berries S.A.C.","Agro",294669.9,"Acopio para arandanos"],[2024,"Manuelita Fyh S.A.C.","Agro",219792,"Suministro e instalacion luminaria"],[2024,"Sociedad Agricola Drokasa S.A.","Agro",215829.34,"Termometria"],[2024,"Medlog Piura S.A.C.","No agro",209899.57,"Reubicacion tuneles PT"],[2024,"Seed Food Sociedad Anonima Cerrada","Agro",205000,"Camara conservacion papas"],[2024,"Agricola Blue Gold S.A.C.","Agro",153090.84,"Acopio arandano"],[2024,"Branchout Food - Sucursal Peru","Agro",141328.98,"Sistema chiller"],[2024,"Smart Packing S.A.C.","Agro",115818.75,"Ampliacion packing 2024"],[2024,"Agricola Chapi S.A.","Agro",86789.14,"Ampliacion de packing 2023"],[2024,"Camposol S.A.","Agro",79248.74,"Suministro e instalacion condensador"],[2024,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",52591.76,"Camara de conservacion"],[2024,"Passion Fresh S.A.C.","Agro",49535.28,"Cámara de conservación"],[2024,"El Pedregal S.A.","Agro",29091,"Termometria tuneles materia prima"],[2024,"Agricola Alaya Sociedad Anonima Cerrada","Agro",18480,"Planta de procesos arandano 1era etapa fase 1 - f.s 100%"],[2024,"El Parque Alaya Packing S.A.C.","Agro",13482.5,"Suministro e instalacion equipos"],[2024,"Agro Floral Peru S.A.C.","Agro",8369.6,"Climatizacion CPT"],[2024,"Procesadora Torre Blanca S.A.C.","Agro",7970,"Migracion termometria para uso Gateway"],[2024,"Viru S.A.","Agro",7638,"Revision calibracion sensores"],[2024,"Packing del Carmen S.A.C.","Agro",5457.13,"Suministro e instalacion detectores"],[2024,"Megacentro Lurin S.A.C.","No agro",5052,"Instalacion suples PIR"],[2024,"Avocado Packing Company S.A.C.","Agro",4717,"Implementacion de acopio - freon"],[2024,"Gate Catering And Retail Solutions S.R.L.","No agro",4163,"Termometria 3 camaras"],[2024,"Compañia Minera Antapaccay S.A.","No agro",3101,"Evaluacion diagnostico camaras refrig"],[2024,"Westfalia Fruit Peru S.A.C.","Agro",3046.68,"Repracion compresor Dorin 50hp"],[2024,"Zedina Alimentos S.A.C.","No agro",2513.81,"Termometria"],[2024,"Apoyo Consultoria S.A.C.","No agro",2500,"Inspeccion planta"],[2024,"Panificadora Bimbo del Peru S.A.","No agro",1276.84,"CO2 inspeccion rack"],[2024,"Smartcold S.A.C.","No agro",1200,"Configuracion compresores"],[2024,"Agrofutura Company S.A.C.","Agro",943.33,"Topes de gome y reparacion paneles"],[2024,"Proyectos y Soluciones Electricas E.I.R.L.","No agro",337.5,"Reinstalacion termometria"],[2025,"Danper Trujillo S.A.C.","Agro",4480901.01,"Incremento de capacidad nave 12 - arándanos"],[2025,"Agricola Huarmey S.A.","Agro",3839343.44,"1° etapa planta proceso arandano"],[2025,"Prosembra Sociedad Anonima Cerrada","Agro",3374482.49,"Packing de arandanos"],[2025,"Aqu Anqa S.A.C.","Agro",3325088.73,"Camara PT OOCC EEMM"],[2025,"Q Pack S.A.C.","Agro",2825478.47,"Ingenieria planta empacadora arandano"],[2025,"Corporacion Agrolatina S.A.C.","Agro",2130000,"Servicio ampliacion SP3 TF 17 y 18 y sala de embarque (10 rampas) y conversion a 2 niveles en 3 TF"],[2025,"Agricola Alaya Sociedad Anonima Cerrada","Agro",1490360.72,"Ampliación de planta de proceso"],[2025,"Sociedad Agricola Drokasa S.A.","Agro",1421017.12,"Packing uva"],[2025,"El Pedregal S.A.","Agro",954731.07,"Proyecto de frio packing 3"],[2025,"Agrovision Peru S.A.C.","Agro",817031.34,"Ampliacion acopio arandanos"],[2025,"Ara Foods Industry S.A.C.","Agro",805597.47,"Ampliación de planta de congelado"],[2025,"Agrocasagrande S.A.C.","Agro",785287.51,"Modif camara e inst valvulas equipos"],[2025,"Agroindustrias Aib S.A.","Agro",693362.39,"Ampliacion packing mango-palta"],[2025,"Agrobusiness International Peru S.A.C.","Agro",602333.49,"Ampliacion packing"],[2025,"Agricola Pampa Baja S.A.C.","Agro",596173.6,"Ampliacion de planta de procesos - 03 túneles californianos"],[2025,"Imbarex S.A.","Agro",584350,"Planta procesos citricos y arandanos"],[2025,"Santa Sofia del Sur S.A.C.","Agro",545000,"Camara refrigeracion citricos y palta"],[2025,"Agroindustria Frutos de Oro S.A.C.","Agro",507312.36,"Camara de congelados"],[2025,"Agro Floral Peru S.A.C.","Agro",506966.62,"Suministro e inst rack para almacen"],[2025,"Viru S.A.","Agro",407039.67,"Ampliacion packing"],[2025,"Agricola 2M S.A.C.","Agro",390950.55,"Ampliacion y repotenciacion packing"],[2025,"Delice S.A.C.","No agro",384886.11,"Ingenieria detalle planta nueva y nuevos almacenes de delice"],[2025,"Diamond Bridge S.A.C.","Agro",321860.28,"Servicio de construccion de almacen de frio"],[2025,"Limones Piuranos Sociedad Anonima Cerrada","Agro",317796.61,"Camara de congelado"],[2025,"Sociedad Agricola 3P S.A.C.","Agro",281500.85,"Kit de embarque #3"],[2025,"Agricola Ganadera las Canelas S.A.C.","Agro",256513.28,"Venta paneles y puertas"],[2025,"Berry Harvest S.A.","Agro",256080.11,"Construccion campamento operarios"],[2025,"San Efisio S.A.C.","Agro",226880.03,"Acopio etapa i"],[2025,"Consorcio Agricola Moquegua S.A.C.","Agro",224427.9,"Ampliacion de packing de arandanos"],[2025,"Unión de Cervecerías Peruanas Backus y Johnston S.A.C.","No agro",222254,"Venta compresor Frick"],[2025,"Procesadora Laran S.A.C.","Agro",195018.42,"Ampliacion sistema de frio - tunel y camaras"],[2025,"Empresa Agricola San Juan S.A.","Agro",194358.88,"Ampliacion sala procesos palta"],[2025,"Fusion Foods S.A.C.","Agro",175587.99,"Mejoras tunel congelado"],[2025,"Austral Group S.A.A.","No agro",117308,"Compresor de amoniaco, tipo:tornillo, marca: Frick, modelo:rxf-85h"],[2025,"In Vitro Lab Peru S.A.C.","No agro",99000,"Elaboracion expediente tecnico"],[2025,"Qberries S.A.C.","Agro",96847.02,"Expediente tecnico proyecto quelen"],[2025,"Los Olivos de Villacuri S.A.C.","Agro",50827.6,"Elaboracion expediente frio"],[2025,"Family Farms Perú S.R.L.","Agro",48530.23,"Camara conservacion y congelados"],[2025,"Alza Peru Packing S.A.C.","Agro",43600.44,"Ampliacion packing"],[2025,"El Rocio S.A.","No agro",36681.15,"Suministro e instalacion sist frio"],[2025,"Ara Export S.A.C.","Agro",34403.05,"Cerramiento con panel en recepcion"],[2025,"Uvica S.A.C.","Agro",32800.01,"Oficinas uvica"],[2025,"Quelen Fruit Peru S.A.C.","Agro",25500,"Anteproyecto planta empac arandanos"],[2025,"Tal S.A.","Agro",20145,"Ingenieria de refrigeracion"],[2025,"Westfalia Fruit Peru S.A.C.","Agro",10000,"Anteproyecto arquitectura"],[2025,"Avocado Packing Company S.A.C.","Agro",4392.39,"Suministro e instalacion drenajes"],[2025,"Agricola Blue Gold S.A.C.","Agro",4265.26,"Cambio puerta"],[2025,"Steelser S.A.C.","No agro",2200,"Desmontaje y montaje equipos"],[2026,"Agroberries Peru S.A.C.","Agro",10234685.13,"Planta arandano"],[2026,"Bomarea S.R.L.","Agro",3162368.75,"Planta arandano - 2 etapa amoniaco"],[2026,"Inversiones San Juan de la Luz S.A.C.","No agro",3136580.99,"Laboratorio estructuras"],[2026,"Corporacion Agrolatina S.A.C.","Agro",2320000,"Planta uva"],[2026,"Tal S.A.","Agro",2070259.46,"Adicional tuberias y asilamiento conexion evaporadores"],[2026,"Procesos Agroindustriales Sociedad Anonima","Agro",2061656.34,"Planta de proceso de uva"],[2026,"Ta Export S.A.C.","Agro",1460000,"Packing para arandanos"],[2026,"Agroindustrias Aib S.A.","Agro",1041245.77,"Cámara de congelados"],[2026,"Sociedad Agricola Drokasa S.A.","Agro",999708.68,"Túneles MP"],[2026,"Procesadora Laran S.A.C.","Agro",734618.87,"Ampliación de túneles, cámara y"],[2026,"Procesadora Torre Blanca S.A.C.","Agro",721156.89,"Ampliacion de planta"],[2026,"Agricola Pampa Baja S.A.C.","Agro",647102.2,"Ampliación packing de uva"],[2026,"Estanterias Metalicas J.r.m. S.A.C.","No agro",548390.7,"Cámara de congelado y ambientes"],[2026,"Camposol S.A.","Agro",497385.27,"Nave producto terminado"],[2026,"Sun Fruits Exports S.A.","Agro",460117.04,"Repotenciacion compresor"],[2026,"Qali Fruits S.A.C.","Agro",384379.81,"Ampliacion CPT"],[2026,"Leche Gloria S.A.","No agro",357354.69,"Ampliación de cámara y antecámara"],[2026,"Agricola Huarmey S.A.","Agro",350832.34,"1° etapa planta proceso arandano - adicional"],[2026,"Imbarex S.A.","Agro",269100,"Planta procesos citricos y arandanos"],[2026,"Prosembra Sociedad Anonima Cerrada","Agro",257759.74,"Oficinas termoacústicas packing"],[2026,"T & T Fruits S.A.","Agro",227719.49,"Suministro e instalacion de servicio de sistema de enfriamiento para camara de frio"],[2026,"Viveros El Tambo S.A.C.","Agro",216754.9,"Proyecto viveros tambo"],[2026,"Universidad Federico Henriquez y Carvajal","No agro",206089.67,"Packing de uva"],[2026,"Arca Continental Lindley S.A.","No agro",203678.39,"Suministro e instalación de serpentin"],[2026,"Blueberries Peru S.A.C.","Agro",180509.27,"Campamento"],[2026,"Agricola Safco Peru S.A.","Agro",180087.35,"Suministro e instalación de condensadores"],[2026,"Berry Harvest S.A.","Agro",146670.61,"Reforzamiento estructural soldadura y ensamble puertas"],[2026,"Q Pack S.A.C.","Agro",132787.16,"Ampliación sala de procesos"],[2026,"Reiter Peruvian Berry S.A.","Agro",110710,"Ampliacion planta"],[2026,"Ingenieria en Cartones y Papeles S.A.C.","No agro",101933.16,"ICYP - suministro e instalación"],[2026,"Ara Foods Industry S.A.C.","Agro",100000,"Túnel congelado"],[2026,"Agrofutura Company S.A.C.","Agro",78000,"Gasificado acopio 1 y 2"],[2026,"Smart Packing S.A.C.","Agro",77696.99,"Climatización pre-túneles"],[2026,"Icapack S.A.C.","Agro",73500,"Ampliación de despacho"],[2026,"Florisert S.A.C.","Agro",61715.57,"Ampliacion procesadora flores"],[2026,"In Vitro Lab Perú S.A.C.","No agro",57857,"Expediente técnico"],[2026,"Aqu Anqa S.A.C.","Agro",48500.06,"Mantenimiento paneles packing AQU ANQ"],[2026,"Vitafoods Peru S.A.C.","Agro",43470,"Servicio arquitectura"],[2026,"Delice S.A.C.","No agro",42583.21,"Suministro e instalacion racks"],[2026,"Packing del Carmen S.A.C.","Agro",36347.87,"Suministro de materiales para túnele"],[2026,"Uvica S.A.C.","Agro",34337.69,"Oficinas uvica"],[2026,"Agro Floral Peru S.A.C.","Agro",31962.8,"Suministro e instalacion de cortinas de aire"],[2026,"El Pedregal S.A.","Agro",23357.94,"Termometría inalámbrica para nuevos túneles"],[2026,"El Parque Alaya Packing S.A.C.","Agro",15941.32,"Ampliación de planta de proceso - escenario 2"],[2026,"Consorcio Agricola Moquegua S.A.C.","Agro",14256,"Baterias repontenciacion tuneles"],[2026,"Cia.de Exp.y Negocios Gnrles.s.a.(coexa)","Agro",6840.69,"Implementacion de packing"],[2026,"Santa Sofia del Sur S.A.C.","Agro",5187.52,"Nivelador hidraulico"],[2026,"Danper Trujillo S.A.C.","Agro",5000,"Anteproyecto planta congelado mango"],[2026,"Viru Frozen S.A.","Agro",4612.5,"Desmontaje de deshumidificadores"],[2026,"Austral Group S.A.A.","No agro",2310,"Puesta en marcha de compresor Frick r"],[2026,"Family Farms Perú S.R.L.","Agro",1550,"Instalación y suministro puerta batiente"],[2026,"El Rocio S.A.","No agro",890,"Desmontaje y montaje paneles"],[2026,"Agroindustria Frutos de Oro S.A.C.","Agro",760,"Instalación de motores y modificacion p.corredera"],[2026,"Sociedad Agricola 3P S.A.C.","Agro",500,"Mantenimiento de compresor packing"]];
 
 
 /* ============================================================
@@ -677,7 +675,7 @@ function _wireTable(cid,headers,rows,totRow){
 
 /* ── Modal: activos ──────────────────────────────────────── */
 function openCliModal(type){
-  const TOT2526=71752994;
+  const TOT2526=68955292;
   if(type==='activos'){
     const rows=cliActTop20.map((r,i)=>[`${i+1}. ${r[0]}`,r[1],r[2],r[3],r[4],r[5]]);
     const tv=cliActTop20.reduce((s,r)=>s+r[1],0);
@@ -1151,7 +1149,7 @@ window._initCliCharts = function(){
     });
 
     var ins=document.getElementById('ticketEvolInsight');
-    if(ins) ins.innerHTML='El ticket promedio alcanz&oacute; sus picos en <strong>2022 ($651K)</strong> y <strong>2025 ($724K)</strong>, impulsado por proyectos grandes concentrados en pocos clientes. El <strong>2026 YTD ($685K)</strong> corresponde solo a los primeros 10 meses del a&ntilde;o.';
+    if(ins) ins.innerHTML='El ticket promedio alcanz&oacute; sus picos en <strong>2022 ($651K)</strong> y <strong>2025 ($724K)</strong>, impulsado por proyectos grandes concentrados en pocos clientes. El <strong>2026 YTD ($633K)</strong> corresponde solo a los primeros 10 meses del a&ntilde;o.';
   })();
 
   /* ── Evolución Agro / No Agro 2021-2026 ──────────────── */

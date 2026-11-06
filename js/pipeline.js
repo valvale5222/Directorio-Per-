@@ -13,9 +13,6 @@
    importe vacío (Grupo Hame, Alpamayo) se carga como 0.
    Actualizado 5 Nov 2026 desde el VF: Atgro (3 oport.), Smartpacking y Agro Fruit Export pasan a 2027;
    Prolan $384K; El Parque $940K; Gloria - Cusco 40%; Gloria - Lima Este sin mes de cierre.
-   5 Nov 2026: se ganan Prosembra (1 TPT y Pasillo + 01 CMP; vendido $1.72M) y Prolan / Procesadora Laran
-   (Ampliación Planta San Fernando - Chincha; vendido $1.08M) → salen del pipeline (como toda venta cerrada)
-   y pasan a ventas reales de noviembre en js/ventas.js. Quedan 108 oportunidades.
    ============================================================ */
 const PIPE_ROWS = [
   ['Frutos Tropicales',5986141.91,0.1,4,'Planta de Congelado de Mango','Postpuesto',2027],
@@ -36,12 +33,14 @@ const PIPE_ROWS = [
   ['Hass Peru',2000000,0.05,2,'Planta Olmos','Prospecto',2027],
   ['Ransa',1950000,0.05,2,'Planta de Congelado - Callao ó Paita','Prospecto',2027],
   ['Fruglobe',1805310,0.6,11,'Planta de Palta','Negociación',2026],
+  ['Prosembra',1803126.38,0.8,11,'1 TPT y Pasillo + 01 CMP','Negociación',2026],
   ['Agroextiende',1545500,0,6,'Planta Empacadora de Arandanos','Perdido',2026],
   ['Frozen Processed Fruits Sac',1500000,0.05,5,'Camara de Congelados','Postpuesto',2027],
   ['Savia Corp',1493776.65,0.2,11,'Planta Empacadora de Fruta Multiproposito','En análisis del cliente',2026],
   ['Proagro Nazca',1325752.5,0.1,1,'Planta Empacadora de Arandanos','Postpuesto',2027],
   ['Sur Export',1258000,0,6,'Acopio de Arandanos','Perdido',2026],
   ['Delice',1228338.27,0.6,11,'Planta Procesadora de Lacteos y Derivados (Sistema de Frio)','Negociación',2026],
+  ['Prolan',1075171.99,0.8,11,'Ampliacion de la Planta San Fernando - Chincha','Negociación',2026],
   ['Inka Select Fruit - Ica',1070000,0.8,10,'Suministro de Sistema de Frio','Cancelado',2026],
   ['Productos Naturales de Exportacion S.A. - Pronex S.A.',1052741,0.4,11,'Cámara + Esclusa (Recepción/Despacho)','En análisis del cliente',2026],
   ['Quelen/Qpack',1022275.76,0.6,12,'Planta Empacadora de Arandanos - 2da Etapa 2027','Negociación',2026],
@@ -158,18 +157,18 @@ let _pipeEstadoSel = new Set(['all']);
 const OBJ5 = [
   {id:1, num:'01', cat:'Comercial', name:'Venta Comercial',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Chart%20increasing/3D/chart_increasing_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"📈\"'>",
-   pct:123.29, pctLabel:'123.29', color:'#185fa5', colorBg:'#dbeef9', colorDark:'#0e4a7a',
+   pct:113.96, pctLabel:'113.96', color:'#185fa5', colorBg:'#dbeef9', colorDark:'#0e4a7a',
    status:'ok', stxt:'Meta superada',
    metaLabel:'$30M anual',
    stats:[
-     {lbl:'Acumulado Ene–Oct', val:'$36.99M', cls:'c-ok'},
+     {lbl:'Acumulado Ene–Oct', val:'$34.19M', cls:'c-ok'},
      {lbl:'Meta anual', val:'$30.00M', cls:''},
-     {lbl:'Excedente meta', val:'+$6.99M', cls:'c-ok'},
-     {lbl:'vs mismo período 2025', val:'+9.55%', cls:'c-ok'}
+     {lbl:'Excedente meta', val:'+$4.19M', cls:'c-ok'},
+     {lbl:'vs Ene–Oct 2025', val:'+9.12%', cls:'c-ok'}
    ],
    minis:[
-     {lbl:'Excedente meta', val:'+$6.99M'},
-     {lbl:'Margen 2026', val:'15.88%'}
+     {lbl:'Excedente meta', val:'+$4.19M'},
+     {lbl:'Margen 2026', val:'15.59%'}
    ]},
   {id:2, num:'02', cat:'Tecnología CO₂', name:'Proyectos CO₂',
    icon:"<img src='https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Snowflake/3D/snowflake_3d.png' alt='' loading='lazy' style='width:82%;height:82%;object-fit:contain;display:block' onerror='this.outerHTML=\"❄️\"'>",
